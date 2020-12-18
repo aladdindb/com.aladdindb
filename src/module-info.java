@@ -23,9 +23,6 @@ module com.xelara.aladdin {
     exports com.xelara.aladdin.index;
     exports com.xelara.aladdin.index.model;
     
-	requires com.xelara.core;
-	requires com.xelara.structure;
-	
-    requires java.logging;
+	requires transitive com.xelara.structure;
 	
 }

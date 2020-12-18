@@ -28,6 +28,9 @@ public class DbUnits <
 	DUM 	extends DbUnitModel			< DUM >,
 	DUMP 	extends DbUnitModelParser 	< DUM > > {
 
+	public static final String UNITS_FOLDER_NAME = "units";
+	public static final String TREES_FOLDER_NAME = "trees";
+	
 	public final Path path;
     
     private final  DUMP unitModelParser;
@@ -40,7 +43,7 @@ public class DbUnits <
     }
 
     public void getUnitsFolder( Consumer < DbUnitsFolder > consumer ) {
-   		consumer.accept( new DbUnitsFolder ( path.resolve ( DbUnitsFolder.UNITS_FOLDER_NAME ) ) );
+   		consumer.accept( new DbUnitsFolder ( path.resolve ( UNITS_FOLDER_NAME ) ) );
     }
     
     public void forEach( Consumer < DUM > consumer ) {
