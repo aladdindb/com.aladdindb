@@ -29,10 +29,10 @@ public abstract class DbUnitModelParser < DUM extends DbUnitModel < DUM > > exte
     @Override
     public DUM  parse( SNode src, DUM  target ) {
     
-        Parser.STR	.parse( src, ATR.id     	,target.id      );
-        Parser.STR	.parse( src, ATR.label  	,target.label   );
-        Parser.STR	.parse( src, ATR.tsNew  	,target.tsNew   );
-        Parser.STR	.parse( src, ATR.tsUpdate  	,target.tsUpdate   );
+        Parser.STR	.parse( ATR.id, src     	,target.id      );
+        Parser.STR	.parse( ATR.label, src  	,target.label   );
+        Parser.STR	.parse( ATR.tsNew, src  	,target.tsNew   );
+        Parser.STR	.parse( ATR.tsUpdate, src  	,target.tsUpdate   );
         
         return target;
     }
@@ -40,10 +40,10 @@ public abstract class DbUnitModelParser < DUM extends DbUnitModel < DUM > > exte
     @Override
     public SNode parse( DUM src, SNode target ) {
         
-        Parser.STR	.parse( src.id      	, ATR.id    	,target );
-        Parser.STR	.parse( src.label   	, ATR.label 	,target );
-        Parser.STR	.parse( src.tsNew   	, ATR.tsNew 	,target );
-        Parser.STR	.parse( src.tsUpdate   	, ATR.tsUpdate 	,target );
+        Parser.STR	.parse( ATR.id      	, src.id    	,target );
+        Parser.STR	.parse( ATR.label   	, src.label 	,target );
+        Parser.STR	.parse( ATR.tsNew   	, src.tsNew 	,target );
+        Parser.STR	.parse( ATR.tsUpdate   	, src.tsUpdate 	,target );
 
         target.setValueType( SN.VALUE_TYPE_CHILDREN );
         

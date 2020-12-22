@@ -34,7 +34,7 @@ public class SelectionModelParser  extends UnitModelParser < SelectionModel > {
     @Override
     public SelectionModel  parse( SNode src, SelectionModel target ) {
     
-        Parser.STR.parse( src, ATR.refUnitID ,target.refUnitID );
+        Parser.STR.parse( ATR.refUnitID, src ,target.refUnitID );
         
         return target;
     }
@@ -42,7 +42,7 @@ public class SelectionModelParser  extends UnitModelParser < SelectionModel > {
     @Override
     public SNode parse( SelectionModel src, SNode target ) {
         
-        Parser.STR.parse( src.refUnitID , ATR.refUnitID ,target );
+        Parser.STR.parse( ATR.refUnitID , src.refUnitID ,target );
 
         target.setValueType( SN.VALUE_TYPE_SL_VOID );
         

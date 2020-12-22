@@ -39,8 +39,8 @@ public class ServerUnitParser extends UnitModelParser < ServerUnit > {
     @Override
     public ServerUnit parse( SNode src, ServerUnit target ) {
     
-        Parser.STR.parse( src, ATR.host   ,target.host );
-        Parser.INT.parse( src, ATR.port   ,target.port );
+        Parser.STR.parse( ATR.host, src   ,target.host );
+        Parser.INT.parse( ATR.port, src   ,target.port );
         
         return target;
     }
@@ -49,8 +49,8 @@ public class ServerUnitParser extends UnitModelParser < ServerUnit > {
     @Override
     public SNode parse( ServerUnit src, SNode target ) {
         
-        Parser.STR.parse( src.host , ATR.host ,target );
-        Parser.INT.parse( src.port , ATR.port ,target );
+        Parser.STR.parse( ATR.host , src.host ,target );
+        Parser.INT.parse( ATR.port , src.port ,target );
         
         target.setValueType( SN.VALUE_TYPE_SL_VOID );
         

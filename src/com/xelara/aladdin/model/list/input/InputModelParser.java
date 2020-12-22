@@ -34,7 +34,7 @@ public class InputModelParser  extends UnitModelParser < InputModel > {
     @Override
     public InputModel  parse( SNode src, InputModel target ) {
     
-        Parser.STR.parse( src, ATR.entry ,target.entry );
+        Parser.STR.parse( ATR.entry, src ,target.entry );
         
         return target;
     }
@@ -42,7 +42,7 @@ public class InputModelParser  extends UnitModelParser < InputModel > {
     @Override
     public SNode parse( InputModel src, SNode target ) {
         
-        Parser.STR.parse( src.entry , ATR.entry ,target );
+        Parser.STR.parse( ATR.entry , src.entry ,target );
 
         target.setValueType( SN.VALUE_TYPE_SL_VOID );
         

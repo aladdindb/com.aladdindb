@@ -39,8 +39,8 @@ public class LoginUnitParser extends UnitModelParser < LoginUnit > {
     @Override
     public LoginUnit parse( SNode src, LoginUnit target ) {
     
-        Parser.STR.parse(src, ATR.user    ,target.user );
-        Parser.STR.parse(src, ATR.pwd     ,target.pwd );
+        Parser.STR.parse(ATR.user, src    ,target.user );
+        Parser.STR.parse(ATR.pwd, src     ,target.pwd );
         
         return target;
     }
@@ -49,8 +49,8 @@ public class LoginUnitParser extends UnitModelParser < LoginUnit > {
     @Override
     public SNode parse( LoginUnit src, SNode target ) {
         
-        Parser.STR.parse(src.user ,ATR.user   ,target );
-        Parser.STR.parse(src.pwd  ,ATR.pwd    ,target );
+        Parser.STR.parse(ATR.user ,src.user   ,target );
+        Parser.STR.parse(ATR.pwd  ,src.pwd    ,target );
         
         target.setValueType( SN.VALUE_TYPE_SL_VOID );
         

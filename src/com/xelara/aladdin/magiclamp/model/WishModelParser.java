@@ -40,10 +40,10 @@ public class WishModelParser extends UnitModelParser < WishModel > {
     @Override
     public WishModel parse( SNode src, WishModel target ) {
     
-        Parser.STR.parse( src, ATR.section 	,target.section );
-        Parser.STR.parse( src, ATR.cmd 		,target.cmd );
-        Parser.STR.parse( src, ATR.sbj 		,target.sbj );
-        Parser.STR.parse( src, ATR.userID 	,target.userID );
+        Parser.STR.parse( ATR.section, src 	,target.section );
+        Parser.STR.parse( ATR.cmd, src 		,target.cmd );
+        Parser.STR.parse( ATR.sbj, src 		,target.sbj );
+        Parser.STR.parse( ATR.userID, src 	,target.userID );
         
         SNode objectNode = src.getFirstChild();
         if( objectNode != null) {
@@ -56,10 +56,10 @@ public class WishModelParser extends UnitModelParser < WishModel > {
     @Override
     public SNode parse( WishModel src, SNode target ) {
         
-        Parser.STR.parse( src.section 	, ATR.section 	,target );
-        Parser.STR.parse( src.cmd 		, ATR.cmd 			,target );
-        Parser.STR.parse( src.sbj 		, ATR.sbj 			,target );
-        Parser.STR.parse( src.userID 		, ATR.userID		,target );
+        Parser.STR.parse( ATR.section 	, src.section 	,target );
+        Parser.STR.parse( ATR.cmd 		, src.cmd 			,target );
+        Parser.STR.parse( ATR.sbj 		, src.sbj 			,target );
+        Parser.STR.parse( ATR.userID 		, src.userID		,target );
 
         target.setValueType( SN.VALUE_TYPE_SL_VOID );
 

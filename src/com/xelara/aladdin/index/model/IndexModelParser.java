@@ -39,7 +39,7 @@ public class IndexModelParser extends UnitModelParser < IndexModel > {
     @Override
     public IndexModel parse( SNode src, IndexModel target ) {
     
-        Parser.STR.parse( src, ATR.refUnitID  	,target.refUnitID 	);
+        Parser.STR.parse( ATR.refUnitID, src  	,target.refUnitID 	);
         
         return target;
     }
@@ -48,7 +48,7 @@ public class IndexModelParser extends UnitModelParser < IndexModel > {
     @Override
     public SNode parse( IndexModel src, SNode target ) {
         
-        Parser.STR.parse( src.refUnitID  	, ATR.refUnitID  		,target );
+        Parser.STR.parse( ATR.refUnitID  	, src.refUnitID  		,target );
         
         target.setValueType( SN.VALUE_TYPE_SL_VOID );
         
