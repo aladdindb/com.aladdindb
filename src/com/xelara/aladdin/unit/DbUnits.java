@@ -28,7 +28,6 @@ public class DbUnits <
 	DUM 	extends DbUnitModel			< DUM >,
 	DUMP 	extends DbUnitModelParser 	< DUM > > {
 
-	public static final String UNITS_FOLDER_NAME = "units";
 	public static final String TREES_FOLDER_NAME = "trees";
 	
 	public final Path path;
@@ -43,7 +42,7 @@ public class DbUnits <
     }
 
     public void getUnitsFolder( Consumer < DbUnitsFolder > consumer ) {
-   		consumer.accept( new DbUnitsFolder ( path.resolve ( UNITS_FOLDER_NAME ) ) );
+   		consumer.accept( new DbUnitsFolder ( this.path ) );
     }
     
     public void forEach( Consumer < DUM > consumer ) {
@@ -58,6 +57,13 @@ public class DbUnits <
     	getUnitsFolder( unitsFolder -> {
     		consumer.accept( unitsFolder.createIdLabelMap() );
         });
+    }
+    
+    
+    public void addUnits( DUM... units ) {
+    	for( DUM unit : units ) {
+    		this.addUnit(unit);
+    	}
     }
     
     /**

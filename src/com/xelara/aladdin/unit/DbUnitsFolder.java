@@ -16,12 +16,13 @@ import com.xelara.structure.snode.SNode;
  */
 public class DbUnitsFolder  {
     
+	
     private final Path  unitsPath;
     
 
-	protected DbUnitsFolder( Path unitsPath ) {
-        this.unitsPath	= unitsPath;
-        if( !Files.exists( unitsPath ) ) Filess.createDirectories( unitsPath );
+	protected DbUnitsFolder( Path unitsMainPath ) {
+        this.unitsPath	= unitsMainPath.resolve( "units" );
+        if( !Files.exists( this.unitsPath ) ) Filess.createDirectories( this.unitsPath );
     }
 
     /**

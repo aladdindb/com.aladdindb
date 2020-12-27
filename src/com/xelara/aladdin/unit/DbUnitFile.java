@@ -46,7 +46,7 @@ public class DbUnitFile {
 	public static final DbUnitFile createNew( Path unitsPath, SNode unitNode ) {
 		var id =  new IdHandler().createHexID();
 		DbUnitFile rv = new DbUnitFile ( unitsPath, id );
-		return rv != null && rv.save ( unitNode ) ? rv : null;
+		return rv.save ( unitNode ) ? rv : null;
 	}
 	
 	public static final DbUnitFile get( Path unitsPath, SNode unitNode ) {

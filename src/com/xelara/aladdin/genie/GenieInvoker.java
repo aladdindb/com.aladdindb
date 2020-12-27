@@ -22,7 +22,7 @@ public class GenieInvoker {
 		this.port = port;
 	}
 	
-    public void invoke( T4Consumer< WishModel, String, String, Consumer < String >  > process ) {
+    public void invoke( GenieConversation process ) {
 		System.out.println("Genie invoker was properly started ;-)");
 		try ( var server = new ServerSocket( port ) ) {
             var pool = Executors.newFixedThreadPool( 20 );
@@ -47,11 +47,11 @@ public class GenieInvoker {
 
     	private final Socket socket;
     	
-        private final T4Consumer< WishModel, String, String, Consumer< String >  > process;
+        private final GenieConversation conversation;
 
-        SocketIO( Socket socket, T4Consumer< WishModel, String, String, Consumer < String >  > process ) {
-            this.socket 	= socket;
-            this.process 	= process;
+        SocketIO( Socket socket, GenieConversation conversation ) {
+            this.socket 		= socket;
+            this.conversation 	= conversation;
         }
         
         @Override
@@ -105,11 +105,12 @@ public class GenieInvoker {
     			System.out.println( wishStr );
     			XML.parse( wishStr, wishNode -> {
     				new WishModelParser().parse( wishNode, wish -> {
-    					wish.section.getValue( section -> {
-    						wish.cmd.getValue( cmd -> {
-    							process.accept( wish, section, cmd, respConsumer );
-    						});
-    					});
+						conversation.begin( wish, respConsumer );
+//    					wish.section.getValue( section -> {
+//    						wish.cmd.getValue( cmd -> {
+//    							process.accept( wish, section, cmd, respConsumer );
+//    						});
+//    					});
     				});
     			});
         	}
