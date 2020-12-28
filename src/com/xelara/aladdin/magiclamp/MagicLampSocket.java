@@ -47,9 +47,9 @@ public class MagicLampSocket {
 	
 	public void stop() {
 		try {
-			out		.close();
-			in		.close();
-			socket	.close();
+			if( out 	!= null) out	.close();
+			if( in 		!= null) in		.close();
+			if( socket 	!= null) socket	.close();
 		} catch (IOException e) {
 			Logger.getLogger( MagicLampSocket.class.getName()).log( Level.SEVERE, "", e );
 		}

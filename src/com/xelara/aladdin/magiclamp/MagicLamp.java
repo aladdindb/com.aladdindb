@@ -39,10 +39,10 @@ public  class MagicLamp <
 	public final 	String 				section;
 	private 		Monitor 			wishMonitor;
 	
-	public MagicLamp( DUMP unitModelParser, String section, Monitor wishMonitor, MagicLampConnectionData connection ) {
-		this.unitModelParser 	= unitModelParser;
+	public MagicLamp(  String section, DUMP unitModelParser, MagicLampConnectionData connection ) {
 		this.section 			= section;
-		this.wishMonitor 		= wishMonitor;
+		this.unitModelParser 	= unitModelParser;
+		this.wishMonitor 		= new MonitorDefault();
 		
 		this.connection = connection;
     }
@@ -137,7 +137,8 @@ public  class MagicLamp <
     		getSocket( magicLampSocket -> {
     			new WishModelParser().parse( wish, wishNode -> {
     				XML.parse( wishNode,  wishStr -> {
-    					System.out.println("Magic-Lamp:"+wishStr);
+    					System.out.println("Magic-Lamp:");
+    					System.out.println( wishStr );
     					String resp = magicLampSocket.sendWish( wishStr );
     					if( resp != null )respConsumer.accept(resp);
     				});

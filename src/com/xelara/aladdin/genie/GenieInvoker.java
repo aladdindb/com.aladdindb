@@ -29,7 +29,7 @@ public class GenieInvoker {
 		this.port = port;
 	}
 	
-    public void invoke() {
+    public void start() {
 		System.out.println("Genie invoker was properly started ;-)");
 		try ( var server = new ServerSocket( port ) ) {
             var pool = Executors.newFixedThreadPool( 20 );
