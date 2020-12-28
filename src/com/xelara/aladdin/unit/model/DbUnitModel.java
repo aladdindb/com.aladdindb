@@ -23,7 +23,7 @@ public abstract class DbUnitModel < DUM extends DbUnitModel < DUM > > implements
 	}
 
 	@Override
-	public void fill( DUM model ) {
+	public void fill( DUM  model ) {
 		id			.fill( model.id		);
 		label		.fill( model.label	);
 		tsNew		.fill( model.tsNew	);

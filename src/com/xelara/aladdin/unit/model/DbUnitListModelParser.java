@@ -12,10 +12,9 @@ import com.xelara.structure.snode.SNode;
 public abstract class DbUnitListModelParser <
 
 	UM 		extends UnitModel 			< UM >, 
-    ULM 	extends DbUnitListModel		< UM, ULM >, 
     UMP 	extends UnitModelParser 	< UM >
     
-> extends UnitModelParser < ULM > {
+> extends UnitModelParser < DbUnitListModel	< UM > > {
     
 
 	private final UMP unitModelParser;
@@ -38,13 +37,13 @@ public abstract class DbUnitListModelParser <
     //
     //****************************************************************
 
-    public void parseList( SNode src, ULM target ) {
+    public void parseList( SNode src, DbUnitListModel< UM > target ) {
     	src.forEachChilds( unode -> {
     		unitModelParser.parse( unode, target :: add );
     	});
     }
     
-    public void parseList( ULM  src, SNode target ) {
+    public void parseList( DbUnitListModel< UM >  src, SNode target ) {
     	src.forEach( unit -> {
     		unitModelParser.parse( unit, target :: addChild );
     	});

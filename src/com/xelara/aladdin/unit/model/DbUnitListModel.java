@@ -7,12 +7,11 @@ import java.util.function.Consumer;
  *
  * @author Macit Kandemir
  */
-public abstract class DbUnitListModel < 
+public class DbUnitListModel <
 
-	UM 		extends UnitModel 			< UM >,
-	ULM 	extends DbUnitListModel 	< UM, ULM > 
+	UM 		extends UnitModel 			< UM >
 
-> extends ArrayList < UM > implements UnitModel <  ULM  >  {
+> extends ArrayList < UM > implements UnitModel <  DbUnitListModel < UM >  >  {
 
 	
     public DbUnitListModel() {
@@ -39,7 +38,7 @@ public abstract class DbUnitListModel <
     }
 
     @Override
-	public void fill( ULM listModel ) {
+	public void fill( DbUnitListModel < UM > listModel ) {
     	this.clear();
 		listModel.forEach(  this :: add );
 	}

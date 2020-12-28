@@ -6,72 +6,55 @@ import static com.xelara.aladdin.magiclamp.MagicLamp.GET_BY_ID;
 import static com.xelara.aladdin.magiclamp.MagicLamp.REMOVE;
 import static com.xelara.aladdin.magiclamp.MagicLamp.UPDATE;
 
+import java.nio.file.Path;
 import java.util.function.Consumer;
 
 import com.xelara.aladdin.magiclamp.model.WishModel;
 import com.xelara.aladdin.unit.DbUnits;
+import com.xelara.aladdin.unit.model.DbUnitListModel;
+import com.xelara.aladdin.unit.model.DbUnitListModelParserDefault;
 import com.xelara.aladdin.unit.model.DbUnitModel;
 import com.xelara.aladdin.unit.model.DbUnitModelParser;
-import com.xelara.aladdin.unit.model.DbUnitListModel;
-import com.xelara.aladdin.unit.model.DbUnitListModelParser;
 import com.xelara.core.Var;
 import com.xelara.structure.xml.XML;
 
 
 public class Genie < 
-
 	DUM 	extends DbUnitModel				< DUM >,
-	DUMP  	extends DbUnitModelParser 		< DUM >,
-	ULM 	extends DbUnitListModel			< DUM, ULM >,
-	ULMP 	extends DbUnitListModelParser	< DUM, ULM, DUMP >,
-	UNITS 	extends DbUnits					< DUM, DUMP >
-
+	DUMP  	extends DbUnitModelParser 		< DUM >
 > {
 	
-	public final 	WishModel 	wish;
+	public final	DUMP 											unitParser;
+	public final 	DbUnitListModel					< DUM > 		unitList;
+	public final 	DbUnitListModelParserDefault	< DUM, DUMP > 	unitListParser;
+	public final	DbUnits							< DUM, DUMP >	units;
 	
-	public final	DUMP 	unitParser;
-	public final 	ULM 	unitList;
-	public final 	ULMP 	unitListParser;
-	public final	UNITS	units;
+	public WishModel			wish;
+	public Consumer < String > 	respConsumer;
 	
-	public final 	Consumer < String > respConsumer;
-	
-//	public final	Var< Consumer < Event > > eventAdd 			= new Var<>();
-//	public final	Var< Consumer < Event > > eventRemove 		= new Var<>();
-//	public final	Var< Consumer < Event > > updateListener 	= new Var<>();
-	
-	public Genie( 
-			WishModel  wish,
-			
-			DUMP 		unitParser,
-			ULM 		unitList,
-			ULMP		unitListParser,
-			UNITS 		units,
-			
-			Consumer < String > respConsumer
+	public Genie(
+			Path 					dbPath,
+			DUMP 					unitParser
 	){
-		
-		this.wish 				= wish;
-		
 		this.unitParser			= unitParser;
-		this.unitList			= unitList;
-		this.unitListParser 	= unitListParser;
-		
-		this.units				= units;
-		
-		this.respConsumer 		= respConsumer;
+		this.unitList			= new DbUnitListModel 				< DUM >			();
+		this.unitListParser 	= new DbUnitListModelParserDefault	< DUM, DUMP >	( this.unitParser );
+		this.units				= new DbUnits						< DUM, DUMP > 	( dbPath, unitParser);
 	}
     
 	
-	public void process( String cmd ) {
-		switch( cmd ) {
-			case GET_BY_ID		: getUnitByID		(); break;
-			case GET_ALL		: getAllUnits		(); break;
-			case ADD			: addUnit			();	break;
-			case UPDATE			: updateUnit		(); break;
-			case REMOVE			: removeUnit		(); break;
-		}
+	public void process( WishModel wish, Consumer < String > respConsumer ) {
+		this.wish = wish;
+		this.respConsumer = respConsumer;
+		wish.cmd.getValue( cmd -> {
+			switch( cmd ) {
+				case GET_BY_ID		: getUnitByID		(); break;
+				case GET_ALL		: getAllUnits		(); break;
+				case ADD			: addUnit			();	break;
+				case UPDATE			: updateUnit		(); break;
+				case REMOVE			: removeUnit		(); break;
+			}
+		});
 	}
 	
 	public void getUnitByID() {
@@ -131,13 +114,5 @@ public class Genie <
 		});
     }
     
-//    public static class Event {
-//    	
-//    	public final Var < String > 	wishSbj 	= new Var<>(); 
-//    	public final Var < String > 	wishObj 	= new Var<>(); 
-//    	public final Var < Boolean > 	successful 	= new Var<>(); 
-//    	public final Var < String > 	unitID 		= new Var<>(); 
-//
-//    }
     
 }
