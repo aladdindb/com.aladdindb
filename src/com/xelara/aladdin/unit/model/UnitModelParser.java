@@ -30,16 +30,16 @@ public abstract class UnitModelParser < UM extends UnitModel < UM > > {
     //
     //****************************************************************
 
-    public UM parse( SNode node ) {
+    public final UM parse( SNode node ) {
         return UnitModelParser.this.parse( node, newModel() );
     }
 
-    public void parse( SNode node, Consumer < UM > consumer ) {
+    public final void parse( SNode node, Consumer < UM > consumer ) {
         UM model = UnitModelParser.this.parse( node );
         if( model != null ) consumer.accept( model );
     }
 
-    public void parse( SNode node, Var < UM > target ) {
+    public final void parse( SNode node, Var < UM > target ) {
         UnitModelParser.this.parse( node, target :: setValue );
     }
     
@@ -48,20 +48,20 @@ public abstract class UnitModelParser < UM extends UnitModel < UM > > {
     //****************************************************************
 
     
-    public void parse( Var < UM > modelVar, Consumer < SNode > consumer  ) {
+    public final void parse( Var < UM > modelVar, Consumer < SNode > consumer  ) {
         modelVar.getValue( model -> UnitModelParser.this.parse( model, consumer ) );
     }
     
-    public void parse( UM model, Consumer < SNode > consumer ) {
+    public final void parse( UM model, Consumer < SNode > consumer ) {
         var node = UnitModelParser.this.parse( model );
         if( node != null ) consumer.accept( node );
     }
 
-    public SNode parse( UM model ) {
+    public final SNode parse( UM model ) {
         return UnitModelParser.this.parse( model, new SNode( getKey()) );
     }
     
-    public SNode parse( Var < UM > modelVar, SNode target ) {
+    public final SNode parse( Var < UM > modelVar, SNode target ) {
         modelVar.getValue( model -> {
             UnitModelParser.this.parse( model, target);
         });
@@ -83,7 +83,7 @@ public abstract class UnitModelParser < UM extends UnitModel < UM > > {
     //
     //****************************************************************
 
-    public UM parseFromParent( SNode parentNode ) {
+    public final UM parseFromParent( SNode parentNode ) {
         Var < UM > target = new Var<>();
         parentNode.getChild( getKey(), node -> {
             UnitModelParser.this.parse( node, target :: setValue );
@@ -91,16 +91,16 @@ public abstract class UnitModelParser < UM extends UnitModel < UM > > {
         return target.getValue();
     }
     
-    public void parseFromParent( SNode parentNode,  UM  model ) {
+    public final void parseFromParent( SNode parentNode,  UM  model ) {
     	parseFromParent( parentNode, model :: fill );
     }
     
-    public void parseFromParent( SNode parentNode, Consumer < UM > consumer ) {
+    public final void parseFromParent( SNode parentNode, Consumer < UM > consumer ) {
         UM target = UnitModelParser.this.parseFromParent( parentNode );
         if( target != null ) consumer.accept( target );
     }
 
-    public void parseFromParent( SNode parentNode, Var < UM > target ) {
+    public final void parseFromParent( SNode parentNode, Var < UM > target ) {
         UnitModelParser.this.parseFromParent( parentNode, target :: setValue );
     }
 
@@ -118,7 +118,7 @@ public abstract class UnitModelParser < UM extends UnitModel < UM > > {
      * @param parentNode    Älternknoten als Ziel Konoten.
      */
     
-    public void parseToParent( Var < UM > modelVar, SNode parentNode ) {
+    public final void parseToParent( Var < UM > modelVar, SNode parentNode ) {
         modelVar.getValue( model -> {
             parseToParent( model, parentNode );
         });
@@ -132,7 +132,7 @@ public abstract class UnitModelParser < UM extends UnitModel < UM > > {
      * @param parentNode    Älternknoten als Ziel Konoten. 
      */
     
-    public void parseToParent( UM model, SNode parentNode ) {
+    public final void parseToParent( UM model, SNode parentNode ) {
         this.parse( model, parentNode :: addChild );
     }
 
