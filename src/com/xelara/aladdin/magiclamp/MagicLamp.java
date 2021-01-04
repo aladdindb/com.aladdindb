@@ -6,8 +6,10 @@ import java.util.function.Consumer;
 
 import com.xelara.aladdin.magiclamp.model.WishModel;
 import com.xelara.aladdin.magiclamp.model.WishModelParser;
-import com.xelara.aladdin.unit.model.DbUnitModel;
-import com.xelara.aladdin.unit.model.DbUnitModelParser;
+import com.xelara.aladdin.unit.model.UnitModel;
+import com.xelara.aladdin.unit.model.UnitModelParser;
+import com.xelara.aladdin.unit.model.DataModel;
+import com.xelara.aladdin.unit.model.DataModelParser;
 import com.xelara.structure.snode.SNode;
 import com.xelara.structure.xml.XML;
 
@@ -15,12 +17,7 @@ import com.xelara.structure.xml.XML;
  *
  * @author Macit
  */
-public  class MagicLamp <
-
-		DUM		extends DbUnitModel 		< DUM >,
-		DUMP 	extends DbUnitModelParser	< DUM >
-
-	> {
+public  class MagicLamp < DATA_MODEL extends DataModel < DATA_MODEL > > {
 
 	public static final String GET_BY_ID	="GET_BY_ID";
 	public static final String GET_ALL		="GET_ALL";
@@ -35,13 +32,14 @@ public  class MagicLamp <
 	
     private static MagicLampSocket socket = null;
 	
-	public final	DUMP 				unitModelParser;
-	public final 	String 				section;
+	public final	UnitModelParser< DATA_MODEL >	unitModelParser;
+	
+	public final 	String 				invokeID;
 	private 		Monitor 			wishMonitor;
 	
-	public MagicLamp(  String section, DUMP unitModelParser, MagicLampConnectionData connection ) {
-		this.section 			= section;
-		this.unitModelParser 	= unitModelParser;
+	public MagicLamp(  String invokeID, DataModelParser< DATA_MODEL > dataModelParser, MagicLampConnectionData connection ) {
+		this.invokeID 			= invokeID;
+		this.unitModelParser 	= new UnitModelParser< DATA_MODEL>(dataModelParser);
 		this.wishMonitor 		= new MonitorDefault();
 		
 		this.connection = connection;
@@ -64,15 +62,17 @@ public  class MagicLamp <
     //					
     //************************************************************
 
-    public void addUnit( DUM unitModel, Consumer< String > consumer ) {
+    public void addUnit( DATA_MODEL dataModel, Consumer< String > consumer ) {
     	var wish = createWish( ADD, "" );
-    	unitModelParser.parse( unitModel, unitNode -> {
-    		XML.parse( unitNode, wish.object :: setValue );
+    	var unitModel = new UnitModel< DATA_MODEL >();
+    	unitModel.data.setValue( dataModel );
+    	unitModelParser.parse( unitModel, unitModelNode -> {
+    		XML.parse( unitModelNode, wish.object :: setValue );
     	});
     	execWish( wish, consumer );
     }
     
-    public void updateUnit( DUM unitModel, Consumer< String > consumer ) {
+    public void updateUnit( UnitModel< DATA_MODEL> unitModel, Consumer< String > consumer ) {
     	var wish = createWish( UPDATE, "" );
     	unitModelParser.parse( unitModel, unitNode -> {
     		XML.parse( unitNode, wish.object :: setValue );
@@ -85,14 +85,14 @@ public  class MagicLamp <
     	execWish( wish, consumer );
     }
     
-    public void forEachUnit( Consumer< DUM > consumer ) {
+    public void forEachUnit( Consumer< UnitModel< DATA_MODEL> > consumer ) {
         var wish = createWish( GET_ALL, "" );
         forEachUnit(wish, unitNode -> {
            	consumer.accept( unitModelParser.parse( unitNode ) );
         });
     }
     
-    public void getUnit( String unitID, Consumer<DUM> consumer ) {
+    public void getUnit( String unitID, Consumer< UnitModel< DATA_MODEL> > consumer ) {
         var wish = createWish( GET_BY_ID, unitID );
         getUnit( wish, unitNode -> {
         	unitModelParser.parse( unitNode, consumer );
@@ -148,7 +148,7 @@ public  class MagicLamp <
     }
     
     public WishModel createWish( String cmd , String sbj ) {
-        return new WishModel( this.section, cmd, sbj );
+        return new WishModel( this.invokeID, cmd, sbj );
     }
     
 }

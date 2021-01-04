@@ -1,6 +1,6 @@
 package com.xelara.aladdin.index.model;
 
-import com.xelara.aladdin.unit.model.UnitModelParser;
+import com.xelara.aladdin.unit.model.DataModelParser;
 import com.xelara.structure.parser.Parser;
 import com.xelara.structure.snode.SN;
 import com.xelara.structure.snode.SNode;
@@ -9,7 +9,7 @@ import com.xelara.structure.snode.SNode;
  *
  * @author Macit Kandemir
  */
-public class IndexModelParser extends UnitModelParser < IndexModel > {
+public class IndexModelParser extends DataModelParser < IndexModel > {
     
     
     public enum ATR { refUnitID };

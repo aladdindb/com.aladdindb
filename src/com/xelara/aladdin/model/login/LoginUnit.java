@@ -1,13 +1,13 @@
 package com.xelara.aladdin.model.login;
 
-import com.xelara.aladdin.unit.model.UnitModel;
+import com.xelara.aladdin.unit.model.DataModel;
 import com.xelara.core.Var;
 
 /**
  *
  * @author Macit Kandemir
  */
-public class LoginUnit implements UnitModel < LoginUnit > {
+public class LoginUnit implements DataModel < LoginUnit > {
     
     public final Var < String > user    = new Var<>();
     public final Var < String > pwd     = new Var<>();

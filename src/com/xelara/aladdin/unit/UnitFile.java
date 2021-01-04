@@ -10,13 +10,13 @@ import com.xelara.structure.snode.SNode;
 import com.xelara.structure.xml.XML;
 
 
-public class DbUnitFile {
+public class UnitFile {
 	
 	public final Path path;
 	
 	public final String  unitID ;
 
-    private DbUnitFile( Path unitsPath, String unitID ) {
+    private UnitFile( Path unitsPath, String unitID ) {
 		this.unitID		= unitID;
 		this.path 		= unitsPath.resolve ( unitID+".xml");
     }
@@ -43,24 +43,24 @@ public class DbUnitFile {
     //                       STATIC METHODS
     //************************************************************
     
-	public static final DbUnitFile createNew( Path unitsPath, SNode unitNode ) {
+	public static final UnitFile createNew( Path unitsPath, SNode unitModelNode ) {
 		var id =  new IdHandler().createHexID();
-		DbUnitFile rv = new DbUnitFile ( unitsPath, id );
-		return rv.save ( unitNode ) ? rv : null;
+		UnitFile rv = new UnitFile ( unitsPath, id );
+		return rv.save ( unitModelNode ) ? rv : null;
 	}
 	
-	public static final DbUnitFile get( Path unitsPath, SNode unitNode ) {
-		var id = unitNode.getAttribute ( "id" );
+	public static final UnitFile get( Path unitsPath, SNode unitModelNode ) {
+		var id = unitModelNode.getAttribute ( "id" );
 		return id != null && !id.isEmpty () ? get( unitsPath, id ) : null; 
 	}
     
-	public static final void get( Path unitsPath, String id, Consumer < DbUnitFile > consumer ) {
+	public static final void get( Path unitsPath, String id, Consumer < UnitFile > consumer ) {
 		var rv = get( unitsPath, id);
 		if( rv != null )consumer.accept ( rv );
 	}
 	
-	public static final DbUnitFile get( Path unitsPath, String id ) {
-		DbUnitFile rv = new DbUnitFile ( unitsPath, id );
+	public static final UnitFile get( Path unitsPath, String id ) {
+		UnitFile rv = new UnitFile ( unitsPath, id );
         return Files.exists( rv.path ) ? rv : null; 
 	}
 	
@@ -73,7 +73,7 @@ public class DbUnitFile {
 		return XML.load ( path );
 	}
 	
-	public static final DbUnitFile remove( Path unitsPath, String id ) {
+	public static final UnitFile remove( Path unitsPath, String id ) {
 		var rv = get ( unitsPath, id );
 		if( rv != null ) rv.remove();
 		return rv;

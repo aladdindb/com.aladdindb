@@ -1,15 +1,15 @@
 package com.xelara.aladdin.magiclamp.model;
 
-import com.xelara.aladdin.unit.model.UnitModel;
+import com.xelara.aladdin.unit.model.DataModel;
 import com.xelara.core.Var;
 
 /**
  *
  * @author Macit Kandemir
  */ 
-public class WishModel  implements UnitModel < WishModel > {
+public class WishModel  implements DataModel < WishModel > {
     
-    public final Var < String 	> section	= new Var<>();
+    public final Var < String 	> invokeID	= new Var<>();
     public final Var < String 	> cmd 		= new Var<>();
     public final Var < String 	> sbj		= new Var<>();
     public final Var < String 	> userID	= new Var<>();
@@ -18,15 +18,15 @@ public class WishModel  implements UnitModel < WishModel > {
     public WishModel () {
     }
 
-    public WishModel ( String section, String cmd, String sbj) {
-    	this.section	.setValue( section ); 
+    public WishModel ( String invokeID, String cmd, String sbj) {
+    	this.invokeID	.setValue( invokeID ); 
     	this.cmd		.setValue( cmd		);
     	this.sbj		.setValue( sbj );
     }
     
 	@Override
 	public void fill( WishModel model ) {
-		section		.fill( model.section );
+		invokeID	.fill( model.invokeID );
 		cmd			.fill( model.cmd );
 		sbj			.fill( model.sbj );
 		userID		.fill( model.userID );

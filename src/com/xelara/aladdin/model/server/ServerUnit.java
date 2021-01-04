@@ -1,13 +1,13 @@
 package com.xelara.aladdin.model.server;
 
-import com.xelara.aladdin.unit.model.UnitModel;
+import com.xelara.aladdin.unit.model.DataModel;
 import com.xelara.core.Var;
 
 /**
  *
  * @author Macit Kandemir
  */
-public class ServerUnit implements UnitModel < ServerUnit > {
+public class ServerUnit implements DataModel < ServerUnit > {
     
     public final Var < String   > host    = new Var<>();
     public final Var < Integer  > port    = new Var<>();

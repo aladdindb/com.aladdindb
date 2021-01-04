@@ -10,18 +10,14 @@ import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
 import com.xelara.aladdin.magiclamp.MagicLamp;
-import com.xelara.aladdin.magiclamp.model.WishModel;
 import com.xelara.aladdin.magiclamp.model.WishModelParser;
-import com.xelara.aladdin.unit.model.DbUnitListModelParserDefault;
-import com.xelara.aladdin.unit.model.DbUnitModel;
-import com.xelara.aladdin.unit.model.DbUnitModelParser;
-import com.xelara.core.T4Consumer;
+import com.xelara.aladdin.unit.model.DataModel;
 import com.xelara.structure.xml.XML;
 
 public class GenieInvoker {
 
 
-	private final HashMap < String , Genie < ? extends DbUnitModel< ? > , ? extends DbUnitModelParser< ? > > >  genies = new HashMap <>();
+	private final HashMap < String , Genie < ? extends DataModel< ? > > >  genies = new HashMap <>();
 	
 	private final int port;
 	
@@ -41,12 +37,12 @@ public class GenieInvoker {
 		}
     }
     
-    public void putGenie( String key , Genie < ? extends DbUnitModel< ? > , ? extends DbUnitModelParser< ? > > genie ) {
-    	this.genies.put( key, genie );
+    public void putGenie( String invokeID , Genie < ? extends DataModel< ? > > genie ) {
+    	this.genies.put( invokeID, genie );
     }
     
-    public Genie < ? extends DbUnitModel< ? > , ? extends DbUnitModelParser< ? > > getGenie( String key) {
-    	return this.genies.get(key);
+    public Genie < ? extends DataModel< ? > > invokeGenie( String invokeID) {
+    	return this.genies.get(invokeID);
     }
     
     /**
@@ -61,11 +57,11 @@ public class GenieInvoker {
 
     	private final Socket socket;
     	
-        private final GenieInvoker conversation;
+        private final GenieInvoker invoker;
 
-        SocketIO( Socket socket, GenieInvoker conversation ) {
-            this.socket 		= socket;
-            this.conversation 	= conversation;
+        SocketIO( Socket socket, GenieInvoker invoker ) {
+            this.socket 	= socket;
+            this.invoker 	= invoker;
         }
         
         @Override
@@ -119,8 +115,8 @@ public class GenieInvoker {
     			System.out.println( wishStr );
     			XML.parse( wishStr, wishNode -> {
     				new WishModelParser().parse( wishNode, wishModel -> {
-    					wishModel.section.getValue( section -> {
-    						var genie = this.conversation.getGenie( section );
+    					wishModel.invokeID.getValue( invokeID -> {
+    						var genie = this.invoker.invokeGenie( invokeID );
     						if( genie != null) genie.process( wishModel, respConsumer );
     					});
     				});

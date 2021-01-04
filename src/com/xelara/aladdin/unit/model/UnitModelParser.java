@@ -1,141 +1,68 @@
 package com.xelara.aladdin.unit.model;
 
-import java.util.function.Consumer;
-
-import com.xelara.core.Var;
+import com.xelara.structure.parser.Parser;
+import com.xelara.structure.snode.SN;
 import com.xelara.structure.snode.SNode;
 
 /**
  *
  * @author Macit Kandemir
- * @param <UM>
+ * @param <DUM>
  */
-public abstract class UnitModelParser < UM extends UnitModel < UM > > {
+public final class UnitModelParser <
 
-    private final String key;
+	DATA_MODEL extends DataModel < DATA_MODEL >
 
-    public UnitModelParser( Enum<?> key ) {
-        this( key.name() );
-    }
+> extends DataModelParser < UnitModel < DATA_MODEL > > {
+	
+
+    private enum ATR { id, version };
+	
+    private final MetaModelParser 				meta = new MetaModelParser();
+    private final DataModelParser< DATA_MODEL > data;
     
-    public UnitModelParser( String key ) {
-        this.key = key;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
+	public UnitModelParser( DataModelParser< DATA_MODEL > dataModelParser ) {
+		super("unit");
+		this.data = dataModelParser;
+	}
+    
+	public UnitModel < DATA_MODEL > newModel() {
+		return new UnitModel< DATA_MODEL >();
+	}
+	
     //****************************************************************
     //
     //****************************************************************
 
-    public final UM parse( SNode node ) {
-        return UnitModelParser.this.parse( node, newModel() );
-    }
-
-    public final void parse( SNode node, Consumer < UM > consumer ) {
-        UM model = UnitModelParser.this.parse( node );
-        if( model != null ) consumer.accept( model );
-    }
-
-    public final void parse( SNode node, Var < UM > target ) {
-        UnitModelParser.this.parse( node, target :: setValue );
-    }
+    @Override
+    public UnitModel< DATA_MODEL >  parse( SNode src, UnitModel< DATA_MODEL >  target ) {
     
-    //****************************************************************
-    //
-    //****************************************************************
-
-    
-    public final void parse( Var < UM > modelVar, Consumer < SNode > consumer  ) {
-        modelVar.getValue( model -> UnitModelParser.this.parse( model, consumer ) );
-    }
-    
-    public final void parse( UM model, Consumer < SNode > consumer ) {
-        var node = UnitModelParser.this.parse( model );
-        if( node != null ) consumer.accept( node );
-    }
-
-    public final SNode parse( UM model ) {
-        return UnitModelParser.this.parse( model, new SNode( getKey()) );
-    }
-    
-    public final SNode parse( Var < UM > modelVar, SNode target ) {
-        modelVar.getValue( model -> {
-            UnitModelParser.this.parse( model, target);
-        });
+        Parser.STR	.parse( ATR.id		,src 	,target.id      	);
+        Parser.STR	.parse( ATR.version	,src  	,target.version   	);
+        
+        this.meta.parseFromParent( src, target.meta );
+        this.data.parseFromParent( src, target.data );
+        
         return target;
     }
+    
+    @Override
+    public SNode parse( UnitModel< DATA_MODEL > src, SNode target ) {
+        
+        Parser.STR	.parse( ATR.id      	, src.id    	,target );
+        Parser.STR	.parse( ATR.version   	, src.version 	,target );
+        
+        this.meta.parseToParent( src.meta, target );
+        this.data.parseToParent( src.data, target );
 
-    //****************************************************************
-    //
-    //****************************************************************
-    
-    public abstract UM newModel();
-    
-    
-    public abstract UM     	parse ( SNode   src ,UM   	target );
-    public abstract SNode   parse ( UM    	src ,SNode  target );
-    
-    
-    //****************************************************************
-    //
-    //****************************************************************
-
-    public final UM parseFromParent( SNode parentNode ) {
-        Var < UM > target = new Var<>();
-        parentNode.getChild( getKey(), node -> {
-            UnitModelParser.this.parse( node, target :: setValue );
-        });
-        return target.getValue();
+        target.setValueType( SN.VALUE_TYPE_CHILDREN );
+        
+        return target;
     }
-    
-    public final void parseFromParent( SNode parentNode,  UM  model ) {
-    	parseFromParent( parentNode, model :: fill );
-    }
-    
-    public final void parseFromParent( SNode parentNode, Consumer < UM > consumer ) {
-        UM target = UnitModelParser.this.parseFromParent( parentNode );
-        if( target != null ) consumer.accept( target );
-    }
-
-    public final void parseFromParent( SNode parentNode, Var < UM > target ) {
-        UnitModelParser.this.parseFromParent( parentNode, target :: setValue );
-    }
-
     
     //****************************************************************
     //
     //****************************************************************
-    
-    /**
-     * Holt das generische PROP Objekt aus dem Var Objekt und übergibt es
-     * der Methode  
-     * @see #parseToParent(com.xelara.core.Var, com.xelara.core.structure.snode.SNode).  
-     * 
-     * @param modelVar       Enthält das zu parsende generische PROP Objekt.
-     * @param parentNode    Älternknoten als Ziel Konoten.
-     */
-    
-    public final void parseToParent( Var < UM > modelVar, SNode parentNode ) {
-        modelVar.getValue( model -> {
-            parseToParent( model, parentNode );
-        });
-    }
-    
-    /**
-     * Der aus dem generischem PROP Objekt erzeugter Knoten wird nach dem
-     * Parsen, dem Ältern Konoten hinzugefügt.
-     * 
-     * @param model          Das zu parsende PROP Objekt.
-     * @param parentNode    Älternknoten als Ziel Konoten. 
-     */
-    
-    public final void parseToParent( UM model, SNode parentNode ) {
-        this.parse( model, parentNode :: addChild );
-    }
-
     
     
     

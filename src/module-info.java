@@ -1,7 +1,5 @@
 module com.xelara.aladdin {
 	
-    exports com.xelara.aladdin;
-    
     exports com.xelara.aladdin.magiclamp;
     exports com.xelara.aladdin.magiclamp.model;
     

@@ -1,6 +1,6 @@
 package com.xelara.aladdin.magiclamp.model;
 
-import com.xelara.aladdin.unit.model.UnitModelParser;
+import com.xelara.aladdin.unit.model.DataModelParser;
 import com.xelara.structure.parser.Parser;
 import com.xelara.structure.snode.SN;
 import com.xelara.structure.snode.SNode;
@@ -10,10 +10,10 @@ import com.xelara.structure.xml.XML;
  *
  * @author Macit Kandemir
  */
-public class WishModelParser extends UnitModelParser < WishModel > {
+public class WishModelParser extends DataModelParser < WishModel > {
 
     
-    public enum ATR { section, cmd, sbj, userID };
+    public enum ATR { invokeID, cmd, sbj, userID };
     
     
     //****************************************************************
@@ -40,10 +40,10 @@ public class WishModelParser extends UnitModelParser < WishModel > {
     @Override
     public WishModel parse( SNode src, WishModel target ) {
     
-        Parser.STR.parse( ATR.section, src 	,target.section );
-        Parser.STR.parse( ATR.cmd, src 		,target.cmd );
-        Parser.STR.parse( ATR.sbj, src 		,target.sbj );
-        Parser.STR.parse( ATR.userID, src 	,target.userID );
+        Parser.STR.parse( ATR.invokeID	,src ,target.invokeID );
+        Parser.STR.parse( ATR.cmd		,src ,target.cmd );
+        Parser.STR.parse( ATR.sbj		,src ,target.sbj );
+        Parser.STR.parse( ATR.userID	,src ,target.userID );
         
         SNode objectNode = src.getFirstChild();
         if( objectNode != null) {
@@ -56,10 +56,10 @@ public class WishModelParser extends UnitModelParser < WishModel > {
     @Override
     public SNode parse( WishModel src, SNode target ) {
         
-        Parser.STR.parse( ATR.section 	, src.section 	,target );
-        Parser.STR.parse( ATR.cmd 		, src.cmd 			,target );
-        Parser.STR.parse( ATR.sbj 		, src.sbj 			,target );
-        Parser.STR.parse( ATR.userID 		, src.userID		,target );
+        Parser.STR.parse( ATR.invokeID 	,src.invokeID	,target );
+        Parser.STR.parse( ATR.cmd 		,src.cmd 		,target );
+        Parser.STR.parse( ATR.sbj 		,src.sbj 		,target );
+        Parser.STR.parse( ATR.userID 	,src.userID		,target );
 
         target.setValueType( SN.VALUE_TYPE_SL_VOID );
 

@@ -1,13 +1,13 @@
 package com.xelara.aladdin.index.model;
 
-import com.xelara.aladdin.unit.model.UnitModel;
+import com.xelara.aladdin.unit.model.DataModel;
 import com.xelara.core.Var;
 
 /**
  *
  * @author Macit Kandemir
  */
-public class IndexModel implements UnitModel < IndexModel >  {
+public class IndexModel implements DataModel < IndexModel >  {
     
     public final Var < String > refUnitID = new Var<>();
     

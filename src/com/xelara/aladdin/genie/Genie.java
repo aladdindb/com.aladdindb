@@ -10,36 +10,32 @@ import java.nio.file.Path;
 import java.util.function.Consumer;
 
 import com.xelara.aladdin.magiclamp.model.WishModel;
-import com.xelara.aladdin.unit.DbUnits;
-import com.xelara.aladdin.unit.model.DbUnitListModel;
-import com.xelara.aladdin.unit.model.DbUnitListModelParserDefault;
-import com.xelara.aladdin.unit.model.DbUnitModel;
-import com.xelara.aladdin.unit.model.DbUnitModelParser;
+import com.xelara.aladdin.unit.Units;
+import com.xelara.aladdin.unit.model.UnitListModel;
+import com.xelara.aladdin.unit.model.UnitListModelParser;
+import com.xelara.aladdin.unit.model.UnitModel;
+import com.xelara.aladdin.unit.model.UnitModelParser;
+import com.xelara.aladdin.unit.model.DataModel;
+import com.xelara.aladdin.unit.model.DataModelParser;
 import com.xelara.core.Var;
 import com.xelara.structure.xml.XML;
 
 
-public class Genie < 
-	DUM 	extends DbUnitModel				< DUM >,
-	DUMP  	extends DbUnitModelParser 		< DUM >
-> {
+public class Genie < DATA_MODEL extends DataModel < DATA_MODEL > > {
 	
-	public final	DUMP 											unitParser;
-	public final 	DbUnitListModel					< DUM > 		unitList;
-	public final 	DbUnitListModelParserDefault	< DUM, DUMP > 	unitListParser;
-	public final	DbUnits							< DUM, DUMP >	units;
+	private final	UnitModelParser 		< DATA_MODEL > unitParser;
+	private final 	UnitListModel			< DATA_MODEL > unitList;
+	public final 	UnitListModelParser		< DATA_MODEL > unitListParser;
+	public final	Units					< DATA_MODEL > units;
 	
 	public WishModel			wish;
 	public Consumer < String > 	respConsumer;
 	
-	public Genie(
-			Path 					dbPath,
-			DUMP 					unitParser
-	){
-		this.unitParser			= unitParser;
-		this.unitList			= new DbUnitListModel 				< DUM >			();
-		this.unitListParser 	= new DbUnitListModelParserDefault	< DUM, DUMP >	( this.unitParser );
-		this.units				= new DbUnits						< DUM, DUMP > 	( dbPath, unitParser);
+	public Genie( Path dbPath, DataModelParser < DATA_MODEL > dataModelParser) {
+		this.unitParser			= new UnitModelParser 		< DATA_MODEL > ( dataModelParser );
+		this.unitList			= new UnitListModel 		< DATA_MODEL > ();
+		this.unitListParser 	= new UnitListModelParser	< DATA_MODEL > ( dataModelParser );
+		this.units				= new Units					< DATA_MODEL > ( dbPath, dataModelParser );
 	}
     
 	
@@ -62,7 +58,7 @@ public class Genie <
 		parseUnitList();
 	}
 
-	public void getUnitByID( Consumer < DUM > consumer ) {
+	public void getUnitByID( Consumer < UnitModel < DATA_MODEL > > consumer ) {
 		wish.sbj.getValue( unitID -> {
 			units.getUnitModel ( unitID, consumer ); 
 		});
@@ -85,17 +81,19 @@ public class Genie <
 		wish.object.getValue( unitXmlStr -> {
 			XML.parse( unitXmlStr, unitNode -> {
 				unitParser.parse( unitNode, unit -> {
-					String newID = units.addUnit( unit ) ;
-					rv.setValue ( newID );
-					respConsumer.accept( newID );
+					unit.data.getValue( dataModel -> {
+						String newID = units.addUnit( dataModel ) ;
+						rv.setValue ( newID );
+						respConsumer.accept( newID );
+					});
 				});
 			});
 		});
 		return rv.getValue ();
     }
 
-    public DUM updateUnit() { 
-    	Var < DUM > rv2 = new Var<> ();
+    public UnitModel < DATA_MODEL > updateUnit() { 
+    	Var < UnitModel < DATA_MODEL > > rv2 = new Var<> ();
 		wish.object.getValue( unitXmlStr -> {
 			XML.parse( unitXmlStr, unitNode -> {
 				unitParser.parse( unitNode, unit -> {
@@ -113,6 +111,7 @@ public class Genie <
 			XML.parse( itemListNode, respConsumer );
 		});
     }
+    
     
     
 }

@@ -9,45 +9,55 @@ import com.xelara.structure.snode.SNode;
  * @param <UM>      
  * @param <UMP>    
  */
-public abstract class DbUnitListModelParser <
+public final class UnitListModelParser <
 
-	UM 		extends UnitModel 			< UM >, 
-    UMP 	extends UnitModelParser 	< UM >
+	DATA_MODEL extends DataModel < DATA_MODEL > 
     
-> extends UnitModelParser < DbUnitListModel	< UM > > {
+> extends DataModelParser < UnitListModel	< DATA_MODEL > > {
     
 
-	private final UMP unitModelParser;
+	private final UnitModelParser< DATA_MODEL > unitModelParser;
     
 	
     //****************************************************************
     //
     //****************************************************************
 
-    public DbUnitListModelParser( UMP unitModelParser  ) {
-    	this( "Units", unitModelParser );
+    public UnitListModelParser( DataModelParser< DATA_MODEL > dataModelParser  ) {
+    	this( "units", dataModelParser );
     }
 
-    public DbUnitListModelParser( String key, UMP unitModelParser  ) {
+    public UnitListModelParser( String key, DataModelParser< DATA_MODEL > dataModelParser  ) {
         super( key );
-        this.unitModelParser = unitModelParser;
+        this.unitModelParser = new UnitModelParser< DATA_MODEL >(dataModelParser);
     }
     
     //****************************************************************
     //
     //****************************************************************
+    
+	@ Override
+	public UnitListModel < DATA_MODEL > newModel() { 
+		return new UnitListModel < DATA_MODEL > (); 
+	}
+	
 
-    public void parseList( SNode src, DbUnitListModel< UM > target ) {
+	@ Override
+	public UnitListModel < DATA_MODEL > parse( SNode src, UnitListModel < DATA_MODEL > target ) {
     	src.forEachChilds( unode -> {
     		unitModelParser.parse( unode, target :: add );
     	});
-    }
-    
-    public void parseList( DbUnitListModel< UM >  src, SNode target ) {
+		return target ;
+	}
+	
+
+	@ Override
+	public SNode parse( UnitListModel < DATA_MODEL > src, SNode target ) {
     	src.forEach( unit -> {
     		unitModelParser.parse( unit, target :: addChild );
     	});
-    }
+		return target;
+	}
     
     //****************************************************************
     //

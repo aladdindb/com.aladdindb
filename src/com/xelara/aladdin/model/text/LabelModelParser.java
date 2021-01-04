@@ -8,18 +8,18 @@ import com.xelara.structure.snode.SNode;
  *
  * @author Macit Kandemir
  */
-public class TextModelParser extends DataModelParser < TextModel > {
+public class LabelModelParser extends DataModelParser < LabelModel > {
     
     
-	public TextModelParser() {
-		super("Text");
+	public LabelModelParser() {
+		super("label");
 	}	
 	
-    public TextModelParser( Enum<?> key ) {
+    public LabelModelParser( Enum<?> key ) {
         this( key.name());
     }
     
-    public TextModelParser( String key ) {
+    public LabelModelParser( String key ) {
         super( key );
     }
     
@@ -28,8 +28,8 @@ public class TextModelParser extends DataModelParser < TextModel > {
     //****************************************************************
 
     @Override
-    public TextModel newModel() {
-        return new TextModel();
+    public LabelModel newModel() {
+        return new LabelModel();
     }
     
     //****************************************************************
@@ -37,7 +37,7 @@ public class TextModelParser extends DataModelParser < TextModel > {
     //****************************************************************
 
     @Override
-    public TextModel parse( SNode src, TextModel target ) {
+    public LabelModel parse( SNode src, LabelModel target ) {
         
         target.setValue( src.getValue() );
         
@@ -46,11 +46,11 @@ public class TextModelParser extends DataModelParser < TextModel > {
     
     
     @Override
-    public SNode parse( TextModel src, SNode target ) {
+    public SNode parse( LabelModel src, SNode target ) {
         
         src.getValue( target :: setValue );
         
-        target.setValueType( SN.VALUE_TYPE_CDATA );
+        target.setValueType( SN.VALUE_TYPE_SL_CLOSE );
         
         return target;
     }
