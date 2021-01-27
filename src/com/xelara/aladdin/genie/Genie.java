@@ -80,7 +80,7 @@ public class Genie < DATA_MODEL extends DataModel < DATA_MODEL > > {
     	Var < String > rv = new Var<> ();
 		wish.object.getValue( unitXmlStr -> {
 			XML.parse( unitXmlStr, unitNode -> {
-				unitParser.parse( unitNode, unit -> {
+				unitParser.fromNode( unitNode, unit -> {
 					unit.data.getValue( dataModel -> {
 						String newID = units.addUnit( dataModel ) ;
 						rv.setValue ( newID );
@@ -96,7 +96,7 @@ public class Genie < DATA_MODEL extends DataModel < DATA_MODEL > > {
     	Var < UnitModel < DATA_MODEL > > rv2 = new Var<> ();
 		wish.object.getValue( unitXmlStr -> {
 			XML.parse( unitXmlStr, unitNode -> {
-				unitParser.parse( unitNode, unit -> {
+				unitParser.fromNode( unitNode, unit -> {
 					rv2.setValue ( unit );
 					boolean rv = units.updateUnit( unit );
 					respConsumer.accept( Boolean.toString( rv ) );
@@ -107,7 +107,7 @@ public class Genie < DATA_MODEL extends DataModel < DATA_MODEL > > {
     }
 
     public void parseUnitList() {
-		unitListParser.parse( unitList, itemListNode -> {
+		unitListParser.toNode( unitList, itemListNode -> {
 			XML.parse( itemListNode, respConsumer );
 		});
     }

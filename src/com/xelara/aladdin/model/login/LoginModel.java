@@ -7,22 +7,22 @@ import com.xelara.core.Var;
  *
  * @author Macit Kandemir
  */
-public class LoginUnit implements DataModel < LoginUnit > {
+public class LoginModel implements DataModel < LoginModel > {
     
     public final Var < String > user    = new Var<>();
     public final Var < String > pwd     = new Var<>();
 
     
-    public LoginUnit() {
+    public LoginModel() {
     }
     
-    public LoginUnit( String user, String pwd ) {
+    public LoginModel( String user, String pwd ) {
         this.user	.setValue( user	);
         this.pwd	.setValue( pwd	);
     }
 
 	@Override
-	public void fill( LoginUnit unit ) {
+	public void fill( LoginModel unit ) {
 		user	.fill ( unit.user 	);
 		pwd		.fill ( unit.pwd 	);
 	}

@@ -1,9 +1,9 @@
 package com.xelara.aladdin.magiclamp.model;
 
 import com.xelara.aladdin.unit.model.DataModelParser;
-import com.xelara.structure.parser.Parser;
-import com.xelara.structure.snode.SN;
-import com.xelara.structure.snode.SNode;
+import com.xelara.structure.node.Snode;
+import com.xelara.structure.attributes.AParser;
+import com.xelara.structure.node.SnValueType;
 import com.xelara.structure.xml.XML;
 
 /**
@@ -21,7 +21,7 @@ public class WishModelParser extends DataModelParser < WishModel > {
     //****************************************************************
 
     public WishModelParser() {
-        super( "Wish" );
+        super( "wish" );
     }
 
     //****************************************************************
@@ -38,39 +38,44 @@ public class WishModelParser extends DataModelParser < WishModel > {
     //****************************************************************
 
     @Override
-    public WishModel parse( SNode src, WishModel target ) {
+    public WishModel fromNode( Snode node, WishModel model ) {
     
-        Parser.STR.parse( ATR.invokeID	,src ,target.invokeID );
-        Parser.STR.parse( ATR.cmd		,src ,target.cmd );
-        Parser.STR.parse( ATR.sbj		,src ,target.sbj );
-        Parser.STR.parse( ATR.userID	,src ,target.userID );
+    	var parse = new AParser( node );
+    	
+        parse.strPrs.get( ATR.invokeID		, model.invokeID 	);
+        parse.strPrs.get( ATR.cmd	 		, model.cmd 		);
+        parse.strPrs.get( ATR.sbj			, model.sbj 		);
+        parse.strPrs.get( ATR.userID			, model.userID 		);
         
-        SNode objectNode = src.getFirstChild();
+        Snode objectNode = node.childs.getFirst();
+        
         if( objectNode != null) {
-        	XML.parse(objectNode, target.object :: setValue );
+        	XML.parse(objectNode, model.object :: setValue );
         }
         
-        return target;
+        return model;
     }
     
     @Override
-    public SNode parse( WishModel src, SNode target ) {
+    public Snode toNode( WishModel model, Snode node ) {
         
-        Parser.STR.parse( ATR.invokeID 	,src.invokeID	,target );
-        Parser.STR.parse( ATR.cmd 		,src.cmd 		,target );
-        Parser.STR.parse( ATR.sbj 		,src.sbj 		,target );
-        Parser.STR.parse( ATR.userID 	,src.userID		,target );
+    	var parse = new AParser( node );
 
-        target.setValueType( SN.VALUE_TYPE_SL_VOID );
+    	parse.strPrs.set( ATR.invokeID 	,model.invokeID	);
+    	parse.strPrs.set( ATR.cmd 			,model.cmd 		);
+    	parse.strPrs.set( ATR.sbj 			,model.sbj 		);
+    	parse.strPrs.set( ATR.userID 		,model.userID	);
 
-        src.object.getValue( objectString -> {
-        	XML.parse(objectString, objectNode -> {
-        		target.addChild(objectNode);
-                target.setValueType( SN.VALUE_TYPE_CHILDREN );
+        node.setValueType( SnValueType.SL_VOID );
+
+        model.object.getValue( objectString -> {
+        	XML.parse( objectString, objectNode -> {
+        		node.childs.add( objectNode );
+                node.setValueType( SnValueType.CHILDREN );
         	});
         });
         
-        return target;
+        return node;
     }
     
     //****************************************************************

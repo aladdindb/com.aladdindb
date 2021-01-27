@@ -6,7 +6,7 @@ import java.util.function.Consumer;
 
 import com.xelara.core.IdHandler;
 import com.xelara.core.io.Filess;
-import com.xelara.structure.snode.SNode;
+import com.xelara.structure.node.Snode;
 import com.xelara.structure.xml.XML;
 
 
@@ -21,17 +21,17 @@ public class UnitFile {
 		this.path 		= unitsPath.resolve ( unitID+".xml");
     }
     
-    public boolean save( SNode unitNode ) {
-        unitNode.setAttribute( "id", unitID );
+    public boolean save( Snode unitNode ) {
+        unitNode.attributes.set( "id", unitID );
         return XML.save ( this.path, unitNode ) ;
     }
     
-    public void getUnitNode ( Consumer < SNode > consumer ) {
+    public void getUnitNode ( Consumer < Snode > consumer ) {
     	var rv = getUnitNode ();
     	if( rv != null )consumer.accept ( rv );
     }
     
-    public SNode getUnitNode() {
+    public Snode getUnitNode() {
     	return XML.load ( this.path );
     }
     
@@ -43,14 +43,14 @@ public class UnitFile {
     //                       STATIC METHODS
     //************************************************************
     
-	public static final UnitFile createNew( Path unitsPath, SNode unitModelNode ) {
+	public static final UnitFile createNew( Path unitsPath, Snode unitModelNode ) {
 		var id =  new IdHandler().createHexID();
 		UnitFile rv = new UnitFile ( unitsPath, id );
 		return rv.save ( unitModelNode ) ? rv : null;
 	}
 	
-	public static final UnitFile get( Path unitsPath, SNode unitModelNode ) {
-		var id = unitModelNode.getAttribute ( "id" );
+	public static final UnitFile get( Path unitsPath, Snode unitModelNode ) {
+		var id = unitModelNode.attributes.getValue ( "id" );
 		return id != null && !id.isEmpty () ? get( unitsPath, id ) : null; 
 	}
     
@@ -64,12 +64,12 @@ public class UnitFile {
         return Files.exists( rv.path ) ? rv : null; 
 	}
 	
-	public static final void getUnitNode( Path path, Consumer < SNode > consumer ) {
+	public static final void getUnitNode( Path path, Consumer < Snode > consumer ) {
 		var rv = getUnitNode ( path );
 		if( rv != null ) consumer.accept ( rv );
 	}
 	
-	public static final SNode getUnitNode( Path path ) {
+	public static final Snode getUnitNode( Path path ) {
 		return XML.load ( path );
 	}
 	

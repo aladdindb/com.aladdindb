@@ -1,8 +1,8 @@
 package com.xelara.aladdin.unit.model;
 
-import com.xelara.structure.parser.Parser;
-import com.xelara.structure.snode.SN;
-import com.xelara.structure.snode.SNode;
+import com.xelara.structure.node.Snode;
+import com.xelara.structure.attributes.AParser;
+import com.xelara.structure.node.SnValueType;
 
 /**
  *
@@ -35,29 +35,33 @@ public final class UnitModelParser <
     //****************************************************************
 
     @Override
-    public UnitModel< DATA_MODEL >  parse( SNode src, UnitModel< DATA_MODEL >  target ) {
+    public UnitModel< DATA_MODEL >  fromNode( Snode node, UnitModel< DATA_MODEL >  model ) {
     
-        Parser.STR	.parse( ATR.id		,src 	,target.id      	);
-        Parser.STR	.parse( ATR.version	,src  	,target.version   	);
+    	var parse = new AParser( node );
+
+    	parse.strPrs	.get( ATR.id		, model.id     	);
+    	parse.strPrs	.get( ATR.version	, model.version );
         
-        this.meta.parseFromParent( src, target.meta );
-        this.data.parseFromParent( src, target.data );
+        this.meta.fromParentNode( node	, model.meta );
+        this.data.fromParentNode( node	, model.data );
         
-        return target;
+        return model;
     }
     
     @Override
-    public SNode parse( UnitModel< DATA_MODEL > src, SNode target ) {
+    public Snode toNode( UnitModel< DATA_MODEL > model, Snode node ) {
         
-        Parser.STR	.parse( ATR.id      	, src.id    	,target );
-        Parser.STR	.parse( ATR.version   	, src.version 	,target );
-        
-        this.meta.parseToParent( src.meta, target );
-        this.data.parseToParent( src.data, target );
+    	var parse = new AParser( node );
 
-        target.setValueType( SN.VALUE_TYPE_CHILDREN );
+    	parse.strPrs	.set( ATR.id      	, model.id 		); 
+    	parse.strPrs	.set( ATR.version   , model.version	);
         
-        return target;
+        this.meta.toParentNode( model.meta, node );
+        this.data.toParentNode( model.data, node );
+
+        node.setValueType( SnValueType.CHILDREN );
+        
+        return node;
     }
     
     //****************************************************************

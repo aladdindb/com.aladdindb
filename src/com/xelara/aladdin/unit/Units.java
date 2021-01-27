@@ -10,14 +10,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.xelara.aladdin.index.model.IndexModel;
-import com.xelara.aladdin.unit.model.UnitModel;
-import com.xelara.aladdin.unit.model.UnitModelParser;
 import com.xelara.aladdin.unit.model.DataModel;
 import com.xelara.aladdin.unit.model.DataModelParser;
+import com.xelara.aladdin.unit.model.UnitModel;
+import com.xelara.aladdin.unit.model.UnitModelParser;
+import com.xelara.aladdin.verifier.Verifier;
 import com.xelara.core.DateUtil;
 import com.xelara.core.Var;
 import com.xelara.core.io.Filess;
-import com.xelara.structure.snode.SNode;
+import com.xelara.structure.node.Snode;
 
 /**
  *
@@ -41,10 +42,18 @@ public class Units < DATA_MODEL extends DataModel < DATA_MODEL > > {
 
     public void forEach( Consumer < UnitModel < DATA_MODEL > > consumer ) {
         forEachUnitModelNode( unitModelNode -> {
-            unitModelParser.parse( unitModelNode,  consumer :: accept );
+            unitModelParser.fromNode( unitModelNode,  consumer :: accept );
         });
     }
 
+    public void forEach( Verifier< DATA_MODEL > verifier, Consumer < UnitModel < DATA_MODEL > > consumer ) {
+    	this.forEach( model -> {
+    		model.data.getValue( dataModel -> {
+        		if( verifier.prove( dataModel ) ) consumer.accept(model);
+    		});
+    	});
+    }
+    
     
     public void addUnits( DATA_MODEL... dataModels ) {
     	for( DATA_MODEL unit : dataModels ) {
@@ -70,7 +79,7 @@ public class Units < DATA_MODEL extends DataModel < DATA_MODEL > > {
     	
     	unitModel.data.setValue( dataModel );
     	
-    	unitModelParser.parse( unitModel, unitModelNode -> {
+    	unitModelParser.toNode( unitModel, unitModelNode -> {
     		newIdVar.setValue( add( unitModelNode ) );
     	});
     	
@@ -80,13 +89,13 @@ public class Units < DATA_MODEL extends DataModel < DATA_MODEL > > {
     public boolean updateUnit( UnitModel < DATA_MODEL > unitModel ) {
 		Var<Boolean> rv = new Var<Boolean>(false);
     	unitModel.meta.timeStamp.update.setValue( DateUtil.nowAsTimeStamp() );
-    	unitModelParser.parse( unitModel, unitModelNode -> {
+    	unitModelParser.toNode( unitModel, unitModelNode -> {
        		rv.setValue( update( unitModelNode ) );
     	});
 		return rv.getValue();
     }
 
-    public void structureChangeForEachUnitModelNode( Consumer < SNode >  consumer ) {
+    public void structureChangeForEachUnitModelNode( Consumer < Snode >  consumer ) {
 		forEachUnitModelNode( unitModelNode -> {
 			consumer.accept(unitModelNode );
 			update( unitModelNode );
@@ -112,7 +121,7 @@ public class Units < DATA_MODEL extends DataModel < DATA_MODEL > > {
 
     public void getUnitModel( String unitID, Consumer < UnitModel < DATA_MODEL > > consumer ) {
 		get( unitID, unitNode -> {
-            unitModelParser.parse( unitNode, consumer :: accept );
+            unitModelParser.fromNode( unitNode, consumer :: accept );
 		});
     } 
 
@@ -123,12 +132,12 @@ public class Units < DATA_MODEL extends DataModel < DATA_MODEL > > {
      * @param unitModelNode
      * @return
      */
-    public String add( SNode unitModelNode ) {
+    public String add( Snode unitModelNode ) {
         var uc = UnitFile.createNew ( this.path, unitModelNode );
         return uc != null ? uc.unitID : null;
     }
     
-    public boolean update( SNode unitModelNode ) {
+    public boolean update( Snode unitModelNode ) {
         var uc = UnitFile.get ( this.path, unitModelNode );
         return uc != null ?  uc.save ( unitModelNode ) : false;
     }
@@ -137,13 +146,13 @@ public class Units < DATA_MODEL extends DataModel < DATA_MODEL > > {
         var uc = UnitFile.remove ( this.path, unitID );
     }
 
-    public void get( String unitID, Consumer< SNode > consumer ) {
+    public void get( String unitID, Consumer< Snode > consumer ) {
     	UnitFile.get ( this.path, unitID, uc -> {
     		uc.getUnitNode ( consumer );
     	} );
     }
     
-    public void forEachUnitModelNode( Consumer < SNode > consumer ) {
+    public void forEachUnitModelNode( Consumer < Snode > consumer ) {
         Filess.forEachDirStream( this.path, unitPath -> {
         	UnitFile.getUnitNode ( unitPath, consumer );
         });
@@ -156,10 +165,10 @@ public class Units < DATA_MODEL extends DataModel < DATA_MODEL > > {
     public Map< String, String > createIdLabelMap() {
         Map< String, String > rv = new HashMap<>();
         forEachUnitModelNode( unode -> {
-            var unitID = unode.getAttribute("id") ;
-        	unode.getChild( "meta", meta -> {
-        		meta.getChild( "label", label -> {
-                    var unitLabel = label.getValue();
+            var unitID = unode.attributes.getValue("id") ;
+        	unode.childs.get( "meta", meta -> {
+        		meta.childs.get( "label", label -> {
+                    var unitLabel = label.value.get();
                     if( unitLabel != null ) rv.put( unitID, unitLabel );
         		});
         	});

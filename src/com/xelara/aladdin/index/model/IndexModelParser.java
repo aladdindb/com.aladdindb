@@ -1,9 +1,9 @@
 package com.xelara.aladdin.index.model;
 
 import com.xelara.aladdin.unit.model.DataModelParser;
-import com.xelara.structure.parser.Parser;
-import com.xelara.structure.snode.SN;
-import com.xelara.structure.snode.SNode;
+import com.xelara.structure.node.Snode;
+import com.xelara.structure.attributes.AParser;
+import com.xelara.structure.node.SnValueType;
 
 /**
  *
@@ -37,22 +37,25 @@ public class IndexModelParser extends DataModelParser < IndexModel > {
     //****************************************************************
 
     @Override
-    public IndexModel parse( SNode src, IndexModel target ) {
-    
-        Parser.STR.parse( ATR.refUnitID, src  	,target.refUnitID 	);
+    public IndexModel fromNode( Snode node, IndexModel model ) {
+    	var parse = new AParser( node );
+    	
+        parse.strPrs.get( ATR.refUnitID, model.refUnitID );
         
-        return target;
+        return model;
     }
     
     
     @Override
-    public SNode parse( IndexModel src, SNode target ) {
+    public Snode toNode( IndexModel model, Snode node ) {
         
-        Parser.STR.parse( ATR.refUnitID  	, src.refUnitID  		,target );
+    	var parse = new AParser( node );
+    	
+        parse.strPrs.set( ATR.refUnitID  	, model.refUnitID   );
         
-        target.setValueType( SN.VALUE_TYPE_SL_VOID );
+        node.setValueType( SnValueType.SL_VOID );
         
-        return target;
+        return node;
     }
     
     //****************************************************************

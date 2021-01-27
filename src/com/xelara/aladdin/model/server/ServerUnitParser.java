@@ -1,9 +1,9 @@
 package com.xelara.aladdin.model.server;
 
 import com.xelara.aladdin.unit.model.DataModelParser;
-import com.xelara.structure.parser.Parser;
-import com.xelara.structure.snode.SN;
-import com.xelara.structure.snode.SNode;
+import com.xelara.structure.node.Snode;
+import com.xelara.structure.attributes.AParser;
+import com.xelara.structure.node.SnValueType;
 
 /**
  *
@@ -37,24 +37,28 @@ public class ServerUnitParser extends DataModelParser < ServerUnit > {
     //****************************************************************
 
     @Override
-    public ServerUnit parse( SNode src, ServerUnit target ) {
+    public ServerUnit fromNode( Snode node, ServerUnit model ) {
     
-        Parser.STR.parse( ATR.host, src   ,target.host );
-        Parser.INT.parse( ATR.port, src   ,target.port );
+    	var parse = new AParser( node );
+    	
+    	parse.strPrs.get( ATR.host, model.host );
+    	parse.intPrs.get( ATR.port, model.port );
         
-        return target;
+        return model;
     }
     
     
     @Override
-    public SNode parse( ServerUnit src, SNode target ) {
+    public Snode toNode( ServerUnit model, Snode node ) {
         
-        Parser.STR.parse( ATR.host , src.host ,target );
-        Parser.INT.parse( ATR.port , src.port ,target );
+    	var parse = new AParser( node );
+    	
+    	parse.strPrs.set( ATR.host , model.host );
+    	parse.intPrs.set( ATR.port , model.port );
         
-        target.setValueType( SN.VALUE_TYPE_SL_VOID );
+        node.setValueType( SnValueType.SL_VOID );
         
-        return target;
+        return node;
     }
     
     //****************************************************************

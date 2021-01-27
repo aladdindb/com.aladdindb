@@ -6,11 +6,11 @@ import java.util.function.Consumer;
 
 import com.xelara.aladdin.magiclamp.model.WishModel;
 import com.xelara.aladdin.magiclamp.model.WishModelParser;
-import com.xelara.aladdin.unit.model.UnitModel;
-import com.xelara.aladdin.unit.model.UnitModelParser;
 import com.xelara.aladdin.unit.model.DataModel;
 import com.xelara.aladdin.unit.model.DataModelParser;
-import com.xelara.structure.snode.SNode;
+import com.xelara.aladdin.unit.model.UnitModel;
+import com.xelara.aladdin.unit.model.UnitModelParser;
+import com.xelara.structure.node.Snode;
 import com.xelara.structure.xml.XML;
 
 /**
@@ -28,7 +28,7 @@ public  class MagicLamp < DATA_MODEL extends DataModel < DATA_MODEL > > {
 	public static final String BOCMD		="x394gh856osrel215yc4you319";
 	public static final String EOCMD		="x394gh856osrel215yc4you719";
 	
-	private final MagicLampConnectionData connection;
+	private final Connection connection;
 	
     private static MagicLampSocket socket = null;
 	
@@ -37,7 +37,7 @@ public  class MagicLamp < DATA_MODEL extends DataModel < DATA_MODEL > > {
 	public final 	String 				invokeID;
 	private 		Monitor 			wishMonitor;
 	
-	public MagicLamp(  String invokeID, DataModelParser< DATA_MODEL > dataModelParser, MagicLampConnectionData connection ) {
+	public MagicLamp(  String invokeID, DataModelParser< DATA_MODEL > dataModelParser, Connection connection ) {
 		this.invokeID 			= invokeID;
 		this.unitModelParser 	= new UnitModelParser< DATA_MODEL>(dataModelParser);
 		this.wishMonitor 		= new MonitorDefault();
@@ -66,7 +66,7 @@ public  class MagicLamp < DATA_MODEL extends DataModel < DATA_MODEL > > {
     	var wish = createWish( ADD, "" );
     	var unitModel = new UnitModel< DATA_MODEL >();
     	unitModel.data.setValue( dataModel );
-    	unitModelParser.parse( unitModel, unitModelNode -> {
+    	unitModelParser.toNode( unitModel, unitModelNode -> {
     		XML.parse( unitModelNode, wish.object :: setValue );
     	});
     	execWish( wish, consumer );
@@ -74,7 +74,7 @@ public  class MagicLamp < DATA_MODEL extends DataModel < DATA_MODEL > > {
     
     public void updateUnit( UnitModel< DATA_MODEL> unitModel, Consumer< String > consumer ) {
     	var wish = createWish( UPDATE, "" );
-    	unitModelParser.parse( unitModel, unitNode -> {
+    	unitModelParser.toNode( unitModel, unitNode -> {
     		XML.parse( unitNode, wish.object :: setValue );
     	});
     	execWish( wish, consumer );
@@ -88,14 +88,14 @@ public  class MagicLamp < DATA_MODEL extends DataModel < DATA_MODEL > > {
     public void forEachUnit( Consumer< UnitModel< DATA_MODEL> > consumer ) {
         var wish = createWish( GET_ALL, "" );
         forEachUnit(wish, unitNode -> {
-           	consumer.accept( unitModelParser.parse( unitNode ) );
+           	consumer.accept( unitModelParser.fromNode( unitNode ) );
         });
     }
     
     public void getUnit( String unitID, Consumer< UnitModel< DATA_MODEL> > consumer ) {
         var wish = createWish( GET_BY_ID, unitID );
         getUnit( wish, unitNode -> {
-        	unitModelParser.parse( unitNode, consumer );
+        	unitModelParser.fromNode( unitNode, consumer );
         });
     }
     
@@ -107,25 +107,25 @@ public  class MagicLamp < DATA_MODEL extends DataModel < DATA_MODEL > > {
         Map< String, String > rv = new HashMap<>();
         var wish = createWish(  GET_ALL, "" );
         forEachUnit( wish, unitNode -> {
-            var unitID      = unitNode.getAttribute( "id"       );
-            var unitLabel 	= unitNode.getAttribute( "label"    );
+            var unitID      = unitNode.attributes.getValue( "id"       );
+            var unitLabel 	= unitNode.attributes.getValue( "label"    );
             rv.put( unitID, unitLabel );
         });
         return rv;
     }
     
-	public void forEachUnit( WishModel wish, Consumer< SNode > consumer) {
+	public void forEachUnit( WishModel wish, Consumer< Snode > consumer) {
 		execWish( wish, resp -> {
 	     	XML.parse( resp, respNode -> {
-	     		respNode.forEachChilds(consumer);
+	     		respNode.childs.forEach(consumer);
 	    	});
 		});
 	}
 	
-	public void getUnit( WishModel wish, Consumer< SNode > consumer) {
+	public void getUnit( WishModel wish, Consumer< Snode > consumer) {
 		execWish( wish, resp -> {
 	     	XML.parse( resp, respNode -> {
-	     		SNode childNode = respNode.getFirstChild();
+	     		Snode childNode = respNode.childs.getFirst();
 	     		if( childNode != null ) consumer.accept(childNode);
 	    	});
 		});
@@ -135,7 +135,7 @@ public  class MagicLamp < DATA_MODEL extends DataModel < DATA_MODEL > > {
     	wish.userID.setValue (  connection.userID );
     	wishMonitor.monitoring( () -> {
     		getSocket( magicLampSocket -> {
-    			new WishModelParser().parse( wish, wishNode -> {
+    			new WishModelParser().toNode( wish, wishNode -> {
     				XML.parse( wishNode,  wishStr -> {
     					System.out.println("Magic-Lamp:");
     					System.out.println( wishStr );

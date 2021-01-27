@@ -7,7 +7,7 @@ module com.xelara.aladdin {
     
     exports com.xelara.aladdin.unit;
     exports com.xelara.aladdin.unit.model;
-    
+    exports com.xelara.aladdin.verifier;
 
     exports com.xelara.aladdin.model.login;        
     exports com.xelara.aladdin.model.server;        

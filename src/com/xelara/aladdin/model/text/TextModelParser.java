@@ -1,8 +1,8 @@
 package com.xelara.aladdin.model.text;
 
 import com.xelara.aladdin.unit.model.DataModelParser;
-import com.xelara.structure.snode.SN;
-import com.xelara.structure.snode.SNode;
+import com.xelara.structure.node.Snode;
+import com.xelara.structure.node.SnValueType;
 
 /**
  *
@@ -37,20 +37,20 @@ public class TextModelParser extends DataModelParser < TextModel > {
     //****************************************************************
 
     @Override
-    public TextModel parse( SNode src, TextModel target ) {
+    public TextModel fromNode( Snode src, TextModel target ) {
         
-        target.setValue( src.getValue() );
+        target.setValue( src.value.get() );
         
         return target;
     }
     
     
     @Override
-    public SNode parse( TextModel src, SNode target ) {
+    public Snode toNode( TextModel src, Snode target ) {
         
-        src.getValue( target :: setValue );
+        src.getValue( target.value :: set );
         
-        target.setValueType( SN.VALUE_TYPE_CDATA );
+        target.setValueType( SnValueType.CDATA );
         
         return target;
     }

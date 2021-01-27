@@ -1,8 +1,8 @@
 package com.xelara.aladdin.unit.model;
 
-import com.xelara.structure.parser.Parser;
-import com.xelara.structure.snode.SN;
-import com.xelara.structure.snode.SNode;
+import com.xelara.structure.node.Snode;
+import com.xelara.structure.attributes.AParser;
+import com.xelara.structure.node.SnValueType;
 
 public class TimeStampModelParser extends DataModelParser< TimeStampModel > {
 
@@ -18,18 +18,25 @@ public class TimeStampModelParser extends DataModelParser< TimeStampModel > {
 	}
 
 	@Override
-	public TimeStampModel parse(SNode src, TimeStampModel target) {
-		Parser.STR.parse( ATR.create, src, target.create 	);
-		Parser.STR.parse( ATR.update, src, target.update	);
-		return target;
+	public TimeStampModel fromNode( Snode node, TimeStampModel model ) {
+    	var parse = new AParser( node );
+    	
+    	parse.strPrs.get( ATR.create	, model.create 	);
+    	parse.strPrs.get( ATR.update	, model.update	);
+    	
+		return model;
 	}
 
 	@Override
-	public SNode parse( TimeStampModel src, SNode target ) {
-		Parser.STR.parse( ATR.create, src.create, target );
-		Parser.STR.parse( ATR.update, src.update, target );
-		target.setValueType( SN.VALUE_TYPE_SL_VOID);
-		return target;
+	public Snode toNode( TimeStampModel model, Snode node ) {
+    	var parse = new AParser( node );
+    	
+    	parse.strPrs.set( ATR.create	, model.create );
+    	parse.strPrs.set( ATR.update	, model.update );
+    	
+		node.setValueType( SnValueType.SL_VOID);
+		
+		return node;
 	}
 
 }

@@ -1,15 +1,15 @@
 package com.xelara.aladdin.model.login;
 
 import com.xelara.aladdin.unit.model.DataModelParser;
-import com.xelara.structure.parser.Parser;
-import com.xelara.structure.snode.SN;
-import com.xelara.structure.snode.SNode;
+import com.xelara.structure.node.Snode;
+import com.xelara.structure.attributes.AParser;
+import com.xelara.structure.node.SnValueType;
 
 /**
  *
  * @author Macit Kandemir
  */
-public class LoginUnitParser extends DataModelParser < LoginUnit > {
+public class LoginUnitParser extends DataModelParser < LoginModel > {
     
     
     public enum ATR     { user, pwd };
@@ -28,8 +28,8 @@ public class LoginUnitParser extends DataModelParser < LoginUnit > {
     //****************************************************************
 
     @Override
-    public LoginUnit newModel() {
-        return new LoginUnit();
+    public LoginModel newModel() {
+        return new LoginModel();
     }
     
     //****************************************************************
@@ -37,24 +37,28 @@ public class LoginUnitParser extends DataModelParser < LoginUnit > {
     //****************************************************************
 
     @Override
-    public LoginUnit parse( SNode src, LoginUnit target ) {
+    public LoginModel fromNode( Snode node, LoginModel model ) {
     
-        Parser.STR.parse(ATR.user, src    ,target.user );
-        Parser.STR.parse(ATR.pwd, src     ,target.pwd );
+    	var parse = new AParser( node );
+    	
+    	parse.strPrs.get( ATR.user		,model.user 	);
+    	parse.strPrs.get( ATR.pwd		,model.pwd 		);
         
-        return target;
+        return model;
     }
     
     
     @Override
-    public SNode parse( LoginUnit src, SNode target ) {
+    public Snode toNode( LoginModel model, Snode node ) {
         
-        Parser.STR.parse(ATR.user ,src.user   ,target );
-        Parser.STR.parse(ATR.pwd  ,src.pwd    ,target );
+    	var parse = new AParser( node );
+    	
+    	parse.strPrs.set( ATR.user		,model.user 	);
+    	parse.strPrs.set( ATR.pwd  	,model.pwd    	);
         
-        target.setValueType( SN.VALUE_TYPE_SL_VOID );
+        node.setValueType( SnValueType.SL_VOID );
         
-        return target;
+        return node;
     }
     
     //****************************************************************
