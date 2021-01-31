@@ -3,7 +3,7 @@ package com.xelara.aladdin.unit.model;
 import java.util.function.Consumer;
 
 import com.xelara.core.Var;
-import com.xelara.structure.node.Snode;
+import com.xelara.structure.sn.SnPoint;
 
 /**
  *
@@ -36,69 +36,69 @@ public abstract class DataModelParser < DATA_MODEL extends DataModel < DATA_MODE
     //
     //****************************************************************
 
-    public final DATA_MODEL fromNode( Snode node ) {
+    public final DATA_MODEL fromNode( SnPoint node ) {
         return DataModelParser.this.fromNode( node , newModel() );
     }
 
-    public final void fromNode( Snode node , Consumer < DATA_MODEL > consumer ) {
+    public final void fromNode( SnPoint node , Consumer < DATA_MODEL > consumer ) {
         DATA_MODEL model = DataModelParser.this.fromNode( node );
         if( model != null ) consumer.accept( model );
     }
 
-    public final void fromNode( Snode node , Var < DATA_MODEL > modelVar ) {
+    public final void fromNode( SnPoint node , Var < DATA_MODEL > modelVar ) {
         DataModelParser.this.fromNode( node, modelVar :: setValue );
     }
     
-    public abstract DATA_MODEL  fromNode( Snode node , DATA_MODEL model );
+    public abstract DATA_MODEL  fromNode( SnPoint node , DATA_MODEL model );
     
     //****************************************************************
     //
     //****************************************************************
 
-    public final void toNode( Var < DATA_MODEL > modelVar, Consumer < Snode > consumer  ) {
+    public final void toNode( Var < DATA_MODEL > modelVar, Consumer < SnPoint > consumer  ) {
         modelVar.getValue( model -> DataModelParser.this.toNode( model, consumer ) );
     }
     
-    public final void toNode( DATA_MODEL model, Consumer < Snode > consumer ) {
+    public final void toNode( DATA_MODEL model, Consumer < SnPoint > consumer ) {
         var node = DataModelParser.this.toNode( model );
         if( node != null ) consumer.accept( node );
     }
 
-    public final Snode toNode( DATA_MODEL model ) {
-        return DataModelParser.this.toNode( model, new Snode( getKey()) );
+    public final SnPoint toNode( DATA_MODEL model ) {
+        return DataModelParser.this.toNode( model, new SnPoint( getKey()) );
     }
     
-    public final Snode toNode( Var < DATA_MODEL > modelVar, Snode node ) {
+    public final SnPoint toNode( Var < DATA_MODEL > modelVar, SnPoint node ) {
         modelVar.getValue( model -> {
             DataModelParser.this.toNode( model, node);
         });
         return node;
     }
 
-    public abstract Snode toNode( DATA_MODEL model , Snode node );
+    public abstract SnPoint toNode( DATA_MODEL model , SnPoint node );
     
     //****************************************************************
     //
     //****************************************************************
 
-    public final DATA_MODEL fromParentNode( Snode parentNode ) {
+    public final DATA_MODEL fromParentNode( SnPoint parentNode ) {
         Var < DATA_MODEL > target = new Var<>();
-        parentNode.childs.get( getKey(), node -> {
+        parentNode.deepLine.get( getKey(), node -> {
             DataModelParser.this.fromNode( node, target :: setValue );
         });
         return target.getValue();
     }
     
-    public final void fromParentNode( Snode parentNode,  DATA_MODEL  model ) {
+    public final void fromParentNode( SnPoint parentNode,  DATA_MODEL  model ) {
     	fromParentNode( parentNode, model :: fill );
     }
     
-    public final void fromParentNode( Snode parentNode, Consumer < DATA_MODEL > consumer ) {
+    public final void fromParentNode( SnPoint parentNode, Consumer < DATA_MODEL > consumer ) {
         DATA_MODEL target = DataModelParser.this.fromParentNode( parentNode );
         if( target != null ) consumer.accept( target );
     }
 
-    public final void fromParentNode( Snode parentNode, Var < DATA_MODEL > modelVar ) {
+    public final void fromParentNode( SnPoint parentNode, Var < DATA_MODEL > modelVar ) {
         DataModelParser.this.fromParentNode( parentNode, modelVar :: setValue );
     }
 
@@ -116,7 +116,7 @@ public abstract class DataModelParser < DATA_MODEL extends DataModel < DATA_MODE
      * @param parentNode    Älternknoten als Ziel Konoten.
      */
     
-    public final void toParentNode( Var < DATA_MODEL > modelVar, Snode parentNode ) {
+    public final void toParentNode( Var < DATA_MODEL > modelVar, SnPoint parentNode ) {
         modelVar.getValue( model -> {
             toParentNode( model, parentNode );
         });
@@ -130,8 +130,8 @@ public abstract class DataModelParser < DATA_MODEL extends DataModel < DATA_MODE
      * @param parentNode    Älternknoten als Ziel Konoten. 
      */
     
-    public final void toParentNode( DATA_MODEL model, Snode parentNode ) {
-        this.toNode( model, parentNode.childs :: add );
+    public final void toParentNode( DATA_MODEL model, SnPoint parentNode ) {
+        this.toNode( model, parentNode.deepLine :: add );
     }
 
     

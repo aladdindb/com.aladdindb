@@ -10,7 +10,7 @@ import com.xelara.aladdin.unit.model.DataModel;
 import com.xelara.aladdin.unit.model.DataModelParser;
 import com.xelara.aladdin.unit.model.UnitModel;
 import com.xelara.aladdin.unit.model.UnitModelParser;
-import com.xelara.structure.node.Snode;
+import com.xelara.structure.sn.SnPoint;
 import com.xelara.structure.xml.XML;
 
 /**
@@ -107,26 +107,25 @@ public  class MagicLamp < DATA_MODEL extends DataModel < DATA_MODEL > > {
         Map< String, String > rv = new HashMap<>();
         var wish = createWish(  GET_ALL, "" );
         forEachUnit( wish, unitNode -> {
-            var unitID      = unitNode.attributes.getValue( "id"       );
-            var unitLabel 	= unitNode.attributes.getValue( "label"    );
+            var unitID      = unitNode.attributeLine.getValue( "id"       );
+            var unitLabel 	= unitNode.attributeLine.getValue( "label"    );
             rv.put( unitID, unitLabel );
         });
         return rv;
     }
     
-	public void forEachUnit( WishModel wish, Consumer< Snode > consumer) {
+	public void forEachUnit( WishModel wish, Consumer< SnPoint > consumer) {
 		execWish( wish, resp -> {
 	     	XML.parse( resp, respNode -> {
-	     		respNode.childs.forEach(consumer);
+	     		respNode.deepLine.forEach(consumer);
 	    	});
 		});
 	}
 	
-	public void getUnit( WishModel wish, Consumer< Snode > consumer) {
+	public void getUnit( WishModel wish, Consumer< SnPoint > consumer) {
 		execWish( wish, resp -> {
 	     	XML.parse( resp, respNode -> {
-	     		Snode childNode = respNode.childs.getFirst();
-	     		if( childNode != null ) consumer.accept(childNode);
+	     		respNode.deepLine.start.get( consumer );
 	    	});
 		});
 	}

@@ -1,7 +1,7 @@
 package com.xelara.aladdin.unit.model;
 
 import com.xelara.aladdin.model.text.LabelModelParser;
-import com.xelara.structure.node.Snode;
+import com.xelara.structure.sn.SnPoint;
 
 public class MetaModelParser extends DataModelParser<MetaModel> {
 
@@ -18,14 +18,14 @@ public class MetaModelParser extends DataModelParser<MetaModel> {
 	}
 
 	@Override
-	public MetaModel fromNode( Snode src, MetaModel target ) {
+	public MetaModel fromNode( SnPoint src, MetaModel target ) {
 		label		.fromParentNode( src, target.label		);
 		timeStamp	.fromParentNode( src, target.timeStamp );
 		return target;
 	}
 
 	@Override
-	public Snode toNode(MetaModel src, Snode target) {
+	public SnPoint toNode(MetaModel src, SnPoint target) {
 		label		.toParentNode( src.label		,target );
 		timeStamp	.toParentNode( src.timeStamp	,target );
 		return target;

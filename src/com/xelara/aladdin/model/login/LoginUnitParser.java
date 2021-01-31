@@ -1,9 +1,9 @@
 package com.xelara.aladdin.model.login;
 
 import com.xelara.aladdin.unit.model.DataModelParser;
-import com.xelara.structure.node.Snode;
-import com.xelara.structure.attributes.AParser;
-import com.xelara.structure.node.SnValueType;
+import com.xelara.structure.sn.SnValueType;
+import com.xelara.structure.sn.SnPoint;
+import com.xelara.structure.types.AParser;
 
 /**
  *
@@ -37,7 +37,7 @@ public class LoginUnitParser extends DataModelParser < LoginModel > {
     //****************************************************************
 
     @Override
-    public LoginModel fromNode( Snode node, LoginModel model ) {
+    public LoginModel fromNode( SnPoint node, LoginModel model ) {
     
     	var parse = new AParser( node );
     	
@@ -49,14 +49,14 @@ public class LoginUnitParser extends DataModelParser < LoginModel > {
     
     
     @Override
-    public Snode toNode( LoginModel model, Snode node ) {
+    public SnPoint toNode( LoginModel model, SnPoint node ) {
         
     	var parse = new AParser( node );
     	
     	parse.strPrs.set( ATR.user		,model.user 	);
     	parse.strPrs.set( ATR.pwd  	,model.pwd    	);
         
-        node.setValueType( SnValueType.SL_VOID );
+        node.valueType.set( SnValueType.SINGLE_LINE );
         
         return node;
     }

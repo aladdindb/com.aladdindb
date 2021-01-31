@@ -1,6 +1,6 @@
 package com.xelara.aladdin.unit.model;
 
-import com.xelara.structure.node.Snode;
+import com.xelara.structure.sn.SnPoint;
 
 /**
  * @author Macit Kandemir
@@ -43,8 +43,8 @@ public final class UnitListModelParser <
 	
 
 	@ Override
-	public UnitListModel < DATA_MODEL > fromNode( Snode src, UnitListModel < DATA_MODEL > target ) {
-    	src.childs.forEach( unode -> {
+	public UnitListModel < DATA_MODEL > fromNode( SnPoint src, UnitListModel < DATA_MODEL > target ) {
+    	src.deepLine.forEach( unode -> {
     		unitModelParser.fromNode( unode, target :: add );
     	});
 		return target ;
@@ -52,9 +52,9 @@ public final class UnitListModelParser <
 	
 
 	@ Override
-	public Snode toNode( UnitListModel < DATA_MODEL > src, Snode target ) {
+	public SnPoint toNode( UnitListModel < DATA_MODEL > src, SnPoint target ) {
     	src.forEach( unit -> {
-    		unitModelParser.toNode( unit, target.childs :: add );
+    		unitModelParser.toNode( unit, target.deepLine :: add );
     	});
 		return target;
 	}

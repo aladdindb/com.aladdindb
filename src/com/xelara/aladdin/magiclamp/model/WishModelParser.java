@@ -1,9 +1,9 @@
 package com.xelara.aladdin.magiclamp.model;
 
 import com.xelara.aladdin.unit.model.DataModelParser;
-import com.xelara.structure.node.Snode;
-import com.xelara.structure.attributes.AParser;
-import com.xelara.structure.node.SnValueType;
+import com.xelara.structure.sn.SnValueType;
+import com.xelara.structure.sn.SnPoint;
+import com.xelara.structure.types.AParser;
 import com.xelara.structure.xml.XML;
 
 /**
@@ -38,44 +38,42 @@ public class WishModelParser extends DataModelParser < WishModel > {
     //****************************************************************
 
     @Override
-    public WishModel fromNode( Snode node, WishModel model ) {
+    public WishModel fromNode( SnPoint snPoint, WishModel model ) {
     
-    	var parse = new AParser( node );
+    	var parse = new AParser( snPoint );
     	
         parse.strPrs.get( ATR.invokeID		, model.invokeID 	);
         parse.strPrs.get( ATR.cmd	 		, model.cmd 		);
         parse.strPrs.get( ATR.sbj			, model.sbj 		);
-        parse.strPrs.get( ATR.userID			, model.userID 		);
+        parse.strPrs.get( ATR.userID		, model.userID 		);
         
-        Snode objectNode = node.childs.getFirst();
-        
-        if( objectNode != null) {
-        	XML.parse(objectNode, model.object :: setValue );
-        }
+        snPoint.deepLine.start.get( objectNode -> {
+        	XML.parse( objectNode, model.object :: setValue );
+        });
         
         return model;
     }
     
     @Override
-    public Snode toNode( WishModel model, Snode node ) {
+    public SnPoint toNode( WishModel model, SnPoint snPoint ) {
         
-    	var parse = new AParser( node );
+    	var parse = new AParser( snPoint );
 
-    	parse.strPrs.set( ATR.invokeID 	,model.invokeID	);
+    	parse.strPrs.set( ATR.invokeID 		,model.invokeID	);
     	parse.strPrs.set( ATR.cmd 			,model.cmd 		);
     	parse.strPrs.set( ATR.sbj 			,model.sbj 		);
     	parse.strPrs.set( ATR.userID 		,model.userID	);
 
-        node.setValueType( SnValueType.SL_VOID );
+//        snPoint.valueType.set( SnValueType.SINGLE_LINE );
 
         model.object.getValue( objectString -> {
-        	XML.parse( objectString, objectNode -> {
-        		node.childs.add( objectNode );
-                node.setValueType( SnValueType.CHILDREN );
+        	XML.parse( objectString, snObjectPoint -> {
+        		snPoint.deepLine.add( snObjectPoint );
+//                node.valueType.set( SnValueType.CHILDREN );
         	});
         });
         
-        return node;
+        return snPoint;
     }
     
     //****************************************************************

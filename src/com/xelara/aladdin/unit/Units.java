@@ -18,7 +18,7 @@ import com.xelara.aladdin.verifier.Verifier;
 import com.xelara.core.DateUtil;
 import com.xelara.core.Var;
 import com.xelara.core.io.Filess;
-import com.xelara.structure.node.Snode;
+import com.xelara.structure.sn.SnPoint;
 
 /**
  *
@@ -95,7 +95,7 @@ public class Units < DATA_MODEL extends DataModel < DATA_MODEL > > {
 		return rv.getValue();
     }
 
-    public void structureChangeForEachUnitModelNode( Consumer < Snode >  consumer ) {
+    public void structureChangeForEachUnitModelNode( Consumer < SnPoint >  consumer ) {
 		forEachUnitModelNode( unitModelNode -> {
 			consumer.accept(unitModelNode );
 			update( unitModelNode );
@@ -132,12 +132,12 @@ public class Units < DATA_MODEL extends DataModel < DATA_MODEL > > {
      * @param unitModelNode
      * @return
      */
-    public String add( Snode unitModelNode ) {
+    public String add( SnPoint unitModelNode ) {
         var uc = UnitFile.createNew ( this.path, unitModelNode );
         return uc != null ? uc.unitID : null;
     }
     
-    public boolean update( Snode unitModelNode ) {
+    public boolean update( SnPoint unitModelNode ) {
         var uc = UnitFile.get ( this.path, unitModelNode );
         return uc != null ?  uc.save ( unitModelNode ) : false;
     }
@@ -146,13 +146,13 @@ public class Units < DATA_MODEL extends DataModel < DATA_MODEL > > {
         var uc = UnitFile.remove ( this.path, unitID );
     }
 
-    public void get( String unitID, Consumer< Snode > consumer ) {
+    public void get( String unitID, Consumer< SnPoint > consumer ) {
     	UnitFile.get ( this.path, unitID, uc -> {
     		uc.getUnitNode ( consumer );
     	} );
     }
     
-    public void forEachUnitModelNode( Consumer < Snode > consumer ) {
+    public void forEachUnitModelNode( Consumer < SnPoint > consumer ) {
         Filess.forEachDirStream( this.path, unitPath -> {
         	UnitFile.getUnitNode ( unitPath, consumer );
         });
@@ -165,9 +165,9 @@ public class Units < DATA_MODEL extends DataModel < DATA_MODEL > > {
     public Map< String, String > createIdLabelMap() {
         Map< String, String > rv = new HashMap<>();
         forEachUnitModelNode( unode -> {
-            var unitID = unode.attributes.getValue("id") ;
-        	unode.childs.get( "meta", meta -> {
-        		meta.childs.get( "label", label -> {
+            var unitID = unode.attributeLine.getValue("id") ;
+        	unode.deepLine.get( "meta", meta -> {
+        		meta.deepLine.get( "label", label -> {
                     var unitLabel = label.value.get();
                     if( unitLabel != null ) rv.put( unitID, unitLabel );
         		});

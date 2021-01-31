@@ -1,8 +1,8 @@
 package com.xelara.aladdin.unit.model;
 
-import com.xelara.structure.node.Snode;
-import com.xelara.structure.attributes.AParser;
-import com.xelara.structure.node.SnValueType;
+import com.xelara.structure.sn.SnValueType;
+import com.xelara.structure.sn.SnPoint;
+import com.xelara.structure.types.AParser;
 
 public class TimeStampModelParser extends DataModelParser< TimeStampModel > {
 
@@ -18,7 +18,7 @@ public class TimeStampModelParser extends DataModelParser< TimeStampModel > {
 	}
 
 	@Override
-	public TimeStampModel fromNode( Snode node, TimeStampModel model ) {
+	public TimeStampModel fromNode( SnPoint node, TimeStampModel model ) {
     	var parse = new AParser( node );
     	
     	parse.strPrs.get( ATR.create	, model.create 	);
@@ -28,13 +28,13 @@ public class TimeStampModelParser extends DataModelParser< TimeStampModel > {
 	}
 
 	@Override
-	public Snode toNode( TimeStampModel model, Snode node ) {
+	public SnPoint toNode( TimeStampModel model, SnPoint node ) {
     	var parse = new AParser( node );
     	
     	parse.strPrs.set( ATR.create	, model.create );
     	parse.strPrs.set( ATR.update	, model.update );
     	
-		node.setValueType( SnValueType.SL_VOID);
+		node.valueType.set( SnValueType.SINGLE_LINE);
 		
 		return node;
 	}
