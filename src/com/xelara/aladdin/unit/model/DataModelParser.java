@@ -46,7 +46,7 @@ public abstract class DataModelParser < DATA_MODEL extends DataModel < DATA_MODE
     }
 
     public final void fromNode( SnPoint node , Var < DATA_MODEL > modelVar ) {
-        DataModelParser.this.fromNode( node, modelVar :: setValue );
+        DataModelParser.this.fromNode( node, modelVar :: set );
     }
     
     public abstract DATA_MODEL  fromNode( SnPoint node , DATA_MODEL model );
@@ -56,7 +56,7 @@ public abstract class DataModelParser < DATA_MODEL extends DataModel < DATA_MODE
     //****************************************************************
 
     public final void toNode( Var < DATA_MODEL > modelVar, Consumer < SnPoint > consumer  ) {
-        modelVar.getValue( model -> DataModelParser.this.toNode( model, consumer ) );
+        modelVar.get( model -> DataModelParser.this.toNode( model, consumer ) );
     }
     
     public final void toNode( DATA_MODEL model, Consumer < SnPoint > consumer ) {
@@ -69,7 +69,7 @@ public abstract class DataModelParser < DATA_MODEL extends DataModel < DATA_MODE
     }
     
     public final SnPoint toNode( Var < DATA_MODEL > modelVar, SnPoint node ) {
-        modelVar.getValue( model -> {
+        modelVar.get( model -> {
             DataModelParser.this.toNode( model, node);
         });
         return node;
@@ -83,10 +83,10 @@ public abstract class DataModelParser < DATA_MODEL extends DataModel < DATA_MODE
 
     public final DATA_MODEL fromParentNode( SnPoint parentNode ) {
         Var < DATA_MODEL > target = new Var<>();
-        parentNode.deepLine.get( getKey(), node -> {
-            DataModelParser.this.fromNode( node, target :: setValue );
+        parentNode.children.get( getKey(), node -> {
+            DataModelParser.this.fromNode( node, target :: set );
         });
-        return target.getValue();
+        return target.get();
     }
     
     public final void fromParentNode( SnPoint parentNode,  DATA_MODEL  model ) {
@@ -99,7 +99,7 @@ public abstract class DataModelParser < DATA_MODEL extends DataModel < DATA_MODE
     }
 
     public final void fromParentNode( SnPoint parentNode, Var < DATA_MODEL > modelVar ) {
-        DataModelParser.this.fromParentNode( parentNode, modelVar :: setValue );
+        DataModelParser.this.fromParentNode( parentNode, modelVar :: set );
     }
 
     
@@ -117,7 +117,7 @@ public abstract class DataModelParser < DATA_MODEL extends DataModel < DATA_MODE
      */
     
     public final void toParentNode( Var < DATA_MODEL > modelVar, SnPoint parentNode ) {
-        modelVar.getValue( model -> {
+        modelVar.get( model -> {
             toParentNode( model, parentNode );
         });
     }
@@ -131,7 +131,7 @@ public abstract class DataModelParser < DATA_MODEL extends DataModel < DATA_MODE
      */
     
     public final void toParentNode( DATA_MODEL model, SnPoint parentNode ) {
-        this.toNode( model, parentNode.deepLine :: add );
+        this.toNode( model, parentNode.children :: add );
     }
 
     

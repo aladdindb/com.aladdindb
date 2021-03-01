@@ -22,7 +22,7 @@ public class UnitFile {
     }
     
     public boolean save( SnPoint unitNode ) {
-        unitNode.attributeLine.set( "id", unitID );
+        unitNode.attributes.set( "id", unitID );
         return XML.save ( this.path, unitNode ) ;
     }
     
@@ -50,7 +50,7 @@ public class UnitFile {
 	}
 	
 	public static final UnitFile get( Path unitsPath, SnPoint unitModelNode ) {
-		var id = unitModelNode.attributeLine.getValue ( "id" );
+		var id = unitModelNode.attributes.getValue ( "id" );
 		return id != null && !id.isEmpty () ? get( unitsPath, id ) : null; 
 	}
     

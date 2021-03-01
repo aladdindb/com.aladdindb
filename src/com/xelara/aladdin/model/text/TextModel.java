@@ -13,7 +13,7 @@ public class TextModel extends Var< String > implements DataModel < TextModel > 
     }
     
     public TextModel( String text ) {
-    	this.setValue(text);
+    	this.set(text);
     }
     
     public void fill( TextModel unit ) {

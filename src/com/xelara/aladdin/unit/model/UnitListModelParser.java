@@ -44,7 +44,7 @@ public final class UnitListModelParser <
 
 	@ Override
 	public UnitListModel < DATA_MODEL > fromNode( SnPoint src, UnitListModel < DATA_MODEL > target ) {
-    	src.deepLine.forEach( unode -> {
+    	src.children.forEach( unode -> {
     		unitModelParser.fromNode( unode, target :: add );
     	});
 		return target ;
@@ -54,7 +54,7 @@ public final class UnitListModelParser <
 	@ Override
 	public SnPoint toNode( UnitListModel < DATA_MODEL > src, SnPoint target ) {
     	src.forEach( unit -> {
-    		unitModelParser.toNode( unit, target.deepLine :: add );
+    		unitModelParser.toNode( unit, target.children :: add );
     	});
 		return target;
 	}

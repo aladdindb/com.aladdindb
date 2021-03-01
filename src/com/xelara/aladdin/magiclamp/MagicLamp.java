@@ -65,9 +65,9 @@ public  class MagicLamp < DATA_MODEL extends DataModel < DATA_MODEL > > {
     public void addUnit( DATA_MODEL dataModel, Consumer< String > consumer ) {
     	var wish = createWish( ADD, "" );
     	var unitModel = new UnitModel< DATA_MODEL >();
-    	unitModel.data.setValue( dataModel );
+    	unitModel.data.set( dataModel );
     	unitModelParser.toNode( unitModel, unitModelNode -> {
-    		XML.parse( unitModelNode, wish.object :: setValue );
+    		XML.parse( unitModelNode, wish.object :: set );
     	});
     	execWish( wish, consumer );
     }
@@ -75,7 +75,7 @@ public  class MagicLamp < DATA_MODEL extends DataModel < DATA_MODEL > > {
     public void updateUnit( UnitModel< DATA_MODEL> unitModel, Consumer< String > consumer ) {
     	var wish = createWish( UPDATE, "" );
     	unitModelParser.toNode( unitModel, unitNode -> {
-    		XML.parse( unitNode, wish.object :: setValue );
+    		XML.parse( unitNode, wish.object :: set );
     	});
     	execWish( wish, consumer );
     }
@@ -107,8 +107,8 @@ public  class MagicLamp < DATA_MODEL extends DataModel < DATA_MODEL > > {
         Map< String, String > rv = new HashMap<>();
         var wish = createWish(  GET_ALL, "" );
         forEachUnit( wish, unitNode -> {
-            var unitID      = unitNode.attributeLine.getValue( "id"       );
-            var unitLabel 	= unitNode.attributeLine.getValue( "label"    );
+            var unitID      = unitNode.attributes.getValue( "id"       );
+            var unitLabel 	= unitNode.attributes.getValue( "label"    );
             rv.put( unitID, unitLabel );
         });
         return rv;
@@ -117,7 +117,7 @@ public  class MagicLamp < DATA_MODEL extends DataModel < DATA_MODEL > > {
 	public void forEachUnit( WishModel wish, Consumer< SnPoint > consumer) {
 		execWish( wish, resp -> {
 	     	XML.parse( resp, respNode -> {
-	     		respNode.deepLine.forEach(consumer);
+	     		respNode.children.forEach(consumer);
 	    	});
 		});
 	}
@@ -125,13 +125,13 @@ public  class MagicLamp < DATA_MODEL extends DataModel < DATA_MODEL > > {
 	public void getUnit( WishModel wish, Consumer< SnPoint > consumer) {
 		execWish( wish, resp -> {
 	     	XML.parse( resp, respNode -> {
-	     		respNode.deepLine.start.get( consumer );
+	     		respNode.children.snBottom.get( consumer );
 	    	});
 		});
 	}
     
     public void execWish( WishModel wish, Consumer < String > respConsumer ) {
-    	wish.userID.setValue (  connection.userID );
+    	wish.userID.set (  connection.userID );
     	wishMonitor.monitoring( () -> {
     		getSocket( magicLampSocket -> {
     			new WishModelParser().toNode( wish, wishNode -> {

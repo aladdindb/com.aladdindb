@@ -13,7 +13,7 @@ public class LabelModel extends Var< String > implements DataModel < LabelModel 
     }
     
     public LabelModel( String label ) {
-    	this.setValue( label );
+    	this.set( label );
     }
     
     public void fill( LabelModel model ) {

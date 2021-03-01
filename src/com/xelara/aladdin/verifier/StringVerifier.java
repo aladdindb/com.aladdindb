@@ -18,25 +18,23 @@ public abstract class StringVerifier < DATA_MODEL extends DataModel<DATA_MODEL> 
 	@Override
 	public boolean prove( DATA_MODEL model ) {
 		Var<Boolean> rv = new Var<Boolean>( false );
-
 		this.getFieldValue( model, value -> {
 			switch( this.operator.trim().toLowerCase() ) {
-				case "=="	: rv.setValue( value.equals( this.value ) ); break;
+				case "=="	: rv.set( value.equals( this.value ) ); break;
 				case "like"	: break;
-				case ">"	: rv.setValue( value.compareToIgnoreCase( this.value ) > 	0 );break;
-				case ">="	: rv.setValue( value.compareToIgnoreCase( this.value ) >= 	0 );break;
-				case "<"	: rv.setValue( value.compareToIgnoreCase( this.value ) < 	0 );break;
-				case "<="	: rv.setValue( value.compareToIgnoreCase( this.value ) <= 	0 );break;
+				case ">"	: rv.set( value.compareToIgnoreCase( this.value ) > 	0 );break;
+				case ">="	: rv.set( value.compareToIgnoreCase( this.value ) >= 	0 );break;
+				case "<"	: rv.set( value.compareToIgnoreCase( this.value ) < 	0 );break;
+				case "<="	: rv.set( value.compareToIgnoreCase( this.value ) <= 	0 );break;
 			}
 		});
-		
-		return rv.getValue();
+		return rv.get();
 	}
 	
-	public void getFieldValue (DATA_MODEL model, Consumer< String > consumer ) {
+	public void getFieldValue ( DATA_MODEL model, Consumer< String > consumer ) {
 		var field = this.getField(model);
 		if( field != null) {
-			field.getValue( consumer );
+			field.get( consumer );
 		}
 	}
 	

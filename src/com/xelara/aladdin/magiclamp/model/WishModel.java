@@ -19,9 +19,9 @@ public class WishModel  implements DataModel < WishModel > {
     }
 
     public WishModel ( String invokeID, String cmd, String sbj) {
-    	this.invokeID	.setValue( invokeID ); 
-    	this.cmd		.setValue( cmd		);
-    	this.sbj		.setValue( sbj );
+    	this.invokeID	.set( invokeID ); 
+    	this.cmd		.set( cmd		);
+    	this.sbj		.set( sbj );
     }
     
 	@Override

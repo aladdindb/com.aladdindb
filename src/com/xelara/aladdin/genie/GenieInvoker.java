@@ -115,7 +115,7 @@ public class GenieInvoker {
     			System.out.println( wishStr );
     			XML.parse( wishStr, wishNode -> {
     				new WishModelParser().fromNode( wishNode, wishModel -> {
-    					wishModel.invokeID.getValue( invokeID -> {
+    					wishModel.invokeID.get( invokeID -> {
     						var genie = this.invoker.invokeGenie( invokeID );
     						if( genie != null) genie.process( wishModel, respConsumer );
     					});

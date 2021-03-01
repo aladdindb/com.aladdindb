@@ -1,9 +1,9 @@
 package com.xelara.aladdin.model.server;
 
 import com.xelara.aladdin.unit.model.DataModelParser;
-import com.xelara.structure.sn.SnValueType;
 import com.xelara.structure.sn.SnPoint;
-import com.xelara.structure.types.AParser;
+import com.xelara.structure.sn.props.SnValueType;
+import com.xelara.structure.types.SnParser;
 
 /**
  *
@@ -39,10 +39,10 @@ public class ServerUnitParser extends DataModelParser < ServerUnit > {
     @Override
     public ServerUnit fromNode( SnPoint node, ServerUnit model ) {
     
-    	var parse = new AParser( node );
+    	var parse = new SnParser( node );
     	
-    	parse.strPrs.get( ATR.host, model.host );
-    	parse.intPrs.get( ATR.port, model.port );
+    	parse._str.get( ATR.host, model.host );
+    	parse._int.get( ATR.port, model.port );
         
         return model;
     }
@@ -51,10 +51,10 @@ public class ServerUnitParser extends DataModelParser < ServerUnit > {
     @Override
     public SnPoint toNode( ServerUnit model, SnPoint node ) {
         
-    	var parse = new AParser( node );
+    	var parse = new SnParser( node );
     	
-    	parse.strPrs.set( ATR.host , model.host );
-    	parse.intPrs.set( ATR.port , model.port );
+    	parse._str.set( ATR.host , model.host );
+    	parse._int.set( ATR.port , model.port );
         
         node.valueType.set( SnValueType.SINGLE_LINE );
         

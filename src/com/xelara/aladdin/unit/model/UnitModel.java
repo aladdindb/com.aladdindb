@@ -19,8 +19,8 @@ public final class UnitModel < DATA_MODEL extends DataModel < DATA_MODEL > > imp
 	}
 	
     public UnitModel( String unitID, String label ) {
-    	this.id			.setValue( unitID	);
-    	this.version	.setValue( label	);
+    	this.id			.set( unitID	);
+    	this.version	.set( label	);
 	}
 
 	@Override

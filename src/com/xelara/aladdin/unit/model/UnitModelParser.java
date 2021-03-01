@@ -1,8 +1,8 @@
 package com.xelara.aladdin.unit.model;
 
-import com.xelara.structure.sn.SnValueType;
 import com.xelara.structure.sn.SnPoint;
-import com.xelara.structure.types.AParser;
+import com.xelara.structure.sn.props.SnValueType;
+import com.xelara.structure.types.SnParser;
 
 /**
  *
@@ -37,10 +37,10 @@ public final class UnitModelParser <
     @Override
     public UnitModel< DATA_MODEL >  fromNode( SnPoint snPoint, UnitModel< DATA_MODEL >  model ) {
     
-    	var parse = new AParser( snPoint );
+    	var parse = new SnParser( snPoint );
 
-    	parse.strPrs	.get( ATR.id		, model.id     	);
-    	parse.strPrs	.get( ATR.version	, model.version );
+    	parse._str	.get( ATR.id		, model.id     	);
+    	parse._str	.get( ATR.version	, model.version );
         
         this.meta.fromParentNode( snPoint	, model.meta );
         this.data.fromParentNode( snPoint	, model.data );
@@ -51,10 +51,10 @@ public final class UnitModelParser <
     @Override
     public SnPoint toNode( UnitModel< DATA_MODEL > model, SnPoint snPoint ) {
         
-    	var parse = new AParser( snPoint );
+    	var parse = new SnParser( snPoint );
 
-    	parse.strPrs	.set( ATR.id      	, model.id 		); 
-    	parse.strPrs	.set( ATR.version   , model.version	);
+    	parse._str	.set( ATR.id      	, model.id 		); 
+    	parse._str	.set( ATR.version   , model.version	);
         
         this.meta.toParentNode( model.meta, snPoint );
         this.data.toParentNode( model.data, snPoint );

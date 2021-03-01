@@ -17,8 +17,8 @@ public class ServerUnit implements DataModel < ServerUnit > {
     }
     
     public ServerUnit( String host, Integer port ) {
-        this.host.setValue( host );
-        this.port.setValue( port );
+        this.host.set( host );
+        this.port.set( port );
     }
 
 	@Override

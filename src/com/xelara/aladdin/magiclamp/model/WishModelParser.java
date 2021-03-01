@@ -1,9 +1,9 @@
 package com.xelara.aladdin.magiclamp.model;
 
 import com.xelara.aladdin.unit.model.DataModelParser;
-import com.xelara.structure.sn.SnValueType;
 import com.xelara.structure.sn.SnPoint;
-import com.xelara.structure.types.AParser;
+import com.xelara.structure.sn.props.SnValueType;
+import com.xelara.structure.types.SnParser;
 import com.xelara.structure.xml.XML;
 
 /**
@@ -40,15 +40,15 @@ public class WishModelParser extends DataModelParser < WishModel > {
     @Override
     public WishModel fromNode( SnPoint snPoint, WishModel model ) {
     
-    	var parse = new AParser( snPoint );
+    	var parse = new SnParser( snPoint );
     	
-        parse.strPrs.get( ATR.invokeID		, model.invokeID 	);
-        parse.strPrs.get( ATR.cmd	 		, model.cmd 		);
-        parse.strPrs.get( ATR.sbj			, model.sbj 		);
-        parse.strPrs.get( ATR.userID		, model.userID 		);
+        parse._str.get( ATR.invokeID		, model.invokeID 	);
+        parse._str.get( ATR.cmd	 		, model.cmd 		);
+        parse._str.get( ATR.sbj			, model.sbj 		);
+        parse._str.get( ATR.userID		, model.userID 		);
         
-        snPoint.deepLine.start.get( objectNode -> {
-        	XML.parse( objectNode, model.object :: setValue );
+        snPoint.children.snBottom.get( objectNode -> {
+        	XML.parse( objectNode, model.object :: set );
         });
         
         return model;
@@ -57,18 +57,18 @@ public class WishModelParser extends DataModelParser < WishModel > {
     @Override
     public SnPoint toNode( WishModel model, SnPoint snPoint ) {
         
-    	var parse = new AParser( snPoint );
+    	var parse = new SnParser( snPoint );
 
-    	parse.strPrs.set( ATR.invokeID 		,model.invokeID	);
-    	parse.strPrs.set( ATR.cmd 			,model.cmd 		);
-    	parse.strPrs.set( ATR.sbj 			,model.sbj 		);
-    	parse.strPrs.set( ATR.userID 		,model.userID	);
+    	parse._str.set( ATR.invokeID 		,model.invokeID	);
+    	parse._str.set( ATR.cmd 			,model.cmd 		);
+    	parse._str.set( ATR.sbj 			,model.sbj 		);
+    	parse._str.set( ATR.userID 		,model.userID	);
 
 //        snPoint.valueType.set( SnValueType.SINGLE_LINE );
 
-        model.object.getValue( objectString -> {
+        model.object.get( objectString -> {
         	XML.parse( objectString, snObjectPoint -> {
-        		snPoint.deepLine.add( snObjectPoint );
+        		snPoint.children.add( snObjectPoint );
 //                node.valueType.set( SnValueType.CHILDREN );
         	});
         });

@@ -48,7 +48,7 @@ public class Units < DATA_MODEL extends DataModel < DATA_MODEL > > {
 
     public void forEach( Verifier< DATA_MODEL > verifier, Consumer < UnitModel < DATA_MODEL > > consumer ) {
     	this.forEach( model -> {
-    		model.data.getValue( dataModel -> {
+    		model.data.get( dataModel -> {
         		if( verifier.prove( dataModel ) ) consumer.accept(model);
     		});
     	});
@@ -74,25 +74,25 @@ public class Units < DATA_MODEL extends DataModel < DATA_MODEL > > {
     	
     	var unitModel 	= new UnitModel< DATA_MODEL >();
     	
-    	unitModel.meta.timeStamp.create.setValue( time );
-    	unitModel.meta.timeStamp.update.setValue( time );
+    	unitModel.meta.timeStamp.create.set( time );
+    	unitModel.meta.timeStamp.update.set( time );
     	
-    	unitModel.data.setValue( dataModel );
+    	unitModel.data.set( dataModel );
     	
     	unitModelParser.toNode( unitModel, unitModelNode -> {
-    		newIdVar.setValue( add( unitModelNode ) );
+    		newIdVar.set( add( unitModelNode ) );
     	});
     	
-    	return newIdVar.getValue();
+    	return newIdVar.get();
     }
     
     public boolean updateUnit( UnitModel < DATA_MODEL > unitModel ) {
 		Var<Boolean> rv = new Var<Boolean>(false);
-    	unitModel.meta.timeStamp.update.setValue( DateUtil.nowAsTimeStamp() );
+    	unitModel.meta.timeStamp.update.set( DateUtil.nowAsTimeStamp() );
     	unitModelParser.toNode( unitModel, unitModelNode -> {
-       		rv.setValue( update( unitModelNode ) );
+       		rv.set( update( unitModelNode ) );
     	});
-		return rv.getValue();
+		return rv.get();
     }
 
     public void structureChangeForEachUnitModelNode( Consumer < SnPoint >  consumer ) {
@@ -106,15 +106,15 @@ public class Units < DATA_MODEL extends DataModel < DATA_MODEL > > {
     	Var<Boolean> rv = new Var<>( false );
 		try {
 			remove( unitID );
-			rv.setValue(true);
+			rv.set(true);
 		} catch ( IOException e ) {
             Logger.getLogger( Units.class.getName() ).log( Level.SEVERE, null, e );
 		} 
-		return rv.getValue();
+		return rv.get();
     }
 
     public void getUnitModel( IndexModel indexModel, Consumer < UnitModel < DATA_MODEL > > consumer ) {
-    	indexModel.refUnitID.getValue( refUnitID -> {
+    	indexModel.refUnitID.get( refUnitID -> {
     		this.getUnitModel( refUnitID, consumer );
     	});
     }
@@ -165,9 +165,9 @@ public class Units < DATA_MODEL extends DataModel < DATA_MODEL > > {
     public Map< String, String > createIdLabelMap() {
         Map< String, String > rv = new HashMap<>();
         forEachUnitModelNode( unode -> {
-            var unitID = unode.attributeLine.getValue("id") ;
-        	unode.deepLine.get( "meta", meta -> {
-        		meta.deepLine.get( "label", label -> {
+            var unitID = unode.attributes.getValue("id") ;
+        	unode.children.get( "meta", meta -> {
+        		meta.children.get( "label", label -> {
                     var unitLabel = label.value.get();
                     if( unitLabel != null ) rv.put( unitID, unitLabel );
         		});

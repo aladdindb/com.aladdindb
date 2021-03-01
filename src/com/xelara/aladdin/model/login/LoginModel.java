@@ -17,8 +17,8 @@ public class LoginModel implements DataModel < LoginModel > {
     }
     
     public LoginModel( String user, String pwd ) {
-        this.user	.setValue( user	);
-        this.pwd	.setValue( pwd	);
+        this.user	.set( user	);
+        this.pwd	.set( pwd	);
     }
 
 	@Override

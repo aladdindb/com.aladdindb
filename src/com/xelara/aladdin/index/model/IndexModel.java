@@ -15,7 +15,7 @@ public class IndexModel implements DataModel < IndexModel >  {
     }
     
     public IndexModel( String refUnitID ) {
-		this.refUnitID.setValue( refUnitID );
+		this.refUnitID.set( refUnitID );
     }
     
 	@Override

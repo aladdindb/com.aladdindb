@@ -42,7 +42,7 @@ public class Genie < DATA_MODEL extends DataModel < DATA_MODEL > > {
 	public void process( WishModel wish, Consumer < String > respConsumer ) {
 		this.wish = wish;
 		this.respConsumer = respConsumer;
-		wish.cmd.getValue( cmd -> {
+		wish.cmd.get( cmd -> {
 			switch( cmd ) {
 				case GET_BY_ID		: getUnitByID		(); break;
 				case GET_ALL		: getAllUnits		(); break;
@@ -59,7 +59,7 @@ public class Genie < DATA_MODEL extends DataModel < DATA_MODEL > > {
 	}
 
 	public void getUnitByID( Consumer < UnitModel < DATA_MODEL > > consumer ) {
-		wish.sbj.getValue( unitID -> {
+		wish.sbj.get( unitID -> {
 			units.getUnitModel ( unitID, consumer ); 
 		});
 	}
@@ -70,7 +70,7 @@ public class Genie < DATA_MODEL extends DataModel < DATA_MODEL > > {
 	}
 
     public void removeUnit() {
-		wish.sbj.getValue( wishSbj -> {
+		wish.sbj.get( wishSbj -> {
 			boolean rv = units.removeUnit( wishSbj );
 			respConsumer.accept( Boolean.toString(rv) );
 		});
@@ -78,32 +78,32 @@ public class Genie < DATA_MODEL extends DataModel < DATA_MODEL > > {
 
     public String addUnit() {
     	Var < String > rv = new Var<> ();
-		wish.object.getValue( unitXmlStr -> {
+		wish.object.get( unitXmlStr -> {
 			XML.parse( unitXmlStr, unitNode -> {
 				unitParser.fromNode( unitNode, unit -> {
-					unit.data.getValue( dataModel -> {
+					unit.data.get( dataModel -> {
 						String newID = units.addUnit( dataModel ) ;
-						rv.setValue ( newID );
+						rv.set ( newID );
 						respConsumer.accept( newID );
 					});
 				});
 			});
 		});
-		return rv.getValue ();
+		return rv.get ();
     }
 
     public UnitModel < DATA_MODEL > updateUnit() { 
     	Var < UnitModel < DATA_MODEL > > rv2 = new Var<> ();
-		wish.object.getValue( unitXmlStr -> {
+		wish.object.get( unitXmlStr -> {
 			XML.parse( unitXmlStr, unitNode -> {
 				unitParser.fromNode( unitNode, unit -> {
-					rv2.setValue ( unit );
+					rv2.set ( unit );
 					boolean rv = units.updateUnit( unit );
 					respConsumer.accept( Boolean.toString( rv ) );
 				});
 			});
 		});
-		return rv2.getValue ();
+		return rv2.get ();
     }
 
     public void parseUnitList() {
