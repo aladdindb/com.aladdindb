@@ -15,9 +15,9 @@ import com.xelara.aladdin.unit.model.UnitListModel;
 import com.xelara.aladdin.unit.model.UnitListModelParser;
 import com.xelara.aladdin.unit.model.UnitModel;
 import com.xelara.aladdin.unit.model.UnitModelParser;
+import com.xelara.core.util.Var;
 import com.xelara.aladdin.unit.model.DataModel;
 import com.xelara.aladdin.unit.model.DataModelParser;
-import com.xelara.core.Var;
 import com.xelara.structure.xml.XML;
 
 
@@ -80,7 +80,7 @@ public class Genie < DATA_MODEL extends DataModel < DATA_MODEL > > {
     	Var < String > rv = new Var<> ();
 		wish.object.get( unitXmlStr -> {
 			XML.parse( unitXmlStr, unitNode -> {
-				unitParser.fromNode( unitNode, unit -> {
+				unitParser.toModel( unitNode, unit -> {
 					unit.data.get( dataModel -> {
 						String newID = units.addUnit( dataModel ) ;
 						rv.set ( newID );
@@ -96,7 +96,7 @@ public class Genie < DATA_MODEL extends DataModel < DATA_MODEL > > {
     	Var < UnitModel < DATA_MODEL > > rv2 = new Var<> ();
 		wish.object.get( unitXmlStr -> {
 			XML.parse( unitXmlStr, unitNode -> {
-				unitParser.fromNode( unitNode, unit -> {
+				unitParser.toModel( unitNode, unit -> {
 					rv2.set ( unit );
 					boolean rv = units.updateUnit( unit );
 					respConsumer.accept( Boolean.toString( rv ) );

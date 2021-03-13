@@ -18,9 +18,9 @@ public class MetaModelParser extends DataModelParser<MetaModel> {
 	}
 
 	@Override
-	public MetaModel fromNode( SnPoint src, MetaModel target ) {
-		label		.fromParentNode( src, target.label		);
-		timeStamp	.fromParentNode( src, target.timeStamp );
+	public MetaModel toModel( SnPoint src, MetaModel target ) {
+		label		.toModelFromParent( src, target.label		);
+		timeStamp	.toModelFromParent( src, target.timeStamp );
 		return target;
 	}
 

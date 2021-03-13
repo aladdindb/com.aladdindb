@@ -1,6 +1,6 @@
 package com.xelara.aladdin.unit.model;
 
-import com.xelara.core.Var;
+import com.xelara.core.util.Var;
 
 /**
  *

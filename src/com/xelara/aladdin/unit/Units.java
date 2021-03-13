@@ -15,9 +15,9 @@ import com.xelara.aladdin.unit.model.DataModelParser;
 import com.xelara.aladdin.unit.model.UnitModel;
 import com.xelara.aladdin.unit.model.UnitModelParser;
 import com.xelara.aladdin.verifier.Verifier;
-import com.xelara.core.DateUtil;
-import com.xelara.core.Var;
+import com.xelara.core.Xlr;
 import com.xelara.core.io.Filess;
+import com.xelara.core.util.Var;
 import com.xelara.structure.sn.SnPoint;
 
 /**
@@ -42,7 +42,7 @@ public class Units < DATA_MODEL extends DataModel < DATA_MODEL > > {
 
     public void forEach( Consumer < UnitModel < DATA_MODEL > > consumer ) {
         forEachUnitModelNode( unitModelNode -> {
-            unitModelParser.fromNode( unitModelNode,  consumer :: accept );
+            unitModelParser.toModel( unitModelNode,  consumer :: accept );
         });
     }
 
@@ -62,20 +62,21 @@ public class Units < DATA_MODEL extends DataModel < DATA_MODEL > > {
     }
     
     /**
-     * if( OK ) { return newID } else { NULL }
+     * return  OK ? newID : NULL 
      * 
      * @param dbUnit
      * @return
      */
     public String addUnit( DATA_MODEL dataModel ) {
+    	
     	Var<String> newIdVar = new Var<>();
     	
-    	var time 	= DateUtil.nowAsTimeStamp();
+    	String timeStamp = Xlr.zonedDateTime.timeStamp();
     	
-    	var unitModel 	= new UnitModel< DATA_MODEL >();
+    	var unitModel = new UnitModel< DATA_MODEL >();
     	
-    	unitModel.meta.timeStamp.create.set( time );
-    	unitModel.meta.timeStamp.update.set( time );
+    	unitModel.meta.timeStamp.create.set( timeStamp );
+    	unitModel.meta.timeStamp.update.set( timeStamp );
     	
     	unitModel.data.set( dataModel );
     	
@@ -88,7 +89,7 @@ public class Units < DATA_MODEL extends DataModel < DATA_MODEL > > {
     
     public boolean updateUnit( UnitModel < DATA_MODEL > unitModel ) {
 		Var<Boolean> rv = new Var<Boolean>(false);
-    	unitModel.meta.timeStamp.update.set( DateUtil.nowAsTimeStamp() );
+    	unitModel.meta.timeStamp.update.set( Xlr.zonedDateTime.timeStamp() );
     	unitModelParser.toNode( unitModel, unitModelNode -> {
        		rv.set( update( unitModelNode ) );
     	});
@@ -121,7 +122,7 @@ public class Units < DATA_MODEL extends DataModel < DATA_MODEL > > {
 
     public void getUnitModel( String unitID, Consumer < UnitModel < DATA_MODEL > > consumer ) {
 		get( unitID, unitNode -> {
-            unitModelParser.fromNode( unitNode, consumer :: accept );
+            unitModelParser.toModel( unitNode, consumer :: accept );
 		});
     } 
 

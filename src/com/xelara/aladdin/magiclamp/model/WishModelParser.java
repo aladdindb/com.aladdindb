@@ -3,7 +3,7 @@ package com.xelara.aladdin.magiclamp.model;
 import com.xelara.aladdin.unit.model.DataModelParser;
 import com.xelara.structure.sn.SnPoint;
 import com.xelara.structure.sn.props.SnValueType;
-import com.xelara.structure.types.SnParser;
+import com.xelara.structure.types.SnAttributeAccess;
 import com.xelara.structure.xml.XML;
 
 /**
@@ -38,14 +38,14 @@ public class WishModelParser extends DataModelParser < WishModel > {
     //****************************************************************
 
     @Override
-    public WishModel fromNode( SnPoint snPoint, WishModel model ) {
+    public WishModel toModel( SnPoint snPoint, WishModel model ) {
     
-    	var parse = new SnParser( snPoint );
+    	var parse = new SnAttributeAccess( snPoint );
     	
-        parse._str.get( ATR.invokeID		, model.invokeID 	);
-        parse._str.get( ATR.cmd	 		, model.cmd 		);
-        parse._str.get( ATR.sbj			, model.sbj 		);
-        parse._str.get( ATR.userID		, model.userID 		);
+        parse.asStr.get( ATR.invokeID		, model.invokeID 	);
+        parse.asStr.get( ATR.cmd	 		, model.cmd 		);
+        parse.asStr.get( ATR.sbj			, model.sbj 		);
+        parse.asStr.get( ATR.userID		, model.userID 		);
         
         snPoint.children.snBottom.get( objectNode -> {
         	XML.parse( objectNode, model.object :: set );
@@ -57,12 +57,12 @@ public class WishModelParser extends DataModelParser < WishModel > {
     @Override
     public SnPoint toNode( WishModel model, SnPoint snPoint ) {
         
-    	var parse = new SnParser( snPoint );
+    	var parse = new SnAttributeAccess( snPoint );
 
-    	parse._str.set( ATR.invokeID 		,model.invokeID	);
-    	parse._str.set( ATR.cmd 			,model.cmd 		);
-    	parse._str.set( ATR.sbj 			,model.sbj 		);
-    	parse._str.set( ATR.userID 		,model.userID	);
+    	parse.asStr.set( ATR.invokeID 		,model.invokeID	);
+    	parse.asStr.set( ATR.cmd 			,model.cmd 		);
+    	parse.asStr.set( ATR.sbj 			,model.sbj 		);
+    	parse.asStr.set( ATR.userID 		,model.userID	);
 
 //        snPoint.valueType.set( SnValueType.SINGLE_LINE );
 

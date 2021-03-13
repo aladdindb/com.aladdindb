@@ -43,9 +43,9 @@ public final class UnitListModelParser <
 	
 
 	@ Override
-	public UnitListModel < DATA_MODEL > fromNode( SnPoint src, UnitListModel < DATA_MODEL > target ) {
+	public UnitListModel < DATA_MODEL > toModel( SnPoint src, UnitListModel < DATA_MODEL > target ) {
     	src.children.forEach( unode -> {
-    		unitModelParser.fromNode( unode, target :: add );
+    		unitModelParser.toModel( unode, target :: add );
     	});
 		return target ;
 	}

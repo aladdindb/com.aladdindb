@@ -1,7 +1,7 @@
 package com.xelara.aladdin.magiclamp.model;
 
 import com.xelara.aladdin.unit.model.DataModel;
-import com.xelara.core.Var;
+import com.xelara.core.util.Var;
 
 /**
  *

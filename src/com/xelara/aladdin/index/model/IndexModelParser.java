@@ -3,7 +3,7 @@ package com.xelara.aladdin.index.model;
 import com.xelara.aladdin.unit.model.DataModelParser;
 import com.xelara.structure.sn.SnPoint;
 import com.xelara.structure.sn.props.SnValueType;
-import com.xelara.structure.types.SnParser;
+import com.xelara.structure.types.SnAttributeAccess;
 
 /**
  *
@@ -37,10 +37,10 @@ public class IndexModelParser extends DataModelParser < IndexModel > {
     //****************************************************************
 
     @Override
-    public IndexModel fromNode( SnPoint node, IndexModel model ) {
-    	var parse = new SnParser( node );
+    public IndexModel toModel( SnPoint node, IndexModel model ) {
+    	var parse = new SnAttributeAccess( node );
     	
-        parse._str.get( ATR.refUnitID, model.refUnitID );
+        parse.asStr.get( ATR.refUnitID, model.refUnitID );
         
         return model;
     }
@@ -49,9 +49,9 @@ public class IndexModelParser extends DataModelParser < IndexModel > {
     @Override
     public SnPoint toNode( IndexModel model, SnPoint node ) {
         
-    	var parse = new SnParser( node );
+    	var parse = new SnAttributeAccess( node );
     	
-        parse._str.set( ATR.refUnitID  	, model.refUnitID   );
+        parse.asStr.set( ATR.refUnitID  	, model.refUnitID   );
         
         node.valueType.set( SnValueType.SINGLE_LINE );
         

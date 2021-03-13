@@ -88,14 +88,14 @@ public  class MagicLamp < DATA_MODEL extends DataModel < DATA_MODEL > > {
     public void forEachUnit( Consumer< UnitModel< DATA_MODEL> > consumer ) {
         var wish = createWish( GET_ALL, "" );
         forEachUnit(wish, unitNode -> {
-           	consumer.accept( unitModelParser.fromNode( unitNode ) );
+           	consumer.accept( unitModelParser.toModel( unitNode ) );
         });
     }
     
     public void getUnit( String unitID, Consumer< UnitModel< DATA_MODEL> > consumer ) {
         var wish = createWish( GET_BY_ID, unitID );
         getUnit( wish, unitNode -> {
-        	unitModelParser.fromNode( unitNode, consumer );
+        	unitModelParser.toModel( unitNode, consumer );
         });
     }
     

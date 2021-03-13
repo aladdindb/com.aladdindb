@@ -1,7 +1,7 @@
 package com.xelara.aladdin.unit.model;
 
-public interface DataModel < DATA_MODEL  > {
+public interface DataModel < T  > {
 	
-	public void fill( DATA_MODEL model ); 
+	public void fill( T model ); 
 
 }

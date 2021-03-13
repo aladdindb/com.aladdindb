@@ -2,7 +2,7 @@ package com.xelara.aladdin.unit.model;
 
 import com.xelara.structure.sn.SnPoint;
 import com.xelara.structure.sn.props.SnValueType;
-import com.xelara.structure.types.SnParser;
+import com.xelara.structure.types.SnAttributeAccess;
 
 public class TimeStampModelParser extends DataModelParser< TimeStampModel > {
 
@@ -18,21 +18,21 @@ public class TimeStampModelParser extends DataModelParser< TimeStampModel > {
 	}
 
 	@Override
-	public TimeStampModel fromNode( SnPoint node, TimeStampModel model ) {
-    	var parse = new SnParser( node );
+	public TimeStampModel toModel( SnPoint node, TimeStampModel model ) {
+    	var parse = new SnAttributeAccess( node );
     	
-    	parse._str.get( ATR.create	, model.create 	);
-    	parse._str.get( ATR.update	, model.update	);
+    	parse.asStr.get( ATR.create	, model.create 	);
+    	parse.asStr.get( ATR.update	, model.update	);
     	
 		return model;
 	}
 
 	@Override
 	public SnPoint toNode( TimeStampModel model, SnPoint node ) {
-    	var parse = new SnParser( node );
+    	var parse = new SnAttributeAccess( node );
     	
-    	parse._str.set( ATR.create	, model.create );
-    	parse._str.set( ATR.update	, model.update );
+    	parse.asStr.set( ATR.create	, model.create );
+    	parse.asStr.set( ATR.update	, model.update );
     	
 		node.valueType.set( SnValueType.SINGLE_LINE);
 		

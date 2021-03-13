@@ -4,8 +4,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.function.Consumer;
 
-import com.xelara.core.IdHandler;
 import com.xelara.core.io.Filess;
+import com.xelara.core.util.IdHandler;
 import com.xelara.structure.sn.SnPoint;
 import com.xelara.structure.xml.XML;
 

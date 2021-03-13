@@ -37,7 +37,7 @@ public class LabelModelParser extends DataModelParser < LabelModel > {
     //****************************************************************
 
     @Override
-    public LabelModel fromNode( SnPoint src, LabelModel target ) {
+    public LabelModel toModel( SnPoint src, LabelModel target ) {
         
         target.set( src.value.get() );
         

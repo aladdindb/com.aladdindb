@@ -37,7 +37,7 @@ public class TextModelParser extends DataModelParser < TextModel > {
     //****************************************************************
 
     @Override
-    public TextModel fromNode( SnPoint src, TextModel target ) {
+    public TextModel toModel( SnPoint src, TextModel target ) {
         
         target.set( src.value.get() );
         

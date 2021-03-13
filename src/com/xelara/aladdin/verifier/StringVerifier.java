@@ -3,7 +3,7 @@ package com.xelara.aladdin.verifier;
 import java.util.function.Consumer;
 
 import com.xelara.aladdin.unit.model.DataModel;
-import com.xelara.core.Var;
+import com.xelara.core.util.Var;
 
 public abstract class StringVerifier < DATA_MODEL extends DataModel<DATA_MODEL> > implements Verifier< DATA_MODEL > {
 
