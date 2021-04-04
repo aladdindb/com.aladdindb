@@ -9,7 +9,10 @@ import com.xelara.core.util.IdHandler;
 import com.xelara.structure.sn.SnPoint;
 import com.xelara.structure.xml.XML;
 
-
+/**
+ * 
+ * @author Macit Kandemir
+ */
 public class UnitFile {
 	
 	public final Path path;

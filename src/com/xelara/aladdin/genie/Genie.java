@@ -23,19 +23,19 @@ import com.xelara.structure.xml.XML;
 
 public class Genie < DATA_MODEL extends DataModel < DATA_MODEL > > {
 	
-	private final	UnitModelParser 		< DATA_MODEL > unitParser;
-	private final 	UnitListModel			< DATA_MODEL > unitList;
-	public final 	UnitListModelParser		< DATA_MODEL > unitListParser;
+	private final	UnitModelParser 		< DATA_MODEL > unitModelParser;
+	private final 	UnitListModel			< DATA_MODEL > unitListModel;
+	public final 	UnitListModelParser		< DATA_MODEL > unitListModelParser;
 	public final	Units					< DATA_MODEL > units;
 	
 	public WishModel			wish;
 	public Consumer < String > 	respConsumer;
 	
 	public Genie( Path dbPath, DataModelParser < DATA_MODEL > dataModelParser) {
-		this.unitParser			= new UnitModelParser 		< DATA_MODEL > ( dataModelParser );
-		this.unitList			= new UnitListModel 		< DATA_MODEL > ();
-		this.unitListParser 	= new UnitListModelParser	< DATA_MODEL > ( dataModelParser );
-		this.units				= new Units					< DATA_MODEL > ( dbPath, dataModelParser );
+		this.unitModelParser		= new UnitModelParser 		< DATA_MODEL > ( dataModelParser );
+		this.unitListModel			= new UnitListModel 		< DATA_MODEL > ();
+		this.unitListModelParser 	= new UnitListModelParser	< DATA_MODEL > ( dataModelParser );
+		this.units					= new Units					< DATA_MODEL > ( dbPath, dataModelParser );
 	}
     
 	
@@ -54,7 +54,7 @@ public class Genie < DATA_MODEL extends DataModel < DATA_MODEL > > {
 	}
 	
 	public void getUnitByID() {
-		getUnitByID( unitList::add);
+		getUnitByID( unitListModel::add);
 		parseUnitList();
 	}
 
@@ -65,7 +65,7 @@ public class Genie < DATA_MODEL extends DataModel < DATA_MODEL > > {
 	}
 
 	public void getAllUnits() {
-		units.forEach( unitList :: add );
+		units.forEach( unitListModel :: add );
 		parseUnitList();
 	}
 
@@ -80,7 +80,7 @@ public class Genie < DATA_MODEL extends DataModel < DATA_MODEL > > {
     	Var < String > rv = new Var<> ();
 		wish.object.get( unitXmlStr -> {
 			XML.parse( unitXmlStr, unitNode -> {
-				unitParser.toModel( unitNode, unit -> {
+				unitModelParser.toModel( unitNode, unit -> {
 					unit.data.get( dataModel -> {
 						String newID = units.addUnit( dataModel ) ;
 						rv.set ( newID );
@@ -96,7 +96,7 @@ public class Genie < DATA_MODEL extends DataModel < DATA_MODEL > > {
     	Var < UnitModel < DATA_MODEL > > rv2 = new Var<> ();
 		wish.object.get( unitXmlStr -> {
 			XML.parse( unitXmlStr, unitNode -> {
-				unitParser.toModel( unitNode, unit -> {
+				unitModelParser.toModel( unitNode, unit -> {
 					rv2.set ( unit );
 					boolean rv = units.updateUnit( unit );
 					respConsumer.accept( Boolean.toString( rv ) );
@@ -107,8 +107,8 @@ public class Genie < DATA_MODEL extends DataModel < DATA_MODEL > > {
     }
 
     public void parseUnitList() {
-		unitListParser.toNode( unitList, itemListNode -> {
-			XML.parse( itemListNode, respConsumer );
+		unitListModelParser.toNode( unitListModel, unitListNode -> {
+			XML.parse( unitListNode, respConsumer );
 		});
     }
     

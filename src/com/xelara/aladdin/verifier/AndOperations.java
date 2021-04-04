@@ -14,8 +14,8 @@ public class AndOperations < DATA_MODEL extends DataModel< DATA_MODEL > > implem
 		boolean rv = true;
 		int i = 0; 
 		do {
-			rv = this.verifierers[i].prove( model );
-			i++;
+			rv = this.verifierers[i++].prove( model );
+//			i++;
 		} while( i < this.verifierers.length && rv );
 		
 		return rv;

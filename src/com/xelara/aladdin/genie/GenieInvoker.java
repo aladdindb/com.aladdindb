@@ -10,14 +10,15 @@ import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
 import com.xelara.aladdin.magiclamp.MagicLamp;
+import com.xelara.aladdin.magiclamp.model.WishModel;
 import com.xelara.aladdin.magiclamp.model.WishModelParser;
 import com.xelara.aladdin.unit.model.DataModel;
+import com.xelara.core.util.Var;
 import com.xelara.structure.xml.XML;
 
 public class GenieInvoker {
 
-
-	private final HashMap < String , Genie < ? extends DataModel< ? > > >  genies = new HashMap <>();
+	public final GeniesMap genies = new GeniesMap();
 	
 	private final int port;
 	
@@ -26,23 +27,15 @@ public class GenieInvoker {
 	}
 	
     public void start() {
-		System.out.println("Genie invoker was properly started ;-)");
 		try ( var server = new ServerSocket( port ) ) {
             var pool = Executors.newFixedThreadPool( 20 );
 			while( true ) {
 				pool.execute ( new SocketIO( server.accept (), this ) );
+				System.out.println("Genie invoker was properly started ;-)");
 			}
 		} catch ( IOException e ) {
 			e.printStackTrace();
 		}
-    }
-    
-    public void putGenie( String invokeID , Genie < ? extends DataModel< ? > > genie ) {
-    	this.genies.put( invokeID, genie );
-    }
-    
-    public Genie < ? extends DataModel< ? > > invokeGenie( String invokeID) {
-    	return this.genies.get(invokeID);
     }
     
     /**
@@ -70,7 +63,9 @@ public class GenieInvoker {
                 var in 	= new Scanner		( socket.getInputStream		()  		);
         		var out = new PrintWriter	( socket.getOutputStream	(), true 	); 
             ){
-    	        while ( true ) {
+            	Var<Boolean> loop = new Var<>(true);
+    	        while ( loop.get() ) {
+    	        	loop.set( false );
     	        	/*
     	        	 * Befindet sich im Warte-Zustand, bis ein Wunsch angekommen ist.
     	        	 * Das bedeutet echtes warten. 
@@ -89,17 +84,16 @@ public class GenieInvoker {
     					req.append( inputLine + "\n" );
     	    		}
     				
-    				String reqStr = req.toString();
-
-    				if( reqStr != null && !reqStr.trim().isEmpty()) {
-    		        	processStart( reqStr, resp -> {
-    						out.println( resp 		);
-    						out.println( MagicLamp.EOCMD );
-    		        	});
-    				} else {
-    					out.println( MagicLamp.EOCMD );
-    					break;
-    				}
+    				this.receiveWish(req.toString(), out,  wishModel -> {
+						this.invoker.genies.get( wishModel, genie -> {
+    						genie.process( wishModel, resp -> {
+        						out.println( resp 		);
+        						out.println( MagicLamp.EOCMD );
+        						loop.set( true );
+    						});
+						});
+    				});
+    				
     	        }
     	        
     			System.out.println ( "Die Socket-Verbindung wurde vom Client beendet !!!" );
@@ -108,21 +102,21 @@ public class GenieInvoker {
     			System.out.println ( "Die Socket-Verbindung wurde unerwartet unterbrochen !!! " );
     			e.printStackTrace();
     		}
+            System.out.println("Bin draußen !!!");
         }
 
-        private void processStart( String wishStr, Consumer< String > respConsumer ) {
-        	if( wishStr != null ) {
-    			System.out.println( wishStr );
-    			XML.parse( wishStr, wishNode -> {
-    				new WishModelParser().toModel( wishNode, wishModel -> {
-    					wishModel.invokeID.get( invokeID -> {
-    						var genie = this.invoker.invokeGenie( invokeID );
-    						if( genie != null) genie.process( wishModel, respConsumer );
-    					});
-    				});
+        private void receiveWish( String reqStr, PrintWriter out,  Consumer < WishModel > wishConsumer ) throws IOException {
+			if( reqStr != null && !reqStr.trim().isEmpty()) {
+    			System.out.println( reqStr );
+    			XML.parse( reqStr, wishNode -> {
+    				new WishModelParser().toModel( wishNode, wishConsumer );
     			});
-        	}
+			} else {
+				out.println( MagicLamp.EOCMD );
+				throw new IOException();
+			}
         }
+        
     }
     
 }

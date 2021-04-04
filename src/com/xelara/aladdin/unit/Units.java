@@ -21,11 +21,8 @@ import com.xelara.core.util.Var;
 import com.xelara.structure.sn.SnPoint;
 
 /**
- *
- * @author Macit
  * 
- * @param <DUM>
- * @param <DUMP>
+ * @author Macit Kandemir
  */
 public class Units < DATA_MODEL extends DataModel < DATA_MODEL > > {
 
