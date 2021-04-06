@@ -2,6 +2,9 @@ package com.xelara.aladdin.magiclamp;
 
 public class Connection {
 	
+    private static Channel socket = null;
+	
+	
 	public final String	host;
 	public final int	port;
 	

@@ -2,6 +2,8 @@ module com.xelara.aladdin {
 	
     exports com.xelara.aladdin.magiclamp;
     exports com.xelara.aladdin.magiclamp.model;
+    exports com.xelara.aladdin.magiclamp.wishes;
+    exports com.xelara.aladdin.magiclamp.wishes.addunit;
     
     exports com.xelara.aladdin.genie;
     

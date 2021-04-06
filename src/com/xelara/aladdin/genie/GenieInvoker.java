@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.HashMap;
 import java.util.Scanner;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
@@ -12,8 +11,10 @@ import java.util.function.Consumer;
 import com.xelara.aladdin.magiclamp.MagicLamp;
 import com.xelara.aladdin.magiclamp.model.WishModel;
 import com.xelara.aladdin.magiclamp.model.WishModelParser;
-import com.xelara.aladdin.unit.model.DataModel;
+import com.xelara.aladdin.magiclamp.wishes.addunit.AddRemoteProcess;
+import com.xelara.aladdin.magiclamp.wishes.addunit.RemoteProcess;
 import com.xelara.core.util.Var;
+import com.xelara.structure.sn.SnPoint;
 import com.xelara.structure.xml.XML;
 
 public class GenieInvoker {
@@ -29,9 +30,9 @@ public class GenieInvoker {
     public void start() {
 		try ( var server = new ServerSocket( port ) ) {
             var pool = Executors.newFixedThreadPool( 20 );
+			System.out.println("Genie invoker was properly started ;-)");
 			while( true ) {
 				pool.execute ( new SocketIO( server.accept (), this ) );
-				System.out.println("Genie invoker was properly started ;-)");
 			}
 		} catch ( IOException e ) {
 			e.printStackTrace();
@@ -83,16 +84,36 @@ public class GenieInvoker {
     	    			if( inputLine.equals ( MagicLamp.EOCMD ) )break;
     					req.append( inputLine + "\n" );
     	    		}
-    				
-    				this.receiveWish(req.toString(), out,  wishModel -> {
-						this.invoker.genies.get( wishModel, genie -> {
-    						genie.process( wishModel, resp -> {
-        						out.println( resp 		);
-        						out.println( MagicLamp.EOCMD );
-        						loop.set( true );
-    						});
-						});
-    				});
+
+    	    		var reqStr = req.toString();
+    				if( reqStr != null && !reqStr.trim().isEmpty()) {
+    	    			System.out.println( reqStr );
+    	    			XML.parse( reqStr, wishNode -> {
+    	    				new BeforeWish(wishNode).getUnitGroupID( unitGroupID -> {
+    							this.invoker.genies.getGenie( unitGroupID, genie -> {
+    	    						genie.process( wishNode, resp -> {
+    	        						out.println( resp 		);
+    	        						out.println( MagicLamp.EOCMD );
+    	        						loop.set( true );
+    	    						});
+    							});
+    	    				});
+    	    			});
+    				} else {
+    					out.println( MagicLamp.EOCMD );
+    					throw new IOException();
+    				}
+    	    		
+//    	    		this.receiveWish2( req.toString(), out);
+//    				this.receiveWish(req.toString(), out,  wishModel -> {
+//						this.invoker.genies.get( wishModel, genie -> {
+//    						genie.process( wishModel, resp -> {
+//        						out.println( resp 		);
+//        						out.println( MagicLamp.EOCMD );
+//        						loop.set( true );
+//    						});
+//						});
+//    				});
     				
     	        }
     	        
@@ -105,18 +126,39 @@ public class GenieInvoker {
             System.out.println("Bin draußen !!!");
         }
 
-        private void receiveWish( String reqStr, PrintWriter out,  Consumer < WishModel > wishConsumer ) throws IOException {
-			if( reqStr != null && !reqStr.trim().isEmpty()) {
-    			System.out.println( reqStr );
-    			XML.parse( reqStr, wishNode -> {
-    				new WishModelParser().toModel( wishNode, wishConsumer );
-    			});
-			} else {
-				out.println( MagicLamp.EOCMD );
-				throw new IOException();
-			}
-        }
+//        private void receiveWish( String reqStr, PrintWriter out,  Consumer < WishModel > wishConsumer ) throws IOException {
+//			if( reqStr != null && !reqStr.trim().isEmpty()) {
+//    			System.out.println( reqStr );
+//    			XML.parse( reqStr, wishNode -> {
+//    				new WishModelParser().toModel( wishNode, wishConsumer );
+//    			});
+//			} else {
+//				out.println( MagicLamp.EOCMD );
+//				throw new IOException();
+//			}
+//        }
+
+//        private void receiveWish2( String reqStr, PrintWriter out ) throws IOException {
+//			if( reqStr != null && !reqStr.trim().isEmpty()) {
+//    			System.out.println( reqStr );
+//    			XML.parse( reqStr, wishNode -> {
+//    				new BeforeWish(wishNode).getUnitGroupID( unitGroupID -> {
+//						this.invoker.genies.getGenie( unitGroupID, genie -> {
+//    						genie.process( wishNode, resp -> {
+//        						out.println( resp 		);
+//        						out.println( MagicLamp.EOCMD );
+//        						loop.set( true );
+//    						});
+//						});
+//    				});
+//    			});
+//			} else {
+//				out.println( MagicLamp.EOCMD );
+//				throw new IOException();
+//			}
+//        }
         
     }
+    
     
 }

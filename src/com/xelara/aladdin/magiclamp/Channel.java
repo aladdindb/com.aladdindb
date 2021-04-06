@@ -4,16 +4,20 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class MagicLampSocket {
+public class Channel {
+	
+	public static final String BOR 		="x394gh856osrel215yc4you319";
+	public static final String EOCMD 	="x394gh856osrel215yc4you719";
 	
 	public Scanner			in;
 	public PrintWriter		out;
 	public Socket			socket;
 
-	public MagicLampSocket( String host, int port ) {
+	public Channel( String host, int port ) {
 		try {
 			System.out.println ( host + " : " + port );
 			socket 	= new Socket( host, port );
@@ -21,22 +25,23 @@ public class MagicLampSocket {
 			in 		= new Scanner( socket.getInputStream() );
 		} catch (IOException e) {
 			stop();
-			Logger.getLogger( MagicLampSocket.class.getName()).log( Level.SEVERE, "", e );
+			Logger.getLogger( Channel.class.getName()).log( Level.SEVERE, "", e );
 		}
 	}
 
-	public String sendWish( String wishStr ) {
+	
+	public String sendRequest( String wishStr ) {
 		
 		StringBuilder resp = new StringBuilder();
 		
 		out.println( wishStr );
-		out.println( MagicLamp.EOCMD );
+		out.println( EOCMD );
 
 		String inputLine, delim = "";
 		
 		while( in.hasNextLine () ) {
 			inputLine = in.nextLine ();
-			if( inputLine.equals ( MagicLamp.EOCMD ) )break;
+			if( inputLine.equals ( EOCMD ) )break;
 			resp.append( delim+inputLine );
 			delim = "\n";
 		}
@@ -51,9 +56,12 @@ public class MagicLampSocket {
 			if( in 		!= null) in		.close();
 			if( socket 	!= null) socket	.close();
 		} catch (IOException e) {
-			Logger.getLogger( MagicLampSocket.class.getName()).log( Level.SEVERE, "", e );
+			Logger.getLogger( Channel.class.getName()).log( Level.SEVERE, "", e );
 		}
 	}
 	
+	private static final boolean isNotEOF( String str ) {
+		return str != null && !str.equals( EOCMD ); 
+	}
 	
 }

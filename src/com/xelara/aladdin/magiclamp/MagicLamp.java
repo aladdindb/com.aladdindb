@@ -30,7 +30,7 @@ public  class MagicLamp < DATA_MODEL extends DataModel < DATA_MODEL > > {
 	
 	private final Connection connection;
 	
-    private static MagicLampSocket socket = null;
+    private static Channel socket = null;
 	
 	public final	UnitModelParser< DATA_MODEL >	unitModelParser;
 	
@@ -49,8 +49,8 @@ public  class MagicLamp < DATA_MODEL extends DataModel < DATA_MODEL > > {
     //					
     //************************************************************
 
-    public void getSocket( Consumer< MagicLampSocket > consumer ) {
-		if(socket == null) socket = new MagicLampSocket( connection.host, connection.port );
+    public void getSocket( Consumer< Channel > consumer ) {
+		if(socket == null) socket = new Channel( connection.host, connection.port );
 		consumer.accept(socket);
 	}
 	
@@ -138,7 +138,7 @@ public  class MagicLamp < DATA_MODEL extends DataModel < DATA_MODEL > > {
     				XML.parse( wishNode,  wishStr -> {
     					System.out.println("Magic-Lamp:");
     					System.out.println( wishStr );
-    					String resp = magicLampSocket.sendWish( wishStr );
+    					String resp = magicLampSocket.sendRequest( wishStr );
     					if( resp != null )respConsumer.accept(resp);
     				});
     			});

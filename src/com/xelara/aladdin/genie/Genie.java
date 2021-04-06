@@ -10,55 +10,68 @@ import java.nio.file.Path;
 import java.util.function.Consumer;
 
 import com.xelara.aladdin.magiclamp.model.WishModel;
+import com.xelara.aladdin.magiclamp.wishes.addunit.AddRemoteProcess;
+import com.xelara.aladdin.magiclamp.wishes.addunit.RemoteProcess;
 import com.xelara.aladdin.unit.Units;
+import com.xelara.aladdin.unit.model.DataModel;
+import com.xelara.aladdin.unit.model.DataModelParser;
 import com.xelara.aladdin.unit.model.UnitListModel;
 import com.xelara.aladdin.unit.model.UnitListModelParser;
 import com.xelara.aladdin.unit.model.UnitModel;
 import com.xelara.aladdin.unit.model.UnitModelParser;
 import com.xelara.core.util.Var;
-import com.xelara.aladdin.unit.model.DataModel;
-import com.xelara.aladdin.unit.model.DataModelParser;
+import com.xelara.structure.sn.SnPoint;
 import com.xelara.structure.xml.XML;
 
 
-public class Genie < DATA_MODEL extends DataModel < DATA_MODEL > > {
+public class Genie < UGM extends DataModel < UGM > > { 
 	
-	private final	UnitModelParser 		< DATA_MODEL > unitModelParser;
-	private final 	UnitListModel			< DATA_MODEL > unitListModel;
-	public final 	UnitListModelParser		< DATA_MODEL > unitListModelParser;
-	public final	Units					< DATA_MODEL > units;
+	
+	private final	UnitModelParser 		< UGM > unitModelParser;
+	private final 	UnitListModel			< UGM > unitListModel;
+	public final 	UnitListModelParser		< UGM > unitListModelParser;
+	public final	Units					< UGM > units;
+	public final	DataModelParser 		< UGM > dataModelParser;
 	
 	public WishModel			wish;
 	public Consumer < String > 	respConsumer;
 	
-	public Genie( Path dbPath, DataModelParser < DATA_MODEL > dataModelParser) {
-		this.unitModelParser		= new UnitModelParser 		< DATA_MODEL > ( dataModelParser );
-		this.unitListModel			= new UnitListModel 		< DATA_MODEL > ();
-		this.unitListModelParser 	= new UnitListModelParser	< DATA_MODEL > ( dataModelParser );
-		this.units					= new Units					< DATA_MODEL > ( dbPath, dataModelParser );
+	
+	public Genie( Path dbPath, DataModelParser < UGM > dataModelParser ) {
+		this.dataModelParser		= dataModelParser;
+		this.unitModelParser		= new UnitModelParser 		< UGM > ( dataModelParser );
+		this.unitListModel			= new UnitListModel 		< UGM > ();
+		this.unitListModelParser 	= new UnitListModelParser	< UGM > ( dataModelParser );
+		this.units					= new Units					< UGM > ( dbPath, dataModelParser );
 	}
     
-	
-	public void process( WishModel wish, Consumer < String > respConsumer ) {
-		this.wish = wish;
-		this.respConsumer = respConsumer;
-		wish.cmd.get( cmd -> {
-			switch( cmd ) {
-				case GET_BY_ID		: getUnitByID		(); break;
-				case GET_ALL		: getAllUnits		(); break;
-				case ADD			: addUnit			();	break;
-				case UPDATE			: updateUnit		(); break;
-				case REMOVE			: removeUnit		(); break;
-			}
-		});
+	public void process( SnPoint cmdSnPoint, Consumer < String > respConsumer ) {
+		
+		var cmd = getCommand(cmdSnPoint);
+		cmd.process( cmdSnPoint, respConsumer );
+		
 	}
+	
+//	public void process( WishModel wish, Consumer < String > respConsumer ) {
+//		this.wish = wish;
+//		this.respConsumer = respConsumer;
+//		wish.cmd.get( cmd -> {
+//			switch( cmd ) {
+//				case GET_BY_ID		: getUnitByID		(); break;
+//				case GET_ALL		: getAllUnits		(); break;
+//				case ADD			: addUnit			();	break;
+//				case UPDATE			: updateUnit		(); break;
+//				case REMOVE			: removeUnit		(); break;
+//			}
+//		});
+//	}
 	
 	public void getUnitByID() {
 		getUnitByID( unitListModel::add);
 		parseUnitList();
 	}
 
-	public void getUnitByID( Consumer < UnitModel < DATA_MODEL > > consumer ) {
+	public void getUnitByID( Consumer < UnitModel < UGM > > consumer ) {
 		wish.sbj.get( unitID -> {
 			units.getUnitModel ( unitID, consumer ); 
 		});
@@ -92,8 +105,8 @@ public class Genie < DATA_MODEL extends DataModel < DATA_MODEL > > {
 		return rv.get ();
     }
 
-    public UnitModel < DATA_MODEL > updateUnit() { 
-    	Var < UnitModel < DATA_MODEL > > rv2 = new Var<> ();
+    public UnitModel < UGM > updateUnit() { 
+    	Var < UnitModel < UGM > > rv2 = new Var<> ();
 		wish.object.get( unitXmlStr -> {
 			XML.parse( unitXmlStr, unitNode -> {
 				unitModelParser.toModel( unitNode, unit -> {
@@ -112,6 +125,16 @@ public class Genie < DATA_MODEL extends DataModel < DATA_MODEL > > {
 		});
     }
     
+    private RemoteProcess getCommand( SnPoint cmdReqSnPoint ) throws IllegalArgumentException {
+		return switch( cmdReqSnPoint.key.get() ) {
+		
+			case "wish:addUnit" -> new AddRemoteProcess<UGM>( this );
+			
+			default -> throw new IllegalArgumentException("Unexpected value: " + cmdReqSnPoint.key.get() ); 
+		}; 
+    	
+    }
+	
     
     
 }
