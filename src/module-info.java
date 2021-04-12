@@ -1,21 +1,26 @@
 module com.xelara.aladdin {
 	
-    exports com.xelara.aladdin.magiclamp;
-    exports com.xelara.aladdin.magiclamp.model;
-    exports com.xelara.aladdin.magiclamp.wishes;
-    exports com.xelara.aladdin.magiclamp.wishes.addunit;
-    
-    exports com.xelara.aladdin.genie;
-    
-    exports com.xelara.aladdin.unit;
-    exports com.xelara.aladdin.unit.model;
-    exports com.xelara.aladdin.verifier;
+    exports com.xelara.aladdin.client;
+    exports com.xelara.aladdin.client.req.add;
+    exports com.xelara.aladdin.client.req.get.byid;
+    exports com.xelara.aladdin.client.req.update;
 
-    exports com.xelara.aladdin.model.login;        
-    exports com.xelara.aladdin.model.server;        
-    exports com.xelara.aladdin.model.text;        
+    exports com.xelara.aladdin.server;
     
-    exports com.xelara.aladdin.index.model;
+    exports com.xelara.aladdin.server.resp.add;
+    exports com.xelara.aladdin.server.resp.getbyid;
+    exports com.xelara.aladdin.server.resp.update; 
+    exports com.xelara.aladdin.server.resp.remove; 
+
+    exports com.xelara.aladdin.core;
+    exports com.xelara.aladdin.core.units;
+    exports com.xelara.aladdin.core.units.models;
+    
+    exports com.xelara.aladdin.core.filter;
+
+    exports com.xelara.aladdin.core.models.login;        
+    exports com.xelara.aladdin.core.models.server;        
+    exports com.xelara.aladdin.core.models.text;        
     
 	requires transitive com.xelara.structure;
 	
