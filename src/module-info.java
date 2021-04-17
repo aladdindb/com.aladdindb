@@ -3,12 +3,15 @@ module com.xelara.aladdin {
     exports com.xelara.aladdin.client;
     exports com.xelara.aladdin.client.req.add;
     exports com.xelara.aladdin.client.req.get.byid;
+    exports com.xelara.aladdin.client.req.get.all;
     exports com.xelara.aladdin.client.req.update;
 
     exports com.xelara.aladdin.server;
     
     exports com.xelara.aladdin.server.resp.add;
-    exports com.xelara.aladdin.server.resp.getbyid;
+    exports com.xelara.aladdin.server.resp.get.byid;
+    exports com.xelara.aladdin.server.resp.get.all;
+    exports com.xelara.aladdin.server.resp.get.all.block;
     exports com.xelara.aladdin.server.resp.update; 
     exports com.xelara.aladdin.server.resp.remove; 
 

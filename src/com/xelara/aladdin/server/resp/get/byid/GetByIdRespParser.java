@@ -1,4 +1,4 @@
-package com.xelara.aladdin.server.resp.getbyid;
+package com.xelara.aladdin.server.resp.get.byid;
 
 import com.xelara.aladdin.core.DataModel;
 import com.xelara.aladdin.core.DataParser;

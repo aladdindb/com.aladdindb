@@ -5,7 +5,7 @@ import com.xelara.aladdin.client.req.ReqProcess;
 import com.xelara.aladdin.core.DataModel;
 import com.xelara.aladdin.core.units.models.Unit;
 import com.xelara.aladdin.core.units.models.UnitParser;
-import com.xelara.aladdin.server.resp.getbyid.GetByIdRespParser;
+import com.xelara.aladdin.server.resp.get.byid.GetByIdRespParser;
 import com.xelara.structure.xml.XML;
 
 

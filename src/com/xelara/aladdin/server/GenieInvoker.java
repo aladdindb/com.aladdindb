@@ -6,6 +6,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 import java.util.concurrent.Executors;
+import java.util.function.Consumer;
 
 import com.xelara.aladdin.client.Channel;
 import com.xelara.core.util.Var;
@@ -26,7 +27,13 @@ public class GenieInvoker {
             var pool = Executors.newFixedThreadPool( 20 );
 			System.out.println("Genie invoker was properly started ;-)");
 			while( true ) {
+				System.out.println( "--------------------");
+				System.out.println( " pool.execute Beginn ");
+				System.out.println( "--------------------");
 				pool.execute ( new SocketIO( serverSocket.accept (), this ) );
+				System.out.println( "--------------------");
+				System.out.println( " pool.execute End ");
+				System.out.println( "--------------------");
 			}
 		} catch ( IOException e ) {
 			e.printStackTrace();
@@ -59,57 +66,76 @@ public class GenieInvoker {
         		var out = new PrintWriter	( socket.getOutputStream	(), true 	); 
             ){
             	Var<Boolean> loop = new Var<>(true);
+            	
+				System.out.println( "----------------------");
+            	System.out.println( "   Start SocketIO" );
+				System.out.println( "----------------------");
+            	
     	        while ( loop.get() ) {
+    	        	
+    				System.out.println( "----------------------");
+    	        	System.out.println( "    loop-beginn" );
+    				System.out.println( "----------------------");
+    				
     	        	loop.set( false );
-    	        	/*
-    	        	 * Befindet sich im Warte-Zustand, bis ein Wunsch angekommen ist.
-    	        	 * Das bedeutet echtes warten. 
-    	        	 */
-    		        String 			inputLine;
-    	    		StringBuilder 	req = new StringBuilder();
-
-    	    		/*
-    	    		 * Hier wird der angekommene Wunsch, Zeile für Zeile gelesen.
-    	    		 * Erst wenn das Zeilen-Ende erreciht wird, kann der Wunsch
-    	    		 * weiter-Verarbeitet werden.  
-    	    		 */
-    	    		while( in.hasNextLine () ) {
-    	    			inputLine = in.nextLine ();
-    	    			if( inputLine.equals ( Channel.END_OF_DATA ) )break;
-    					req.append( inputLine + "\n" );
-    	    		}
-
-    	    		var reqStr = req.toString();
-    	    		
-    				if( reqStr != null && !reqStr.trim().isEmpty()) {
+    	        	
+    	    		this.getReqStr( in, reqStr -> {
     	    			System.out.println( reqStr );
-    	    			XML.parse( reqStr, reqNode -> {
-    	    				new ReqNode(reqNode).getUnitGroupID( unitGroupID -> {
-    							this.invoker.magicLamp.getGenie( unitGroupID, genie -> {
-    								genie.reqNode		.set( reqNode );
-    								genie.respConsumer	.set( respStr -> {
-    	        						out.println( respStr 		);
-    	        						out.println( Channel.END_OF_DATA );
-    	        						loop.set( true );
-    								});
-    								genie.run();
-    							});
-    	    				});
+    	    			
+    	    			this.getGenie( reqStr, genie -> {
+    	    				
+							genie.respConsumer.set( respStr -> {
+        						out.println( respStr 		);
+        						out.println( Channel.END_OF_DATA );
+        						loop.set( true );
+							});
+							
+							genie.run();
+							
     	    			});
-    				} else {
-    					out.println( Channel.END_OF_DATA );
-    					throw new IOException();
-    				}
-    	    		
+    	    		});
+    				
     	        }
     	        
-    			System.out.println ( "Die Socket-Verbindung wurde vom Client beendet !!!" );
+				System.out.println( "----------------------");
+            	System.out.println( "     Stop SocketIO" );
+				System.out.println( "----------------------");
     	        
-    		} catch (IOException e) {
-    			System.out.println ( "Die Socket-Verbindung wurde unerwartet unterbrochen !!! " );
+    		} catch ( IOException e ) {
+    			System.out.println ( "SocketIO-Exception :-(" );
     		}
-            System.out.println("Bin draußen !!!");
+            
+            System.out.println("By by ;-) ");
         }
+        
+		/*
+		 * Hier wird das angekommene req, Zeile für Zeile gelesen.
+		 * Erst wenn das Zeilen-Ende erreciht wird, kann das req
+		 * weiter-Verarbeitet werden.  
+		 */
+        private void getReqStr( Scanner in,  Consumer < String > consumer ) {
+    		StringBuilder 	req = new StringBuilder();
+    		String 			inLine;
+    		while( in.hasNextLine () ) {
+    			inLine = in.nextLine ();
+    			if( inLine.equals ( Channel.END_OF_DATA ) )break;
+				req.append( inLine + "\n" );
+    		}
+    		var reqStr = req.toString();
+			if( reqStr != null && !reqStr.trim().isEmpty()) consumer.accept( reqStr );
+        }
+        
+        private void getGenie( String reqStr, Consumer < Genie<?> > consumer ) {
+			XML.parse( reqStr, reqNode -> {
+				new ReqNode(reqNode).getUnitGroupID( unitGroupID -> {
+					this.invoker.magicLamp.getGenie( unitGroupID, genie -> {
+						genie.reqNode.set( reqNode );
+						consumer.accept( genie );
+					});
+				});
+			});
+        }
+        
     }
     
 }

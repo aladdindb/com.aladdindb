@@ -7,7 +7,7 @@ import com.xelara.aladdin.core.DataModel;
 import com.xelara.aladdin.core.units.models.Unit;
 import com.xelara.aladdin.core.units.models.UnitParser;
 import com.xelara.aladdin.server.resp.add.AddRespParser;
-import com.xelara.aladdin.server.resp.getbyid.GetByIdRespParser;
+import com.xelara.aladdin.server.resp.get.byid.GetByIdRespParser;
 import com.xelara.core.util.Var;
 import com.xelara.structure.xml.XML;
 

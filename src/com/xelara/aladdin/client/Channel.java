@@ -20,9 +20,9 @@ public class Channel {
 	public Channel( String host, int port ) {
 		try {
 			System.out.println ( host + " : " + port );
-			socket 	= new Socket( host, port );
-			out 	= new PrintWriter( socket.getOutputStream(), true  );
-			in 		= new Scanner( socket.getInputStream() );
+			socket 	= new Socket		( host, port );
+			out 	= new PrintWriter	( socket.getOutputStream(), true  );
+			in 		= new Scanner		( socket.getInputStream() );
 		} catch (IOException e) {
 			stop();
 			Logger.getLogger( Channel.class.getName()).log( Level.SEVERE, "", e );
@@ -30,30 +30,25 @@ public class Channel {
 	}
 
 	
-	public void sendReq( String reqStr, Consumer<String> respConsumer ) {
-		var rv = this.sendReq(reqStr);
-		if( rv != null && !rv.trim().isEmpty() )respConsumer.accept( rv );
-	}
-	
-	public String sendReq( String reqStr ) {
-		
-		StringBuilder resp = new StringBuilder();
-		
+	public void sendReq( String reqStr,  Consumer<String> respConsumer ) {
 		out.println( reqStr );
 		out.println( END_OF_DATA );
-
-		String inputLine, delim = "";
 		
-		while( in.hasNextLine () ) {
-			inputLine = in.nextLine ();
-			if( inputLine.equals ( END_OF_DATA ) ) break;
-			resp.append( delim+inputLine );
-			delim = "\n";
-		}
-		
-		return resp.toString();
+		getRespStr( respConsumer );
 	}
 	
+	private void getRespStr( Consumer < String >  consumer ) {
+		StringBuilder sb = new StringBuilder();
+		String inLine, delim = "";
+		while( in.hasNextLine () ) {
+			inLine = in.nextLine ();
+			if( inLine.equals ( END_OF_DATA ) ) break;
+			sb.append( delim+inLine );
+			delim = "\n";
+		}
+		var respStr = sb.toString();
+		if( respStr != null && !respStr.trim().isEmpty() ) consumer.accept( respStr );
+	}
 	
 	public void stop() {
 		try {

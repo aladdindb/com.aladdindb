@@ -1,16 +1,17 @@
 package com.xelara.aladdin.client;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Consumer;
 
 import com.xelara.aladdin.client.req.add.AddReqProcess;
+import com.xelara.aladdin.client.req.get.all.GetAllReqProcess;
 import com.xelara.aladdin.client.req.get.byid.GetByIdReqProcess;
 import com.xelara.aladdin.client.req.remove.RemoveReqProcess;
 import com.xelara.aladdin.client.req.update.UpdateReqProcess;
 import com.xelara.aladdin.core.DataModel;
 import com.xelara.aladdin.core.DataParser;
+import com.xelara.aladdin.core.UnitRemoteBlockNavi;
 import com.xelara.aladdin.core.units.models.Unit;
+import com.xelara.aladdin.server.resp.get.all.block.GetAllBlockResp;
 
 public class UnitsChannel < UDM extends DataModel < UDM > > {
 
@@ -45,6 +46,10 @@ public class UnitsChannel < UDM extends DataModel < UDM > > {
     	var reqProcess =  new GetByIdReqProcess < UDM > ( unitID, this );
     	reqProcess.respConsumer.set( unitConsumer );
     	reqProcess.run();
+    }
+    
+    public void getAll( int blockSize, Consumer< UnitRemoteBlockNavi< UDM > > consumer ) {
+    	consumer.accept( new UnitRemoteBlockNavi< UDM >(this, blockSize ));
     }
     
     public void updateUnit( Unit< UDM > unit, Consumer< String > unitIdConsumer  ) {
