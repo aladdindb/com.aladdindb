@@ -1,8 +1,8 @@
 package com.xelara.aladdin.req.add;
 
-import com.xelara.aladdin.core.DataModel;
 import com.xelara.aladdin.req.ReqModel;
 import com.xelara.core.util.Var;
+import com.xelara.structure.DataModel;
 
 
 public class AddReqModel< UDM extends DataModel< UDM > > extends ReqModel< AddReqModel< UDM > > {

@@ -1,10 +1,10 @@
 package com.xelara.aladdin.req.update;
 
-import com.xelara.aladdin.core.DataModel;
-import com.xelara.aladdin.core.DataParser;
 import com.xelara.aladdin.core.units.models.UnitParser;
 import com.xelara.aladdin.req.Req;
 import com.xelara.aladdin.req.ReqParser;
+import com.xelara.structure.DataModel;
+import com.xelara.structure.DataParser;
 import com.xelara.structure.sn.SnPoint;
 
 /**

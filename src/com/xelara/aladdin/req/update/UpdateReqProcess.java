@@ -1,8 +1,6 @@
 package com.xelara.aladdin.req.update;
 
 import com.xelara.aladdin.UnitsChannel;
-import com.xelara.aladdin.core.DataModel;
-import com.xelara.aladdin.core.DataParser;
 import com.xelara.aladdin.core.units.models.Unit;
 import com.xelara.aladdin.req.Req;
 import com.xelara.aladdin.req.ReqProcess;
@@ -12,6 +10,8 @@ import com.xelara.aladdin.resp.add.AddRespParser;
 import com.xelara.aladdin.resp.update.UpdateResp;
 import com.xelara.aladdin.resp.update.UpdateRespParser;
 import com.xelara.core.util.Var;
+import com.xelara.structure.DataModel;
+import com.xelara.structure.DataParser;
 import com.xelara.structure.sn.SnPoint;
 
 

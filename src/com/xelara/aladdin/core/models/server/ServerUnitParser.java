@@ -1,6 +1,6 @@
 package com.xelara.aladdin.core.models.server;
 
-import com.xelara.aladdin.core.DataParser;
+import com.xelara.structure.DataParser;
 import com.xelara.structure.sn.SnPoint;
 import com.xelara.structure.sn.props.SnValueType;
 import com.xelara.structure.types.SnAttributeAccess;

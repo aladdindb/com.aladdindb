@@ -3,7 +3,7 @@ package com.xelara.aladdin;
 import java.util.HashMap;
 import java.util.function.Consumer;
 
-import com.xelara.aladdin.core.DataModel;
+import com.xelara.structure.DataModel;
 
 public class MagicLamp extends HashMap < String , Genie < ? extends DataModel< ? > > > {
 

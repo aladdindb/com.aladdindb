@@ -1,9 +1,9 @@
 package com.xelara.aladdin.resp.update;
 
 import com.xelara.aladdin.Genie;
-import com.xelara.aladdin.core.DataModel;
 import com.xelara.aladdin.req.update.UpdateReqParser;
 import com.xelara.aladdin.resp.RespProcess;
+import com.xelara.structure.DataModel;
 import com.xelara.structure.xml.XML;
 
 public class UpdateRespProcess < UGM extends DataModel < UGM > > extends RespProcess< UGM > { 

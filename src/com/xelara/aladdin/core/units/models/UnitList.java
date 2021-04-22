@@ -3,7 +3,7 @@ package com.xelara.aladdin.core.units.models;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-import com.xelara.aladdin.core.DataModel;
+import com.xelara.structure.DataModel;
 
 /**
  *

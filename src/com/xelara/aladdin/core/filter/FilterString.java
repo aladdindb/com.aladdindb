@@ -1,7 +1,7 @@
 package com.xelara.aladdin.core.filter;
 
-import com.xelara.aladdin.core.DataModel;
 import com.xelara.core.util.Var;
+import com.xelara.structure.DataModel;
 import com.xelara.structure.sn.SnPoint;
 import com.xelara.structure.types.SnAttributeAccess;
 

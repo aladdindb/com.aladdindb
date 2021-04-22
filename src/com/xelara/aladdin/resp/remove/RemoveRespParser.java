@@ -1,10 +1,10 @@
 package com.xelara.aladdin.resp.remove;
 
-import com.xelara.aladdin.core.DataModel;
-import com.xelara.aladdin.core.DataParser;
 import com.xelara.aladdin.core.units.models.UnitParser;
 import com.xelara.aladdin.resp.Resp;
 import com.xelara.core.util.Var;
+import com.xelara.structure.DataModel;
+import com.xelara.structure.DataParser;
 import com.xelara.structure.sn.SnPoint;
 import com.xelara.structure.sn.props.SnValueType;
 import com.xelara.structure.types.SnAttributeAccess;

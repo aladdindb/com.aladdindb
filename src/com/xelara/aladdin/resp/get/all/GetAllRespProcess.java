@@ -1,7 +1,6 @@
 package com.xelara.aladdin.resp.get.all;
 
 import com.xelara.aladdin.Genie;
-import com.xelara.aladdin.core.DataModel;
 import com.xelara.aladdin.core.UnitIdBlockMap;
 import com.xelara.aladdin.core.units.models.Unit;
 import com.xelara.aladdin.core.units.models.UnitParser;
@@ -11,6 +10,7 @@ import com.xelara.aladdin.resp.RespProcess;
 import com.xelara.aladdin.resp.get.all.block.GetAllBlockResp;
 import com.xelara.aladdin.resp.get.all.block.GetAllBlockRespParser;
 import com.xelara.core.Xlr;
+import com.xelara.structure.DataModel;
 import com.xelara.structure.xml.XML;
 
 

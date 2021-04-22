@@ -1,8 +1,8 @@
 package com.xelara.aladdin.resp.get.byid;
 
-import com.xelara.aladdin.core.DataModel;
 import com.xelara.aladdin.core.units.models.Unit;
 import com.xelara.core.util.Var;
+import com.xelara.structure.DataModel;
 
 
 public class GetByIdResp < UDM extends DataModel < UDM > > implements DataModel< GetByIdResp < UDM > > {

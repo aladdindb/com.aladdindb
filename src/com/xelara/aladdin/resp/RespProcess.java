@@ -1,7 +1,7 @@
 package com.xelara.aladdin.resp;
 
 import com.xelara.aladdin.Genie;
-import com.xelara.aladdin.core.DataModel;
+import com.xelara.structure.DataModel;
 
 
 public abstract class RespProcess < UDM extends DataModel < UDM > > implements Runnable { 

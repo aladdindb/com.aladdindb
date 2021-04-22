@@ -1,6 +1,6 @@
 package com.xelara.aladdin.core.filter;
 
-import com.xelara.aladdin.core.DataModel;
+import com.xelara.structure.DataModel;
 
 public class LogicalAndOperations < DATA_MODEL extends DataModel< DATA_MODEL > > implements Filter< DATA_MODEL >  {
 	

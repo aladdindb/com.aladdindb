@@ -1,10 +1,10 @@
 package com.xelara.aladdin.resp.get.byid;
 
 import com.xelara.aladdin.Genie;
-import com.xelara.aladdin.core.DataModel;
 import com.xelara.aladdin.core.units.models.Unit;
 import com.xelara.aladdin.req.get.byid.GetByIdReqParser;
 import com.xelara.aladdin.resp.RespProcess;
+import com.xelara.structure.DataModel;
 import com.xelara.structure.xml.XML;
 
 

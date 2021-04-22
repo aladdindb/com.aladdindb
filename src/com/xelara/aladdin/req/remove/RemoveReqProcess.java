@@ -1,8 +1,6 @@
 package com.xelara.aladdin.req.remove;
 
 import com.xelara.aladdin.UnitsChannel;
-import com.xelara.aladdin.core.DataModel;
-import com.xelara.aladdin.core.DataParser;
 import com.xelara.aladdin.req.Req;
 import com.xelara.aladdin.req.ReqProcess;
 import com.xelara.aladdin.req.ReqProcess2;
@@ -11,6 +9,8 @@ import com.xelara.aladdin.resp.add.AddRespParser;
 import com.xelara.aladdin.resp.remove.RemoveResp;
 import com.xelara.aladdin.resp.remove.RemoveRespParser;
 import com.xelara.core.util.Var;
+import com.xelara.structure.DataModel;
+import com.xelara.structure.DataParser;
 import com.xelara.structure.sn.SnPoint;
 
 

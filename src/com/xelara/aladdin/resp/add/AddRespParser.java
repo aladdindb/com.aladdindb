@@ -1,7 +1,7 @@
 package com.xelara.aladdin.resp.add;
 
-import com.xelara.aladdin.core.DataParser;
 import com.xelara.aladdin.resp.Resp;
+import com.xelara.structure.DataParser;
 import com.xelara.structure.sn.SnPoint;
 import com.xelara.structure.types.SnAttributeAccess;
 

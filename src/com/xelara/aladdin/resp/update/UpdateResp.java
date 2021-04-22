@@ -1,7 +1,7 @@
 package com.xelara.aladdin.resp.update;
 
-import com.xelara.aladdin.core.DataModel;
 import com.xelara.core.util.Var;
+import com.xelara.structure.DataModel;
 
 public class UpdateResp  implements DataModel< UpdateResp > {
 

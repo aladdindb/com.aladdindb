@@ -1,8 +1,8 @@
 package com.xelara.aladdin.resp.get.all.block;
 
-import com.xelara.aladdin.core.DataModel;
 import com.xelara.aladdin.core.units.models.Unit;
 import com.xelara.core.util.Var;
+import com.xelara.structure.DataModel;
 
 
 public class GetAllBlockResp  implements DataModel< GetAllBlockResp  > {

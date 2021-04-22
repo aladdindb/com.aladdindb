@@ -1,7 +1,7 @@
 package com.xelara.aladdin.req;
 
-import com.xelara.aladdin.core.DataModel;
 import com.xelara.core.util.Var;
+import com.xelara.structure.DataModel;
 
 public abstract class ReqModel < DATA_MODEL extends ReqModel< DATA_MODEL > > implements DataModel< DATA_MODEL > { 
 

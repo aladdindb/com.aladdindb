@@ -1,7 +1,7 @@
 package com.xelara.aladdin.core.filter;
 
-import com.xelara.aladdin.core.DataModel;
 import com.xelara.core.util.Var;
+import com.xelara.structure.DataModel;
 
 
 public abstract class FilterDouble < UDM extends DataModel < UDM > > 

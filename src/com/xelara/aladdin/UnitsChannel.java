@@ -2,8 +2,6 @@ package com.xelara.aladdin;
 
 import java.util.function.Consumer;
 
-import com.xelara.aladdin.core.DataModel;
-import com.xelara.aladdin.core.DataParser;
 import com.xelara.aladdin.core.UnitRemoteBlockNavi;
 import com.xelara.aladdin.core.units.models.Unit;
 import com.xelara.aladdin.core.units.models.UnitParser;
@@ -15,6 +13,8 @@ import com.xelara.aladdin.resp.add.AddResp;
 import com.xelara.aladdin.resp.get.byid.GetByIdResp;
 import com.xelara.aladdin.resp.remove.RemoveResp;
 import com.xelara.aladdin.resp.update.UpdateResp;
+import com.xelara.structure.DataModel;
+import com.xelara.structure.DataParser;
 
 public class UnitsChannel < UDM extends DataModel < UDM > > {
 

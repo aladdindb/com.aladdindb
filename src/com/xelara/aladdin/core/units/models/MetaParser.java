@@ -1,7 +1,7 @@
 package com.xelara.aladdin.core.units.models;
 
-import com.xelara.aladdin.core.DataParser;
 import com.xelara.aladdin.core.models.text.LabelModelParser;
+import com.xelara.structure.DataParser;
 import com.xelara.structure.sn.SnPoint;
 
 public class MetaParser extends DataParser<Meta> {

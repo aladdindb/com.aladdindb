@@ -5,6 +5,7 @@ import com.xelara.aladdin.req.get.all.GetAllReqProcess;
 import com.xelara.aladdin.req.get.all.block.GetAllBlockReqProcess;
 import com.xelara.aladdin.resp.get.all.block.GetAllBlockResp;
 import com.xelara.core.util.LineNavigator;
+import com.xelara.structure.DataModel;
 
 /**
 *

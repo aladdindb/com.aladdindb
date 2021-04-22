@@ -1,9 +1,9 @@
 package com.xelara.aladdin.req.update;
 
-import com.xelara.aladdin.core.DataModel;
 import com.xelara.aladdin.core.units.models.Unit;
 import com.xelara.aladdin.req.ReqModel;
 import com.xelara.core.util.Var;
+import com.xelara.structure.DataModel;
 
 
 public class UpdateReqModel< UDM extends DataModel< UDM > > extends ReqModel< UpdateReqModel< UDM > > {

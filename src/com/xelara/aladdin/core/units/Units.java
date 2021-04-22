@@ -10,14 +10,14 @@ import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.xelara.aladdin.core.DataModel;
-import com.xelara.aladdin.core.DataParser;
 import com.xelara.aladdin.core.filter.Filter;
 import com.xelara.aladdin.core.units.models.Unit;
 import com.xelara.aladdin.core.units.models.UnitParser;
 import com.xelara.core.io.Filess;
 import com.xelara.core.util.Counter;
 import com.xelara.core.util.Var;
+import com.xelara.structure.DataModel;
+import com.xelara.structure.DataParser;
 import com.xelara.structure.sn.SnPoint;
 
 /**
