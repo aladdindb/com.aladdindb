@@ -16,6 +16,7 @@ import com.xelara.aladdin.core.filter.Filter;
 import com.xelara.aladdin.core.units.models.Unit;
 import com.xelara.aladdin.core.units.models.UnitParser;
 import com.xelara.core.io.Filess;
+import com.xelara.core.util.Counter;
 import com.xelara.core.util.Var;
 import com.xelara.structure.sn.SnPoint;
 
@@ -42,11 +43,19 @@ public class Units < UDM extends DataModel < UDM > > {
         });
     }
 
-    public void forEachUnit( Filter< UDM > verifier, Consumer < Unit < UDM > > consumer ) {
+    public void forEachUnit( Filter< UDM > filter, Consumer < Unit < UDM > > consumer ) {
+    	Counter c = new Counter();
     	this.forEachUnit( unit -> {
     		unit.data.get( unitData -> {
-        		if( verifier.prove( unitData ) ) consumer.accept( unit );
+        		if( filter.prove( unitData ) ) consumer.accept( unit );
     		});
+    		
+    		c.inc();
+    		if( c.getIndex() > 1000 ) {
+    			System.out.println( "  1000 Erreicht :-) ");
+    			c.reset();
+    		}
+    		
     	});
     }
     
