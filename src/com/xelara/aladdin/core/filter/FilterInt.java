@@ -5,9 +5,13 @@ import com.xelara.structure.DataModel;
 
 
 public abstract class FilterInt < UDM extends DataModel < UDM > > 
-	extends FilterAbstract < UDM, Integer > {
+	extends FilterAbstract < UDM, FilterInt< UDM >, Integer > {
 
 	
+    //****************************************************************
+    //						Constructor 
+    //****************************************************************
+
 	public FilterInt( String tagKey, String operator, String pattern ) {
 		super( tagKey, operator, pattern );
 	}

@@ -4,18 +4,23 @@ import java.util.function.Consumer;
 
 import com.xelara.core.util.Var;
 import com.xelara.structure.DataModel;
-import com.xelara.structure.DataParser;
 import com.xelara.structure.sn.SnPoint;
 import com.xelara.structure.types.SnAttributeAccess;
 
-public abstract class FilterAbstract < UDM extends DataModel < UDM >, VT > 	
-		extends 	DataParser	< FilterAbstract < UDM, VT > > 
-		implements 	Filter 		< UDM >, 
-					DataModel 	< FilterAbstract < UDM, VT > > {
+
+public abstract class FilterAbstract < 
+	UDM 		extends DataModel 		< UDM >, 
+	DATA_MODEL 	extends FilterAbstract	< UDM, DATA_MODEL, VT >,
+	VT
+> 
+
+extends ParserModelFilter < UDM, DATA_MODEL, VT > {  	
 
 	
-	enum ATR { operator, pattern }
-	
+	public enum ATR { operator, pattern }
+
+	public final Var < String 	> operator 	= new Var<>();
+	public final Var < String	> pattern 	= new Var<>();
 	
 	
     //****************************************************************
@@ -32,11 +37,8 @@ public abstract class FilterAbstract < UDM extends DataModel < UDM >, VT >
     //					DataModel Implements
     //****************************************************************
 
-	public final Var < String 	> operator 	= new Var<>();
-	public final Var < String	> pattern 	= new Var<>();
-
 	@Override
-	public void fill( FilterAbstract< UDM, VT > model ) {
+	public void fill( DATA_MODEL model ) {
 		this.operator	.set( model.operator );
 		this.pattern	.set( model.pattern  );
 	}
@@ -77,7 +79,7 @@ public abstract class FilterAbstract < UDM extends DataModel < UDM >, VT >
     //****************************************************************
 	
 	@Override
-	public FilterAbstract< UDM, VT > toModel( SnPoint src, FilterAbstract< UDM, VT > target ) {
+	public DATA_MODEL toModel( SnPoint src, DATA_MODEL target ) {
 		var srcAtr = new SnAttributeAccess(src);
 		srcAtr.asStr.get( ATR.operator	,target.operator );
 		srcAtr.asStr.get( ATR.pattern	,target.pattern );
@@ -85,7 +87,7 @@ public abstract class FilterAbstract < UDM extends DataModel < UDM >, VT >
 	}
 
 	@Override
-	public SnPoint toNode( FilterAbstract< UDM, VT > src, SnPoint target ) {
+	public SnPoint toNode( DATA_MODEL src, SnPoint target ) {
 		var srcAtr = new SnAttributeAccess(target);
 		srcAtr.asStr.set( ATR.operator	,src.operator 	);
 		srcAtr.asStr.set( ATR.pattern	,src.pattern 	);

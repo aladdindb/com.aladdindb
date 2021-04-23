@@ -5,9 +5,13 @@ import com.xelara.structure.DataModel;
 
 
 public abstract class FilterDouble < UDM extends DataModel < UDM > > 
-	extends FilterAbstract < UDM, Double > {
+	extends FilterAbstract < UDM, FilterDouble< UDM >, Double > {
 
 	
+    //****************************************************************
+    //						Constructor 
+    //****************************************************************
+
 	public FilterDouble( String tagKey, String operator, String pattern ) {
 		super( tagKey, operator, pattern );
 	}

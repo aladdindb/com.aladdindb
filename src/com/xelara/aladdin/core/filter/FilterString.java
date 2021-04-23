@@ -6,9 +6,13 @@ import com.xelara.structure.sn.SnPoint;
 import com.xelara.structure.types.SnAttributeAccess;
 
 public abstract class FilterString < UDM extends DataModel < UDM > > 
-		extends FilterAbstract < UDM, String > {
+		extends FilterAbstract < UDM, FilterString< UDM >, String > {
 
 	
+    //****************************************************************
+    //						Constructor 
+    //****************************************************************
+
 	public FilterString( String tagKey, String operator, String pattern ) {
 		super( tagKey, operator, pattern );
 	}
