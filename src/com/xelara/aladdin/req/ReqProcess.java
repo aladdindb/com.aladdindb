@@ -9,7 +9,7 @@ import com.xelara.structure.DataParser;
 import com.xelara.structure.sn.SnPoint;
 import com.xelara.structure.types.SnAttributeAccess;
 
-public abstract class ReqProcess2 <
+public abstract class ReqProcess <
 
 	REQ_MODEL 	extends ReqModel	< REQ_MODEL >,
 	RESP 		extends DataModel	< RESP >,

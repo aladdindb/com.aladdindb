@@ -1,13 +1,13 @@
 package com.xelara.aladdin.req.remove;
 
 import com.xelara.aladdin.UnitsChannel;
-import com.xelara.aladdin.req.ReqProcess2;
+import com.xelara.aladdin.req.ReqProcess;
 import com.xelara.aladdin.resp.remove.RemoveResp;
 import com.xelara.aladdin.resp.remove.RemoveRespParser;
 import com.xelara.structure.DataModel;
 
 
-public class RemoveReqProcess < UDM extends DataModel< UDM > > extends ReqProcess2 < RemoveReqModel, RemoveResp< UDM > , UDM > {
+public class RemoveReqProcess < UDM extends DataModel< UDM > > extends ReqProcess < RemoveReqModel, RemoveResp< UDM > , UDM > {
 
 	
     //****************************************************************

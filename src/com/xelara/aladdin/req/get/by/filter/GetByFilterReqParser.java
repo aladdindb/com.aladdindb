@@ -1,4 +1,4 @@
-package com.xelara.aladdin.req.get.filtered;
+package com.xelara.aladdin.req.get.by.filter;
 
 import com.xelara.aladdin.core.filter.Filter;
 import com.xelara.aladdin.core.filter.FilterFactory;
@@ -13,19 +13,19 @@ import com.xelara.structure.types.SnAttributeAccess;
  * @author Macit Kandemir
  * @param <DUM>
  */
-public final class GetFilteredReqParser <
+public final class GetByFilterReqParser <
 
 	UDM 			extends DataModel	< UDM >,
 	FILTER_MODEL 	extends Filter		< UDM, FILTER_MODEL>
 
->  extends ReqParser< GetFilteredReqModel < UDM, FILTER_MODEL > >  {
+>  extends ReqParser< GetByFilterReqModel < UDM, FILTER_MODEL > >  {
 	
 
     private enum ATR { blockSize };
     
     private final FilterFactory< UDM > filterFac; 
     
-	public GetFilteredReqParser( FilterFactory< UDM > filterFac ) {
+	public GetByFilterReqParser( FilterFactory< UDM > filterFac ) {
 		super( Req.GET_BY_FILTER );
 		this.filterFac = filterFac;
 	}
@@ -34,12 +34,12 @@ public final class GetFilteredReqParser <
     //
     //****************************************************************
 
-    public GetFilteredReqModel< UDM, FILTER_MODEL > newModel() {
-		return new GetFilteredReqModel< UDM, FILTER_MODEL >( null, 0, null );
+    public GetByFilterReqModel< UDM, FILTER_MODEL > newModel() {
+		return new GetByFilterReqModel< UDM, FILTER_MODEL >( null, 0, null );
 	}
 	
     @Override
-    public GetFilteredReqModel< UDM, FILTER_MODEL > toModel( SnPoint src, GetFilteredReqModel< UDM , FILTER_MODEL> target ) {
+    public GetByFilterReqModel< UDM, FILTER_MODEL > toModel( SnPoint src, GetByFilterReqModel< UDM , FILTER_MODEL> target ) {
     	super.toModel(src, target);
     	
     	var srcAtr = new SnAttributeAccess( src );
@@ -56,7 +56,7 @@ public final class GetFilteredReqParser <
     }
     
     @Override
-    public SnPoint toNode( GetFilteredReqModel< UDM, FILTER_MODEL > src, SnPoint target ) {
+    public SnPoint toNode( GetByFilterReqModel< UDM, FILTER_MODEL > src, SnPoint target ) {
         super.toNode(src, target);
         
     	var targetAtr = new SnAttributeAccess( target );

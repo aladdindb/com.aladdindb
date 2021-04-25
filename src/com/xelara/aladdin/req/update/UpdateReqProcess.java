@@ -2,13 +2,13 @@ package com.xelara.aladdin.req.update;
 
 import com.xelara.aladdin.UnitsChannel;
 import com.xelara.aladdin.core.units.models.Unit;
-import com.xelara.aladdin.req.ReqProcess2;
+import com.xelara.aladdin.req.ReqProcess;
 import com.xelara.aladdin.resp.update.UpdateResp;
 import com.xelara.aladdin.resp.update.UpdateRespParser;
 import com.xelara.structure.DataModel;
 
 
-public class UpdateReqProcess < UDM extends DataModel< UDM > > extends ReqProcess2 < UpdateReqModel< UDM >, UpdateResp, UDM > {
+public class UpdateReqProcess < UDM extends DataModel< UDM > > extends ReqProcess < UpdateReqModel< UDM >, UpdateResp, UDM > {
 
 	
     //****************************************************************

@@ -3,15 +3,16 @@ module com.xelara.aladdin {
 	exports com.xelara.aladdin;
 	
     exports com.xelara.aladdin.req.add;
-    exports com.xelara.aladdin.req.get.byid;
+    exports com.xelara.aladdin.req.get.by.id;
     exports com.xelara.aladdin.req.get.all;
     exports com.xelara.aladdin.req.update;
-    exports com.xelara.aladdin.req.get.filtered;
+    exports com.xelara.aladdin.req.get.by.filter;
 
     exports com.xelara.aladdin.resp.add;
-    exports com.xelara.aladdin.resp.get.byid;
-    exports com.xelara.aladdin.resp.get.all;
-    exports com.xelara.aladdin.resp.get.all.block;
+    exports com.xelara.aladdin.resp.get.by.id;
+    exports com.xelara.aladdin.resp.get.by.filter;
+    exports com.xelara.aladdin.resp.get;
+    exports com.xelara.aladdin.resp.get.block;
     exports com.xelara.aladdin.resp.update; 
     exports com.xelara.aladdin.resp.remove; 
 

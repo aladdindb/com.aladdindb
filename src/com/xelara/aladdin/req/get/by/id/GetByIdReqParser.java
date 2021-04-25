@@ -1,4 +1,4 @@
-package com.xelara.aladdin.req.get.byid;
+package com.xelara.aladdin.req.get.by.id;
 
 import com.xelara.aladdin.req.Req;
 import com.xelara.aladdin.req.ReqParser;

@@ -1,27 +1,27 @@
-package com.xelara.aladdin.resp.get.all.block;
+package com.xelara.aladdin.resp.get.block;
 
 import com.xelara.aladdin.resp.Resp;
 import com.xelara.structure.DataParser;
 import com.xelara.structure.sn.SnPoint;
 import com.xelara.structure.types.SnAttributeAccess;
 
-public class GetAllBlockRespParser extends DataParser< GetAllBlockResp > {
+public class GetBlockRespParser extends DataParser< GetBlockRespModel > {
 	
     private enum ATR { cmdSesionID, hasLeft, hasRight, unitsIdBlock };
 	
 	
-	public GetAllBlockRespParser() {
+	public GetBlockRespParser() {
 		super( Resp.GET_ALL_BLOCK );
 	}
 
 	
 	@Override
-	public GetAllBlockResp newModel() {
-		return new GetAllBlockResp();
+	public GetBlockRespModel newModel() {
+		return new GetBlockRespModel();
 	}
 
 	@Override
-	public GetAllBlockResp toModel(SnPoint src, GetAllBlockResp target) {
+	public GetBlockRespModel toModel(SnPoint src, GetBlockRespModel target) {
     	var srcAtr = new SnAttributeAccess( src );
 
     	srcAtr.asStr	.get( ATR.cmdSesionID	,target.cmdSessionID 	);
@@ -35,7 +35,7 @@ public class GetAllBlockRespParser extends DataParser< GetAllBlockResp > {
 	}
 
 	@Override
-	public SnPoint toNode( GetAllBlockResp src, SnPoint target ) {
+	public SnPoint toNode( GetBlockRespModel src, SnPoint target ) {
     	var targetAtr = new SnAttributeAccess( target );
 
     	targetAtr.asStr	.set( ATR.cmdSesionID  	,src.cmdSessionID	);

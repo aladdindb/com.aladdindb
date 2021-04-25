@@ -3,17 +3,18 @@ package com.xelara.aladdin;
 import java.util.function.Consumer;
 
 import com.xelara.aladdin.core.UnitRemoteBlockNavi;
+import com.xelara.aladdin.core.UnitRemoteBlockNaviByFilter;
 import com.xelara.aladdin.core.filter.Filter;
 import com.xelara.aladdin.core.filter.FilterFactory;
 import com.xelara.aladdin.core.units.models.Unit;
 import com.xelara.aladdin.core.units.models.UnitParser;
 import com.xelara.aladdin.req.add.AddReqProcess;
-import com.xelara.aladdin.req.get.byid.GetByIdReqProcess;
-import com.xelara.aladdin.req.get.filtered.GetFilteredReqProcess;
+import com.xelara.aladdin.req.get.by.filter.GetByFilterReqProcess;
+import com.xelara.aladdin.req.get.by.id.GetByIdReqProcess;
 import com.xelara.aladdin.req.remove.RemoveReqProcess;
 import com.xelara.aladdin.req.update.UpdateReqProcess;
-import com.xelara.aladdin.resp.add.AddResp;
-import com.xelara.aladdin.resp.get.byid.GetByIdResp;
+import com.xelara.aladdin.resp.add.AddRespModel;
+import com.xelara.aladdin.resp.get.by.id.GetByIdRespModel;
 import com.xelara.aladdin.resp.remove.RemoveResp;
 import com.xelara.aladdin.resp.update.UpdateResp;
 import com.xelara.structure.DataModel;
@@ -50,13 +51,13 @@ public class UnitsChannel < UDM extends DataModel < UDM > > {
     //					
     //************************************************************
 	
-    public void addUnit( UDM unitData, Consumer< AddResp > respConsumer ) {
+    public void addUnit( UDM unitData, Consumer< AddRespModel > respConsumer ) {
     	var reqProcess = new AddReqProcess< UDM > ( unitData, this );
     	reqProcess.respConsumer.set( respConsumer );
     	reqProcess.run();
     }
 
-    public void getUnitByID( String unitID, Consumer< GetByIdResp< UDM > > respConsumer ) {
+    public void getUnitByID( String unitID, Consumer< GetByIdRespModel< UDM > > respConsumer ) {
     	var reqProcess =  new GetByIdReqProcess< UDM > ( unitID, this );
     	reqProcess.respConsumer.set( respConsumer );
     	reqProcess.run();
@@ -66,12 +67,8 @@ public class UnitsChannel < UDM extends DataModel < UDM > > {
     	consumer.accept( new UnitRemoteBlockNavi< UDM >(this, blockSize ));
     }
 
-    public void getByFilter( int blockSize, Filter  filter, Consumer< UnitRemoteBlockNavi< UDM > > consumer ) {
-    	var a = new GetFilteredReqProcess<>( blockSize, filter, this);
-    	a.run();
-    			
-//    	var x = new GetFilteredReqProcess< UDM, ? extends Filter<UDM, ? > > (blockSize,  filter ,  this);
-//    	consumer.accept( new UnitRemoteBlockNavi< UDM >(this, blockSize ));
+    public void getByFilter( int blockSize, Filter  filter, Consumer< UnitRemoteBlockNaviByFilter< UDM > > consumer ) {
+    	consumer.accept( new UnitRemoteBlockNaviByFilter<UDM>( this, blockSize, filter) );
     }
     
     public void updateUnit( Unit< UDM > unit, Consumer< UpdateResp > respConsumer  ) {

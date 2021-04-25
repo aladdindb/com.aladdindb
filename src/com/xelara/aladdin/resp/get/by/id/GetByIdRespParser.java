@@ -1,4 +1,4 @@
-package com.xelara.aladdin.resp.get.byid;
+package com.xelara.aladdin.resp.get.by.id;
 
 import com.xelara.aladdin.core.units.models.UnitParser;
 import com.xelara.aladdin.resp.Resp;
@@ -14,7 +14,7 @@ import com.xelara.structure.types.SnAttributeAccess;
  * @author Macit Kandemir
  * @param <DUM>
  */
-public final class GetByIdRespParser < UDM extends DataModel< UDM > > extends DataParser < GetByIdResp< UDM > > {
+public final class GetByIdRespParser < UDM extends DataModel< UDM > > extends DataParser < GetByIdRespModel< UDM > > {
 	
 
     public final UnitParser< UDM > unitParser;
@@ -33,15 +33,15 @@ public final class GetByIdRespParser < UDM extends DataModel< UDM > > extends Da
     //
     //****************************************************************
 
-    public GetByIdResp< UDM > newModel() {
-		return new GetByIdResp< UDM >();
+    public GetByIdRespModel< UDM > newModel() {
+		return new GetByIdRespModel< UDM >();
 	}
 	
     //****************************************************************
     //
     //****************************************************************
     @Override
-    public GetByIdResp< UDM >  toModel( SnPoint src, GetByIdResp< UDM > target ) {
+    public GetByIdRespModel< UDM >  toModel( SnPoint src, GetByIdRespModel< UDM > target ) {
     
         unitParser.toModelFromParent( src ,target.unit );
         
@@ -49,7 +49,7 @@ public final class GetByIdRespParser < UDM extends DataModel< UDM > > extends Da
     }
     
     @Override
-    public SnPoint toNode( GetByIdResp< UDM > src, SnPoint target ) {
+    public SnPoint toNode( GetByIdRespModel< UDM > src, SnPoint target ) {
         
         unitParser.toParentNode( src.unit ,target );
 

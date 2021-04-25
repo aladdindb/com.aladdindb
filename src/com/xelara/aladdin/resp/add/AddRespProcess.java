@@ -34,7 +34,7 @@ public class AddRespProcess < UDM extends DataModel < UDM > > extends RespProces
     //************************************************************
 	
 	private void resp( String unitID ) {
-		var resp = new AddResp( unitID );
+		var resp = new AddRespModel( unitID );
 		new AddRespParser().toNode( resp, respNode -> {
 			this.genie.respConsumer.get( respConsumer -> {
 				XML.parse( respNode, respConsumer );

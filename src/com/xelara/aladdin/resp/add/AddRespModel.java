@@ -4,21 +4,21 @@ import com.xelara.core.util.Var;
 import com.xelara.structure.DataModel;
 
 
-public class AddResp  implements DataModel< AddResp > {
+public class AddRespModel  implements DataModel< AddRespModel > {
 
 	
 	public final Var<String> unitID	= new Var<>();
 	
 	
-	public AddResp() {
+	public AddRespModel() {
 	}
 	
-	public AddResp( String unitID ) {
+	public AddRespModel( String unitID ) {
 		this.unitID.set( unitID );
 	}
 	
 	@Override
-	public void fill( AddResp model ) {
+	public void fill( AddRespModel model ) {
 		this.unitID.set( model.unitID );
 	}
 

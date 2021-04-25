@@ -1,13 +1,13 @@
 package com.xelara.aladdin.req.get.all;
 
 import com.xelara.aladdin.UnitsChannel;
-import com.xelara.aladdin.req.ReqProcess2;
-import com.xelara.aladdin.resp.get.all.block.GetAllBlockResp;
-import com.xelara.aladdin.resp.get.all.block.GetAllBlockRespParser;
+import com.xelara.aladdin.req.ReqProcess;
+import com.xelara.aladdin.resp.get.block.GetBlockRespModel;
+import com.xelara.aladdin.resp.get.block.GetBlockRespParser;
 import com.xelara.structure.DataModel;
 
 
-public class GetAllReqProcess < UDM extends DataModel< UDM > > extends ReqProcess2 < GetAllReqModel, GetAllBlockResp, UDM > {
+public class GetAllReqProcess < UDM extends DataModel< UDM > > extends ReqProcess < GetAllReqModel, GetBlockRespModel, UDM > {
 
 	
     //****************************************************************
@@ -22,7 +22,7 @@ public class GetAllReqProcess < UDM extends DataModel< UDM > > extends ReqProces
 		
 		this.req		.set ( req );
 		this.reqParser	.set ( new GetAllReqParser() );
-		this.respParser	.set ( new GetAllBlockRespParser() );
+		this.respParser	.set ( new GetBlockRespParser() );
 	}
 
     //****************************************************************

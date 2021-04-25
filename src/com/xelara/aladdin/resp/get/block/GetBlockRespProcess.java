@@ -1,4 +1,4 @@
-package com.xelara.aladdin.resp.get.all.block;
+package com.xelara.aladdin.resp.get.block;
 
 import com.xelara.aladdin.Genie;
 import com.xelara.aladdin.core.UnitIdBlockMap;
@@ -11,10 +11,10 @@ import com.xelara.structure.DataModel;
 import com.xelara.structure.xml.XML;
 
 
-public class GetAllBlockRespProcess < UDM extends DataModel < UDM > > extends RespProcess< UDM > { 
+public class GetBlockRespProcess < UDM extends DataModel < UDM > > extends RespProcess< UDM > { 
 
 
-	public GetAllBlockRespProcess( Genie < UDM > genie ) {
+	public GetBlockRespProcess( Genie < UDM > genie ) {
 		super( genie );
 	}
 	
@@ -41,8 +41,8 @@ public class GetAllBlockRespProcess < UDM extends DataModel < UDM > > extends Re
 	
 	private void resp( String cmdSessionID, LineNavigator.DIRECTION direction ) {
 
-		var respParser 	= new GetAllBlockRespParser();
-		var resp 		= new GetAllBlockResp();
+		var respParser 	= new GetBlockRespParser();
+		var resp 		= new GetBlockRespModel();
 
 		var nav = genie.unitIdBlockNav.get( cmdSessionID );
 		

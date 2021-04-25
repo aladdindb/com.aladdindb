@@ -1,13 +1,13 @@
-package com.xelara.aladdin.req.get.byid;
+package com.xelara.aladdin.req.get.by.id;
 
 import com.xelara.aladdin.UnitsChannel;
-import com.xelara.aladdin.req.ReqProcess2;
-import com.xelara.aladdin.resp.get.byid.GetByIdResp;
-import com.xelara.aladdin.resp.get.byid.GetByIdRespParser;
+import com.xelara.aladdin.req.ReqProcess;
+import com.xelara.aladdin.resp.get.by.id.GetByIdRespModel;
+import com.xelara.aladdin.resp.get.by.id.GetByIdRespParser;
 import com.xelara.structure.DataModel;
 
 
-public class GetByIdReqProcess < UDM extends DataModel< UDM > > extends ReqProcess2 < GetByIdReqModel, GetByIdResp < UDM > , UDM > {
+public class GetByIdReqProcess < UDM extends DataModel< UDM > > extends ReqProcess < GetByIdReqModel, GetByIdRespModel < UDM > , UDM > {
 
 	
     //****************************************************************

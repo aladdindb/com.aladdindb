@@ -1,11 +1,10 @@
-package com.xelara.aladdin.resp.get.all.block;
+package com.xelara.aladdin.resp.get.block;
 
-import com.xelara.aladdin.core.units.models.Unit;
 import com.xelara.core.util.Var;
 import com.xelara.structure.DataModel;
 
 
-public class GetAllBlockResp  implements DataModel< GetAllBlockResp  > {
+public class GetBlockRespModel  implements DataModel< GetBlockRespModel  > {
 
 	
 	public final Var<String> 	cmdSessionID 	= new Var<>();
@@ -15,7 +14,7 @@ public class GetAllBlockResp  implements DataModel< GetAllBlockResp  > {
 	public final Var<String> 	unitsIdBlock 	= new Var<>();
 	
 	@Override
-	public void fill( GetAllBlockResp model ) {
+	public void fill( GetBlockRespModel model ) {
 		this.cmdSessionID	.set( model.cmdSessionID );
 		
 		this.hasLeft		.set( model.hasLeft );

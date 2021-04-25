@@ -10,7 +10,7 @@ import com.xelara.structure.types.SnAttributeAccess;
  * @author Macit Kandemir
  * @param <DUM>
  */
-public final class AddRespParser  extends DataParser < AddResp > {
+public final class AddRespParser  extends DataParser < AddRespModel > {
 	
 
     private enum ATR { unitID };
@@ -28,8 +28,8 @@ public final class AddRespParser  extends DataParser < AddResp > {
     //
     //****************************************************************
 
-    public AddResp newModel() {
-		return new AddResp();
+    public AddRespModel newModel() {
+		return new AddRespModel();
 	}
 	
     //****************************************************************
@@ -37,7 +37,7 @@ public final class AddRespParser  extends DataParser < AddResp > {
     //****************************************************************
     
     @Override
-    public AddResp toModel( SnPoint src, AddResp target ) {
+    public AddRespModel toModel( SnPoint src, AddRespModel target ) {
     
     	var srcAtr = new SnAttributeAccess( src );
 
@@ -47,7 +47,7 @@ public final class AddRespParser  extends DataParser < AddResp > {
     }
     
     @Override
-    public SnPoint toNode( AddResp src, SnPoint target ) {
+    public SnPoint toNode( AddRespModel src, SnPoint target ) {
         
     	var targetAtr = new SnAttributeAccess( target );
 

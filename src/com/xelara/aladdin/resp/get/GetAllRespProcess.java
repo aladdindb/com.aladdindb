@@ -1,14 +1,14 @@
-package com.xelara.aladdin.resp.get.all;
+package com.xelara.aladdin.resp.get;
 
 import com.xelara.aladdin.Genie;
 import com.xelara.aladdin.core.UnitIdBlockMap;
 import com.xelara.aladdin.core.units.models.Unit;
 import com.xelara.aladdin.core.units.models.UnitParser;
 import com.xelara.aladdin.req.get.all.GetAllReqParser;
-import com.xelara.aladdin.req.get.byid.GetByIdReqParser;
+import com.xelara.aladdin.req.get.by.id.GetByIdReqParser;
 import com.xelara.aladdin.resp.RespProcess;
-import com.xelara.aladdin.resp.get.all.block.GetAllBlockResp;
-import com.xelara.aladdin.resp.get.all.block.GetAllBlockRespParser;
+import com.xelara.aladdin.resp.get.block.GetBlockRespModel;
+import com.xelara.aladdin.resp.get.block.GetBlockRespParser;
 import com.xelara.core.Xlr;
 import com.xelara.structure.DataModel;
 import com.xelara.structure.xml.XML;
@@ -40,8 +40,8 @@ public class GetAllRespProcess < UDM extends DataModel < UDM > > extends RespPro
 	
 	private void resp( int blockSize ) {
 
-		var respParser 	= new GetAllBlockRespParser();
-		var resp 		= new GetAllBlockResp();
+		var respParser 	= new GetBlockRespParser();
+		var resp 		= new GetBlockRespModel();
 
 		var blockMap 	= new UnitIdBlockMap( blockSize );
 		
