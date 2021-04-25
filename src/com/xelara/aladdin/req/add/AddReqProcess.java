@@ -1,15 +1,10 @@
 package com.xelara.aladdin.req.add;
 
 import com.xelara.aladdin.UnitsChannel;
-import com.xelara.aladdin.req.Req;
-import com.xelara.aladdin.req.ReqProcess;
 import com.xelara.aladdin.req.ReqProcess2;
 import com.xelara.aladdin.resp.add.AddResp;
 import com.xelara.aladdin.resp.add.AddRespParser;
-import com.xelara.core.util.Var;
 import com.xelara.structure.DataModel;
-import com.xelara.structure.DataParser;
-import com.xelara.structure.sn.SnPoint;
 
 
 public class AddReqProcess < UDM extends DataModel< UDM > > extends ReqProcess2 < AddReqModel< UDM >, AddResp, UDM > {

@@ -43,7 +43,7 @@ public class Units < UDM extends DataModel < UDM > > {
         });
     }
 
-    public void forEachUnit( Filter< UDM > filter, Consumer < Unit < UDM > > consumer ) {
+    public void forEachUnit( Filter< UDM, ? extends DataModel<?> > filter, Consumer < Unit < UDM > > consumer ) {
     	Counter c = new Counter();
     	this.forEachUnit( unit -> {
     		unit.data.get( unitData -> {

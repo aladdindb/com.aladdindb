@@ -1,19 +1,31 @@
-package com.xelara.aladdin.core.filter;
+package com.xelara.aladdin.core.filter.types;
 
+import com.xelara.aladdin.core.filter.FilterDefault;
 import com.xelara.core.util.Var;
 import com.xelara.structure.DataModel;
 
 
-public abstract class FilterDouble < UDM extends DataModel < UDM > > 
-	extends FilterAbstract < UDM, FilterDouble< UDM >, Double > {
+/**
+ * 
+ * @author Macit Kandemir
+ *
+ * @param <UDM>		Unit Daten Model Typ, der zu filternden Daten.
+ * @param <MODEL>	Der reale Filter Typ.
+ */
+public abstract class FilterDouble < 
+
+	UDM 	extends DataModel 		< UDM >, 
+	MODEL	extends FilterDouble	< UDM, MODEL >
+
+> extends FilterDefault < UDM, MODEL, Double > {
 
 	
     //****************************************************************
     //						Constructor 
     //****************************************************************
 
-	public FilterDouble( String tagKey, String operator, String pattern ) {
-		super( tagKey, operator, pattern );
+	public FilterDouble( String operator, String pattern ) {
+		super( operator, pattern );
 	}
 
     //****************************************************************

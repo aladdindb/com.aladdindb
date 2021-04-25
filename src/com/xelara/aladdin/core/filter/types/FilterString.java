@@ -1,20 +1,31 @@
-package com.xelara.aladdin.core.filter;
+package com.xelara.aladdin.core.filter.types;
 
+import com.xelara.aladdin.core.filter.FilterDefault;
 import com.xelara.core.util.Var;
 import com.xelara.structure.DataModel;
-import com.xelara.structure.sn.SnPoint;
-import com.xelara.structure.types.SnAttributeAccess;
 
-public abstract class FilterString < UDM extends DataModel < UDM > > 
-		extends FilterAbstract < UDM, FilterString< UDM >, String > {
+
+/**
+ * 
+ * @author Macit Kandemir
+ *
+ * @param <UDM>		Unit Daten Model Typ, der zu filternden Daten.
+ * @param <MODEL>	Der reale Filter Typ.
+ */
+public abstract class FilterString <
+
+	UDM 	extends DataModel 		< UDM >, 
+	MODEL	extends FilterString	< UDM, MODEL >
+
+> extends FilterDefault < UDM, MODEL, String  > {
 
 	
     //****************************************************************
     //						Constructor 
     //****************************************************************
 
-	public FilterString( String tagKey, String operator, String pattern ) {
-		super( tagKey, operator, pattern );
+	public FilterString( String operator, String pattern ) {
+		super( operator, pattern );
 	}
 
     //****************************************************************

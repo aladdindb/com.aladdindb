@@ -3,10 +3,13 @@ package com.xelara.aladdin;
 import java.util.function.Consumer;
 
 import com.xelara.aladdin.core.UnitRemoteBlockNavi;
+import com.xelara.aladdin.core.filter.Filter;
+import com.xelara.aladdin.core.filter.FilterFactory;
 import com.xelara.aladdin.core.units.models.Unit;
 import com.xelara.aladdin.core.units.models.UnitParser;
 import com.xelara.aladdin.req.add.AddReqProcess;
 import com.xelara.aladdin.req.get.byid.GetByIdReqProcess;
+import com.xelara.aladdin.req.get.filtered.GetFilteredReqProcess;
 import com.xelara.aladdin.req.remove.RemoveReqProcess;
 import com.xelara.aladdin.req.update.UpdateReqProcess;
 import com.xelara.aladdin.resp.add.AddResp;
@@ -24,17 +27,19 @@ public class UnitsChannel < UDM extends DataModel < UDM > > {
     
     public final DataParser < UDM >	unitDataParser;
     public final String 			unitGroupID;
-
+    public final FilterFactory< UDM > filterFac;
     
     //************************************************************
     //					
     //************************************************************
 
-    public UnitsChannel( String unitGroupID, DataParser< UDM > unitDataParser, String host, int port  ) {
+    public UnitsChannel( String unitGroupID, DataParser< UDM > unitDataParser, FilterFactory< UDM > filterFac, String host, int port  ) {
 		this.unitGroupID 		= unitGroupID;
 		this.unitDataParser 	= unitDataParser;
 		
 		this.channel 			= new Channel( host, port );
+		
+		this.filterFac 			= filterFac;
     }
     
     public UnitParser< UDM > createUnitParser() {
@@ -59,6 +64,14 @@ public class UnitsChannel < UDM extends DataModel < UDM > > {
     
     public void getAll( int blockSize, Consumer< UnitRemoteBlockNavi< UDM > > consumer ) {
     	consumer.accept( new UnitRemoteBlockNavi< UDM >(this, blockSize ));
+    }
+
+    public void getByFilter( int blockSize, Filter  filter, Consumer< UnitRemoteBlockNavi< UDM > > consumer ) {
+    	var a = new GetFilteredReqProcess<>( blockSize, filter, this);
+    	a.run();
+    			
+//    	var x = new GetFilteredReqProcess< UDM, ? extends Filter<UDM, ? > > (blockSize,  filter ,  this);
+//    	consumer.accept( new UnitRemoteBlockNavi< UDM >(this, blockSize ));
     }
     
     public void updateUnit( Unit< UDM > unit, Consumer< UpdateResp > respConsumer  ) {

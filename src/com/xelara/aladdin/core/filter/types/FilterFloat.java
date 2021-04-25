@@ -1,19 +1,31 @@
-package com.xelara.aladdin.core.filter;
+package com.xelara.aladdin.core.filter.types;
 
+import com.xelara.aladdin.core.filter.FilterDefault;
 import com.xelara.core.util.Var;
 import com.xelara.structure.DataModel;
 
 
-public abstract class FilterInt < UDM extends DataModel < UDM > > 
-	extends FilterAbstract < UDM, FilterInt< UDM >, Integer > {
+/**
+ * 
+ * @author Macit Kandemir
+ *
+ * @param <UDM>		Unit Daten Model Typ, der zu filternden Daten.
+ * @param <MODEL>	Der reale Filter Typ.
+ */
+public abstract class FilterFloat <
+
+	UDM 	extends DataModel 	< UDM >, 
+	MODEL	extends FilterFloat	< UDM, MODEL >
+
+> extends FilterDefault < UDM, MODEL, Float > {
 
 	
     //****************************************************************
     //						Constructor 
     //****************************************************************
 
-	public FilterInt( String tagKey, String operator, String pattern ) {
-		super( tagKey, operator, pattern );
+	public FilterFloat( String operator, String pattern ) {
+		super( operator, pattern );
 	}
 
     //****************************************************************
@@ -21,11 +33,12 @@ public abstract class FilterInt < UDM extends DataModel < UDM > >
     //****************************************************************
 	
 	@Override
-	public boolean provePattern( Integer value) {
-		var rv = new Var< Boolean >(false);
+	public boolean provePattern( Float value) {
+		var rv = new Var<Boolean>(false);
 		this.operator.get( operator -> {
 			this.pattern.get( patternStr -> {
-				var pattern = Integer.parseInt( patternStr );
+				var pattern = Float.parseFloat( patternStr );
+				
 				rv.set( switch( operator.trim().toLowerCase() ) {
 				
 					case "=="	-> value == 	pattern ; 
@@ -41,7 +54,7 @@ public abstract class FilterInt < UDM extends DataModel < UDM > >
 		});
 		return rv.get();
 	}
-	
+
     //****************************************************************
     //
     //****************************************************************

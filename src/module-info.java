@@ -6,6 +6,7 @@ module com.xelara.aladdin {
     exports com.xelara.aladdin.req.get.byid;
     exports com.xelara.aladdin.req.get.all;
     exports com.xelara.aladdin.req.update;
+    exports com.xelara.aladdin.req.get.filtered;
 
     exports com.xelara.aladdin.resp.add;
     exports com.xelara.aladdin.resp.get.byid;
@@ -19,6 +20,8 @@ module com.xelara.aladdin {
     exports com.xelara.aladdin.core.units.models;
     
     exports com.xelara.aladdin.core.filter;
+    exports com.xelara.aladdin.core.filter.types;
+    exports com.xelara.aladdin.core.filter.logical;
 
     exports com.xelara.aladdin.core.models.login;        
     exports com.xelara.aladdin.core.models.server;        

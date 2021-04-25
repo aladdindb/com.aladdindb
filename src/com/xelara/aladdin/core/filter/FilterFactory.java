@@ -8,10 +8,10 @@ import com.xelara.structure.sn.SnPoint;
 
 public interface FilterFactory < UDM extends DataModel< UDM > > {
 	
-	public ParserModelFilter< UDM, ?, ? > createFilter( SnPoint node );
+	public Filter < UDM, ? extends DataModel<?> > createFilter( SnPoint node );
 
-	default void createFilter( SnPoint node, Consumer< ParserModelFilter< UDM, ?, ? > > consumer ) {
-		var rv = createFilter(node);
+	default void createFilter( SnPoint node, Consumer < Filter < UDM, ? extends DataModel<?> > > consumer ) {
+		var rv = createFilter( node );
 		if( rv != null ) consumer.accept( rv );
 	}
 	
