@@ -1,6 +1,6 @@
-package com.xelara.aladdin.req.get.all.block;
+package com.xelara.aladdin.req.get.block;
 
-import com.xelara.aladdin.req.Req;
+import com.xelara.aladdin.req.Cmd;
 import com.xelara.aladdin.req.ReqParser;
 import com.xelara.core.util.LineNavigator;
 import com.xelara.structure.sn.SnPoint;
@@ -19,7 +19,7 @@ public final class GetAllBlockReqParser  extends ReqParser< GetAllBlockReqModel 
     
     
 	public GetAllBlockReqParser() {
-		super( Req.GET_ALL_BLOCK );
+		super( Cmd.GET_ALL_BLOCK.req() );
 	}
     
     //****************************************************************

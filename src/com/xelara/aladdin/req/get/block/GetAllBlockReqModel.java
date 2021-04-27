@@ -1,4 +1,4 @@
-package com.xelara.aladdin.req.get.all.block;
+package com.xelara.aladdin.req.get.block;
 
 import com.xelara.aladdin.req.ReqModel;
 import com.xelara.core.util.LineNavigator;

@@ -3,28 +3,18 @@ package com.xelara.aladdin.core.filter;
 import com.xelara.aladdin.core.filter.logical.LogicalOperationsAndParser;
 import com.xelara.aladdin.core.filter.logical.LogicalOperationsOrParser;
 import com.xelara.structure.DataModel;
-import com.xelara.structure.sn.SnPoint;
+import com.xelara.structure.DataParser;
 
 
-public class FilterFactoryDefault < UDM extends DataModel< UDM > > implements FilterFactory < UDM > {
+public abstract class FilterFactoryDefault < UDM extends DataModel< UDM > > implements FilterFactory < UDM > {
 
-
-	public static final String FILTER_LOGICAL_AND 	= "filter:logicalOperations:and"; 
-	public static final String FILTER_LOGICAL_OR 	= "filter:logicalOperations:or"; 
-	
-	
-	
-	public Filter< UDM, ? extends DataModel< ? > > createFilter( SnPoint node ) {
-		 
-		return switch( node.key.get() ) {
+	 
+	@Override
+	public DataParser < ? extends Filter< UDM, ?> > createFilterParser( String filter ) {
 		
-			case FILTER_LOGICAL_AND -> new LogicalOperationsAndParser	< UDM >( this ).toModel( node );
-			case FILTER_LOGICAL_OR 	-> new LogicalOperationsOrParser	< UDM >( this ).toModel( node );
-			
-			default -> null;
-		};
-	}
-
+		return 	filter.equals( FilterEnum.FILTER_LOGICAL_AND	.cmd() ) ? new LogicalOperationsAndParser	< UDM >( this ) : 
+				filter.equals( FilterEnum.FILTER_LOGICAL_OR		.cmd() ) ? new LogicalOperationsOrParser	< UDM >( this ) : null;
+	}	
 	
 	
 }

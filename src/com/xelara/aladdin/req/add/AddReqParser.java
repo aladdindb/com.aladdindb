@@ -1,6 +1,6 @@
 package com.xelara.aladdin.req.add;
 
-import com.xelara.aladdin.req.Req;
+import com.xelara.aladdin.req.Cmd;
 import com.xelara.aladdin.req.ReqParser;
 import com.xelara.structure.DataModel;
 import com.xelara.structure.DataParser;
@@ -22,7 +22,7 @@ public final class AddReqParser < UDM extends DataModel< UDM > > extends ReqPars
     //****************************************************************
 
     public AddReqParser( DataParser< UDM > unitDataParser ) {
-		super( Req.ADD );
+		super( Cmd.ADD.req() );
 		this.unitDataParser = unitDataParser;
 	}
     

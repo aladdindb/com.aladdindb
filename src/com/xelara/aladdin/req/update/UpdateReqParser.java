@@ -1,7 +1,7 @@
 package com.xelara.aladdin.req.update;
 
 import com.xelara.aladdin.core.units.models.UnitParser;
-import com.xelara.aladdin.req.Req;
+import com.xelara.aladdin.req.Cmd;
 import com.xelara.aladdin.req.ReqParser;
 import com.xelara.structure.DataModel;
 import com.xelara.structure.DataParser;
@@ -23,7 +23,7 @@ public final class UpdateReqParser < UDM extends DataModel< UDM > > extends ReqP
     //****************************************************************
 
     public UpdateReqParser( DataParser< UDM > unitDataParser ) {
-		super( Req.UPDATE );
+		super( Cmd.UPDATE.req() );
 		this.unitParser = new UnitParser<UDM>(unitDataParser);
 	}
     

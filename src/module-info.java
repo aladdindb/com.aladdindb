@@ -10,7 +10,6 @@ module com.xelara.aladdin {
 
     exports com.xelara.aladdin.resp.add;
     exports com.xelara.aladdin.resp.get.by.id;
-    exports com.xelara.aladdin.resp.get.by.filter;
     exports com.xelara.aladdin.resp.get;
     exports com.xelara.aladdin.resp.get.block;
     exports com.xelara.aladdin.resp.update; 

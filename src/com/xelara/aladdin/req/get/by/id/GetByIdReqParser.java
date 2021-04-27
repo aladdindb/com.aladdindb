@@ -1,6 +1,6 @@
 package com.xelara.aladdin.req.get.by.id;
 
-import com.xelara.aladdin.req.Req;
+import com.xelara.aladdin.req.Cmd;
 import com.xelara.aladdin.req.ReqParser;
 import com.xelara.structure.sn.SnPoint;
 import com.xelara.structure.types.SnAttributeAccess;
@@ -22,7 +22,7 @@ public final class GetByIdReqParser  extends ReqParser< GetByIdReqModel >  {
     //****************************************************************
 
     public GetByIdReqParser() {
-		super( Req.GET_BY_ID );
+		super( Cmd.GET_BY_ID.req() );
 	}
     
     //****************************************************************

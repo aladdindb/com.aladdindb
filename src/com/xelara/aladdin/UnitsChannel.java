@@ -67,7 +67,7 @@ public class UnitsChannel < UDM extends DataModel < UDM > > {
     	consumer.accept( new UnitRemoteBlockNavi< UDM >(this, blockSize ));
     }
 
-    public void getByFilter( int blockSize, Filter  filter, Consumer< UnitRemoteBlockNaviByFilter< UDM > > consumer ) {
+    public void getByFilter( int blockSize, Filter< UDM, ? extends Filter < UDM, ? > >  filter, Consumer< UnitRemoteBlockNaviByFilter< UDM > > consumer ) {
     	consumer.accept( new UnitRemoteBlockNaviByFilter<UDM>( this, blockSize, filter) );
     }
     

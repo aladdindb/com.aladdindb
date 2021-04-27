@@ -2,7 +2,7 @@ package com.xelara.aladdin.req.get.by.filter;
 
 import com.xelara.aladdin.core.filter.Filter;
 import com.xelara.aladdin.core.filter.FilterFactory;
-import com.xelara.aladdin.req.Req;
+import com.xelara.aladdin.req.Cmd;
 import com.xelara.aladdin.req.ReqParser;
 import com.xelara.structure.DataModel;
 import com.xelara.structure.sn.SnPoint;
@@ -26,7 +26,7 @@ public final class GetByFilterReqParser <
     private final FilterFactory< UDM > filterFac; 
     
 	public GetByFilterReqParser( FilterFactory< UDM > filterFac ) {
-		super( Req.GET_BY_FILTER );
+		super( Cmd.GET_BY_FILTER.req() );
 		this.filterFac = filterFac;
 	}
     

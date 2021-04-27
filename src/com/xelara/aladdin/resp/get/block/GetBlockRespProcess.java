@@ -3,7 +3,7 @@ package com.xelara.aladdin.resp.get.block;
 import com.xelara.aladdin.Genie;
 import com.xelara.aladdin.core.UnitIdBlockMap;
 import com.xelara.aladdin.core.units.models.Unit;
-import com.xelara.aladdin.req.get.all.block.GetAllBlockReqParser;
+import com.xelara.aladdin.req.get.block.GetAllBlockReqParser;
 import com.xelara.aladdin.resp.RespProcess;
 import com.xelara.core.Xlr;
 import com.xelara.core.util.LineNavigator;

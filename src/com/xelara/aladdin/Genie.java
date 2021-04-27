@@ -8,12 +8,12 @@ import com.xelara.aladdin.core.UnitIdBlockNavi;
 import com.xelara.aladdin.core.filter.Filter;
 import com.xelara.aladdin.core.filter.FilterFactory;
 import com.xelara.aladdin.core.units.Units;
-import com.xelara.aladdin.req.Req;
+import com.xelara.aladdin.req.Cmd;
 import com.xelara.aladdin.resp.RespProcess;
 import com.xelara.aladdin.resp.add.AddRespProcess;
 import com.xelara.aladdin.resp.get.GetAllRespProcess;
+import com.xelara.aladdin.resp.get.GetByFilterRespProcess;
 import com.xelara.aladdin.resp.get.block.GetBlockRespProcess;
-import com.xelara.aladdin.resp.get.by.filter.GetByFilterRespProcess;
 import com.xelara.aladdin.resp.get.by.id.GetByIdRespProcess;
 import com.xelara.aladdin.resp.remove.RemoveRespProcess;
 import com.xelara.aladdin.resp.update.UpdateRespProcess;
@@ -24,7 +24,7 @@ import com.xelara.structure.sn.SnPoint;
 
 
 public class Genie < UDM extends DataModel < UDM > > implements Runnable { 
-	
+
 
 	public final HashMap< String, UnitIdBlockNavi > unitIdBlockNav = new HashMap<>();
 	
@@ -48,21 +48,24 @@ public class Genie < UDM extends DataModel < UDM > > implements Runnable {
 	@Override
 	public void run() {
 		this.reqNode.get( reqNode -> {
-			RespProcess< UDM > process = switch( reqNode.key.get() ) {
 			
-				case Req.ADD 			-> new AddRespProcess			< UDM > ( this );
-				case Req.GET_BY_ID 		-> new GetByIdRespProcess		< UDM > ( this );
-				case Req.GET_BY_FILTER	-> new GetByFilterRespProcess	<> 		( this);
-				case Req.GET_ALL 		-> new GetAllRespProcess		< UDM > ( this );
-				case Req.GET_ALL_BLOCK	-> new GetBlockRespProcess	< UDM > ( this );
-				case Req.UPDATE			-> new UpdateRespProcess		< UDM > ( this );
-				case Req.REMOVE			-> new RemoveRespProcess		< UDM > ( this );
-				
-				default -> throw new IllegalArgumentException("Unexpected value: " + reqNode.key.get() ); 
-			};
+			RespProcess< UDM > process = this.createRespProcess( reqNode.key.get() );
 			
-			process.run();
+			if( process != null ) process.run();
 		});
+	}
+	
+	private RespProcess< UDM > createRespProcess( String reqCmd ) { 
+		
+		return 	reqCmd.equals( Cmd.ADD				.req() ) ? new AddRespProcess 			< UDM > ( this ) :
+				reqCmd.equals( Cmd.GET_BY_ID		.req() ) ? new GetByIdRespProcess 		< UDM > ( this ) :
+				reqCmd.equals( Cmd.GET_BY_FILTER	.req() ) ? new GetByFilterRespProcess 	<     > ( this ) :
+				reqCmd.equals( Cmd.GET_ALL			.req() ) ? new GetAllRespProcess 		< UDM > ( this ) :
+				reqCmd.equals( Cmd.GET_ALL_BLOCK	.req() ) ? new GetBlockRespProcess 		< UDM > ( this ) :
+				reqCmd.equals( Cmd.UPDATE			.req() ) ? new UpdateRespProcess 		< UDM > ( this ) :
+				reqCmd.equals( Cmd.REMOVE			.req() ) ? new RemoveRespProcess 		< UDM > ( this ) : null;
+//		 
+//		return null;
 	}
     
 }

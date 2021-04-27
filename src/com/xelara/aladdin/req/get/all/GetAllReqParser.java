@@ -1,6 +1,6 @@
 package com.xelara.aladdin.req.get.all;
 
-import com.xelara.aladdin.req.Req;
+import com.xelara.aladdin.req.Cmd;
 import com.xelara.aladdin.req.ReqParser;
 import com.xelara.structure.sn.SnPoint;
 import com.xelara.structure.types.SnAttributeAccess;
@@ -18,7 +18,7 @@ public final class GetAllReqParser  extends ReqParser< GetAllReqModel >  {
     
     
 	public GetAllReqParser() {
-		super( Req.GET_ALL );
+		super( Cmd.GET_ALL.req() );
 	}
     
     //****************************************************************

@@ -2,7 +2,7 @@ package com.xelara.aladdin.core;
 
 import com.xelara.aladdin.UnitsChannel;
 import com.xelara.aladdin.req.get.all.GetAllReqProcess;
-import com.xelara.aladdin.req.get.all.block.GetAllBlockReqProcess;
+import com.xelara.aladdin.req.get.block.GetAllBlockReqProcess;
 import com.xelara.aladdin.resp.get.block.GetBlockRespModel;
 import com.xelara.core.util.LineNavigator;
 import com.xelara.structure.DataModel;

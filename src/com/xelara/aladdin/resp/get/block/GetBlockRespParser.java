@@ -1,6 +1,6 @@
 package com.xelara.aladdin.resp.get.block;
 
-import com.xelara.aladdin.resp.Resp;
+import com.xelara.aladdin.req.Cmd;
 import com.xelara.structure.DataParser;
 import com.xelara.structure.sn.SnPoint;
 import com.xelara.structure.types.SnAttributeAccess;
@@ -11,7 +11,7 @@ public class GetBlockRespParser extends DataParser< GetBlockRespModel > {
 	
 	
 	public GetBlockRespParser() {
-		super( Resp.GET_ALL_BLOCK );
+		super( Cmd.GET_ALL_BLOCK.res() );
 	}
 
 	

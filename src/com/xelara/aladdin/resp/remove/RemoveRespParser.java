@@ -1,32 +1,30 @@
 package com.xelara.aladdin.resp.remove;
 
 import com.xelara.aladdin.core.units.models.UnitParser;
-import com.xelara.aladdin.resp.Resp;
-import com.xelara.core.util.Var;
+import com.xelara.aladdin.req.Cmd;
 import com.xelara.structure.DataModel;
 import com.xelara.structure.DataParser;
 import com.xelara.structure.sn.SnPoint;
-import com.xelara.structure.sn.props.SnValueType;
-import com.xelara.structure.types.SnAttributeAccess;
 
 /**
  *
  * @author Macit Kandemir
  * @param <DUM>
  */
-public final class RemoveRespParser < UDM extends DataModel< UDM > > extends DataParser < RemoveResp< UDM > > {
+public final class RemoveRespParser < UDM extends DataModel < UDM > > extends DataParser < RemoveResp < UDM > > {
 	
 
-    public final UnitParser< UDM > unitParser;
+    public final UnitParser < UDM > unitParser;
     
     
     //****************************************************************
     //
     //****************************************************************
 
-    public RemoveRespParser( DataParser< UDM > unitDataParser ) {
-		super( Resp.REMOVE );
-		this.unitParser = new UnitParser< UDM >(unitDataParser );
+    public RemoveRespParser( DataParser < UDM > unitDataParser ) {
+		super( Cmd.REMOVE.res() );
+		
+		this.unitParser = new UnitParser < UDM > (unitDataParser );
 	}
     
     //****************************************************************

@@ -1,6 +1,6 @@
 package com.xelara.aladdin.resp.add;
 
-import com.xelara.aladdin.resp.Resp;
+import com.xelara.aladdin.req.Cmd;
 import com.xelara.structure.DataParser;
 import com.xelara.structure.sn.SnPoint;
 import com.xelara.structure.types.SnAttributeAccess;
@@ -21,7 +21,7 @@ public final class AddRespParser  extends DataParser < AddRespModel > {
     //****************************************************************
 
     public AddRespParser() {
-		super( Resp.ADD );
+		super( Cmd.ADD.res() );
 	}
     
     //****************************************************************

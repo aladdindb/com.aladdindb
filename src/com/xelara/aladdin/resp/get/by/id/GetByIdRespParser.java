@@ -1,13 +1,10 @@
 package com.xelara.aladdin.resp.get.by.id;
 
 import com.xelara.aladdin.core.units.models.UnitParser;
-import com.xelara.aladdin.resp.Resp;
-import com.xelara.core.util.Var;
+import com.xelara.aladdin.req.Cmd;
 import com.xelara.structure.DataModel;
 import com.xelara.structure.DataParser;
 import com.xelara.structure.sn.SnPoint;
-import com.xelara.structure.sn.props.SnValueType;
-import com.xelara.structure.types.SnAttributeAccess;
 
 /**
  *
@@ -25,7 +22,7 @@ public final class GetByIdRespParser < UDM extends DataModel< UDM > > extends Da
     //****************************************************************
 
     public GetByIdRespParser( DataParser< UDM > unitDataParser ) {
-		super( Resp.GET_BY_ID );
+		super( Cmd.GET_BY_ID.res() );
 		this.unitParser = new UnitParser< UDM >(unitDataParser);
 	}
     

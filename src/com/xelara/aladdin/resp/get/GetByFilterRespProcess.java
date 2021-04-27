@@ -1,4 +1,4 @@
-package com.xelara.aladdin.resp.get.by.filter;
+package com.xelara.aladdin.resp.get;
 
 import com.xelara.aladdin.Genie;
 import com.xelara.aladdin.core.UnitIdBlockMap;

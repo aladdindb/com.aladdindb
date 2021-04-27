@@ -1,8 +1,8 @@
 package com.xelara.aladdin.core.filter.logical;
 
 import com.xelara.aladdin.core.filter.Filter;
+import com.xelara.aladdin.core.filter.FilterEnum;
 import com.xelara.aladdin.core.filter.FilterFactory;
-import com.xelara.aladdin.core.filter.FilterFactoryDefault;
 import com.xelara.structure.DataModel;
 import com.xelara.structure.DataParser;
 import com.xelara.structure.sn.SnPoint;
@@ -20,7 +20,7 @@ public class LogicalOperationsOrParser < UDM extends DataModel< UDM > > extends 
 	
 	public LogicalOperationsOrParser( FilterFactory < UDM > factory ) { 
 		
-		super( FilterFactoryDefault.FILTER_LOGICAL_OR );
+		super( FilterEnum.FILTER_LOGICAL_OR.cmd() );
 		
 		this.factory = factory;
 	}

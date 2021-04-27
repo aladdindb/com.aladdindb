@@ -1,6 +1,6 @@
 package com.xelara.aladdin.req.remove;
 
-import com.xelara.aladdin.req.Req;
+import com.xelara.aladdin.req.Cmd;
 import com.xelara.aladdin.req.ReqParser;
 import com.xelara.structure.sn.SnPoint;
 import com.xelara.structure.types.SnAttributeAccess;
@@ -22,7 +22,7 @@ public final class RemoveReqParser  extends ReqParser< RemoveReqModel >  {
     //****************************************************************
 
     public RemoveReqParser() {
-		super( Req.REMOVE );
+		super( Cmd.REMOVE.req() );
 	}
     
     //****************************************************************
