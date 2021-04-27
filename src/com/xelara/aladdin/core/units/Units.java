@@ -46,9 +46,7 @@ public class Units < UDM extends DataModel < UDM > > {
     public void forEachUnit( Filter< UDM, ? extends DataModel<?> > filter, Consumer < Unit < UDM > > consumer ) {
     	Counter c = new Counter();
     	this.forEachUnit( unit -> {
-    		unit.data.get( unitData -> {
-        		if( filter.prove( unitData ) ) consumer.accept( unit );
-    		});
+       		if( filter.prove( unit ) ) consumer.accept( unit );
     		
     		c.inc();
     		if( c.getIndex() > 1000 ) {

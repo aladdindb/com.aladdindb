@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.xelara.aladdin.core.filter.Filter;
 import com.xelara.aladdin.core.filter.FilterFactory;
+import com.xelara.aladdin.core.units.models.Unit;
 import com.xelara.structure.DataModel;
 import com.xelara.structure.DataParser;
 
@@ -42,9 +43,8 @@ public class LogicalOperationsAnd < UDM extends DataModel< UDM > >
     //****************************************************************
 	
 	@Override
-	public boolean prove( UDM model ) {
+	public boolean prove( Unit<UDM> model ) {
 		boolean rv = true;
-		
 		var array = this.filterList.toArray( new Filter[ this.filterList.size() ] );
 		
 		int i = 0; do {

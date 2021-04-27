@@ -2,10 +2,9 @@ package com.xelara.aladdin.core.filter;
 
 import java.util.function.Consumer;
 
+import com.xelara.aladdin.core.units.models.Unit;
 import com.xelara.core.util.Var;
 import com.xelara.structure.DataModel;
-import com.xelara.structure.sn.SnPoint;
-import com.xelara.structure.types.SnAttributeAccess;
 
 
 /**
@@ -45,7 +44,7 @@ public abstract class FilterDefault <
     //****************************************************************
 	
 	@Override
-	public boolean prove( UDM model ) {
+	public boolean prove( Unit<UDM> model ) {
 		Var<Boolean> rv = new Var<>(false);
 		this.getFieldValue( model, value -> {
 			rv.set( provePattern( value ) );
@@ -60,14 +59,14 @@ public abstract class FilterDefault <
     //****************************************************************
 	
 	
-	public void getFieldValue ( UDM model, Consumer< VT > consumer ) {
+	public void getFieldValue ( Unit<UDM> model, Consumer< VT > consumer ) {
 		var field = this.getField(model);
 		if( field != null) {
 			field.get( consumer );
 		}
 	}
 	
-	public abstract Var< VT > getField( UDM model );
+	public abstract Var< VT > getField( Unit<UDM> model );
 
 
     //****************************************************************
