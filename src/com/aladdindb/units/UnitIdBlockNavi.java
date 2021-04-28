@@ -1,0 +1,41 @@
+package com.aladdindb.units;
+
+import com.aladdindb.structure.sn.SnLineNavi;
+import com.aladdindb.structure.sn.SnPoint;
+import com.aladdindb.util.LineNavigator;
+
+/**
+*
+* @author Macit Kandemir
+*/
+public class UnitIdBlockNavi implements LineNavigator< String >  { 
+	
+	private final  SnLineNavi navi;
+	
+    public UnitIdBlockNavi( SnPoint node ) {
+    	this.navi = new SnLineNavi(node.children.snBottom.get() );
+    }
+
+	@Override
+	public boolean hasRight() {
+		return navi.hasRight();
+	}
+
+	@Override
+	public boolean hasLeft() {
+		return navi.hasLeft();
+	}
+
+	@Override
+	public String right() {
+		var node = navi.right();
+		return node.value.get();
+	}
+
+	@Override
+	public String left() {
+		var node = navi.left();
+		return node.value.get();
+	}
+    
+}

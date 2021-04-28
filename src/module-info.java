@@ -1,32 +1,47 @@
-module com.xelara.aladdin {
+module com.aladdindb {
 	
-	exports com.xelara.aladdin;
+	exports com.aladdindb;
 	
-    exports com.xelara.aladdin.req.add;
-    exports com.xelara.aladdin.req.get.by.id;
-    exports com.xelara.aladdin.req.get.all;
-    exports com.xelara.aladdin.req.update;
-    exports com.xelara.aladdin.req.get.by.filter;
+    exports com.aladdindb.req.add;
+    exports com.aladdindb.req.get.by.id;
+    exports com.aladdindb.req.get.all;
+    exports com.aladdindb.req.update;
+    exports com.aladdindb.req.get.by.filter;
 
-    exports com.xelara.aladdin.resp.add;
-    exports com.xelara.aladdin.resp.get.by.id;
-    exports com.xelara.aladdin.resp.get;
-    exports com.xelara.aladdin.resp.get.block;
-    exports com.xelara.aladdin.resp.update; 
-    exports com.xelara.aladdin.resp.remove; 
+    exports com.aladdindb.resp.add;
+    exports com.aladdindb.resp.get.by.id;
+    exports com.aladdindb.resp.get;
+    exports com.aladdindb.resp.get.block;
+    exports com.aladdindb.resp.update; 
+    exports com.aladdindb.resp.remove; 
 
-    exports com.xelara.aladdin.core;
-    exports com.xelara.aladdin.core.units;
-    exports com.xelara.aladdin.core.units.models;
+    exports com.aladdindb.units;
+    exports com.aladdindb.units.models;
     
-    exports com.xelara.aladdin.core.filter;
-    exports com.xelara.aladdin.core.filter.types;
-    exports com.xelara.aladdin.core.filter.logical;
+    exports com.aladdindb.filter;
+    exports com.aladdindb.filter.types;
+    exports com.aladdindb.filter.logical;
 
-    exports com.xelara.aladdin.core.models.login;        
-    exports com.xelara.aladdin.core.models.server;        
-    exports com.xelara.aladdin.core.models.text;        
+    exports com.aladdindb.defaultmodels.login;        
+    exports com.aladdindb.defaultmodels.server;        
+    exports com.aladdindb.defaultmodels.text;        
     
-	requires transitive com.xelara.structure;
-	
+
+    
+    exports com.aladdindb.structure;
+    exports com.aladdindb.structure.types;
+    
+    exports com.aladdindb.structure.sn;
+    exports com.aladdindb.structure.sn.props;
+    
+    exports com.aladdindb.structure.sa;
+    exports com.aladdindb.structure.sa.props;
+    
+    exports com.aladdindb.structure.xml;
+    
+    
+    exports com.aladdindb.util.time;
+    exports com.aladdindb.util;
+    
+    
 }
