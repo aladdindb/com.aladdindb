@@ -35,6 +35,7 @@ public abstract class FilterString <
 	@Override
 	public boolean provePattern( String value) {
 		var rv = new Var<Boolean>(false);
+		
 		this.operator.get( operator -> {
 			this.pattern.get( pattern -> {
 				rv.set( switch( operator.trim().toLowerCase() ) {
@@ -44,6 +45,7 @@ public abstract class FilterString <
 					case ">="		-> value.compareToIgnoreCase	( pattern ) >= 	0 ;
 					case "<"		-> value.compareToIgnoreCase	( pattern ) < 	0 ;
 					case "<="		-> value.compareToIgnoreCase	( pattern ) <= 	0 ;
+					case "equals"	-> value.equals					( pattern );
 					
 					default -> false;
 				});
