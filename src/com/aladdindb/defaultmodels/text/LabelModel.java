@@ -17,7 +17,7 @@ public class LabelModel extends Var< String > implements DataModel < LabelModel 
     }
     
     public void fill( LabelModel model ) {
-    	super.set( model );
+    	this.set( model );
     }
     
 }

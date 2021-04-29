@@ -8,14 +8,14 @@ import com.aladdindb.structure.sn.props.SnValueType;
  *
  * @author Macit Kandemir
  */
-public class TextModelParser extends DataParser < TextModel > {
+public class LabelParser extends DataParser < LabelModel > {
     
     
-	public TextModelParser() {
-		super("text");
+	public LabelParser() {
+		super("label");
 	}	
 	
-    public TextModelParser( String key ) {
+    public LabelParser( String key ) {
         super( key );
     }
     
@@ -24,8 +24,8 @@ public class TextModelParser extends DataParser < TextModel > {
     //****************************************************************
 
     @Override
-    public TextModel newModel() {
-        return new TextModel();
+    public LabelModel newModel() {
+        return new LabelModel();
     }
     
     //****************************************************************
@@ -33,20 +33,18 @@ public class TextModelParser extends DataParser < TextModel > {
     //****************************************************************
 
     @Override
-    public TextModel toModel( SnPoint src, TextModel target ) {
+    public LabelModel toModel( SnPoint src, LabelModel target ) {
         
-        src.value.get( target :: set );
+    	src.value.get( target :: set );
         
         return target;
     }
     
     
     @Override
-    public SnPoint toNode( TextModel src, SnPoint target ) {
+    public SnPoint toNode( LabelModel src, SnPoint target ) {
         
         src.get( target.value :: set );
-        
-        target.valueType.set( SnValueType.CDATA );
         
         return target;
     }

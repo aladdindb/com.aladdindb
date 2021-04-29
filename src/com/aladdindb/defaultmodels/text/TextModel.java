@@ -17,7 +17,7 @@ public class TextModel extends Var< String > implements DataModel < TextModel > 
     }
     
     public void fill( TextModel unit ) {
-    	super.set( unit );
+    	this.set( unit );
     }
     
 }

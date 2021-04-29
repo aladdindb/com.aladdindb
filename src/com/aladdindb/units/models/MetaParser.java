@@ -1,12 +1,12 @@
 package com.aladdindb.units.models;
 
-import com.aladdindb.defaultmodels.text.LabelModelParser;
+import com.aladdindb.defaultmodels.text.LabelParser;
 import com.aladdindb.structure.DataParser;
 import com.aladdindb.structure.sn.SnPoint;
 
 public class MetaParser extends DataParser<Meta> {
 
-	private final LabelModelParser 		label 	= new LabelModelParser();
+	private final LabelParser 		label 	= new LabelParser();
 	private final TimeStampParser 	timeStamp 	= new TimeStampParser();
 	
 	public MetaParser() {

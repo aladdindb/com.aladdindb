@@ -8,7 +8,7 @@ import java.util.Scanner;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
-import com.aladdindb.req.ReqNode;
+import com.aladdindb.method.req.ReqNode;
 import com.aladdindb.structure.xml.XML;
 import com.aladdindb.util.Var;
 
