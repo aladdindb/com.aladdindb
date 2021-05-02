@@ -1,6 +1,6 @@
 package com.aladdindb.defaultmodels.server;
 
-import com.aladdindb.structure.DataParser;
+import com.aladdindb.structure.DataTransformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.structure.sn.props.SnValueType;
 import com.aladdindb.structure.types.SnAttributeAccess;
@@ -9,7 +9,7 @@ import com.aladdindb.structure.types.SnAttributeAccess;
  *
  * @author Macit Kandemir
  */
-public class ServerParser extends DataParser < ServerModel > {
+public class ServerParser extends DataTransformer < ServerModel > {
     
     
     public enum ATR     { host, port };

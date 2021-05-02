@@ -1,7 +1,7 @@
 package com.aladdindb.method.resp.get.by.id;
 
 import com.aladdindb.Genie;
-import com.aladdindb.method.req.get.by.id.GetByIdReqParser;
+import com.aladdindb.method.req.get.by.id.GetByIdReqTransformer;
 import com.aladdindb.method.resp.RespProcess;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.xml.XML;
@@ -22,7 +22,7 @@ public class GetByIdRespProcess < UDM extends DataModel < UDM > > extends RespPr
 	@Override
 	public void run() {
 		genie.reqNode.get( reqNode -> {
-			new GetByIdReqParser().toModel( reqNode, req -> {
+			new GetByIdReqTransformer().toModel( reqNode, req -> {
 				req.unitID.get( unitID -> {
 					genie.units.getUnit( unitID, this :: resp );
 				});
@@ -36,8 +36,8 @@ public class GetByIdRespProcess < UDM extends DataModel < UDM > > extends RespPr
 	
 	private void resp( Unit< UDM > unit ) {
 		
-		var respParser 	= new GetByIdRespParser < UDM >( genie.dataParser );
-		var resp 		= new GetByIdRespModel<>(unit);
+		var respParser 	= new GetByIdRespTransformer < UDM >( genie.dataTransformer );
+		var resp 		= new GetByIdResp<>(unit);
 		
 		respParser.toNode( resp, respNode -> {
 			this.genie.respConsumer.get( respConsumer -> {

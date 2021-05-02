@@ -1,23 +1,21 @@
 package com.aladdindb;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.function.Consumer;
 
-import com.aladdindb.filter.Filter;
-import com.aladdindb.filter.FilterFactory;
+import com.aladdindb.finder.FinderSupplier;
 import com.aladdindb.method.Method;
 import com.aladdindb.method.resp.RespProcess;
 import com.aladdindb.method.resp.add.AddRespProcess;
 import com.aladdindb.method.resp.get.GetAllRespProcess;
-import com.aladdindb.method.resp.get.GetByFilterRespProcess;
-import com.aladdindb.method.resp.get.block.GetBlockRespProcess;
+import com.aladdindb.method.resp.get.GetByFinderRespProcess;
+import com.aladdindb.method.resp.get.block.BlockRespProcess;
 import com.aladdindb.method.resp.get.by.id.GetByIdRespProcess;
 import com.aladdindb.method.resp.remove.RemoveRespProcess;
 import com.aladdindb.method.resp.update.UpdateRespProcess;
 import com.aladdindb.structure.DataModel;
-import com.aladdindb.structure.DataParser;
+import com.aladdindb.structure.DataTransformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.units.UnitIdBlockNavi;
 import com.aladdindb.units.Units;
@@ -29,21 +27,21 @@ public class Genie < UDM extends DataModel < UDM > > implements Runnable {
 
 	public final HashMap< String, UnitIdBlockNavi > unitIdBlockNaviMap = new HashMap<>();
 	
-	public final	Units		< UDM > units;
-	public final	DataParser 	< UDM > dataParser;
+	public final	Units				< UDM > units;
+	public final	DataTransformer 	< UDM > dataTransformer;
 
-	public final 	FilterFactory< UDM > filterFac;
+	public final 	FinderSupplier< UDM > finderSupplier;
 	
 	public final Var < SnPoint > 				reqNode 		= new Var<>();
 	public final Var < Consumer < String > > 	respConsumer 	= new Var<>();
 	
 	
-	public Genie( Path dbPath, DataParser < UDM > dataParser, FilterFactory< UDM > filterFac ) throws IOException {
+	public Genie( Path dbPath, DataTransformer < UDM > dataTransformer, FinderSupplier< UDM > finderSupplier )  {
 		
-		this.dataParser		= dataParser;
-		this.filterFac 		= filterFac;
+		this.dataTransformer	= dataTransformer;
+		this.finderSupplier 	= finderSupplier;
 		
-		this.units			= new Units	< UDM > ( dbPath, dataParser );
+		this.units				= new Units	< UDM > ( dbPath, dataTransformer );
 	}
     
 	@Override
@@ -58,13 +56,13 @@ public class Genie < UDM extends DataModel < UDM > > implements Runnable {
 	
 	private RespProcess< UDM > createRespProcess( String reqCmd ) {  
 		
-		return 	  reqCmd.equals( Method.ADD				.req() ) ? new AddRespProcess 			< UDM > ( this )
-				: reqCmd.equals( Method.GET_BY_ID		.req() ) ? new GetByIdRespProcess 		< UDM > ( this )
-				: reqCmd.equals( Method.GET_BY_FILTER	.req() ) ? new GetByFilterRespProcess 	<     > ( this ) 
-				: reqCmd.equals( Method.GET_ALL			.req() ) ? new GetAllRespProcess 		< UDM > ( this ) 
-				: reqCmd.equals( Method.GET_ALL_BLOCK	.req() ) ? new GetBlockRespProcess 		< UDM > ( this ) 
-				: reqCmd.equals( Method.UPDATE			.req() ) ? new UpdateRespProcess 		< UDM > ( this ) 
-				: reqCmd.equals( Method.REMOVE			.req() ) ? new RemoveRespProcess 		< UDM > ( this )  
+		return 	  reqCmd.equals( Method.ADD				.reqTagName() ) ? new AddRespProcess 			< UDM > ( this )
+				: reqCmd.equals( Method.GET_BY_ID		.reqTagName() ) ? new GetByIdRespProcess 		< UDM > ( this )
+				: reqCmd.equals( Method.GET_BY_FILTER	.reqTagName() ) ? new GetByFinderRespProcess 	<     > ( this ) 
+				: reqCmd.equals( Method.GET_ALL			.reqTagName() ) ? new GetAllRespProcess 		< UDM > ( this ) 
+				: reqCmd.equals( Method.GET_ALL_BLOCK	.reqTagName() ) ? new BlockRespProcess 		< UDM > ( this ) 
+				: reqCmd.equals( Method.UPDATE			.reqTagName() ) ? new UpdateRespProcess 		< UDM > ( this ) 
+				: reqCmd.equals( Method.REMOVE			.reqTagName() ) ? new RemoveRespProcess 		< UDM > ( this )  
 				: null;
 	}
     

@@ -1,28 +1,28 @@
 package com.aladdindb.method.req.get.all;
 
-import com.aladdindb.UnitsChannel;
+import com.aladdindb.MagicLamp;
 import com.aladdindb.method.req.ReqProcess;
-import com.aladdindb.method.resp.get.block.GetBlockRespModel;
-import com.aladdindb.method.resp.get.block.GetBlockRespParser;
+import com.aladdindb.method.resp.get.block.BlockResp;
+import com.aladdindb.method.resp.get.block.BlockRespTransformer;
 import com.aladdindb.structure.DataModel;
 
 
-public class GetAllReqProcess < UDM extends DataModel< UDM > > extends ReqProcess < GetAllReqModel, GetBlockRespModel, UDM > {
+public class GetAllReqProcess < UDM extends DataModel< UDM > > extends ReqProcess < GetAllReq, BlockResp, UDM > {
 
 	
     //****************************************************************
     //						Constructors
     //****************************************************************
 
-	public GetAllReqProcess( int blockSize,  UnitsChannel< UDM > unitsChanel ) {
+	public GetAllReqProcess( int blockSize,  MagicLamp< UDM > unitsChanel ) {
 		
 		this.unitsChanel.set ( unitsChanel);
 
-		var req = new GetAllReqModel( unitsChanel.unitGroupID, blockSize );
+		var req = new GetAllReq( unitsChanel.unitGroupID, blockSize );
 		
 		this.req		.set ( req );
-		this.reqParser	.set ( new GetAllReqParser() );
-		this.respParser	.set ( new GetBlockRespParser() );
+		this.reqParser	.set ( new GetAllReqTransformer() );
+		this.respParser	.set ( new BlockRespTransformer() );
 	}
 
     //****************************************************************

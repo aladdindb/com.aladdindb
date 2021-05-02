@@ -8,9 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
-import com.aladdindb.filter.Filter;
+import com.aladdindb.finder.Finder;
 import com.aladdindb.structure.DataModel;
-import com.aladdindb.structure.DataParser;
+import com.aladdindb.structure.DataTransformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.units.models.Unit;
 import com.aladdindb.units.models.UnitParser;
@@ -28,10 +28,17 @@ public class Units < UDM extends DataModel < UDM > > {
     
     private final  UnitParser < UDM > unitParser;
 
-    public Units( Path path, DataParser< UDM > unitDataParser ) throws IOException {
+    public Units( Path path, DataTransformer< UDM > unitDataParser ) {
     	this.path 			= path;
         this.unitParser 	= new UnitParser< UDM >(unitDataParser);
-        if( !Files.exists( path ) ) Files.createDirectories( path );
+        if( !Files.exists( path ) ) {
+        	try {
+				Files.createDirectories( path );
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
         
     }
 
@@ -41,16 +48,16 @@ public class Units < UDM extends DataModel < UDM > > {
         });
     }
 
-    public void forEachUnit( Filter< UDM, ? extends DataModel<?> > filter, Consumer < Unit < UDM > > consumer ) {
-    	Counter c = new Counter();
+    public void forEachUnit( Finder< UDM, ? extends DataModel<?> > filter, Consumer < Unit < UDM > > consumer ) {
+//    	Counter c = new Counter();
     	this.forEachUnit( unit -> {
        		if( filter.prove( unit ) ) consumer.accept( unit );
     		
-    		c.inc();
-    		if( c.getIndex() > 1000 ) {
-    			System.out.println( "  1000 Erreicht :-) ");
-    			c.reset();
-    		}
+//    		c.inc();
+//    		if( c.getIndex() > 1000 ) {
+//    			System.out.println( "  1000 Erreicht :-) ");
+//    			c.reset();
+//    		}
     		
     	});
     }

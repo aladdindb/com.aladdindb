@@ -1,7 +1,7 @@
 package com.aladdindb.method.resp.add;
 
 import com.aladdindb.Genie;
-import com.aladdindb.method.req.add.AddReqParser;
+import com.aladdindb.method.req.add.AddReqTransformer;
 import com.aladdindb.method.resp.RespProcess;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.xml.XML;
@@ -20,7 +20,7 @@ public class AddRespProcess < UDM extends DataModel < UDM > > extends RespProces
 	@Override
 	public void run() {
 		genie.reqNode.get( reqNode -> {
-			new AddReqParser < UDM > ( genie.dataParser ).toModel( reqNode, req -> {
+			new AddReqTransformer < UDM > ( genie.dataTransformer ).toModel( reqNode, req -> {
 				req.unitData.get( unitData -> { 
 					String unitID = genie.units.addUnit( unitData );
 					resp( unitID );
@@ -34,8 +34,8 @@ public class AddRespProcess < UDM extends DataModel < UDM > > extends RespProces
     //************************************************************
 	
 	private void resp( String unitID ) {
-		var resp = new AddRespModel( unitID );
-		new AddRespParser().toNode( resp, respNode -> {
+		var resp = new AddResp( unitID );
+		new AddRespTransformer().toNode( resp, respNode -> {
 			this.genie.respConsumer.get( respConsumer -> {
 				XML.parse( respNode, respConsumer );
 			});

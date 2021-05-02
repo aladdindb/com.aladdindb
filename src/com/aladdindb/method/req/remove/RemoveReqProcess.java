@@ -1,28 +1,28 @@
 package com.aladdindb.method.req.remove;
 
-import com.aladdindb.UnitsChannel;
+import com.aladdindb.MagicLamp;
 import com.aladdindb.method.req.ReqProcess;
 import com.aladdindb.method.resp.remove.RemoveResp;
-import com.aladdindb.method.resp.remove.RemoveRespParser;
+import com.aladdindb.method.resp.remove.RemoveRespTransformer;
 import com.aladdindb.structure.DataModel;
 
 
-public class RemoveReqProcess < UDM extends DataModel< UDM > > extends ReqProcess < RemoveReqModel, RemoveResp< UDM > , UDM > {
+public class RemoveReqProcess < UDM extends DataModel< UDM > > extends ReqProcess < RemoveReq, RemoveResp< UDM > , UDM > {
 
 	
     //****************************************************************
     //						Constructors
     //****************************************************************
 
-	public RemoveReqProcess( String unitID, UnitsChannel< UDM > unitsChanel ) {
+	public RemoveReqProcess( String unitID, MagicLamp< UDM > unitsChanel ) {
 		
 		this.unitsChanel.set ( unitsChanel);
 
-		var req = new RemoveReqModel( unitsChanel.unitGroupID, unitID );
+		var req = new RemoveReq( unitsChanel.unitGroupID, unitID );
 		
 		this.req		.set ( req );
-		this.reqParser	.set ( new RemoveReqParser());
-		this.respParser	.set ( new RemoveRespParser<UDM>( unitsChanel.unitDataParser ) );
+		this.reqParser	.set ( new RemoveReqTransformer());
+		this.respParser	.set ( new RemoveRespTransformer<UDM>( unitsChanel.unitDataTransformer ) );
 	}
 
 	

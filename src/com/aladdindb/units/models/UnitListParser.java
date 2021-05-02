@@ -1,7 +1,7 @@
 package com.aladdindb.units.models;
 
 import com.aladdindb.structure.DataModel;
-import com.aladdindb.structure.DataParser;
+import com.aladdindb.structure.DataTransformer;
 import com.aladdindb.structure.sn.SnPoint;
 
 /**
@@ -15,7 +15,7 @@ public final class UnitListParser <
 
 	DATA_MODEL extends DataModel < DATA_MODEL > 
     
-> extends DataParser < UnitList	< DATA_MODEL > > {
+> extends DataTransformer < UnitList	< DATA_MODEL > > {
     
 
 	private final UnitParser< DATA_MODEL > unitModelParser;
@@ -25,11 +25,11 @@ public final class UnitListParser <
     //
     //****************************************************************
 
-    public UnitListParser( DataParser< DATA_MODEL > dataModelParser  ) {
+    public UnitListParser( DataTransformer< DATA_MODEL > dataModelParser  ) {
     	this( "units", dataModelParser );
     }
 
-    public UnitListParser( String key, DataParser< DATA_MODEL > dataModelParser  ) {
+    public UnitListParser( String key, DataTransformer< DATA_MODEL > dataModelParser  ) {
         super( key );
         this.unitModelParser = new UnitParser< DATA_MODEL >(dataModelParser);
     }

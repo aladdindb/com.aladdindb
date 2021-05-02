@@ -4,17 +4,20 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
 import com.aladdindb.method.req.ReqNode;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.xml.XML;
 import com.aladdindb.util.Var;
 
 public class GenieInvoker {
 
-	public final MagicLamp magicLamp = new MagicLamp();
+	
+	public final HashMap < String , Genie < ? extends DataModel< ? > > > otherSide = new HashMap<>();
 	
 	private final int port;
 	
@@ -22,7 +25,7 @@ public class GenieInvoker {
 		this.port = port;
 	}
 	
-    public void start() {
+    public void invoke() {
 		try ( var serverSocket = new ServerSocket( port ) ) {
             var pool = Executors.newFixedThreadPool( 20 );
 			System.out.println("Genie invoker was properly started ;-)");
@@ -82,11 +85,11 @@ public class GenieInvoker {
     	    		this.getReqStr( in, reqStr -> {
     	    			System.out.println( reqStr );
     	    			
-    	    			this.getGenie( reqStr, genie -> {
+    	    			this.getServer( reqStr, genie -> {
     	    				
 							genie.respConsumer.set( respStr -> {
         						out.println( respStr 		);
-        						out.println( Channel.END_OF_DATA );
+        						out.println( GenieConnection.END_OF_DATA );
         						loop.set( true );
 							});
 							
@@ -113,29 +116,39 @@ public class GenieInvoker {
 		 * Erst wenn das Zeilen-Ende erreciht wird, kann das req
 		 * weiter-Verarbeitet werden.  
 		 */
-        private void getReqStr( Scanner in,  Consumer < String > consumer ) {
+        private void getReqStr( Scanner in,  Consumer < String > reqStrConsumer ) {
     		StringBuilder 	req = new StringBuilder();
     		String 			inLine;
     		while( in.hasNextLine () ) {
     			inLine = in.nextLine ();
-    			if( inLine.equals ( Channel.END_OF_DATA ) )break;
+    			if( inLine.equals ( GenieConnection.END_OF_DATA ) )break;
 				req.append( inLine + "\n" );
     		}
     		var reqStr = req.toString();
-			if( reqStr != null && !reqStr.trim().isEmpty()) consumer.accept( reqStr );
+			if( reqStr != null && !reqStr.trim().isEmpty()) reqStrConsumer.accept( reqStr );
         }
         
-        private void getGenie( String reqStr, Consumer < Genie<?> > consumer ) {
+        private void getServer( String reqStr, Consumer < Genie<?> > serverConsumer ) {
 			XML.parse( reqStr, reqNode -> {
 				new ReqNode(reqNode).getUnitGroupID( unitGroupID -> {
-					this.invoker.magicLamp.getGenie( unitGroupID, genie -> {
+					this.invoker.getGenie( unitGroupID, genie -> {
 						genie.reqNode.set( reqNode );
-						consumer.accept( genie );
+						serverConsumer.accept( genie );
 					});
 				});
 			});
         }
         
     }
+    
+    public void getGenie( String unitGroupID, Consumer< Genie< ? extends DataModel< ? > > > genieConsumer ) {
+    	var server = this.otherSide.get(unitGroupID);
+    	if( server != null ) genieConsumer.accept( server );  
+    }
+    
+    public void putGenie( String unitGroupID, Genie< ? extends DataModel< ? > > genie ) {
+    	this.otherSide.put( unitGroupID, genie );
+    }
+    
     
 }

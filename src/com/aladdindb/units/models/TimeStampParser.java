@@ -1,11 +1,11 @@
 package com.aladdindb.units.models;
 
-import com.aladdindb.structure.DataParser;
+import com.aladdindb.structure.DataTransformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.structure.sn.props.SnValueType;
 import com.aladdindb.structure.types.SnAttributeAccess;
 
-public class TimeStampParser extends DataParser< TimeStamp > {
+public class TimeStampParser extends DataTransformer< TimeStamp > {
 
 	private enum ATR { create, update };
 	

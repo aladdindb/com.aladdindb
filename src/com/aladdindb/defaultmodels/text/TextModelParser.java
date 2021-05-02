@@ -1,6 +1,6 @@
 package com.aladdindb.defaultmodels.text;
 
-import com.aladdindb.structure.DataParser;
+import com.aladdindb.structure.DataTransformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.structure.sn.props.SnValueType;
 
@@ -8,7 +8,7 @@ import com.aladdindb.structure.sn.props.SnValueType;
  *
  * @author Macit Kandemir
  */
-public class TextModelParser extends DataParser < TextModel > {
+public class TextModelParser extends DataTransformer < TextModel > {
     
     
 	public TextModelParser() {

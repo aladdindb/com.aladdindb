@@ -10,18 +10,18 @@ public enum Method {
 	UPDATE			("update"),
 	REMOVE			("remove");
 	
-	private final String cmd;
+	private final String method;
 	
-	private Method( String cmd ) {
-		this.cmd = cmd;
+	private Method( String method ) {
+		this.method = method;
 	}
 	
-	public String res() {
-		return "resp:"+cmd;
+	public String respTagName() {
+		return "resp:"+method;
 	}
 	
-	public String req() {
-		return "req:"+cmd;
+	public String reqTagName() {
+		return "req:"+method;
 	}
 	
 	

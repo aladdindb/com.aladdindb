@@ -6,7 +6,7 @@ module com.aladdindb {
     exports com.aladdindb.method.req.get.by.id;
     exports com.aladdindb.method.req.get.all;
     exports com.aladdindb.method.req.update;
-    exports com.aladdindb.method.req.get.by.filter;
+    exports com.aladdindb.method.req.get.by.finder;
 
     exports com.aladdindb.method.resp.add;
     exports com.aladdindb.method.resp.get.by.id;
@@ -18,9 +18,9 @@ module com.aladdindb {
     exports com.aladdindb.units;
     exports com.aladdindb.units.models;
     
-    exports com.aladdindb.filter;
-    exports com.aladdindb.filter.types;
-    exports com.aladdindb.filter.logical;
+    exports com.aladdindb.finder;
+    exports com.aladdindb.finder.types;
+    exports com.aladdindb.finder.logical;
 
     exports com.aladdindb.defaultmodels.login;        
     exports com.aladdindb.defaultmodels.server;        

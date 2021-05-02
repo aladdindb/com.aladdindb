@@ -1,11 +1,11 @@
 package com.aladdindb.method.resp.get;
 
 import com.aladdindb.Genie;
-import com.aladdindb.method.req.get.all.GetAllReqParser;
-import com.aladdindb.method.req.get.by.id.GetByIdReqParser;
+import com.aladdindb.method.req.get.all.GetAllReqTransformer;
+import com.aladdindb.method.req.get.by.id.GetByIdReqTransformer;
 import com.aladdindb.method.resp.RespProcess;
-import com.aladdindb.method.resp.get.block.GetBlockRespModel;
-import com.aladdindb.method.resp.get.block.GetBlockRespParser;
+import com.aladdindb.method.resp.get.block.BlockResp;
+import com.aladdindb.method.resp.get.block.BlockRespTransformer;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.xml.XML;
 import com.aladdindb.units.UnitIdBlockMap;
@@ -28,7 +28,7 @@ public class GetAllRespProcess < UDM extends DataModel < UDM > > extends RespPro
 	@Override
 	public void run() {
 		genie.reqNode.get( reqNode -> {
-			new GetAllReqParser().toModel( reqNode, req -> {
+			new GetAllReqTransformer().toModel( reqNode, req -> {
 				req.blockSize.get( this :: resp );
 			});
 		});
@@ -40,8 +40,8 @@ public class GetAllRespProcess < UDM extends DataModel < UDM > > extends RespPro
 	
 	private void resp( int blockSize ) {
 
-		var respParser 	= new GetBlockRespParser();
-		var resp 		= new GetBlockRespModel();
+		var respParser 	= new BlockRespTransformer();
+		var resp 		= new BlockResp();
 
 		var blockMap 	= new UnitIdBlockMap( blockSize );
 		

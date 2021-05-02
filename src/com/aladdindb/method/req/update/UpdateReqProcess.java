@@ -1,29 +1,29 @@
 package com.aladdindb.method.req.update;
 
-import com.aladdindb.UnitsChannel;
+import com.aladdindb.MagicLamp;
 import com.aladdindb.method.req.ReqProcess;
 import com.aladdindb.method.resp.update.UpdateResp;
-import com.aladdindb.method.resp.update.UpdateRespParser;
+import com.aladdindb.method.resp.update.UpdateRespTransformer;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.units.models.Unit;
 
 
-public class UpdateReqProcess < UDM extends DataModel< UDM > > extends ReqProcess < UpdateReqModel< UDM >, UpdateResp, UDM > {
+public class UpdateReqProcess < UDM extends DataModel< UDM > > extends ReqProcess < UpdateReq< UDM >, UpdateResp, UDM > {
 
 	
     //****************************************************************
     //						Constructors
     //****************************************************************
 
-	public UpdateReqProcess( Unit<UDM> unitData, UnitsChannel< UDM > unitsChanel ) {
+	public UpdateReqProcess( Unit<UDM> unitData, MagicLamp< UDM > unitsChanel ) {
 		
-		var req = new UpdateReqModel < UDM > ( unitsChanel.unitGroupID, unitData );
+		var req = new UpdateReq < UDM > ( unitsChanel.unitGroupID, unitData );
 		
 		this.unitsChanel.set ( unitsChanel);
 		
 		this.req		.set ( req );
-		this.respParser	.set ( new UpdateRespParser() );
-		this.reqParser	.set ( new UpdateReqParser< UDM > ( unitsChanel.unitDataParser ) );
+		this.respParser	.set ( new UpdateRespTransformer() );
+		this.reqParser	.set ( new UpdateReqTransformer< UDM > ( unitsChanel.unitDataTransformer ) );
 	}
 
 	
