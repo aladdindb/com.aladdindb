@@ -11,7 +11,7 @@ import com.aladdindb.util.Var;
 
 public abstract class ReqProcess <
 
-	REQ_MODEL 	extends Req	< REQ_MODEL >,
+	REQ_MODEL 	extends Req			< REQ_MODEL >,
 	RESP 		extends DataModel	< RESP >,
 	UDM 		extends DataModel 	< UDM > 
  
@@ -22,12 +22,12 @@ public abstract class ReqProcess <
     //						Class Attributes
     //****************************************************************
 		
-	public final Var < REQ_MODEL 					> req 			= new Var<>(); 
+	public final Var < REQ_MODEL 					> req 					= new Var<>(); 
 	
-	public final Var < MagicLamp	< UDM 		> 	> unitsChanel 	= new Var<>();
-	public final Var < DataTransformer 	< REQ_MODEL > 	> reqParser 	= new Var<>();
-	public final Var < DataTransformer 	< RESP 		> 	> respParser 	= new Var<>();
-	public final Var < Consumer 	< RESP 		> 	> respConsumer 	= new Var<>();
+	public final Var < MagicLamp		< UDM 		> 	> magicLamp 		= new Var<>();
+	public final Var < DataTransformer 	< REQ_MODEL > 	> reqTransformer 	= new Var<>();
+	public final Var < DataTransformer 	< RESP 		> 	> respTransformer 	= new Var<>();
+	public final Var < Consumer 		< RESP 		> 	> respConsumer 		= new Var<>();
 	
 	
     //****************************************************************
@@ -36,13 +36,13 @@ public abstract class ReqProcess <
     
 	@Override
 	public void run() {
-		this.unitsChanel.get( unitsChanel -> {
-			this.reqParser.get( reqParser -> {
-				reqParser.toNode( req, reqNode -> {
-					unitsChanel.genieConnection.sendReq( reqNode, respNode -> {
+		this.magicLamp.get( magicLamp -> {
+			this.reqTransformer.get( reqTransformer -> {
+				reqTransformer.toNode( req, reqNode -> {
+					magicLamp.genieConnection.sendReq( reqNode, respNode -> {
 						this.respConsumer.get( respConsumer -> {
-							this.respParser.get( respParser -> {
-								respParser.toModel( respNode, respConsumer );
+							this.respTransformer.get( respTransformer -> {
+								respTransformer.toModel( respNode, respConsumer );
 							});
 						});
 					});

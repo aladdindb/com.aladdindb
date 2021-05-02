@@ -16,13 +16,13 @@ public class AddReqProcess < UDM extends DataModel< UDM > > extends ReqProcess <
 
 	public AddReqProcess( UDM unitData, MagicLamp< UDM > unitsChanel ) {
 		
-		this.unitsChanel.set ( unitsChanel);
+		this.magicLamp.set ( unitsChanel);
 
 		var req = new AddReq < UDM > ( unitsChanel.unitGroupID, unitData );
 		
 		this.req		.set ( req );
-		this.reqParser	.set ( new AddReqTransformer	< UDM > ( unitsChanel.unitDataTransformer ) );
-		this.respParser	.set ( new AddRespTransformer() );
+		this.reqTransformer	.set ( new AddReqTransformer	< UDM > ( unitsChanel.unitDataTransformer ) );
+		this.respTransformer	.set ( new AddRespTransformer() );
 	}
 
 	

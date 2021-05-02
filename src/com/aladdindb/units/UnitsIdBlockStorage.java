@@ -2,7 +2,7 @@ package com.aladdindb.units;
 
 import com.aladdindb.structure.sn.SnPoint;
 
-public class UnitIdBlockMap {
+public class UnitsIdBlockStorage {
 
 	private final int blockSize;
 	
@@ -16,7 +16,7 @@ public class UnitIdBlockMap {
 	private SnPoint blockNode = new SnPoint();
 
 	
-	public UnitIdBlockMap( int blockSize ) {
+	public UnitsIdBlockStorage( int blockSize ) {
 		this.blockSize 	= blockSize;
 	}
 	
@@ -44,9 +44,9 @@ public class UnitIdBlockMap {
 		}
 	}
 	
-	public UnitIdBlockNavi createBlockNavi()  {
+	public UnitsIdBlockNavi createBlockNavi()  {
 		this.saveBlock();
-		return new UnitIdBlockNavi( blockNode );
+		return new UnitsIdBlockNavi( blockNode );
 	}
 }
 	

@@ -11,45 +11,45 @@ import com.aladdindb.util.LineNavigator;
  * @author Macit Kandemir
  * @param <DUM>
  */
-public final class BlockReqTransformer  extends ReqTransformer< BlockReq >  {
+public final class BlockNaviReqTransformer  extends ReqTransformer< BlockNaviReq >  {
 	
 
     
-    private enum ATR { cmdSessionID, direction };
+    private enum ATR { methodSessionID, direction };
     
     
-	public BlockReqTransformer() {
-		super( Method.GET_ALL_BLOCK.reqTagName() );
+	public BlockNaviReqTransformer() {
+		super( Method.GET_BLOCK.reqTagName() );
 	}
     
     //****************************************************************
     //
     //****************************************************************
 
-    public BlockReq newModel() {
-		return new BlockReq( null, null, null );
+    public BlockNaviReq newModel() {
+		return new BlockNaviReq( null, null, null );
 	}
 	
     @Override
-    public BlockReq toModel( SnPoint src, BlockReq target ) {
+    public BlockNaviReq toModel( SnPoint src, BlockNaviReq target ) {
     	super.toModel(src, target);
     	
     	var srcAtr = new SnAttributeAccess( src );
 
-    	srcAtr.asStr	.get( ATR.cmdSessionID	,target.cmdSessionID 	);
-    	srcAtr.asEnum	.get( ATR.direction		,target.direction, LineNavigator.DIRECTION.class );
+    	srcAtr.asStr	.get( ATR.methodSessionID	,target.methodSessionID 	);
+    	srcAtr.asEnum	.get( ATR.direction			,target.direction, LineNavigator.DIRECTION.class );
         
         return target;
     }
     
     @Override
-    public SnPoint toNode( BlockReq src, SnPoint target ) {
+    public SnPoint toNode( BlockNaviReq src, SnPoint target ) {
         super.toNode(src, target);
         
     	var targetAtr = new SnAttributeAccess( target );
 
-    	targetAtr.asStr		.set( ATR.cmdSessionID  ,src.cmdSessionID	);
-    	targetAtr.asEnum	.set( ATR.direction  	,src.direction, LineNavigator.DIRECTION.class ); 
+    	targetAtr.asStr		.set( ATR.methodSessionID  	,src.methodSessionID	);
+    	targetAtr.asEnum	.set( ATR.direction  		,src.direction, LineNavigator.DIRECTION.class ); 
 
         return target;
     }

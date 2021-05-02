@@ -5,12 +5,15 @@ import java.util.function.Consumer;
 import com.aladdindb.finder.Finder;
 import com.aladdindb.finder.FinderSupplier;
 import com.aladdindb.method.req.add.AddReqProcess;
-import com.aladdindb.method.req.get.all.GetAllBlockNavi;
-import com.aladdindb.method.req.get.by.finder.GetByFinderBlockNavi;
+import com.aladdindb.method.req.closemethodsession.CloseMethodSessionReqProcess;
+import com.aladdindb.method.req.get.all.GetAllReqProcess;
+import com.aladdindb.method.req.get.by.finder.GetByFinderReqProcess;
 import com.aladdindb.method.req.get.by.id.GetByIdReqProcess;
 import com.aladdindb.method.req.remove.RemoveReqProcess;
 import com.aladdindb.method.req.update.UpdateReqProcess;
 import com.aladdindb.method.resp.add.AddResp;
+import com.aladdindb.method.resp.closemethodsession.CloseMethodSessionResp;
+import com.aladdindb.method.resp.get.block.BlockNavResp;
 import com.aladdindb.method.resp.get.by.id.GetByIdResp;
 import com.aladdindb.method.resp.remove.RemoveResp;
 import com.aladdindb.method.resp.update.UpdateResp;
@@ -58,18 +61,22 @@ public class MagicLamp < UDM extends DataModel < UDM > > {
     	reqProcess.run();
     }
 
-    public void getUnitByID( String unitID, Consumer< GetByIdResp< UDM > > respConsumer ) {
+    public void getByID( String unitID, Consumer< GetByIdResp< UDM > > respConsumer ) {
     	var reqProcess =  new GetByIdReqProcess< UDM > ( unitID, this );
     	reqProcess.respConsumer.set( respConsumer );
     	reqProcess.run();
     }
     
-    public void getAll( int blockSize, Consumer< GetAllBlockNavi< UDM > > respConsumer ) {
-    	respConsumer.accept( new GetAllBlockNavi < UDM > ( this, blockSize ));
+    public void getAll( int blockSize, Consumer< BlockNavResp > respConsumer ) {
+    	var reqProcess = new GetAllReqProcess<>( blockSize,  this );
+    	reqProcess.respConsumer.set( respConsumer );
+    	reqProcess.run();
     }
 
-    public void getByFinder( int blockSize, Finder < UDM, ? extends Finder < UDM, ? > >  finder, Consumer < GetByFinderBlockNavi < UDM > > respConsumer ) {
-    	respConsumer.accept( new GetByFinderBlockNavi < UDM >( this, blockSize, finder) );
+    public void getByFinder( int blockSize, Finder < UDM, ? extends Finder >  finder, Consumer < BlockNavResp > respConsumer ) {
+    	var reqProcess = new GetByFinderReqProcess( blockSize, finder, this );
+    	reqProcess.respConsumer.set( respConsumer );
+    	reqProcess.run();
     }
     
     public void update( Unit < UDM > unit, Consumer < UpdateResp > respConsumer  ) {
@@ -84,6 +91,11 @@ public class MagicLamp < UDM extends DataModel < UDM > > {
     	reqProcess.run();
     } 
     
+    public void closeMethodSession( String methodSessionID, Consumer< CloseMethodSessionResp > respConsumer ) {
+    	var reqProcess = new CloseMethodSessionReqProcess< UDM >( methodSessionID,  this );
+    	reqProcess.respConsumer.set( respConsumer );
+    	reqProcess.run();
+    }
     
     //************************************************************
     //					

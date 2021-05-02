@@ -6,11 +6,11 @@ import com.aladdindb.method.req.get.all.GetAllReqTransformer;
 import com.aladdindb.method.req.get.by.finder.GetByFinderReqTransformer;
 import com.aladdindb.method.req.get.by.id.GetByIdReqTransformer;
 import com.aladdindb.method.resp.RespProcess;
-import com.aladdindb.method.resp.get.block.BlockResp;
-import com.aladdindb.method.resp.get.block.BlockRespTransformer;
+import com.aladdindb.method.resp.get.block.BlockNavResp;
+import com.aladdindb.method.resp.get.block.BlockNaviRespTransformer;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.xml.XML;
-import com.aladdindb.units.UnitIdBlockMap;
+import com.aladdindb.units.UnitsIdBlockStorage;
 import com.aladdindb.units.models.Unit;
 import com.aladdindb.units.models.UnitParser;
 import com.aladdindb.util.Ald;
@@ -52,10 +52,10 @@ public class GetByFinderRespProcess <
 	
 	private void resp( int blockSize, Finder finder) {
 
-		var respParser 	= new BlockRespTransformer();
-		var resp 		= new BlockResp();
+		var respParser 	= new BlockNaviRespTransformer();
+		var resp 		= new BlockNavResp();
 
-		var blockMap 	= new UnitIdBlockMap( blockSize );
+		var blockMap 	= new UnitsIdBlockStorage( blockSize );
 		
 		this.genie.units.forEachUnit( finder, unit -> {
 			unit.id.get( blockMap::addUnitID );
@@ -65,9 +65,9 @@ public class GetByFinderRespProcess <
 		
 		var navi = blockMap.createBlockNavi();
 		
-		genie.unitIdBlockNaviMap.put( cmdSesionID,  navi );
+		genie.unitsIdBlockNaviMap.put( cmdSesionID,  navi );
 		
-		resp.cmdSessionID	.set( cmdSesionID );
+		resp.methodSessionID	.set( cmdSesionID );
 		
 		resp.unitsIdBlock	.set( navi.right());
 		

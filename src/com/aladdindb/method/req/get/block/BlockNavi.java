@@ -3,7 +3,7 @@ package com.aladdindb.method.req.get.block;
 import com.aladdindb.MagicLamp;
 import com.aladdindb.method.req.Req;
 import com.aladdindb.method.req.ReqProcess;
-import com.aladdindb.method.resp.get.block.BlockResp;
+import com.aladdindb.method.resp.get.block.BlockNavResp;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.util.LineNavigator;
 
@@ -16,14 +16,19 @@ public class BlockNavi <
 	UDM 		extends DataModel 	< UDM >,
 	REQ_MODEL 	extends Req	< REQ_MODEL >
 	
-> implements LineNavigator < BlockResp > { 
+> implements LineNavigator < BlockNavResp > { 
 	
-	private BlockResp currentIdBlock;
+	private BlockNavResp currentIdBlock;
 	
 	private final  MagicLamp < UDM > magicLamp;
+
+    public BlockNavi( BlockNavResp blockResp, MagicLamp < UDM > magicLamp ) {
+    	this.currentIdBlock = blockResp;
+		this.magicLamp 		= magicLamp;
+    }
 	
     public BlockNavi( 	MagicLamp< UDM > magicLamp, int blockSize, 
-    						ReqProcess< REQ_MODEL , BlockResp , UDM > reqProcess ) {
+    						ReqProcess< REQ_MODEL , BlockNavResp , UDM > reqProcess ) {
     	
     	this.magicLamp 	= magicLamp;
     	
@@ -42,9 +47,9 @@ public class BlockNavi <
 	}
 
 	@Override
-	public BlockResp right() {
+	public BlockNavResp right() {
 		if( currentIdBlock != null ) {
-			var reqProcess = new BlockReqProcess < UDM > ( currentIdBlock.cmdSessionID.get(), LineNavigator.DIRECTION.right, this.magicLamp );
+			var reqProcess = new BlockNaviReqProcess < UDM > ( currentIdBlock.methodSessionID.get(), LineNavigator.DIRECTION.right, this.magicLamp );
 			reqProcess.respConsumer.set( this :: setCurrentIdBlock );
 	    	reqProcess.run();
 		}
@@ -52,20 +57,20 @@ public class BlockNavi <
 	}
 
 	@Override
-	public BlockResp left() {
+	public BlockNavResp left() {
 		if( currentIdBlock != null ) {
-			var reqProcess = new BlockReqProcess<UDM>( currentIdBlock.cmdSessionID.get(), LineNavigator.DIRECTION.left, this.magicLamp );
+			var reqProcess = new BlockNaviReqProcess<UDM>( currentIdBlock.methodSessionID.get(), LineNavigator.DIRECTION.left, this.magicLamp );
 			reqProcess.respConsumer.set( this :: setCurrentIdBlock );
 	    	reqProcess.run();
 		}
 		return currentIdBlock;
 	}
     
-	public void setCurrentIdBlock( BlockResp currentIdBlock ) {
+	public void setCurrentIdBlock( BlockNavResp currentIdBlock ) {
 		this.currentIdBlock = currentIdBlock;
 	}
 	
-	public BlockResp getCurrentIdBlock() {
+	public BlockNavResp getCurrentIdBlock() {
 		return currentIdBlock;
 	}
 }

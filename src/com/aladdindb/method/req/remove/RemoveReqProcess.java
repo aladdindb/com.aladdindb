@@ -16,13 +16,13 @@ public class RemoveReqProcess < UDM extends DataModel< UDM > > extends ReqProces
 
 	public RemoveReqProcess( String unitID, MagicLamp< UDM > unitsChanel ) {
 		
-		this.unitsChanel.set ( unitsChanel);
+		this.magicLamp.set ( unitsChanel);
 
 		var req = new RemoveReq( unitsChanel.unitGroupID, unitID );
 		
 		this.req		.set ( req );
-		this.reqParser	.set ( new RemoveReqTransformer());
-		this.respParser	.set ( new RemoveRespTransformer<UDM>( unitsChanel.unitDataTransformer ) );
+		this.reqTransformer	.set ( new RemoveReqTransformer());
+		this.respTransformer	.set ( new RemoveRespTransformer<UDM>( unitsChanel.unitDataTransformer ) );
 	}
 
 	

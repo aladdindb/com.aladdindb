@@ -8,11 +8,11 @@ import com.aladdindb.util.LineNavigator;
 *
 * @author Macit Kandemir
 */
-public class UnitIdBlockNavi implements LineNavigator< String >  { 
+public class UnitsIdBlockNavi implements LineNavigator< String >  { 
 	
 	private final  SnLineNavi navi;
 	
-    public UnitIdBlockNavi( SnPoint node ) {
+    public UnitsIdBlockNavi( SnPoint node ) {
     	this.navi = new SnLineNavi(node.children.snBottom.get() );
     }
 

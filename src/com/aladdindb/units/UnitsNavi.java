@@ -1,7 +1,7 @@
 package com.aladdindb.units;
 
 import com.aladdindb.MagicLamp;
-import com.aladdindb.method.resp.get.block.BlockResp;
+import com.aladdindb.method.resp.get.block.BlockNavResp;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.sn.SnLineNavi;
 import com.aladdindb.structure.sn.SnPoint;
@@ -14,12 +14,12 @@ import com.aladdindb.util.Var;
 public class UnitsNavi < UDM extends DataModel < UDM > > implements LineNavigator < Unit < UDM > >  {
 
 	
-	private BlockResp 				blockRespModel;
+	private BlockNavResp 				blockRespModel;
 	private SnLineNavi 				unitIdNav;
 	
 	private final MagicLamp< UDM > 	magicLamp;
 	
-	public UnitsNavi( BlockResp blockRespModel, MagicLamp< UDM > magicLamp ) {
+	public UnitsNavi( BlockNavResp blockRespModel, MagicLamp< UDM > magicLamp ) {
 		
 		this.blockRespModel = blockRespModel;
 		this.magicLamp 		= magicLamp;
@@ -50,7 +50,7 @@ public class UnitsNavi < UDM extends DataModel < UDM > > implements LineNavigato
 		Var< Unit< UDM > > rv = new Var<>();
 		if( hasRight() ) {
 			this.unitIdNav.right().value.get( id -> {
-				this.magicLamp.getUnitByID(id, resp -> {
+				this.magicLamp.getByID(id, resp -> {
 					resp.unit.get( rv :: set );
 				} );
 			}); 
@@ -63,7 +63,7 @@ public class UnitsNavi < UDM extends DataModel < UDM > > implements LineNavigato
 		Var< Unit< UDM > > rv = new Var<>();
 		if( hasLeft() ) {
 			this.unitIdNav.left().value.get( id -> {
-				this.magicLamp.getUnitByID(id, resp -> {
+				this.magicLamp.getByID(id, resp -> {
 					resp.unit.get( rv :: set );
 				} );
 			}); 

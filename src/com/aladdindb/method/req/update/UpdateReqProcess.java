@@ -19,11 +19,11 @@ public class UpdateReqProcess < UDM extends DataModel< UDM > > extends ReqProces
 		
 		var req = new UpdateReq < UDM > ( unitsChanel.unitGroupID, unitData );
 		
-		this.unitsChanel.set ( unitsChanel);
+		this.magicLamp.set ( unitsChanel);
 		
 		this.req		.set ( req );
-		this.respParser	.set ( new UpdateRespTransformer() );
-		this.reqParser	.set ( new UpdateReqTransformer< UDM > ( unitsChanel.unitDataTransformer ) );
+		this.respTransformer	.set ( new UpdateRespTransformer() );
+		this.reqTransformer	.set ( new UpdateReqTransformer< UDM > ( unitsChanel.unitDataTransformer ) );
 	}
 
 	

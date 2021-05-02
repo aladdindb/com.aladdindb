@@ -85,7 +85,7 @@ public class GenieInvoker {
     	    		this.getReqStr( in, reqStr -> {
     	    			System.out.println( reqStr );
     	    			
-    	    			this.getServer( reqStr, genie -> {
+    	    			this.getGenie( reqStr, genie -> {
     	    				
 							genie.respConsumer.set( respStr -> {
         						out.println( respStr 		);
@@ -128,7 +128,7 @@ public class GenieInvoker {
 			if( reqStr != null && !reqStr.trim().isEmpty()) reqStrConsumer.accept( reqStr );
         }
         
-        private void getServer( String reqStr, Consumer < Genie<?> > serverConsumer ) {
+        private void getGenie( String reqStr, Consumer < Genie<?> > serverConsumer ) {
 			XML.parse( reqStr, reqNode -> {
 				new ReqNode(reqNode).getUnitGroupID( unitGroupID -> {
 					this.invoker.getGenie( unitGroupID, genie -> {

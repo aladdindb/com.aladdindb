@@ -4,11 +4,13 @@ public enum Method {
 	
 	ADD				("add"),
 	GET_BY_ID		("get:by:id"),
-	GET_BY_FILTER	("get:by:filter"),
+	GET_BY_FINDER	("get:by:finder"),
 	GET_ALL			("get:all"),
-	GET_ALL_BLOCK	("get:all:block"),
+	GET_BLOCK		("get:block"),
 	UPDATE			("update"),
-	REMOVE			("remove");
+	REMOVE			("remove"),
+	
+	CLOSE_METHOD_SESSION ("close:method:session");
 	
 	private final String method;
 	

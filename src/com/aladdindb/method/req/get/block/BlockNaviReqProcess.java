@@ -1,27 +1,28 @@
-package com.aladdindb.method.req.get.all;
+package com.aladdindb.method.req.get.block;
 
 import com.aladdindb.MagicLamp;
 import com.aladdindb.method.req.ReqProcess;
 import com.aladdindb.method.resp.get.block.BlockNavResp;
 import com.aladdindb.method.resp.get.block.BlockNaviRespTransformer;
 import com.aladdindb.structure.DataModel;
+import com.aladdindb.util.LineNavigator;
 
 
-public class GetAllReqProcess < UDM extends DataModel< UDM > > extends ReqProcess < GetAllReq, BlockNavResp, UDM > {
+public class BlockNaviReqProcess < UDM extends DataModel< UDM > > extends ReqProcess < BlockNaviReq, BlockNavResp, UDM > {
 
 	
     //****************************************************************
     //						Constructors
     //****************************************************************
 
-	public GetAllReqProcess( int blockSize,  MagicLamp< UDM > magicLamp ) {
+	public BlockNaviReqProcess( String cmdSessionID, LineNavigator.DIRECTION direction, MagicLamp< UDM > unitsChanel ) {
 		
-		this.magicLamp.set ( magicLamp);
+		this.magicLamp.set ( unitsChanel);
 
-		var req = new GetAllReq( magicLamp.unitGroupID, blockSize );
+		var req = new BlockNaviReq( unitsChanel.unitGroupID, cmdSessionID, direction );
 		
-		this.req				.set ( req );
-		this.reqTransformer		.set ( new GetAllReqTransformer() );
+		this.req		.set ( req );
+		this.reqTransformer	.set ( new BlockNaviReqTransformer() );
 		this.respTransformer	.set ( new BlockNaviRespTransformer() );
 	}
 

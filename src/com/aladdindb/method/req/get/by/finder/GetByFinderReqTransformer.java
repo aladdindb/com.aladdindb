@@ -26,7 +26,7 @@ public final class GetByFinderReqTransformer <
     private final FinderSupplier< UDM > finderSupplier; 
     
 	public GetByFinderReqTransformer( FinderSupplier< UDM > finderSupplier ) {
-		super( Method.GET_BY_FILTER.reqTagName() );
+		super( Method.GET_BY_FINDER.reqTagName() );
 		this.finderSupplier = finderSupplier; 
 	}
     
