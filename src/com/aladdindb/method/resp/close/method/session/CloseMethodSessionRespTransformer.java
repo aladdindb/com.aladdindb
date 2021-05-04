@@ -1,4 +1,4 @@
-package com.aladdindb.method.resp.closemethodsession;
+package com.aladdindb.method.resp.close.method.session;
 
 import com.aladdindb.method.Method;
 import com.aladdindb.structure.DataTransformer;

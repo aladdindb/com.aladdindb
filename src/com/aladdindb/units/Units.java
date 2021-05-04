@@ -14,7 +14,6 @@ import com.aladdindb.structure.DataTransformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.units.models.Unit;
 import com.aladdindb.units.models.UnitTransformer;
-import com.aladdindb.util.Counter;
 import com.aladdindb.util.Var;
 
 
@@ -24,13 +23,23 @@ import com.aladdindb.util.Var;
  */
 public class Units < UDM extends DataModel < UDM > > {
 
-	public final Path path;
-    
-    private final  UnitTransformer < UDM > unitParser;
+	
+	public final 	Path path;
+	
+    private final  	UnitTransformer < UDM > unitTransformer;
 
-    public Units( Path path, DataTransformer< UDM > unitDataParser ) {
-    	this.path 			= path;
-        this.unitParser 	= new UnitTransformer< UDM >(unitDataParser);
+    
+    //**********************************************************
+    //					 Constructors
+    //**********************************************************
+    
+    public Units( Path path ) {
+    	this( path, null );
+    }
+    
+    public Units( Path path, DataTransformer< UDM > unitDataTransformer ) {
+    	this.path 				= path;
+        this.unitTransformer 	= new UnitTransformer< UDM >(unitDataTransformer);
         if( !Files.exists( path ) ) {
         	try {
 				Files.createDirectories( path );
@@ -42,16 +51,14 @@ public class Units < UDM extends DataModel < UDM > > {
         
     }
 
-    public void forEachUnit( Consumer < Unit < UDM > > consumer ) {
-        forEachUnitNode( unitNode -> {
-            unitParser.toModel( unitNode,  consumer :: accept );
-        });
-    }
-
-    public void forEachUnit( Finder< UDM, ? extends DataModel<?> > filter, Consumer < Unit < UDM > > consumer ) {
+    //**********************************************************
+    //					 Unit Search
+    //**********************************************************
+    
+    public void search( Finder< UDM, ? extends DataModel<?> > finder, Consumer < Unit < UDM > > unitConsumer ) {
 //    	Counter c = new Counter();
     	this.forEachUnit( unit -> {
-       		if( filter.prove( unit ) ) consumer.accept( unit );
+       		if( finder.prove( unit ) ) unitConsumer.accept( unit ); 
     		
 //    		c.inc();
 //    		if( c.getIndex() > 1000 ) {
@@ -62,10 +69,29 @@ public class Units < UDM extends DataModel < UDM > > {
     	});
     }
     
+    //**********************************************************
+    //					For Each Unit
+    //**********************************************************
+
+    public void forEachUnit( Consumer < Unit < UDM > > unitConsumer ) {
+        forEachUnitNode( unitNode -> {
+            unitTransformer.toModel( unitNode,  unitConsumer :: accept );
+        });
+    }
+
+    //**********************************************************
+    //					Units Operations
+    //**********************************************************
     
-    public void addUnits( UDM... unitDatas ) {
-    	for( UDM unitData : unitDatas ) {
-    		this.addUnit( unitData );
+    public void add( String... lables ) {
+    	for( var label : lables ) {
+    		this.add( label );
+    	}
+    }
+
+    public void add( UDM... unitDatas ) {
+    	for( var unitData : unitDatas ) {
+    		this.add( unitData );
     	}
     }
     
@@ -75,7 +101,15 @@ public class Units < UDM extends DataModel < UDM > > {
      * @param dbUnit
      * @return
      */
-    public String addUnit( UDM unitData ) {
+    public String add( String label ) {
+    	return this.add( null, label );
+    }
+    
+    public String add( UDM unitData ) {
+    	return this.add(unitData, null);
+    }
+    
+    public String add( UDM unitData, String label ) {
     	
     	Var<String> newIdVar = new Var<>();
     	
@@ -83,23 +117,31 @@ public class Units < UDM extends DataModel < UDM > > {
     	
     	var unit = new Unit< UDM >();
     	
-    	unit.meta.timeStamp.create.set( timeStamp );
-    	unit.meta.timeStamp.update.set( timeStamp );
+    	unit.meta.label.set(label);
+    	
+    	unit.meta.timeStamp.generatedOn	.set( timeStamp );
+    	unit.meta.timeStamp.modifiedOn	.set( timeStamp );
     	
     	unit.data.set( unitData );
     	
-    	unitParser.toNode( unit, unitNode -> {
+    	unitTransformer.toNode( unit, unitNode -> {
     		newIdVar.set( addUnitNode( unitNode ) );
     	});
     	
     	return newIdVar.get();
     }
     
-    public boolean updateUnit( Unit < UDM > unit ) {
+    public void get( String unitID, Consumer < Unit < UDM > > unitConsumer ) {
+		getUnitNode( unitID, unitNode -> {
+            unitTransformer.toModel( unitNode, unitConsumer :: accept );
+		});
+    } 
+
+    public boolean update( Unit < UDM > unit ) {
 		Var<Boolean> rv = new Var<Boolean>(false);
-    	unit.meta.timeStamp.update.set( ZonedDateTime.now() );
+    	unit.meta.timeStamp.modifiedOn.set( ZonedDateTime.now() );
     	unit.incVersion();
-    	unitParser.toNode( unit, unitNode -> {
+    	unitTransformer.toNode( unit, unitNode -> {
     		if( updateUnitNode( unitNode ) ) {
            		rv.set( true );
     		}
@@ -107,15 +149,8 @@ public class Units < UDM extends DataModel < UDM > > {
 		return rv.get();
     }
 
-    public void structureChangeForEachUnitNode( Consumer < SnPoint >  consumer ) {
-		forEachUnitNode( unitNode -> {
-			consumer.accept(unitNode );
-			updateUnitNode( unitNode );
-		});
-    }
-
-    public boolean removeUnit( String unitID  ) {
-    	Var<Boolean> rv = new Var<>( false );
+    public boolean remove( String unitID  ) {
+    	var rv = new Var < Boolean > ( false );
 		try {
 			removeUnitFile( unitID );
 			rv.set(true);
@@ -125,12 +160,9 @@ public class Units < UDM extends DataModel < UDM > > {
 		return rv.get();
     }
 
-    public void getUnit( String unitID, Consumer < Unit < UDM > > consumer ) {
-		getUnitNode( unitID, unitNode -> {
-            unitParser.toModel( unitNode, consumer :: accept );
-		});
-    } 
-
+    //**********************************************************
+    //					UnitNode Operations
+    //**********************************************************
     
     /**
      * if( OK ) { return newID } else { NULL }
@@ -148,16 +180,12 @@ public class Units < UDM extends DataModel < UDM > > {
         return unitFile != null ?  unitFile.saveUnitNode ( unitModelNode ) : false;
     }
 
-    public void removeUnitFile( String unitID ) throws IOException {
-        var unitFile = UnitFile.remove ( this.path, unitID );
-    }
-
     public void getUnitNode( String unitID, Consumer< SnPoint > consumer ) {
     	UnitFile.get ( this.path, unitID, unitFile -> {
     		unitFile.getUnitNode ( consumer );
     	} );
     }
-    
+
     public void forEachUnitNode( Consumer < SnPoint > consumer ) {
         try {
 			Files.newDirectoryStream( this.path ).forEach( unitPath -> {
@@ -169,6 +197,26 @@ public class Units < UDM extends DataModel < UDM > > {
 		}
     }
  
+    public void forEachUnitNodeStructureChange( Consumer < SnPoint >  consumer ) {
+		forEachUnitNode( unitNode -> {
+			consumer.accept(unitNode );
+			updateUnitNode( unitNode );
+		});
+    }
+    
+    //**********************************************************
+    //					UnitFile Operations
+    //**********************************************************
+    
+    public void removeUnitFile( String unitID ) throws IOException {
+        var unitFile = UnitFile.remove ( this.path, unitID );
+    }
+
+    
+    //**********************************************************
+    //					Label Map Operations
+    //**********************************************************
+
     public void createIdLabelMap( Consumer < Map < String, String > > consumer ) {
     	consumer.accept( createIdLabelMap() );
     }
@@ -187,5 +235,7 @@ public class Units < UDM extends DataModel < UDM > > {
         return rv;
     }
     
-    
+    //**********************************************************
+    //						
+    //**********************************************************
 }

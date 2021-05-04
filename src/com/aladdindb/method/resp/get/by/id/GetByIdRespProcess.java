@@ -24,7 +24,7 @@ public class GetByIdRespProcess < UDM extends DataModel < UDM > > extends RespPr
 		genie.reqNode.get( reqNode -> {
 			new GetByIdReqTransformer().toModel( reqNode, req -> {
 				req.unitID.get( unitID -> {
-					genie.units.getUnit( unitID, this :: resp );
+					genie.units.get( unitID, this :: resp );
 				});
 			});
 		});

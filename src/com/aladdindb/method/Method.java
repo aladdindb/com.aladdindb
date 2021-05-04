@@ -4,7 +4,7 @@ public enum Method {
 	
 	ADD				("add"),
 	GET_BY_ID		("getByID"),
-	GET_BY_FINDER	("getByFinder"),
+	SEARCH			("search"),
 	GET_ALL			("getAll"),
 	GET_BLOCK		("getBlock"),
 	UPDATE			("update"),

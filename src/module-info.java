@@ -6,17 +6,18 @@ module com.aladdindb {
     exports com.aladdindb.method.req.get.by.id;
     exports com.aladdindb.method.req.get.all;
     exports com.aladdindb.method.req.update;
-    exports com.aladdindb.method.req.get.by.finder;
+    exports com.aladdindb.method.req.search;
     exports com.aladdindb.method.req.get.block;
-    exports com.aladdindb.method.req.closemethodsession;
+    exports com.aladdindb.method.req.close.method.session;
 
     exports com.aladdindb.method.resp.add;
     exports com.aladdindb.method.resp.get.by.id;
     exports com.aladdindb.method.resp.get;
     exports com.aladdindb.method.resp.get.block;
+    exports com.aladdindb.method.resp.search; 
     exports com.aladdindb.method.resp.update; 
     exports com.aladdindb.method.resp.remove; 
-    exports com.aladdindb.method.resp.closemethodsession; 
+    exports com.aladdindb.method.resp.close.method.session; 
 
     exports com.aladdindb.units;
     exports com.aladdindb.units.models;

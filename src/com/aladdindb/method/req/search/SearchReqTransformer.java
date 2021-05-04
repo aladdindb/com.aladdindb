@@ -1,4 +1,4 @@
-package com.aladdindb.method.req.get.by.finder;
+package com.aladdindb.method.req.search;
 
 import com.aladdindb.finder.Finder;
 import com.aladdindb.finder.FinderSupplier;
@@ -13,20 +13,20 @@ import com.aladdindb.structure.types.SnAttributeAccess;
  * @author Macit Kandemir
  * @param <DUM>
  */
-public final class GetByFinderReqTransformer <
+public final class SearchReqTransformer <
 
 	UDM 			extends DataModel	< UDM >,
 	FINDER_MODEL 	extends Finder		< UDM, FINDER_MODEL>
 
->  extends ReqTransformer< GetByFinderReq < UDM, FINDER_MODEL > >  {
+>  extends ReqTransformer< SearchReq < UDM, FINDER_MODEL > >  {
 	
 
     private enum ATR { blockSize };
     
     private final FinderSupplier< UDM > finderSupplier; 
     
-	public GetByFinderReqTransformer( FinderSupplier< UDM > finderSupplier ) {
-		super( Method.GET_BY_FINDER.reqTagName() );
+	public SearchReqTransformer( FinderSupplier< UDM > finderSupplier ) {
+		super( Method.SEARCH.reqTagName() );
 		this.finderSupplier = finderSupplier; 
 	}
     
@@ -34,12 +34,12 @@ public final class GetByFinderReqTransformer <
     //
     //****************************************************************
 
-    public GetByFinderReq< UDM, FINDER_MODEL > newModel() {
-		return new GetByFinderReq< UDM, FINDER_MODEL >( null, 0, null );
+    public SearchReq< UDM, FINDER_MODEL > newModel() {
+		return new SearchReq< UDM, FINDER_MODEL >( null, 0, null );
 	}
 	
     @Override
-    public GetByFinderReq< UDM, FINDER_MODEL > toModel( SnPoint src, GetByFinderReq< UDM , FINDER_MODEL> target ) {
+    public SearchReq< UDM, FINDER_MODEL > toModel( SnPoint src, SearchReq< UDM , FINDER_MODEL> target ) {
     	super.toModel(src, target);
     	
     	var srcAtr = new SnAttributeAccess( src );
@@ -56,7 +56,7 @@ public final class GetByFinderReqTransformer <
     }
     
     @Override
-    public SnPoint toNode( GetByFinderReq< UDM, FINDER_MODEL > src, SnPoint target ) {
+    public SnPoint toNode( SearchReq< UDM, FINDER_MODEL > src, SnPoint target ) {
         super.toNode(src, target);
         
     	var targetAtr = new SnAttributeAccess( target );

@@ -1,7 +1,7 @@
-package com.aladdindb.method.resp.closemethodsession;
+package com.aladdindb.method.resp.close.method.session;
 
 import com.aladdindb.Genie;
-import com.aladdindb.method.req.closemethodsession.CloseMethodSessionReqTransformer;
+import com.aladdindb.method.req.close.method.session.CloseMethodSessionReqTransformer;
 import com.aladdindb.method.resp.RespProcess;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.xml.XML;

@@ -6,7 +6,7 @@ import com.aladdindb.structure.sn.SnPoint;
 
 public class MetaTransformer extends DataTransformer<Meta> {
 
-	private final LabelParser 		label 	= new LabelParser();
+	private final LabelParser 			label 		= new LabelParser();
 	private final TimeStampTransformer 	timeStamp 	= new TimeStampTransformer();
 	
 	public MetaTransformer() {

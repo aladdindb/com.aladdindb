@@ -17,11 +17,11 @@ public final class UnitTransformer < UDM extends DataModel < UDM > > extends Dat
 	
     private final MetaTransformer meta = new MetaTransformer();
     
-    private final DataTransformer< UDM > data;
+    private final DataTransformer< UDM > dataTransformer;
     
 	public UnitTransformer( DataTransformer< UDM > dataTransformer ) {
 		super("unit");
-		this.data = dataTransformer;
+		this.dataTransformer = dataTransformer;
 	}
     
 	@Override
@@ -41,8 +41,9 @@ public final class UnitTransformer < UDM extends DataModel < UDM > > extends Dat
     	srcAtr.asStr	.get( ATR.id		, target.id     	);
     	srcAtr.asFloat	.get( ATR.version	, target.version );
         
-        this.meta.toModelFromParent( src	, target.meta );
-        this.data.toModelFromParent( src	, target.data );
+        this.meta				.toModelFromParent( src	, target.meta );
+        
+        if( this.dataTransformer != null) this.dataTransformer	.toModelFromParent( src	, target.data );
         
         return target;
     }
@@ -55,8 +56,9 @@ public final class UnitTransformer < UDM extends DataModel < UDM > > extends Dat
     	targetAtr.asStr		.set( ATR.id      	, src.id 		); 
     	targetAtr.asFloat	.set( ATR.version   , src.version	);
         
-        this.meta.toParentNode( src.meta, target );
-        this.data.toParentNode( src.data, target );
+        this.meta				.toParentNode( src.meta, target );
+        
+        if( this.dataTransformer != null) this.dataTransformer	.toParentNode( src.data, target );
 
         return target; 
     }

@@ -1,4 +1,4 @@
-package com.aladdindb.method.req.closemethodsession;
+package com.aladdindb.method.req.close.method.session;
 
 import com.aladdindb.method.req.Req;
 import com.aladdindb.util.Var;

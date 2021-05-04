@@ -22,7 +22,7 @@ public class UpdateRespProcess < UGM extends DataModel < UGM > > extends RespPro
 		genie.reqNode.get( reqNode -> {
 			new UpdateReqTransformer < UGM >( genie.dataTransformer ).toModel( reqNode, req -> {
 				req.unitData.get( unitData -> { 
-					if( genie.units.updateUnit( unitData ) ) {
+					if( genie.units.update( unitData ) ) {
 						unitData.id.get( this::resp );
 					}
 				});

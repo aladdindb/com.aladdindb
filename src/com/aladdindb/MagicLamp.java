@@ -5,14 +5,14 @@ import java.util.function.Consumer;
 import com.aladdindb.finder.Finder;
 import com.aladdindb.finder.FinderSupplier;
 import com.aladdindb.method.req.add.AddReqProcess;
-import com.aladdindb.method.req.closemethodsession.CloseMethodSessionReqProcess;
+import com.aladdindb.method.req.close.method.session.CloseMethodSessionReqProcess;
 import com.aladdindb.method.req.get.all.GetAllReqProcess;
-import com.aladdindb.method.req.get.by.finder.GetByFinderReqProcess;
 import com.aladdindb.method.req.get.by.id.GetByIdReqProcess;
 import com.aladdindb.method.req.remove.RemoveReqProcess;
+import com.aladdindb.method.req.search.SearchReqProcess;
 import com.aladdindb.method.req.update.UpdateReqProcess;
 import com.aladdindb.method.resp.add.AddResp;
-import com.aladdindb.method.resp.closemethodsession.CloseMethodSessionResp;
+import com.aladdindb.method.resp.close.method.session.CloseMethodSessionResp;
 import com.aladdindb.method.resp.get.block.BlockNavResp;
 import com.aladdindb.method.resp.get.by.id.GetByIdResp;
 import com.aladdindb.method.resp.remove.RemoveResp;
@@ -73,8 +73,8 @@ public class MagicLamp < UDM extends DataModel < UDM > > {
     	reqProcess.run();
     }
 
-    public void getByFinder( int blockSize, Finder < UDM, ? extends Finder >  finder, Consumer < BlockNavResp > respConsumer ) {
-    	var reqProcess = new GetByFinderReqProcess( blockSize, finder, this );
+    public void search( int blockSize, Finder < UDM, ? extends Finder >  finder, Consumer < BlockNavResp > respConsumer ) {
+    	var reqProcess = new SearchReqProcess( blockSize, finder, this );
     	reqProcess.respConsumer.set( respConsumer );
     	reqProcess.run();
     }

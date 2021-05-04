@@ -24,8 +24,8 @@ public class RemoveRespProcess < UDM extends DataModel < UDM > > extends RespPro
 		genie.reqNode.get( reqNode -> {
 			new GetByIdReqTransformer().toModel( reqNode, req -> {
 				req.unitID.get( unitID -> {
-					genie.units.getUnit( unitID, unit -> {
-						if( genie.units.removeUnit( unitID ) ) {
+					genie.units.get( unitID, unit -> {
+						if( genie.units.remove( unitID ) ) {
 							resp( unit );
 						}
 					});

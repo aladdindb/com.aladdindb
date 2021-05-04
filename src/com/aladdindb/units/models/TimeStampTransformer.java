@@ -7,7 +7,7 @@ import com.aladdindb.structure.types.SnAttributeAccess;
 
 public class TimeStampTransformer extends DataTransformer< TimeStamp > {
 
-	private enum ATR { create, update };
+	private enum ATR { generatedOn, modifiedOn };
 	
 	public TimeStampTransformer() {
 		super("timestamp");
@@ -22,8 +22,8 @@ public class TimeStampTransformer extends DataTransformer< TimeStamp > {
 	public TimeStamp toModel( SnPoint src, TimeStamp target ) {
     	var srcAtr = new SnAttributeAccess( src );
     	
-    	srcAtr.asXlrZonedDateTime.get( ATR.create	, target.create 	);
-    	srcAtr.asXlrZonedDateTime.get( ATR.update	, target.update	);
+    	srcAtr.asXlrZonedDateTime.get( ATR.generatedOn	, target.generatedOn 	);
+    	srcAtr.asXlrZonedDateTime.get( ATR.modifiedOn	, target.modifiedOn	);
     	
 		return target;
 	}
@@ -32,8 +32,8 @@ public class TimeStampTransformer extends DataTransformer< TimeStamp > {
 	public SnPoint toNode( TimeStamp src, SnPoint target ) {
     	var targetAtr = new SnAttributeAccess( target );
     	
-    	targetAtr.asXlrZonedDateTime.set( ATR.create	, src.create );
-    	targetAtr.asXlrZonedDateTime.set( ATR.update	, src.update );
+    	targetAtr.asXlrZonedDateTime.set( ATR.generatedOn	, src.generatedOn );
+    	targetAtr.asXlrZonedDateTime.set( ATR.modifiedOn	, src.modifiedOn );
 
 		return target;
 	}

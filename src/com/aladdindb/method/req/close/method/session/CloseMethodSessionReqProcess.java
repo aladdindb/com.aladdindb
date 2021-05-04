@@ -1,9 +1,9 @@
-package com.aladdindb.method.req.closemethodsession;
+package com.aladdindb.method.req.close.method.session;
 
 import com.aladdindb.MagicLamp;
 import com.aladdindb.method.req.ReqProcess;
-import com.aladdindb.method.resp.closemethodsession.CloseMethodSessionResp;
-import com.aladdindb.method.resp.closemethodsession.CloseMethodSessionRespTransformer;
+import com.aladdindb.method.resp.close.method.session.CloseMethodSessionResp;
+import com.aladdindb.method.resp.close.method.session.CloseMethodSessionRespTransformer;
 import com.aladdindb.structure.DataModel;
 
 

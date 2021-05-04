@@ -1,8 +1,8 @@
-package com.aladdindb.method.resp.get;
+package com.aladdindb.method.resp.search;
 
 import com.aladdindb.Genie;
 import com.aladdindb.finder.Finder;
-import com.aladdindb.method.req.get.by.finder.GetByFinderReqTransformer;
+import com.aladdindb.method.req.search.SearchReqTransformer;
 import com.aladdindb.method.resp.RespProcess;
 import com.aladdindb.method.resp.get.block.BlockNavResp;
 import com.aladdindb.method.resp.get.block.BlockNaviRespTransformer;
@@ -12,7 +12,7 @@ import com.aladdindb.units.UnitsIdBlockStorage;
 import com.aladdindb.util.Util;
 
 
-public class GetByFinderRespProcess <
+public class SearchRespProcess <
 
 	UDM 			extends DataModel 	< UDM >, 
 	FINDER_MODEL 	extends Finder		< UDM, FINDER_MODEL >
@@ -20,7 +20,7 @@ public class GetByFinderRespProcess <
 > extends RespProcess< UDM > { 
 
 
-	public GetByFinderRespProcess( Genie < UDM > genie ) {
+	public SearchRespProcess( Genie < UDM > genie ) {
 		super( genie );
 	}
 	
@@ -31,7 +31,7 @@ public class GetByFinderRespProcess <
 	@Override
 	public void run() {
 		genie.reqNode.get( reqNode -> {
-			var p = new GetByFinderReqTransformer< UDM, FINDER_MODEL >( genie.finderSupplier );
+			var p = new SearchReqTransformer< UDM, FINDER_MODEL >( genie.finderSupplier );
 			p.toModel( reqNode, req -> {
 				req.blockSize.get( blockSize -> {
 					req.finder.get( filter -> {
@@ -53,7 +53,7 @@ public class GetByFinderRespProcess <
 
 		var blockMap 	= new UnitsIdBlockStorage( blockSize );
 		
-		this.genie.units.forEachUnit( finder, unit -> {
+		this.genie.units.search( finder, unit -> {
 			unit.id.get( blockMap::addUnitID );
 		});
 		
