@@ -3,7 +3,6 @@ package com.aladdindb.units.models;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.DataTransformer;
 import com.aladdindb.structure.sn.SnPoint;
-import com.aladdindb.structure.sn.props.SnValueType;
 import com.aladdindb.structure.types.SnAttributeAccess;
 
 /**
@@ -11,19 +10,21 @@ import com.aladdindb.structure.types.SnAttributeAccess;
  * @author Macit Kandemir
  * @param <DUM>
  */
-public final class UnitParser < UDM extends DataModel < UDM > > extends DataTransformer < Unit < UDM > > {
+public final class UnitTransformer < UDM extends DataModel < UDM > > extends DataTransformer < Unit < UDM > > {
 	
 
     private enum ATR { id, version };
 	
-    private final MetaParser meta = new MetaParser();
+    private final MetaTransformer meta = new MetaTransformer();
+    
     private final DataTransformer< UDM > data;
     
-	public UnitParser( DataTransformer< UDM > dataModelParser ) {
+	public UnitTransformer( DataTransformer< UDM > dataTransformer ) {
 		super("unit");
-		this.data = dataModelParser;
+		this.data = dataTransformer;
 	}
     
+	@Override
 	public Unit < UDM > newModel() {
 		return new Unit< UDM >();
 	}

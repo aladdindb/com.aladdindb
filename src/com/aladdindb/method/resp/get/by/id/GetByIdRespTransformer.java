@@ -4,7 +4,7 @@ import com.aladdindb.method.Method;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.DataTransformer;
 import com.aladdindb.structure.sn.SnPoint;
-import com.aladdindb.units.models.UnitParser;
+import com.aladdindb.units.models.UnitTransformer;
 
 /**
  *
@@ -14,7 +14,7 @@ import com.aladdindb.units.models.UnitParser;
 public final class GetByIdRespTransformer < UDM extends DataModel< UDM > > extends DataTransformer < GetByIdResp< UDM > > {
 	
 
-    public final UnitParser< UDM > unitParser;
+    public final UnitTransformer< UDM > unitParser;
     
     
     //****************************************************************
@@ -23,7 +23,7 @@ public final class GetByIdRespTransformer < UDM extends DataModel< UDM > > exten
 
     public GetByIdRespTransformer( DataTransformer< UDM > unitDataParser ) {
 		super( Method.GET_BY_ID.respTagName() );
-		this.unitParser = new UnitParser< UDM >(unitDataParser);
+		this.unitParser = new UnitTransformer< UDM >(unitDataParser);
 	}
     
     //****************************************************************

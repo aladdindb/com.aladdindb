@@ -20,7 +20,7 @@ import com.aladdindb.method.resp.update.UpdateResp;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.DataTransformer;
 import com.aladdindb.units.models.Unit;
-import com.aladdindb.units.models.UnitParser;
+import com.aladdindb.units.models.UnitTransformer;
 
 
 public class MagicLamp < UDM extends DataModel < UDM > > {
@@ -47,8 +47,8 @@ public class MagicLamp < UDM extends DataModel < UDM > > {
 		
     }
     
-    public UnitParser< UDM > createUnitParser() {
-    	return new UnitParser < UDM >( this.unitDataTransformer );
+    public UnitTransformer< UDM > createUnitParser() {
+    	return new UnitTransformer < UDM >( this.unitDataTransformer );
     }
     
     //************************************************************

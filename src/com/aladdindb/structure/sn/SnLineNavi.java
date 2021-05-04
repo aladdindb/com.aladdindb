@@ -16,14 +16,17 @@ public class SnLineNavi implements LineNavigator < SnPoint >  {
     	this.right = snPoint.start.get();
     }
     
+	@Override
 	public boolean hasRight() {
 		return right != null;
 	}
 
+	@Override
 	public boolean hasLeft() {
 		return left != null;
 	}
 	
+	@Override
 	public SnPoint right() {
 		if( this.hasRight() ) {
 			SnPoint rv = this.right;
@@ -34,6 +37,7 @@ public class SnLineNavi implements LineNavigator < SnPoint >  {
 		return null;
 	}
 	
+	@Override
 	public SnPoint left() {
 		if( this.hasLeft() ) {
 			SnPoint rv = this.left;

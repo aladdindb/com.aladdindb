@@ -2,14 +2,13 @@ package com.aladdindb.util;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
-import java.util.StringTokenizer;
 import java.util.function.Consumer;
 
 /**
 *
 * @author Macit Kandemir
 */
-public final class Ald {
+public final class Util {
 	
 
     public static String createString(int len) {
@@ -63,11 +62,15 @@ public final class Ald {
     //								Hash Code
     //*****************************************************************************
     
-    public static String createSimpleHashCode(int length) {
+    public static String createAlphabeticHashCode(int length) {
+        return createHashCode("abcdefghijklmnoprstuwxyz", length);
+    }
+
+    public static String createAlphaNumericHashCode(int length) {
         return createHashCode("abcdefghijklmnoprstuwxyz123456789", length);
     }
 
-    public static String createHashCode(int length) {
+    public static String createAlphaNumericInclUpperCaseHashCode(int length) {
         return createHashCode("abcdefghijklmnoprstuwxyzABCDEFGHIJKLMNOPRSTUWXYZ0123456789", length);
     }
 

@@ -2,16 +2,13 @@ package com.aladdindb.method.resp.get;
 
 import com.aladdindb.Genie;
 import com.aladdindb.method.req.get.all.GetAllReqTransformer;
-import com.aladdindb.method.req.get.by.id.GetByIdReqTransformer;
 import com.aladdindb.method.resp.RespProcess;
 import com.aladdindb.method.resp.get.block.BlockNavResp;
 import com.aladdindb.method.resp.get.block.BlockNaviRespTransformer;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.xml.XML;
 import com.aladdindb.units.UnitsIdBlockStorage;
-import com.aladdindb.units.models.Unit;
-import com.aladdindb.units.models.UnitParser;
-import com.aladdindb.util.Ald;
+import com.aladdindb.util.Util;
 
 
 public class GetAllRespProcess < UDM extends DataModel < UDM > > extends RespProcess< UDM > { 
@@ -49,7 +46,7 @@ public class GetAllRespProcess < UDM extends DataModel < UDM > > extends RespPro
 			unit.id.get( blockStorage::addUnitID );
 		});
 		
-		String cmdSesionID = Ald.createHashCode( 20 );
+		String cmdSesionID = Util.createAlphaNumericInclUpperCaseHashCode( 20 );
 		
 		var navi = blockStorage.createBlockNavi();
 		

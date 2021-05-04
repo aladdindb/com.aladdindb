@@ -28,7 +28,8 @@ public final class AddRespTransformer  extends DataTransformer < AddResp > {
     //
     //****************************************************************
 
-    public AddResp newModel() {
+    @Override
+	public AddResp newModel() {
 		return new AddResp();
 	}
 	

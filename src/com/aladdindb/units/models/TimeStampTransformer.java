@@ -5,11 +5,11 @@ import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.structure.sn.props.SnValueType;
 import com.aladdindb.structure.types.SnAttributeAccess;
 
-public class TimeStampParser extends DataTransformer< TimeStamp > {
+public class TimeStampTransformer extends DataTransformer< TimeStamp > {
 
 	private enum ATR { create, update };
 	
-	public TimeStampParser() {
+	public TimeStampTransformer() {
 		super("timestamp");
 	}
 	

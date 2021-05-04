@@ -4,12 +4,12 @@ import com.aladdindb.defaultmodels.text.LabelParser;
 import com.aladdindb.structure.DataTransformer;
 import com.aladdindb.structure.sn.SnPoint;
 
-public class MetaParser extends DataTransformer<Meta> {
+public class MetaTransformer extends DataTransformer<Meta> {
 
 	private final LabelParser 		label 	= new LabelParser();
-	private final TimeStampParser 	timeStamp 	= new TimeStampParser();
+	private final TimeStampTransformer 	timeStamp 	= new TimeStampTransformer();
 	
-	public MetaParser() {
+	public MetaTransformer() {
 		super("meta");
 	}	
 	

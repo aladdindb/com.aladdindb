@@ -25,7 +25,8 @@ public final class GetAllReqTransformer  extends ReqTransformer< GetAllReq >  {
     //
     //****************************************************************
 
-    public GetAllReq newModel() {
+    @Override
+	public GetAllReq newModel() {
 		return new GetAllReq( null, 0 );
 	}
 	

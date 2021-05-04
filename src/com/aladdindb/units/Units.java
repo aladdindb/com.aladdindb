@@ -13,7 +13,7 @@ import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.DataTransformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.units.models.Unit;
-import com.aladdindb.units.models.UnitParser;
+import com.aladdindb.units.models.UnitTransformer;
 import com.aladdindb.util.Counter;
 import com.aladdindb.util.Var;
 
@@ -26,11 +26,11 @@ public class Units < UDM extends DataModel < UDM > > {
 
 	public final Path path;
     
-    private final  UnitParser < UDM > unitParser;
+    private final  UnitTransformer < UDM > unitParser;
 
     public Units( Path path, DataTransformer< UDM > unitDataParser ) {
     	this.path 			= path;
-        this.unitParser 	= new UnitParser< UDM >(unitDataParser);
+        this.unitParser 	= new UnitTransformer< UDM >(unitDataParser);
         if( !Files.exists( path ) ) {
         	try {
 				Files.createDirectories( path );

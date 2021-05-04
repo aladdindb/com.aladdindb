@@ -4,8 +4,6 @@ import com.aladdindb.MagicLamp;
 import com.aladdindb.method.req.ReqProcess;
 import com.aladdindb.method.resp.closemethodsession.CloseMethodSessionResp;
 import com.aladdindb.method.resp.closemethodsession.CloseMethodSessionRespTransformer;
-import com.aladdindb.method.resp.get.by.id.GetByIdResp;
-import com.aladdindb.method.resp.get.by.id.GetByIdRespTransformer;
 import com.aladdindb.structure.DataModel;
 
 

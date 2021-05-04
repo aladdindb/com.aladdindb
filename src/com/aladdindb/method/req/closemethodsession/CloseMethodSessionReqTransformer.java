@@ -4,7 +4,6 @@ import com.aladdindb.method.Method;
 import com.aladdindb.method.req.ReqTransformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.structure.types.SnAttributeAccess;
-import com.aladdindb.util.LineNavigator;
 
 /**
  *
@@ -26,7 +25,8 @@ public final class CloseMethodSessionReqTransformer  extends ReqTransformer< Clo
     //
     //****************************************************************
 
-    public CloseMethodSessionReq newModel() {
+    @Override
+	public CloseMethodSessionReq newModel() {
 		return new CloseMethodSessionReq( null, null );
 	}
 	

@@ -26,7 +26,8 @@ public final class BlockNaviReqTransformer  extends ReqTransformer< BlockNaviReq
     //
     //****************************************************************
 
-    public BlockNaviReq newModel() {
+    @Override
+	public BlockNaviReq newModel() {
 		return new BlockNaviReq( null, null, null );
 	}
 	

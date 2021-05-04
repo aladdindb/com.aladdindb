@@ -34,7 +34,7 @@ public class Hex {
         if( l > chars ) {
             str = str.substring( l- chars );
         } else {
-            str = Ald.createString( chars -l , '0')+str;
+            str = Util.createString( chars -l , '0')+str;
         }
         
         return str;
@@ -42,7 +42,7 @@ public class Hex {
     
     public static String createUtf8Hex( int value ) {
         String rv = Integer.toHexString( value );
-        return Ald.createString( 4 - rv.length(), '0') + rv;
+        return Util.createString( 4 - rv.length(), '0') + rv;
     }
 
     

@@ -5,7 +5,7 @@ import com.aladdindb.method.req.ReqTransformer;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.DataTransformer;
 import com.aladdindb.structure.sn.SnPoint;
-import com.aladdindb.units.models.UnitParser;
+import com.aladdindb.units.models.UnitTransformer;
 
 /**
  *
@@ -15,7 +15,7 @@ import com.aladdindb.units.models.UnitParser;
 public final class UpdateReqTransformer < UDM extends DataModel< UDM > > extends ReqTransformer< UpdateReq< UDM > >  {
 	
 
-	public final UnitParser< UDM > unitParser;
+	public final UnitTransformer< UDM > unitParser;
     
     
     //****************************************************************
@@ -24,14 +24,15 @@ public final class UpdateReqTransformer < UDM extends DataModel< UDM > > extends
 
     public UpdateReqTransformer( DataTransformer< UDM > unitDataParser ) {
 		super( Method.UPDATE.reqTagName() );
-		this.unitParser = new UnitParser<UDM>(unitDataParser);
+		this.unitParser = new UnitTransformer<UDM>(unitDataParser);
 	}
     
     //****************************************************************
     //
     //****************************************************************
 
-    public UpdateReq< UDM > newModel() {
+    @Override
+	public UpdateReq< UDM > newModel() {
 		return new UpdateReq< UDM >();
 	}
 	

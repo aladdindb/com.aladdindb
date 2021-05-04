@@ -6,7 +6,6 @@ import com.aladdindb.method.resp.RespProcess;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.xml.XML;
 import com.aladdindb.units.models.Unit;
-import com.aladdindb.units.models.UnitParser;
 
 
 public class RemoveRespProcess < UDM extends DataModel < UDM > > extends RespProcess< UDM > { 

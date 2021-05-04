@@ -11,27 +11,27 @@ import com.aladdindb.structure.sn.SnPoint;
  * @param <UM>      
  * @param <UMP>    
  */
-public final class UnitListParser <
+public final class UnitListTransformer <
 
 	DATA_MODEL extends DataModel < DATA_MODEL > 
     
 > extends DataTransformer < UnitList	< DATA_MODEL > > {
     
 
-	private final UnitParser< DATA_MODEL > unitModelParser;
+	private final UnitTransformer< DATA_MODEL > unitModelParser;
     
 	
     //****************************************************************
     //
     //****************************************************************
 
-    public UnitListParser( DataTransformer< DATA_MODEL > dataModelParser  ) {
+    public UnitListTransformer( DataTransformer< DATA_MODEL > dataModelParser  ) {
     	this( "units", dataModelParser );
     }
 
-    public UnitListParser( String key, DataTransformer< DATA_MODEL > dataModelParser  ) {
+    public UnitListTransformer( String key, DataTransformer< DATA_MODEL > dataModelParser  ) {
         super( key );
-        this.unitModelParser = new UnitParser< DATA_MODEL >(dataModelParser);
+        this.unitModelParser = new UnitTransformer< DATA_MODEL >(dataModelParser);
     }
     
     //****************************************************************

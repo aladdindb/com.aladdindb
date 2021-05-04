@@ -14,24 +14,24 @@ import com.aladdindb.util.Var;
 public class UnitsNavi < UDM extends DataModel < UDM > > implements LineNavigator < Unit < UDM > >  {
 
 	
-	private BlockNavResp 				blockRespModel;
+	private BlockNavResp 			blockResp;
 	private SnLineNavi 				unitIdNav;
 	
 	private final MagicLamp< UDM > 	magicLamp;
 	
-	public UnitsNavi( BlockNavResp blockRespModel, MagicLamp< UDM > magicLamp ) {
+	public UnitsNavi( BlockNavResp blockResp, MagicLamp< UDM > magicLamp ) {
 		
-		this.blockRespModel = blockRespModel;
-		this.magicLamp 		= magicLamp;
+		this.blockResp	= blockResp;
+		this.magicLamp 	= magicLamp;
 		
-		this.blockRespModel.unitsIdBlock.get( ids -> {
-			 var idArray = ids.split(",");
+		this.blockResp.unitsIdBlock.get( idsStr -> {
+			 var idArray = idsStr.split(",");
 
-			 SnPoint startNode = new SnPoint();
+			 SnPoint rootNode = new SnPoint();
 			 for( var id : idArray ) {
-				 startNode.add( new SnPoint("", id.trim() ) );
+				 rootNode.children.add( new SnPoint("", id.trim() ) );
 			 }
-			 this.unitIdNav =  new SnLineNavi( startNode ); 
+			 this.unitIdNav =  new SnLineNavi( rootNode.children.snBottom.get() ); 
 		});
 	}
 
