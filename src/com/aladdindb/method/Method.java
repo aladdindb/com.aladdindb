@@ -3,14 +3,14 @@ package com.aladdindb.method;
 public enum Method {
 	
 	ADD				("add"),
-	GET_BY_ID		("get:by:id"),
-	GET_BY_FINDER	("get:by:finder"),
-	GET_ALL			("get:all"),
-	GET_BLOCK		("get:block"),
+	GET_BY_ID		("getByID"),
+	GET_BY_FINDER	("getByFinder"),
+	GET_ALL			("getAll"),
+	GET_BLOCK		("getBlock"),
 	UPDATE			("update"),
 	REMOVE			("remove"),
 	
-	CLOSE_METHOD_SESSION ("close:method:session");
+	CLOSE_METHOD_SESSION ("closeMethodSession");
 	
 	private final String method;
 	

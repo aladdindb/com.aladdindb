@@ -33,29 +33,29 @@ public class GenieConnection {
 	}
 
 	public boolean open() {
-		System.out.println("Connection width ("+ host + " : " + port+") : ");
+		System.out.print("\n Connection width ("+ host + " : " + port+") ");
 		try {
 			socket 	= new Socket		( host, port );
 			out 	= new PrintWriter	( socket.getOutputStream(), true  );
 			in 		= new Scanner		( socket.getInputStream() );
 			this.isOpen = true;
-			System.out.println("Was established successfully :-) ");
+			System.out.print(" was established successfully :-) \n");
 		} catch ( IOException e ) {
-			System.out.println("Couldn't be established :-( ");
+			System.out.print(" couldn't be established :-( \n");
 			close();
 		}
 		return this.isOpen;
 	}
 	
 	public void close() {
-		System.out.println ("Connecting closed with ("+ host + " : " + port+"): " );
+		System.out.print ("\n Connecting closed with ("+ host + " : " + port+") " );
 		try {
 			if( out 	!= null) out	.close();
 			if( in 		!= null) in		.close();
 			if( socket 	!= null) socket	.close();
-			System.out.println ("was properly :-)" );
+			System.out.print (" was properly :-) \n" );
 		} catch (IOException e) {
-			System.out.println ("Couldn't be done properly :-(" );
+			System.out.print (" couldn't be done properly :-( \n" );
 		}
 		this.isOpen = false;
 	}
@@ -63,7 +63,7 @@ public class GenieConnection {
 	public void sendReq( SnPoint reqNode,  Consumer < SnPoint > respNodeConsumer ) {
 		XML.parse( reqNode, reqStr -> {
 			this.sendReq( reqStr, respStr -> {
-				System.out.println( respStr );
+				System.out.println("\n"+ respStr+ "\n" );
 				XML.parse( respStr, respNodeConsumer);
 			});
 		});

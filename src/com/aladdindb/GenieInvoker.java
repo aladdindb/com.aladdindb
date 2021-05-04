@@ -28,15 +28,15 @@ public class GenieInvoker {
     public void invoke() {
 		try ( var serverSocket = new ServerSocket( port ) ) {
             var pool = Executors.newFixedThreadPool( 20 );
-			System.out.println("Genie invoker was properly started ;-)");
+			System.out.println("\n Genie invoker was properly started ;-) \n");
 			while( true ) {
-				System.out.println( "--------------------");
+				System.out.println( "\n --------------------");
 				System.out.println( " pool.execute Beginn ");
-				System.out.println( "--------------------");
+				System.out.println( " --------------------\n");
 				pool.execute ( new SocketIO( serverSocket.accept (), this ) );
-				System.out.println( "--------------------");
+				System.out.println( "\n --------------------");
 				System.out.println( " pool.execute End ");
-				System.out.println( "--------------------");
+				System.out.println( " --------------------\n");
 			}
 		} catch ( IOException e ) {
 			e.printStackTrace();
@@ -70,15 +70,15 @@ public class GenieInvoker {
             ){
             	Var<Boolean> loop = new Var<>(true);
             	
-				System.out.println( "----------------------");
+				System.out.println( "\n ----------------------");
             	System.out.println( "   Start SocketIO" );
-				System.out.println( "----------------------");
+				System.out.println( " ----------------------\n");
             	
     	        while ( loop.get() ) {
     	        	
-    				System.out.println( "----------------------");
+    				System.out.println( "\n ----------------------");
     	        	System.out.println( "    loop-beginn" );
-    				System.out.println( "----------------------");
+    				System.out.println( " ----------------------\n");
     				
     	        	loop.set( false );
     	        	
@@ -100,15 +100,15 @@ public class GenieInvoker {
     				
     	        }
     	        
-				System.out.println( "----------------------");
+				System.out.println( "\n ----------------------");
             	System.out.println( "     Stop SocketIO" );
-				System.out.println( "----------------------");
+				System.out.println( " ----------------------\n");
     	        
     		} catch ( IOException e ) {
-    			System.out.println ( "SocketIO-Exception :-(" );
+    			System.out.println ( "\n SocketIO-Exception :-( \n" );
     		}
             
-            System.out.println("By by ;-) ");
+            System.out.println("\n By by ;-) \n");
         }
         
 		/*

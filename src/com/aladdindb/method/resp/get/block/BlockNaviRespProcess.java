@@ -46,15 +46,22 @@ public class BlockNaviRespProcess < UDM extends DataModel < UDM > > extends Resp
 
 		var nav = genie.unitsIdBlockNaviMap.get( cmdSessionID );
 		
-		switch( direction ) {
-			case left	:resp.unitsIdBlock.set( nav.left())		;break; 
-			case right	:resp.unitsIdBlock.set( nav.right())	;break;
+		if( nav != null ) {
+			switch( direction ) {
+				case left	:resp.unitsIdBlock.set( nav.left())		;break; 
+				case right	:resp.unitsIdBlock.set( nav.right())	;break;
+			}
+		
+			resp.methodSessionID	.set( cmdSessionID );
+			
+			resp.hasLeft		.set( nav.hasLeft() );
+			resp.hasRight		.set( nav.hasRight());
+		} else {
+			resp.unitsIdBlock.set( "" );
+			resp.hasLeft.set( false );
+			resp.hasRight.set( false );
+			resp.methodSessionID.set("");
 		}
-		
-		resp.methodSessionID	.set( cmdSessionID );
-		
-		resp.hasLeft		.set( nav.hasLeft() );
-		resp.hasRight		.set( nav.hasRight());
 		
 		respParser.toNode( resp, respNode -> {
 			this.genie.respConsumer.get( respConsumer -> {
