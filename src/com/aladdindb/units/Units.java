@@ -4,11 +4,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
 import com.aladdindb.finder.Finder;
+import com.aladdindb.sorter.Sorter;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.DataTransformer;
 import com.aladdindb.structure.sn.SnPoint;
@@ -54,6 +57,24 @@ public class Units < UDM extends DataModel < UDM > > {
     //**********************************************************
     //					 Unit Search
     //**********************************************************
+    
+    public void search( Finder< UDM, ? extends DataModel<?> > finder, Sorter< UDM > sorter, Consumer < Unit < UDM > > unitConsumer ) {
+    	this.search( finder, sorter ).forEach( unitId -> {
+    		this.get( unitId, unitConsumer );
+    	});
+    }
+    
+    public List < String > search( Finder< UDM, ? extends DataModel<?> > finder, Sorter< UDM > sorter ) {
+    	var rv = new ArrayList< String >();
+
+    	sorter.setUnits( this );
+    	
+    	this.forEachUnit( unit -> {
+       		if( finder.prove( unit ) ) rv.add( unit.id.get() ); 
+    	});
+    	
+    	return sorter.sort(rv);
+    }
     
     public void search( Finder< UDM, ? extends DataModel<?> > finder, Consumer < Unit < UDM > > unitConsumer ) {
 //    	Counter c = new Counter();

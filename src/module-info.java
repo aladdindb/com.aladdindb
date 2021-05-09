@@ -26,6 +26,9 @@ module com.aladdindb {
     exports com.aladdindb.finder.types;
     exports com.aladdindb.finder.logical;
 
+    exports com.aladdindb.sorter;
+    exports com.aladdindb.sorter.types;
+    
     exports com.aladdindb.defaultmodels.login;        
     exports com.aladdindb.defaultmodels.server;        
     exports com.aladdindb.defaultmodels.text;        
@@ -42,7 +45,6 @@ module com.aladdindb {
     exports com.aladdindb.structure.sa.props;
     
     exports com.aladdindb.structure.xml;
-    
     
     exports com.aladdindb.util.time;
     exports com.aladdindb.util;

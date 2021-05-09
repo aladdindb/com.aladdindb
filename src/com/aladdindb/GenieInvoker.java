@@ -128,12 +128,12 @@ public class GenieInvoker {
 			if( reqStr != null && !reqStr.trim().isEmpty()) reqStrConsumer.accept( reqStr );
         }
         
-        private void getGenie( String reqStr, Consumer < Genie<?> > serverConsumer ) {
+        private void getGenie( String reqStr, Consumer < Genie<?> > genieConsumer ) {
 			XML.parse( reqStr, reqNode -> {
 				new ReqNode(reqNode).getUnitGroupID( unitGroupID -> {
 					this.invoker.getGenie( unitGroupID, genie -> {
 						genie.reqNode.set( reqNode );
-						serverConsumer.accept( genie );
+						genieConsumer.accept( genie );
 					});
 				});
 			});

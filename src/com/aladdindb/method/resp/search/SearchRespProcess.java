@@ -34,8 +34,8 @@ public class SearchRespProcess <
 			var p = new SearchReqTransformer< UDM, FINDER_MODEL >( genie.finderSupplier );
 			p.toModel( reqNode, req -> {
 				req.blockSize.get( blockSize -> {
-					req.finder.get( filter -> {
-						this.resp( blockSize, filter);
+					req.finder.get( finder -> {
+						this.resp( blockSize, finder );
 					});
 				});
 			});
