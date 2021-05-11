@@ -1,7 +1,6 @@
 package com.aladdindb.sorter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.aladdindb.structure.DataModel;
@@ -14,19 +13,20 @@ import com.aladdindb.util.IntIndex;
  * @author Macit Kandemir
  *
  */
-public  class SorterListSorter < UDM extends DataModel	< UDM > > implements Sorter< UDM > {
+public  class SorterList < UDM extends DataModel < UDM > > implements Sorter< UDM > {
 
 	
-	public final List< Sorter< UDM > > sorters;
+	public final List< Sorter< UDM > > sorters = new ArrayList<>();
 	
 	private IntIndex si = new IntIndex();
 	
-	public SorterListSorter(  Sorter< UDM >... sorters ) {
-		this( Arrays.asList( sorters ) );
+	
+	public void addSorter(  Sorter< UDM > sorter ) {
+		this.sorters.add(sorter);
 	}
 	
-	public SorterListSorter(  List < Sorter< UDM > > sorters ) {
-		this.sorters 	= sorters;
+	public void addSorter(  Sorter< UDM >... sorters ) {
+		for( var sorter : sorters ) this.sorters.add( sorter );
 	}
 	
 	public List<String> sort( List< String > unitIdArray ) {
@@ -37,19 +37,11 @@ public  class SorterListSorter < UDM extends DataModel	< UDM > > implements Sort
 		} return unitIdArray;
 	}
 	
-//	public List<String> sort( List< String > unitIdArray ) {
-//		var rv = new ArrayList<String>();
-//		sorters.get(0).sortBlockWise(unitIdArray).forEach( block -> {
-//			block.forEach( rv :: add );
-//		});
-//		return rv;
-//	}
-
 	private void sortRecursiv( List< List<String> > blockList, List<String> rv ) {
 		blockList.forEach( block -> {
 			if( block.size() > 1 ) {
-				if( si.get() < sorters.size()  ) {
-					sortRecursiv( sorters.get( si.inc() ).sortBlockWise( block ), rv );
+				if( si.inc() < sorters.size()  ) {
+					sortRecursiv( sorters.get( si.get() ).sortBlockWise( block ), rv );
 					si.dec();
 				} else block.forEach( rv :: add );
 			} else rv.add( block.get(0) );

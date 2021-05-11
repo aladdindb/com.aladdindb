@@ -18,24 +18,27 @@ public class LogicalOrOperations < UDM extends DataModel< UDM > >
     //						Class-Attributes 
     //****************************************************************
 
-	private final  FinderSupplier < UDM > factory;
+	private final  FinderSupplier < UDM > finderSupplier;
 	
 	
-	public final List < Finder< UDM, ? extends DataModel< ? > > >  filterList = new ArrayList<>();
+	public final List < Finder< UDM, ? extends DataModel< ? > > >  finderList = new ArrayList<>();
 	
 	
     //****************************************************************
     //						Constructor 
     //****************************************************************
 	
-	public LogicalOrOperations( FinderSupplier< UDM > factory, Finder < UDM,  ? extends DataModel< ? > >... filterArray ) {
-		
-		this.factory = factory;
-		
-		for( var filter : filterArray ) {
-			this.filterList.add( filter );
-		}
-		
+	public LogicalOrOperations( FinderSupplier< UDM > finderSupplier ) {
+		this.finderSupplier = finderSupplier;
+	}
+
+	
+	public void addFinder( Finder < UDM,  ? extends DataModel< ? > >... finders ) {
+		for( var finder : finders )  this.finderList.add( finder );
+	}
+
+	public void addFinder( Finder < UDM,  ? extends DataModel< ? > > finder ) {
+		this.finderList.add(finder);
 	}
 	
     //****************************************************************
@@ -45,7 +48,7 @@ public class LogicalOrOperations < UDM extends DataModel< UDM > >
 	public boolean prove( Unit<UDM> model ) {
 		boolean rv = false;
 		
-		var array = this.filterList.toArray( new Finder[ this.filterList.size() ] );
+		var array = this.finderList.toArray( new Finder[ this.finderList.size() ] );
 		
 		int i = 0; do {
 			rv = array[i++].prove( model );
@@ -60,8 +63,8 @@ public class LogicalOrOperations < UDM extends DataModel< UDM > >
 
 	@Override
 	public void fill( LogicalOrOperations < UDM > model) {
-		this.filterList.clear();
-		model.filterList.forEach( this.filterList :: add );
+		this.finderList.clear();
+		model.finderList.forEach( this.finderList :: add );
 	}
 
     //****************************************************************
@@ -70,7 +73,7 @@ public class LogicalOrOperations < UDM extends DataModel< UDM > >
 	
 	@Override
 	public DataTransformer< LogicalOrOperations < UDM > > createTransformer() {
-		return new LogicalOrOperationsTransformer< UDM >( this.factory ); 
+		return new LogicalOrOperationsTransformer< UDM >( this.finderSupplier ); 
 	}
 	
 	

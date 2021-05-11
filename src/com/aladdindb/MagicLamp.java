@@ -73,7 +73,7 @@ public class MagicLamp < UDM extends DataModel < UDM > > {
     	reqProcess.run();
     }
 
-    public void search( int blockSize, Finder < UDM, ? extends Finder >  finder, Consumer < BlockNavResp > respConsumer ) {
+    public void search( int blockSize, Finder < UDM, ? extends Finder < UDM, ? > >  finder, Consumer < BlockNavResp > respConsumer ) {
     	var reqProcess = new SearchReqProcess( blockSize, finder, this );
     	reqProcess.respConsumer.set( respConsumer );
     	reqProcess.run();

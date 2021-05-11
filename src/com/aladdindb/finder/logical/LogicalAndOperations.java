@@ -28,14 +28,16 @@ public class LogicalAndOperations < UDM extends DataModel< UDM > >
     //						Constructor 
     //****************************************************************
 	
-	public LogicalAndOperations( FinderSupplier< UDM > finderSupplier, Finder < UDM,  ? extends DataModel< ? > >... finderArray ) {
-		
+	public LogicalAndOperations( FinderSupplier< UDM > finderSupplier ) {
 		this.finderSupplier = finderSupplier;
-		
-		for( var filter : finderArray ) {
-			this.finderList.add( filter );
-		}
-		
+	}
+
+	public void addFinder( Finder < UDM,  ? extends DataModel< ? > >... finders ) {
+		for( var finder : finders )  this.finderList.add( finder );
+	}
+
+	public void addFinder( Finder < UDM,  ? extends DataModel< ? > > finder ) {
+		this.finderList.add(finder);
 	}
 	
     //****************************************************************

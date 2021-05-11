@@ -99,6 +99,21 @@ public final class Util {
 		return value != null && !value.trim().isEmpty();
 	}
 
+	
+	public static void stopWatch( Runnable process ) {
+		System.out.println("---------------");
+		System.out.println(" Start Process ");
+		System.out.println("---------------");
+		System.out.println("\n");
+		var start = System.currentTimeMillis();
+		process.run();
+		long stop = System.currentTimeMillis()-start;
+		System.out.println("\n\n");
+		System.out.println("---------------------------");
+		System.out.println(" End Process :"+stop+" ms"	);
+		System.out.println("---------------------------");
+	}
+	
 	//****************************************************
 	//						System
 	//****************************************************
@@ -114,5 +129,6 @@ public final class Util {
 	public static final String getUserDir() {
 		return System.getProperty("user.dir");
 	}
+	
 	
 }

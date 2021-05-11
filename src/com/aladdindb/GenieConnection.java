@@ -24,9 +24,13 @@ public class GenieConnection {
 	private final int 		port;
 	
 	public GenieConnection() {
-		this( "localhost", 7735 );
+		this( "localhost" );
 	}	
 	
+	public GenieConnection( String host ) {
+		this( host, 7735 );
+	}	
+
 	public GenieConnection( String host, int port ) {
 		this.host = host;
 		this.port = port;

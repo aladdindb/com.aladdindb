@@ -21,6 +21,10 @@ public class GenieInvoker {
 	
 	private final int port;
 	
+	public GenieInvoker() {
+		this( 7735 );
+	}
+	
 	public GenieInvoker( int port ) {
 		this.port = port;
 	}

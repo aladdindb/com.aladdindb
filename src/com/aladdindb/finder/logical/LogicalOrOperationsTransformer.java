@@ -38,7 +38,7 @@ public class LogicalOrOperationsTransformer < UDM extends DataModel< UDM > > ext
 	public LogicalOrOperations < UDM > toModel( SnPoint src, LogicalOrOperations < UDM > target ) {
 		
 		src.children.forEach( node -> {
-			this.factory.createFinder( node, target.filterList :: add );
+			this.factory.createFinder( node, target.finderList :: add );
 		});
 		
 		return target;
@@ -47,7 +47,7 @@ public class LogicalOrOperationsTransformer < UDM extends DataModel< UDM > > ext
 	@Override
 	public SnPoint toNode( LogicalOrOperations < UDM > src, SnPoint target ) {
 
-		var array = src.filterList.toArray( new Finder[ src.filterList.size() ] );
+		var array = src.finderList.toArray( new Finder[ src.finderList.size() ] );
 //		 
 		for( var filter : array ) {
 			var node = filter.createTransformer().toNode( filter );
