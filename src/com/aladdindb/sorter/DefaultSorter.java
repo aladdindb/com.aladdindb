@@ -17,23 +17,45 @@ import com.aladdindb.util.Var;
  * @author Macit Kandemir
  *
  */
-public abstract class DefaultSorter < UDM extends DataModel	< UDM >, VT > implements Sorter< UDM > {
+public abstract class DefaultSorter <
+
+	UDM 			extends DataModel		< UDM >, 
+	SORTER_MODEL	extends DefaultSorter	< UDM, SORTER_MODEL, VT >,
+	VT 
+
+> implements Sorter < UDM, SORTER_MODEL > {
 
 	
-	public final Var < SortOrder > sortOrder 	= new Var<>();
+	public final Var 						< String > 		sortOrder = new Var<>();
 	
-	public final Comparator			< VT > 		comparator;
-	public final UnitIdListBlocksGenerator	< UDM, VT>  blockWise;
+	public final Var						< Units< UDM > > 	units = new Var<>();
 	
-	public final Var< Units< UDM > > units = new Var<>();
+	public final Comparator					< VT > 				comparator;
+	public final UnitIdListBlocksGenerator	< UDM, VT>  		blockWise;
+	
+    //****************************************************************
+    //						Constractor 
+    //****************************************************************
 	
 	public DefaultSorter( SortOrder sortOrder ) {
 		
-		this.sortOrder	.set( sortOrder	);
-		this.comparator 	= this.createComparator();
+		this.sortOrder	.set( sortOrder.name()	);
+		this.comparator 	= this.newComparator();
 		this.blockWise 		= new UnitIdListBlocksGenerator<>( this );
 	}
 	
+    //****************************************************************
+    //					DataModel Implements  
+    //****************************************************************
+	
+	@Override
+	public void fill( SORTER_MODEL model) {
+		this.sortOrder	.set( model.sortOrder 	);
+	}
+
+    //****************************************************************
+    //					Sorter Implements  
+    //****************************************************************
 	
 	public List<String> sort( List<String> unitIdArray ) {
 		
@@ -67,7 +89,11 @@ public abstract class DefaultSorter < UDM extends DataModel	< UDM >, VT > implem
 		return this.blockWise.createUnitIdListBlocks( this.sort(unitIdArray) );
 	}
 	
-	public abstract Comparator<VT> createComparator();
+    //****************************************************************
+    //					 
+    //****************************************************************
+	
+	public abstract Comparator<VT> newComparator();
 	
 	public abstract Var< VT > getField( Unit<UDM> model );
 

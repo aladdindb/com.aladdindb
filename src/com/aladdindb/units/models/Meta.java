@@ -1,6 +1,6 @@
 package com.aladdindb.units.models;
 
-import com.aladdindb.defaultmodels.text.LabelModel;
+import com.aladdindb.models.text.LabelModel;
 import com.aladdindb.structure.DataModel;
 
 /**

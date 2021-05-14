@@ -72,7 +72,7 @@ public class LogicalOrOperations < UDM extends DataModel< UDM > >
     //****************************************************************
 	
 	@Override
-	public DataTransformer< LogicalOrOperations < UDM > > createTransformer() {
+	public DataTransformer< LogicalOrOperations < UDM > > newTransformer() {
 		return new LogicalOrOperationsTransformer< UDM >( this.finderSupplier ); 
 	}
 	

@@ -48,7 +48,7 @@ public class UnitIdListBlocksGenerator < UDM extends DataModel< UDM >, VT >  {
 	
 	
 	/**
-	 * Units mit gelichem Feld-Inhalt werden hier als UnitId abgelegt.
+	 * Units mit gleichem Feld-Inhalt werden hier als UnitId abgelegt.
 	 */
 	private final Var < ArrayList< String > > block = new Var<>();
 	
@@ -56,10 +56,10 @@ public class UnitIdListBlocksGenerator < UDM extends DataModel< UDM >, VT >  {
 	/**
 	 * Das zuständige Sorter Objekt für das entsprechende Feld.
 	 */
-	private final DefaultSorter< UDM, VT> sorter;
+	private final DefaultSorter< UDM, ? extends DataModel < ? >, VT> sorter;
 	
 	
-	protected UnitIdListBlocksGenerator(  DefaultSorter< UDM, VT> sorter ) {
+	protected UnitIdListBlocksGenerator(  DefaultSorter< UDM, ? extends DataModel < ? >, VT> sorter ) {
 		this.sorter = sorter;
 	}
 	

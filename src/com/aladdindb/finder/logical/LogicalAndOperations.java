@@ -9,15 +9,14 @@ import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.DataTransformer;
 import com.aladdindb.units.models.Unit;
 
-public class LogicalAndOperations < UDM extends DataModel< UDM > >
-
-		implements Finder < UDM, LogicalAndOperations < UDM > > {  
+public class LogicalAndOperations < UDM extends DataModel< UDM > > implements Finder < UDM, LogicalAndOperations < UDM > > {  
 	
 	
     //****************************************************************
     //						Class-Attributes 
     //****************************************************************
 
+	
 	private final  FinderSupplier < UDM > finderSupplier;
 	
 	
@@ -71,7 +70,7 @@ public class LogicalAndOperations < UDM extends DataModel< UDM > >
     //****************************************************************
 	
 	@Override
-	public DataTransformer< LogicalAndOperations < UDM > > createTransformer() {
+	public DataTransformer< LogicalAndOperations < UDM > > newTransformer() {
 		return new LogicalAndOperationsTransformer< UDM >( this.finderSupplier ); 
 	}
 	

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.aladdindb.structure.DataModel;
+import com.aladdindb.structure.DataTransformer;
 import com.aladdindb.units.Units;
 import com.aladdindb.util.IntIndex;
 
@@ -13,22 +14,43 @@ import com.aladdindb.util.IntIndex;
  * @author Macit Kandemir
  *
  */
-public  class SorterList < UDM extends DataModel < UDM > > implements Sorter< UDM > {
+public  class SorterList < UDM extends DataModel < UDM > > implements Sorter< UDM, SorterList < UDM > > {
 
 	
-	public final List< Sorter< UDM > > sorters = new ArrayList<>();
+    //****************************************************************
+    //						Class-Attributes 
+    //****************************************************************
+	
+	private final  SorterSupplier < UDM > supplier;
+	
+	
+	public final List< Sorter < UDM, ? extends DataModel< ? > > > sorters = new ArrayList<>();
 	
 	private IntIndex si = new IntIndex();
 	
 	
-	public void addSorter(  Sorter< UDM > sorter ) {
+    //****************************************************************
+    //						Constructor 
+    //****************************************************************
+	
+	public SorterList( SorterSupplier< UDM > supplier ) {
+		this.supplier = supplier;
+	}
+	
+	
+	public void addSorter(  Sorter<  UDM,  ? extends DataModel< ? >  > sorter ) {
 		this.sorters.add(sorter);
 	}
 	
-	public void addSorter(  Sorter< UDM >... sorters ) {
+	public void addSorter(  Sorter<  UDM,  ? extends DataModel< ? >  >... sorters ) {
 		for( var sorter : sorters ) this.sorters.add( sorter );
 	}
 	
+    //****************************************************************
+    //				Filter Implements ( prove ) 
+    //****************************************************************
+	
+	@Override
 	public List<String> sort( List< String > unitIdArray ) {
 		var rv = new ArrayList<String>();
 		if( sorters != null && sorters.size() > 0 ) {
@@ -54,8 +76,27 @@ public  class SorterList < UDM extends DataModel < UDM > > implements Sorter< UD
 	}
 	
 	@Override
-	public void setUnits(Units<UDM> units) {
+	public void setUnits( Units<UDM> units ) {
 		this.sorters.forEach( sorter -> sorter.setUnits(units) );
+	}
+	
+    //****************************************************************
+    //					DataModel Implements
+    //****************************************************************
+
+	@Override
+	public void fill( SorterList < UDM > model) {
+		this.sorters.clear();
+		model.sorters.forEach( this.sorters :: add );
+	}
+	
+    //****************************************************************
+    //
+    //****************************************************************
+	
+	@Override
+	public DataTransformer< SorterList < UDM > > newTransformer() {
+		return new SorterListTransformer< UDM >( this.supplier ); 
 	}
 	
 }

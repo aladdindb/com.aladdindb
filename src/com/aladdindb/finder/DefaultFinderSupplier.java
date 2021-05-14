@@ -10,10 +10,10 @@ public abstract class DefaultFinderSupplier < UDM extends DataModel< UDM > > imp
 
 	 
 	@Override
-	public DataTransformer < ? extends Finder< UDM, ?> > createFinderTransformer( String finderName ) {
+	public DataTransformer < ? extends Finder< UDM, ?> > newTransformer( String finderName ) {
 		
-		return 	finderName.equals( FinnderType.LOGICAL_AND	.tagName() ) ? new LogicalAndOperationsTransformer	< UDM >( this ) : 
-				finderName.equals( FinnderType.LOGICAL_OR	.tagName() ) ? new LogicalOrOperationsTransformer	< UDM >( this ) : null;
+		return 	finderName.equals( Type.LOGICAL_AND	.finder() ) ? new LogicalAndOperationsTransformer	< UDM >( this ) : 
+				finderName.equals( Type.LOGICAL_OR	.finder() ) ? new LogicalOrOperationsTransformer	< UDM >( this ) : null;
 	}	
 	
 	

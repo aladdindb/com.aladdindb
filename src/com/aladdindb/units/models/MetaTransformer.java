@@ -1,6 +1,6 @@
 package com.aladdindb.units.models;
 
-import com.aladdindb.defaultmodels.text.LabelParser;
+import com.aladdindb.models.text.LabelParser;
 import com.aladdindb.structure.DataTransformer;
 import com.aladdindb.structure.sn.SnPoint;
 

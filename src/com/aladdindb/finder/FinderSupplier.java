@@ -11,19 +11,19 @@ public interface FinderSupplier < UDM extends DataModel< UDM > > {
 	
 	
 
-	public DataTransformer< ? extends Finder< UDM, ?> > createFinderTransformer( String finder );
+	public DataTransformer< ? extends Finder< UDM, ?> > newTransformer( String finder );
 	
 	
-	default Finder< UDM, ? extends DataModel < ? > > createFinder( SnPoint finderNode ) {
-		
-		var finderTransformer = this.createFinderTransformer( finderNode.key.get() );
+	default Finder< UDM, ? extends DataModel < ? > > newFinder( SnPoint finderNode ) {
+		 
+		var finderTransformer = this.newTransformer( finderNode.key.get() );
 		   
 		return finderTransformer != null ? (Finder< UDM, ? extends DataModel < ? > >) finderTransformer.toModel( finderNode ) : null;
 		  
 	}
 	
-	default void createFinder( SnPoint node, Consumer < Finder < UDM, ? extends DataModel<?> > > finderConsumer ) {
-		var rv = createFinder( node );
+	default void newFinder( SnPoint node, Consumer < Finder < UDM, ? extends DataModel<?> > > finderConsumer ) {
+		var rv = newFinder( node );
 		if( rv != null ) finderConsumer.accept( rv );
 	}
 	

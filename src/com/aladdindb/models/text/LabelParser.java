@@ -1,4 +1,4 @@
-package com.aladdindb.defaultmodels.text;
+package com.aladdindb.models.text;
 
 import com.aladdindb.structure.DataTransformer;
 import com.aladdindb.structure.sn.SnPoint;

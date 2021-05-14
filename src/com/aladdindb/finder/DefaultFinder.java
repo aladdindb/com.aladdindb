@@ -11,9 +11,6 @@ import com.aladdindb.util.Var;
  * 
  * @author Macit Kandemir
  *
- * @param <UDM>		Unit Daten Model Typ, der zu filternden Daten.
- * @param <FINDER_MODEL>	Der reale Filter Typ.
- * @param <VT>		Filter Pattern Typ.
  */
 public abstract class DefaultFinder <
 
@@ -27,12 +24,19 @@ public abstract class DefaultFinder <
 	public final Var < String 	> operator 	= new Var<>();
 	public final Var < String	> pattern 	= new Var<>();
 	
+    //****************************************************************
+    //					Constructors  
+    //****************************************************************
 	
 	public DefaultFinder( String operator, String pattern ) {
 		this.operator	.set( operator	);
 		this.pattern	.set( pattern	);
 	}
 	
+    //****************************************************************
+    //				DataModel Implements  
+    //****************************************************************
+
 	@Override
 	public void fill( FINDER_MODEL model) {
 		this.operator	.set( model.operator 	);

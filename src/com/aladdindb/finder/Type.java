@@ -1,19 +1,25 @@
 package com.aladdindb.finder;
 
-public enum FinnderType {
+public enum Type {
 
 	LOGICAL_AND ("logical:and"),
 	LOGICAL_OR	("logical:or"),
-	LOGICAL_NOT	("logical:not");
+	LOGICAL_NOT	("logical:not"),
+	
+	LIST		("list");
 
 	private final String tagName;
 	
-	private FinnderType( String type ) {
+	private Type( String type ) {
 		this.tagName = type;
 	}
 	
-	public String tagName() {
+	public String finder() {
 		return "finder:"+tagName;
+	}
+
+	public String sorter() {
+		return "sorter:"+tagName;
 	}
 	
 }

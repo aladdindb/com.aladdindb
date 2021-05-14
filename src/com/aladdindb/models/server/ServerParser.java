@@ -1,4 +1,4 @@
-package com.aladdindb.defaultmodels.login;
+package com.aladdindb.models.server;
 
 import com.aladdindb.structure.DataTransformer;
 import com.aladdindb.structure.sn.SnPoint;
@@ -9,18 +9,18 @@ import com.aladdindb.structure.types.SnAttributeAccess;
  *
  * @author Macit Kandemir
  */
-public class LoginParser extends DataTransformer < LoginModel > {
+public class ServerParser extends DataTransformer < ServerModel > {
     
     
-    public enum ATR     { user, pwd };
+    public enum ATR     { host, port };
 
     
     //****************************************************************
     //
     //****************************************************************
 
-    public LoginParser() {
-        super( "login" );
+    public ServerParser() {
+        super( "server" );
     }
 
     //****************************************************************
@@ -28,8 +28,8 @@ public class LoginParser extends DataTransformer < LoginModel > {
     //****************************************************************
 
     @Override
-    public LoginModel newModel() {
-        return new LoginModel();
+    public ServerModel newModel() {
+        return new ServerModel();
     }
     
     //****************************************************************
@@ -37,24 +37,24 @@ public class LoginParser extends DataTransformer < LoginModel > {
     //****************************************************************
 
     @Override
-    public LoginModel toModel( SnPoint node, LoginModel model ) {
+    public ServerModel toModel( SnPoint node, ServerModel model ) {
     
     	var parse = new SnAttributeAccess( node );
     	
-    	parse.asStr.get( ATR.user		,model.user 	);
-    	parse.asStr.get( ATR.pwd		,model.pwd 		);
+    	parse.asStr.get( ATR.host, model.host );
+    	parse.asInt.get( ATR.port, model.port );
         
         return model;
     }
     
     
     @Override
-    public SnPoint toNode( LoginModel model, SnPoint node ) {
+    public SnPoint toNode( ServerModel model, SnPoint node ) {
         
     	var parse = new SnAttributeAccess( node );
     	
-    	parse.asStr.set( ATR.user		,model.user 	);
-    	parse.asStr.set( ATR.pwd  	,model.pwd    	);
+    	parse.asStr.set( ATR.host , model.host );
+    	parse.asInt.set( ATR.port , model.port );
         
         node.valueType.set( SnValueType.SINGLE_LINE );
         

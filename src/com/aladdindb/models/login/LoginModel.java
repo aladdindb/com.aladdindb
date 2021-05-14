@@ -1,4 +1,4 @@
-package com.aladdindb.defaultmodels.login;
+package com.aladdindb.models.login;
 
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.util.Var;

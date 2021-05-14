@@ -12,8 +12,6 @@ import com.aladdindb.util.Var;
  * 
  * @author Macit Kandemir
  *
- * @param <UDM>		Unit Daten Model Typ, der zu filternden Daten.
- * @param <FINDER_MODEL>	Der reale Filter Typ.
  */
 public abstract class DateFinder < 
 

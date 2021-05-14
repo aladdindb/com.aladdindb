@@ -58,13 +58,13 @@ public class Units < UDM extends DataModel < UDM > > {
     //					 Unit Search
     //**********************************************************
     
-    public void search( Finder< UDM, ? extends DataModel<?> > finder, Sorter< UDM > sorter, Consumer < Unit < UDM > > unitConsumer ) {
+    public void search( Finder< UDM, ? extends DataModel < ? > > finder, Sorter< UDM, ? extends DataModel < ? > > sorter, Consumer < Unit < UDM > > unitConsumer ) {
     	this.search( finder, sorter ).forEach( unitId -> {
     		this.get( unitId, unitConsumer );
     	});
     }
     
-    public List < String > search( Finder< UDM, ? extends DataModel<?> > finder, Sorter< UDM > sorter ) {
+    public List < String > search( Finder< UDM, ? extends DataModel < ? > > finder, Sorter< UDM, ? extends DataModel < ? > > sorter ) {
     	var rv = new ArrayList< String >();
 
     	sorter.setUnits( this );

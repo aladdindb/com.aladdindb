@@ -29,9 +29,9 @@ module com.aladdindb {
     exports com.aladdindb.sorter;
     exports com.aladdindb.sorter.types;
     
-    exports com.aladdindb.defaultmodels.login;        
-    exports com.aladdindb.defaultmodels.server;        
-    exports com.aladdindb.defaultmodels.text;        
+    exports com.aladdindb.models.login;        
+    exports com.aladdindb.models.server;        
+    exports com.aladdindb.models.text;        
     
 
     

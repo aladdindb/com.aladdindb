@@ -1,4 +1,4 @@
-package com.aladdindb.finder;
+package com.aladdindb.sorter;
 
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.DataTransformer;
@@ -11,23 +11,23 @@ import com.aladdindb.structure.types.SnAttributeAccess;
  * @author Macit Kandemir
  *
  */
-public abstract class DefaultFinderTransformer <
+public abstract  class DefaultSorterTransformer <
 
 	UDM 			extends DataModel		< UDM >,
-	FINDER_MODEL	extends DefaultFinder	< UDM, FINDER_MODEL, VT >,
+	SORTER_MODEL	extends DefaultSorter	< UDM, SORTER_MODEL, VT >,
 	VT
 
-> extends DataTransformer< FINDER_MODEL > {
+> extends DataTransformer< SORTER_MODEL > {
 	
 	
-	public enum ATR { operator, pattern }
+	public enum ATR { sortOrder }
 
 	
     //****************************************************************
     //						Constructor 
     //****************************************************************
 
-	public DefaultFinderTransformer( String tagKey ) {
+	public DefaultSorterTransformer( String tagKey ) {
 		super( tagKey );
 	}
 	
@@ -36,18 +36,16 @@ public abstract class DefaultFinderTransformer <
     //****************************************************************
 	
 	@Override
-	public FINDER_MODEL toModel( SnPoint src, FINDER_MODEL target ) {
+	public SORTER_MODEL toModel( SnPoint src, SORTER_MODEL target ) {
 		var srcAtr = new SnAttributeAccess(src);
-		srcAtr.asStr.get( ATR.operator	,target.operator );
-		srcAtr.asStr.get( ATR.pattern	,target.pattern );
+		srcAtr.asStr.get( ATR.sortOrder	,target.sortOrder );
 		return target;
 	}
 
 	@Override
-	public SnPoint toNode( FINDER_MODEL src, SnPoint target ) {
+	public SnPoint toNode( SORTER_MODEL src, SnPoint target ) {
 		var srcAtr = new SnAttributeAccess(target);
-		srcAtr.asStr.set( ATR.operator	,src.operator 	);
-		srcAtr.asStr.set( ATR.pattern	,src.pattern 	);
+		srcAtr.asStr.set( ATR.sortOrder	,src.sortOrder 	);
 		return target;
 	}
 

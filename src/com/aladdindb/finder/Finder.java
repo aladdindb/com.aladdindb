@@ -6,13 +6,13 @@ import com.aladdindb.units.models.Unit;
 
 public interface Finder <
 
-	UDM		extends DataModel 	< UDM 			>,
-	MODEL 	extends Finder		< UDM, MODEL	>
+	UDM				extends DataModel 	< UDM 				>,
+	FINDER_MODEL 	extends Finder		< UDM, FINDER_MODEL	>
 
-> extends DataModel < MODEL > {
+> extends DataModel < FINDER_MODEL > {
 	
 	public boolean prove( Unit< UDM > udm );
 	
-	public DataTransformer < MODEL > createTransformer();
+	public DataTransformer < FINDER_MODEL > newTransformer();
 	
 }

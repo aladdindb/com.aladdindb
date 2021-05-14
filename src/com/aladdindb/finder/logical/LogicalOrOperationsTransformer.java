@@ -1,7 +1,7 @@
 package com.aladdindb.finder.logical;
 
 import com.aladdindb.finder.Finder;
-import com.aladdindb.finder.FinnderType;
+import com.aladdindb.finder.Type;
 import com.aladdindb.finder.FinderSupplier;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.DataTransformer;
@@ -20,7 +20,7 @@ public class LogicalOrOperationsTransformer < UDM extends DataModel< UDM > > ext
 	
 	public LogicalOrOperationsTransformer( FinderSupplier < UDM > factory ) { 
 		
-		super( FinnderType.LOGICAL_OR.tagName() );
+		super( Type.LOGICAL_OR.finder() );
 		
 		this.factory = factory;
 	}
@@ -38,7 +38,7 @@ public class LogicalOrOperationsTransformer < UDM extends DataModel< UDM > > ext
 	public LogicalOrOperations < UDM > toModel( SnPoint src, LogicalOrOperations < UDM > target ) {
 		
 		src.children.forEach( node -> {
-			this.factory.createFinder( node, target.finderList :: add );
+			this.factory.newFinder( node, target.finderList :: add );
 		});
 		
 		return target;
@@ -50,7 +50,7 @@ public class LogicalOrOperationsTransformer < UDM extends DataModel< UDM > > ext
 		var array = src.finderList.toArray( new Finder[ src.finderList.size() ] );
 //		 
 		for( var filter : array ) {
-			var node = filter.createTransformer().toNode( filter );
+			var node = filter.newTransformer().toNode( filter );
 			target.children.add( node );  
 		}
 //		

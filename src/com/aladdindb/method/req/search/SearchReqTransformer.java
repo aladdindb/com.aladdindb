@@ -47,7 +47,7 @@ public final class SearchReqTransformer <
     	srcAtr.asInt.get( ATR.blockSize, target.blockSize );
     	
     	src.children.snBottom.get( finderNode -> {
-    		this.finderSupplier.createFinder( finderNode, finderModel -> {
+    		this.finderSupplier.newFinder( finderNode, finderModel -> {
     			target.finder.set( (FINDER_MODEL) finderModel );
     		});
     	});
@@ -63,7 +63,7 @@ public final class SearchReqTransformer <
 
     	targetAtr.asInt.set( ATR.blockSize, src.blockSize );
     	
-    	src.finder.get( filter -> filter.createTransformer().toNode( filter, target.children :: add ) );
+    	src.finder.get( filter -> filter.newTransformer().toNode( filter, target.children :: add ) );
 
     	
         return target;
