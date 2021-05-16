@@ -11,11 +11,11 @@ public class IntIndex {
     private int startIndex 	= 0;
 
     public IntIndex() {
-    	this( -1);
+    	this( 0 );
 	}
     
     public IntIndex( int startIndex ) {
-    	this.startIndex = startIndex;
+    	this.startIndex = (startIndex-1);
     	this.reset();
 	}
     

@@ -80,14 +80,14 @@ public class GenieInvoker {
             	
     	        while ( loop.get() ) {
     	        	
-    				System.out.println( "\n ----------------------");
-    	        	System.out.println( "    loop-beginn" );
-    				System.out.println( " ----------------------\n");
+//    				System.out.println( "\n ----------------------");
+//    	        	System.out.println( "    loop-beginn" );
+//    				System.out.println( " ----------------------\n");
     				
     	        	loop.set( false );
     	        	
     	    		this.getReqStr( in, reqStr -> {
-    	    			System.out.println( reqStr );
+    	    			System.out.print( reqStr );
     	    			
     	    			this.getGenie( reqStr, genie -> {
     	    				

@@ -3,24 +3,35 @@ package com.aladdindb.util;
 public class TableOut {
 
 	
-	private final 	Row		[] rows;
+	private final 	Column	[] columns;
 	private final 	Object  [] labels;
 	private final 	Object  [] lines;
+	
+	private final int firstColmnSize = 7;
+	
+	private final IntIndex rowIndex = new IntIndex( 1 );
 	
 	//---------------------------------------------------
 	//
 	//---------------------------------------------------
 	
-	public TableOut( Row...rows ) {
+	public TableOut( Column...columns ) {
 		
-		this.rows = rows;
+		
+		this.columns = new Column[columns.length+1];
 
-		this.labels = new String[ rows.length ];
-		this.lines 	= new String[ rows.length ];
+		this.labels = new String[ this.columns.length ];
+		this.lines 	= new String[ this.columns.length ];
+
+		this.columns[0] = new Column( firstColmnSize, "");
 		
-		for( int i = 0; i < rows.length; i++ ) {
-			this.labels	[i] = this.centerString( rows[i]);
-			this.lines	[i] = Util.createString( rows[i].size, '-' );
+		for( int i = 0; i < columns.length; i++) {
+			this.columns[i+1] = columns[i];
+		}
+		
+		for( int i = 0; i < this.columns.length; i++ ) {
+			this.labels	[i] = this.centerString( this.columns[i]);
+			this.lines	[i] = Util.createString( this.columns[i].size, '-' );
 		}
 	}
 	
@@ -30,7 +41,7 @@ public class TableOut {
 
 	public void printHead() {
 		var sb = new StringBuilder();
-		for( var row : rows) {
+		for( var row : columns) {
 			sb.append( "%"+row.size+"s|");
 		}
 		sb.append( "%n");
@@ -39,17 +50,26 @@ public class TableOut {
 
 	public void printData( Object...data) {
 		var sb = new StringBuilder();
-		sb.append( "%"+(rows[0].size-1)+"s.|");
-		for( int i = 1; i < rows.length; i++ ) {
-			sb.append( " %-"+(rows[i].size-1)+"s|");
+		sb.append( "%"+(columns[0].size-1)+"s.|");
+		for( int i = 1; i < columns.length; i++ ) {
+			sb.append( " %-"+(columns[i].size-1)+"s|");
 		}
 		sb.append( "%n");
-		System.out.printf( sb.toString()	,data );
+		
+		var tempData = new Object[data.length+1];
+		
+		tempData[0] = rowIndex.inc();
+		
+		for( int i = 0; i < data.length; i++ ) {
+			tempData[i+1] = data[i];
+		}
+		
+		System.out.printf( sb.toString()	,tempData );
 	}
 
 	public void printLine() {
 		var sb = new StringBuilder();
-		for( var row : rows) {
+		for( var row : columns) {
 			sb.append( "%"+(row.size-1)+"s|");
 		}
 		sb.append( "--%n");
@@ -60,26 +80,26 @@ public class TableOut {
 	//
 	//---------------------------------------------------
 	
-	private String centerString ( Row row ) {
-		var s = row.label;
-		var width = row.size; 
+	private String centerString ( Column column ) {
+		var s	 	= column.label;
+		var width 	= column.size; 
 	    return String.format("%-" + width  + "s", String.format("%" + (s.length() + (width - s.length()) / 2) + "s", s));
 	}
 	
-	public static Row column( String label, int size ) {
-		return new Row(size, label);
+	public static Column column( String label, int size ) {
+		return new Column(size, label);
 	}
 	
 	//---------------------------------------------------
 	//
 	//---------------------------------------------------
 	
-	public static class Row {
+	public static class Column {
 		
 		public int 		size;
 		public String 	label;
 		
-		public Row(  int size, String label ) {
+		public Column(  int size, String label ) {
 			this.size 	= size;
 			this.label 	= label;
 		}
