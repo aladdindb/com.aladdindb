@@ -14,14 +14,14 @@ public class MetaTransformer extends Transformer<Meta> {
 	}	
 	
 	@Override
-	public Meta newStore() {
+	public Meta newModel() {
 		return new Meta();
 	}
 
 	@Override
-	public Meta toStore( SnPoint src, Meta target ) {
-		label		.toStoreFromParent( src, target.label		);
-		timeStamp	.toStoreFromParent( src, target.timeStamp 	);
+	public Meta toModel( SnPoint src, Meta target ) {
+		label		.toModelFromParent( src, target.label		);
+		timeStamp	.toModelFromParent( src, target.timeStamp 	);
 		return target;
 	}
 

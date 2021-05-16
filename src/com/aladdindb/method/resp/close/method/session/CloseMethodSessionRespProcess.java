@@ -3,11 +3,11 @@ package com.aladdindb.method.resp.close.method.session;
 import com.aladdindb.Genie;
 import com.aladdindb.method.req.close.method.session.CloseMethodSessionReqTransformer;
 import com.aladdindb.method.resp.RespProcess;
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.xml.XML;
 
 
-public class CloseMethodSessionRespProcess < UDM extends Store < UDM > > extends RespProcess< UDM > { 
+public class CloseMethodSessionRespProcess < UDM extends DataModel < UDM > > extends RespProcess< UDM > { 
 
 
 	public CloseMethodSessionRespProcess( Genie < UDM > genie ) {
@@ -21,7 +21,7 @@ public class CloseMethodSessionRespProcess < UDM extends Store < UDM > > extends
 	@Override
 	public void run() {
 		genie.reqNode.get( reqNode -> {
-			new CloseMethodSessionReqTransformer().toStore( reqNode, req -> {
+			new CloseMethodSessionReqTransformer().toModel( reqNode, req -> {
 				req.methodSessionID.get( methodSessionID -> {
 					this.resp( methodSessionID );
 				});

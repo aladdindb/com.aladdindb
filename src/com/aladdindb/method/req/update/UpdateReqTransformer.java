@@ -2,7 +2,7 @@ package com.aladdindb.method.req.update;
 
 import com.aladdindb.method.Method;
 import com.aladdindb.method.req.ReqTransformer;
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.units.models.UnitTransformer;
@@ -12,7 +12,7 @@ import com.aladdindb.units.models.UnitTransformer;
  * @author Macit Kandemir
  * @param <DUM>
  */
-public final class UpdateReqTransformer < UDM extends Store< UDM > > extends ReqTransformer< UpdateReq< UDM > >  {
+public final class UpdateReqTransformer < UDM extends DataModel< UDM > > extends ReqTransformer< UpdateReq< UDM > >  {
 	
 
 	public final UnitTransformer< UDM > unitParser;
@@ -32,7 +32,7 @@ public final class UpdateReqTransformer < UDM extends Store< UDM > > extends Req
     //****************************************************************
 
     @Override
-	public UpdateReq< UDM > newStore() {
+	public UpdateReq< UDM > newModel() {
 		return new UpdateReq< UDM >();
 	}
 	
@@ -41,10 +41,10 @@ public final class UpdateReqTransformer < UDM extends Store< UDM > > extends Req
     //****************************************************************
     
     @Override
-    public UpdateReq< UDM >  toStore( SnPoint src, UpdateReq< UDM > target ) {
-    	super.toStore( src, target );
+    public UpdateReq< UDM >  toModel( SnPoint src, UpdateReq< UDM > target ) {
+    	super.toModel( src, target );
         
-        unitParser.toStoreFromParent( src ,target.unitData );
+        unitParser.toModelFromParent( src ,target.unitData );
         
         return target;
     }

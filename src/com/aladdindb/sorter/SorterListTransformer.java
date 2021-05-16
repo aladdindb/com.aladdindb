@@ -1,12 +1,12 @@
 package com.aladdindb.sorter;
 
 import com.aladdindb.finder.Type;
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 
 
-public class SorterListTransformer < UDM extends Store< UDM > > extends Transformer< SorterList < UDM > > {
+public class SorterListTransformer < UDM extends DataModel< UDM > > extends Transformer< SorterList < UDM > > {
 
 	
 	private final  SorterSupport< UDM > support; 
@@ -28,12 +28,12 @@ public class SorterListTransformer < UDM extends Store< UDM > > extends Transfor
     //****************************************************************
 
 	@Override
-	public SorterList < UDM > newStore() {
+	public SorterList < UDM > newModel() {
 		return new SorterList< UDM >( this.support );
 	}
 
 	@Override
-	public SorterList < UDM > toStore( SnPoint src, SorterList < UDM > target ) {
+	public SorterList < UDM > toModel( SnPoint src, SorterList < UDM > target ) {
 		
 		src.children.forEach( node -> {
 			this.support.newSorter( node, target.sorters :: add );

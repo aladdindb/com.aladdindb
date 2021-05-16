@@ -7,7 +7,7 @@ import com.aladdindb.method.resp.RespProcess;
 import com.aladdindb.method.resp.get.block.BlockNavResp;
 import com.aladdindb.method.resp.get.block.BlockNaviRespTransformer;
 import com.aladdindb.sorter.Sorter;
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.xml.XML;
 import com.aladdindb.units.UnitsIdBlockStorage;
 import com.aladdindb.util.Util;
@@ -15,7 +15,7 @@ import com.aladdindb.util.Util;
 
 public class SearchRespProcess <
 
-	UDM 			extends Store 	< UDM >, 
+	UDM 			extends DataModel 	< UDM >, 
 	FINDER_MODEL 	extends Finder	< UDM, FINDER_MODEL >,
 	SORTER_MODEL	extends Sorter	< UDM, SORTER_MODEL >
 
@@ -34,7 +34,7 @@ public class SearchRespProcess <
 	public void run() {
 		genie.reqNode.get( reqNode -> {
 			var transformer = new SearchReqTransformer< UDM, FINDER_MODEL, SORTER_MODEL >( genie.finderSupport,genie.sorterSupport );
-			transformer.toStore( reqNode, req -> {
+			transformer.toModel( reqNode, req -> {
 				
 				var blockSize 	= req.blockSize	.get();
 				var finder 		= req.finder	.get();

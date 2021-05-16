@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.units.Units;
 import com.aladdindb.units.models.Unit;
 import com.aladdindb.util.Var;
@@ -19,7 +19,7 @@ import com.aladdindb.util.Var;
  */
 public abstract class DefaultSorter <
 
-	UDM 			extends Store			< UDM >, 
+	UDM 			extends DataModel			< UDM >, 
 	SORTER_MODEL	extends DefaultSorter	< UDM, SORTER_MODEL, VT >,
 	VT 
 

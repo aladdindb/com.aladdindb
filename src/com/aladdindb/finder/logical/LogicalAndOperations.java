@@ -5,11 +5,11 @@ import java.util.List;
 
 import com.aladdindb.finder.Finder;
 import com.aladdindb.finder.FinderSupport;
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
 import com.aladdindb.units.models.Unit;
 
-public class LogicalAndOperations < UDM extends Store< UDM > > implements Finder < UDM, LogicalAndOperations < UDM > > {  
+public class LogicalAndOperations < UDM extends DataModel< UDM > > implements Finder < UDM, LogicalAndOperations < UDM > > {  
 	
 	
     //****************************************************************
@@ -20,7 +20,7 @@ public class LogicalAndOperations < UDM extends Store< UDM > > implements Finder
 	private final  FinderSupport < UDM > finderSupplier;
 	
 	
-	public final List < Finder< UDM, ? extends Store< ? > > >  finderList = new ArrayList<>();
+	public final List < Finder< UDM, ? extends DataModel< ? > > >  finderList = new ArrayList<>();
 	
 	
     //****************************************************************
@@ -31,11 +31,11 @@ public class LogicalAndOperations < UDM extends Store< UDM > > implements Finder
 		this.finderSupplier = finderSupplier;
 	}
 
-	public void addFinder( Finder < UDM,  ? extends Store< ? > >... finders ) {
+	public void addFinder( Finder < UDM,  ? extends DataModel< ? > >... finders ) {
 		for( var finder : finders )  this.finderList.add( finder );
 	}
 
-	public void addFinder( Finder < UDM,  ? extends Store< ? > > finder ) {
+	public void addFinder( Finder < UDM,  ? extends DataModel< ? > > finder ) {
 		this.finderList.add(finder);
 	}
 	

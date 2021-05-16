@@ -2,11 +2,11 @@ package com.aladdindb.finder;
 
 import com.aladdindb.finder.logical.LogicalAndOperationsTransformer;
 import com.aladdindb.finder.logical.LogicalOrOperationsTransformer;
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
 
 
-public abstract class DefaultFinderSupport < UDM extends Store< UDM > > implements FinderSupport < UDM > {
+public abstract class DefaultFinderSupport < UDM extends DataModel< UDM > > implements FinderSupport < UDM > {
 
 	 
 	@Override

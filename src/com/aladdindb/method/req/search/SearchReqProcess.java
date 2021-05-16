@@ -6,12 +6,12 @@ import com.aladdindb.method.req.ReqProcess;
 import com.aladdindb.method.resp.get.block.BlockNavResp;
 import com.aladdindb.method.resp.get.block.BlockNaviRespTransformer;
 import com.aladdindb.sorter.Sorter;
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 
 
 public class SearchReqProcess <
 
-	UDM 			extends Store	< UDM >,
+	UDM 			extends DataModel	< UDM >,
 	FINDER_MODEL 	extends Finder	< UDM, FINDER_MODEL >,
 	SORTER_MODEL 	extends Sorter	< UDM, SORTER_MODEL >
 	

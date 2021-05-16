@@ -30,13 +30,13 @@ public final class GetByIdReqTransformer  extends ReqTransformer< GetByIdReq >  
     //****************************************************************
 	
 	@Override
-	public GetByIdReq newStore() {
+	public GetByIdReq newModel() {
 		return new GetByIdReq( null, null );
 	}
 	
     @Override
-    public GetByIdReq toStore( SnPoint src, GetByIdReq target ) {
-    	super.toStore( src, target );
+    public GetByIdReq toModel( SnPoint src, GetByIdReq target ) {
+    	super.toModel( src, target );
     	
     	var srcAtr = new SnAttributeAccess( src );
 

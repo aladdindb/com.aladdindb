@@ -24,7 +24,7 @@ public class LabelParser extends Transformer < LabelModel > {
     //****************************************************************
 
     @Override
-    public LabelModel newStore() {
+    public LabelModel newModel() {
         return new LabelModel();
     }
     
@@ -33,7 +33,7 @@ public class LabelParser extends Transformer < LabelModel > {
     //****************************************************************
 
     @Override
-    public LabelModel toStore( SnPoint src, LabelModel target ) {
+    public LabelModel toModel( SnPoint src, LabelModel target ) {
         
     	src.value.get( target :: set );
         

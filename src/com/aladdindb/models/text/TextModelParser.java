@@ -24,7 +24,7 @@ public class TextModelParser extends Transformer < TextModel > {
     //****************************************************************
 
     @Override
-    public TextModel newStore() {
+    public TextModel newModel() {
         return new TextModel();
     }
     
@@ -33,7 +33,7 @@ public class TextModelParser extends Transformer < TextModel > {
     //****************************************************************
 
     @Override
-    public TextModel toStore( SnPoint src, TextModel target ) {
+    public TextModel toModel( SnPoint src, TextModel target ) {
         
         src.value.get( target :: set );
         

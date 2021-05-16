@@ -1,7 +1,7 @@
 package com.aladdindb.method.resp.get.by.id;
 
 import com.aladdindb.method.Method;
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.units.models.UnitTransformer;
@@ -11,7 +11,7 @@ import com.aladdindb.units.models.UnitTransformer;
  * @author Macit Kandemir
  * @param <DUM>
  */
-public final class GetByIdRespTransformer < UDM extends Store< UDM > > extends Transformer < GetByIdResp< UDM > > {
+public final class GetByIdRespTransformer < UDM extends DataModel< UDM > > extends Transformer < GetByIdResp< UDM > > {
 	
 
     public final UnitTransformer< UDM > unitParser;
@@ -30,7 +30,7 @@ public final class GetByIdRespTransformer < UDM extends Store< UDM > > extends T
     //
     //****************************************************************
 
-    public GetByIdResp< UDM > newStore() {
+    public GetByIdResp< UDM > newModel() {
 		return new GetByIdResp< UDM >();
 	}
 	
@@ -38,9 +38,9 @@ public final class GetByIdRespTransformer < UDM extends Store< UDM > > extends T
     //
     //****************************************************************
     @Override
-    public GetByIdResp< UDM >  toStore( SnPoint src, GetByIdResp< UDM > target ) {
+    public GetByIdResp< UDM >  toModel( SnPoint src, GetByIdResp< UDM > target ) {
     
-        unitParser.toStoreFromParent( src ,target.unit );
+        unitParser.toModelFromParent( src ,target.unit );
         
         return target;
     }

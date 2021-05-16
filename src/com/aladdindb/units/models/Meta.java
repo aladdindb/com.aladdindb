@@ -1,13 +1,13 @@
 package com.aladdindb.units.models;
 
 import com.aladdindb.models.text.LabelModel;
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 
 /**
  *
  * @author Macit Kandemir
  */
-public class Meta implements Store< Meta > { 
+public class Meta implements DataModel< Meta > { 
     
 	
 	public final LabelModel label 		= new LabelModel();

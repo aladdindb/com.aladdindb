@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 
 import com.aladdindb.finder.Finder;
 import com.aladdindb.sorter.Sorter;
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.units.models.Unit;
@@ -24,7 +24,7 @@ import com.aladdindb.util.Var;
  * 
  * @author Macit Kandemir
  */
-public class Units < UDM extends Store < UDM > > {
+public class Units < UDM extends DataModel < UDM > > {
 
 	
 	public final 	Path path;
@@ -58,15 +58,15 @@ public class Units < UDM extends Store < UDM > > {
     //					 Unit Search
     //**********************************************************
     
-    public void search( Finder		< UDM, ? extends Store < ? > > 	finder, 
-    					Sorter		< UDM, ? extends Store < ? > > 	sorter, 
+    public void search( Finder		< UDM, ? extends DataModel < ? > > 	finder, 
+    					Sorter		< UDM, ? extends DataModel < ? > > 	sorter, 
     					Consumer 	< Unit < UDM > > 				unitConsumer ) {
     	this.search( finder, sorter ).forEach( unitId -> {
     		this.get( unitId, unitConsumer );
     	});
     }
     
-    public List < String > search( Finder< UDM, ? extends Store < ? > > finder, Sorter< UDM, ? extends Store < ? > > sorter ) {
+    public List < String > search( Finder< UDM, ? extends DataModel < ? > > finder, Sorter< UDM, ? extends DataModel < ? > > sorter ) {
     	var rv = new ArrayList< String >();
 
     	sorter.setUnits( this );
@@ -78,7 +78,7 @@ public class Units < UDM extends Store < UDM > > {
     	return sorter.sort(rv);
     }
     
-    public void search( Finder< UDM, ? extends Store<?> > finder, Consumer < Unit < UDM > > unitConsumer ) {
+    public void search( Finder< UDM, ? extends DataModel<?> > finder, Consumer < Unit < UDM > > unitConsumer ) {
 //    	Counter c = new Counter();
     	this.forEachUnit( unit -> {
        		if( finder.prove( unit ) ) unitConsumer.accept( unit ); 
@@ -98,7 +98,7 @@ public class Units < UDM extends Store < UDM > > {
 
     public void forEachUnit( Consumer < Unit < UDM > > unitConsumer ) {
         forEachUnitNode( unitNode -> {
-            unitTransformer.toStore( unitNode,  unitConsumer :: accept );
+            unitTransformer.toModel( unitNode,  unitConsumer :: accept );
         });
     }
 
@@ -156,7 +156,7 @@ public class Units < UDM extends Store < UDM > > {
     
     public void get( String unitID, Consumer < Unit < UDM > > unitConsumer ) {
 		getUnitNode( unitID, unitNode -> {
-            unitTransformer.toStore( unitNode, unitConsumer :: accept );
+            unitTransformer.toModel( unitNode, unitConsumer :: accept );
 		});
     } 
 

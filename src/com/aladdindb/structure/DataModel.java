@@ -1,6 +1,6 @@
 package com.aladdindb.structure;
 
-public interface Store < T  > {
+public interface DataModel < T  > {
 	
 	public void fill( T model ); 
 

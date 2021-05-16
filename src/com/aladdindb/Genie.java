@@ -16,7 +16,7 @@ import com.aladdindb.method.resp.remove.RemoveRespProcess;
 import com.aladdindb.method.resp.search.SearchRespProcess;
 import com.aladdindb.method.resp.update.UpdateRespProcess;
 import com.aladdindb.sorter.SorterSupport;
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.units.Units;
@@ -24,7 +24,7 @@ import com.aladdindb.units.UnitsIdBlockNavi;
 import com.aladdindb.util.Var;
 
 
-public class Genie < UDM extends Store < UDM > > implements Runnable { 
+public class Genie < UDM extends DataModel < UDM > > implements Runnable { 
 
 
 	public final HashMap< String, UnitsIdBlockNavi > unitsIdBlockNaviMap = new HashMap<>();

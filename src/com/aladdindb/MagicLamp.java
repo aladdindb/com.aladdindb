@@ -19,13 +19,13 @@ import com.aladdindb.method.resp.remove.RemoveResp;
 import com.aladdindb.method.resp.update.UpdateResp;
 import com.aladdindb.sorter.Sorter;
 import com.aladdindb.sorter.SorterSupport;
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
 import com.aladdindb.units.models.Unit;
 import com.aladdindb.units.models.UnitTransformer;
 
 
-public class MagicLamp < UDM extends Store < UDM > > {
+public class MagicLamp < UDM extends DataModel < UDM > > {
 
 	
     public final  GenieConnection genieConnection;

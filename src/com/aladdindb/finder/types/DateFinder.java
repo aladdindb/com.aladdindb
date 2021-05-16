@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import com.aladdindb.finder.DefaultFinder;
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.util.Var;
 
 
@@ -15,7 +15,7 @@ import com.aladdindb.util.Var;
  */
 public abstract class DateFinder < 
 
-	UDM 			extends Store 	< UDM >, 
+	UDM 			extends DataModel 	< UDM >, 
 	FINDER_MODEL	extends DateFinder	< UDM, FINDER_MODEL >
 
 > extends DefaultFinder < UDM, FINDER_MODEL, LocalDate > {

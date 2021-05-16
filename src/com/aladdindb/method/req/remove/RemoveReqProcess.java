@@ -4,10 +4,10 @@ import com.aladdindb.MagicLamp;
 import com.aladdindb.method.req.ReqProcess;
 import com.aladdindb.method.resp.remove.RemoveResp;
 import com.aladdindb.method.resp.remove.RemoveRespTransformer;
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 
 
-public class RemoveReqProcess < UDM extends Store< UDM > > extends ReqProcess < RemoveReq, RemoveResp< UDM > , UDM > {
+public class RemoveReqProcess < UDM extends DataModel< UDM > > extends ReqProcess < RemoveReq, RemoveResp< UDM > , UDM > {
 
 	
     //****************************************************************

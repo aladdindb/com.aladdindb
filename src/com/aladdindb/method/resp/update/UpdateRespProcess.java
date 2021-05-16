@@ -3,10 +3,10 @@ package com.aladdindb.method.resp.update;
 import com.aladdindb.Genie;
 import com.aladdindb.method.req.update.UpdateReqTransformer;
 import com.aladdindb.method.resp.RespProcess;
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.xml.XML;
 
-public class UpdateRespProcess < UGM extends Store < UGM > > extends RespProcess< UGM > { 
+public class UpdateRespProcess < UGM extends DataModel < UGM > > extends RespProcess< UGM > { 
 
 
 	public UpdateRespProcess( Genie < UGM > genie ) {
@@ -20,7 +20,7 @@ public class UpdateRespProcess < UGM extends Store < UGM > > extends RespProcess
 	@Override
 	public void run() {
 		genie.reqNode.get( reqNode -> {
-			new UpdateReqTransformer < UGM >( genie.dataTransformer ).toStore( reqNode, req -> {
+			new UpdateReqTransformer < UGM >( genie.dataTransformer ).toModel( reqNode, req -> {
 				req.unitData.get( unitData -> { 
 					if( genie.units.update( unitData ) ) {
 						unitData.id.get( this::resp );

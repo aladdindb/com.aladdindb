@@ -8,9 +8,9 @@ import com.aladdindb.util.Var;
 /**
  *
  * @author Macit Kandemir
- * @param <STORE>
+ * @param <DATA_MODEL>
  */
-public abstract class Transformer < STORE extends Store < STORE > > {
+public abstract class Transformer < DATA_MODEL extends DataModel < DATA_MODEL > > {
 
     private final String key;
 
@@ -30,50 +30,50 @@ public abstract class Transformer < STORE extends Store < STORE > > {
     //
     //****************************************************************
     
-    public abstract STORE newStore();
+    public abstract DATA_MODEL newModel();
     
     //****************************************************************
     //
     //****************************************************************
 
-    public final STORE toStore( SnPoint src ) {
-        return Transformer.this.toStore( src , newStore() );
+    public final DATA_MODEL toModel( SnPoint src ) {
+        return Transformer.this.toModel( src , newModel() );
     }
 
-    public final void toStore( SnPoint src , Consumer < STORE > target ) {
-        STORE model = Transformer.this.toStore( src );
+    public final void toModel( SnPoint src , Consumer < DATA_MODEL > target ) {
+        DATA_MODEL model = Transformer.this.toModel( src );
         if( model != null ) target.accept( model );
     }
 
-    public final void toStore( SnPoint src , Var < STORE > target ) {
-        Transformer.this.toStore( src, target :: set );
+    public final void toModel( SnPoint src , Var < DATA_MODEL > target ) {
+        Transformer.this.toModel( src, target :: set );
     }
     
-    public abstract STORE  toStore( SnPoint src , STORE target );
+    public abstract DATA_MODEL  toModel( SnPoint src , DATA_MODEL target );
     
     //****************************************************************
     //
     //****************************************************************
 
-    public final STORE toStoreFromParent( SnPoint src ) {
-        Var < STORE > target = new Var<>();
+    public final DATA_MODEL toModelFromParent( SnPoint src ) {
+        Var < DATA_MODEL > target = new Var<>();
         src.children.get( getKey(), node -> {
-            Transformer.this.toStore( node, target :: set );
+            Transformer.this.toModel( node, target :: set );
         });
         return target.get();
     }
     
-    public final void toStoreFromParent( SnPoint src,  STORE  target ) {
-    	toStoreFromParent( src, target :: fill );
+    public final void toModelFromParent( SnPoint src,  DATA_MODEL  target ) {
+    	toModelFromParent( src, target :: fill );
     }
     
-    public final void toStoreFromParent( SnPoint src, Consumer < STORE > target ) {
-        STORE model = Transformer.this.toStoreFromParent( src );
+    public final void toModelFromParent( SnPoint src, Consumer < DATA_MODEL > target ) {
+        DATA_MODEL model = Transformer.this.toModelFromParent( src );
         if( model != null ) target.accept( model );
     }
 
-    public final void toStoreFromParent( SnPoint parentNode, Var < STORE > target ) {
-        Transformer.this.toStoreFromParent( parentNode, target :: set );
+    public final void toModelFromParent( SnPoint parentNode, Var < DATA_MODEL > target ) {
+        Transformer.this.toModelFromParent( parentNode, target :: set );
     }
 
     
@@ -81,27 +81,27 @@ public abstract class Transformer < STORE extends Store < STORE > > {
     //
     //****************************************************************
 
-    public final void toNode( Var < STORE > src, Consumer < SnPoint > target  ) {
+    public final void toNode( Var < DATA_MODEL > src, Consumer < SnPoint > target  ) {
         src.get( model -> Transformer.this.toNode( model, target ) );
     }
     
-    public final void toNode( STORE src, Consumer < SnPoint > target ) {
+    public final void toNode( DATA_MODEL src, Consumer < SnPoint > target ) {
         var node = Transformer.this.toNode( src );
         if( node != null ) target.accept( node );
     }
 
-    public final SnPoint toNode( STORE src ) {
+    public final SnPoint toNode( DATA_MODEL src ) {
         return Transformer.this.toNode( src, new SnPoint( getKey()) );
     }
     
-    public final SnPoint toNode( Var < STORE > src, SnPoint target ) {
+    public final SnPoint toNode( Var < DATA_MODEL > src, SnPoint target ) {
         src.get( model -> {
             Transformer.this.toNode( model, target);
         });
         return target;
     }
 
-    public abstract SnPoint toNode( STORE src , SnPoint target );
+    public abstract SnPoint toNode( DATA_MODEL src , SnPoint target );
     
     
     //****************************************************************
@@ -117,7 +117,7 @@ public abstract class Transformer < STORE extends Store < STORE > > {
      * @param target    Älternknoten als Ziel Konoten.
      */
     
-    public final void toParentNode( Var < STORE > src, SnPoint target ) {
+    public final void toParentNode( Var < DATA_MODEL > src, SnPoint target ) {
         src.get( model -> {
             toParentNode( model, target );
         });
@@ -131,7 +131,7 @@ public abstract class Transformer < STORE extends Store < STORE > > {
      * @param target    Älternknoten als Ziel Konoten. 
      */
     
-    public final void toParentNode( STORE src, SnPoint target ) {
+    public final void toParentNode( DATA_MODEL src, SnPoint target ) {
         this.toNode( src, target.children :: add );
     } 
 

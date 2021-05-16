@@ -1,6 +1,6 @@
 package com.aladdindb.units.models;
 
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 
@@ -13,7 +13,7 @@ import com.aladdindb.structure.sn.SnPoint;
  */
 public final class UnitListTransformer <
 
-	DATA_MODEL extends Store < DATA_MODEL > 
+	DATA_MODEL extends DataModel < DATA_MODEL > 
     
 > extends Transformer < UnitList	< DATA_MODEL > > {
     
@@ -39,15 +39,15 @@ public final class UnitListTransformer <
     //****************************************************************
     
 	@ Override
-	public UnitList < DATA_MODEL > newStore() { 
+	public UnitList < DATA_MODEL > newModel() { 
 		return new UnitList < DATA_MODEL > (); 
 	}
 	
 
 	@ Override
-	public UnitList < DATA_MODEL > toStore( SnPoint src, UnitList < DATA_MODEL > target ) {
+	public UnitList < DATA_MODEL > toModel( SnPoint src, UnitList < DATA_MODEL > target ) {
     	src.children.forEach( unode -> {
-    		unitModelParser.toStore( unode, target :: add );
+    		unitModelParser.toModel( unode, target :: add );
     	});
 		return target ;
 	}

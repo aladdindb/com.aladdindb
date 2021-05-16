@@ -26,13 +26,13 @@ public final class GetAllReqTransformer  extends ReqTransformer< GetAllReq >  {
     //****************************************************************
 
     @Override
-	public GetAllReq newStore() {
+	public GetAllReq newModel() {
 		return new GetAllReq( null, 0 );
 	}
 	
     @Override
-    public GetAllReq toStore( SnPoint src, GetAllReq target ) {
-    	super.toStore(src, target);
+    public GetAllReq toModel( SnPoint src, GetAllReq target ) {
+    	super.toModel(src, target);
     	
     	var srcAtr = new SnAttributeAccess( src );
 

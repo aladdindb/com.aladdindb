@@ -2,7 +2,7 @@ package com.aladdindb.structure;
 
 import com.aladdindb.structure.sn.SnPoint;
 
-public  class ListModelTransformer < ITEM_TYPE extends Store< ITEM_TYPE > > extends Transformer < ListModel< ITEM_TYPE > > {
+public  class ListModelTransformer < ITEM_TYPE extends DataModel< ITEM_TYPE > > extends Transformer < ListModel< ITEM_TYPE > > {
 
 	
 	private final Transformer < ITEM_TYPE > itemTransformer;
@@ -14,14 +14,14 @@ public  class ListModelTransformer < ITEM_TYPE extends Store< ITEM_TYPE > > exte
 	}
 	
 	@Override
-	public ListModel<ITEM_TYPE> newStore() {
+	public ListModel<ITEM_TYPE> newModel() {
 		return new ListModel<ITEM_TYPE>();
 	}
 	
 	@Override
-	public ListModel < ITEM_TYPE > toStore( SnPoint src, ListModel < ITEM_TYPE > target ) {
+	public ListModel < ITEM_TYPE > toModel( SnPoint src, ListModel < ITEM_TYPE > target ) {
 		src.children.forEach( node -> {
-			this.itemTransformer.toStore( node, target :: add );
+			this.itemTransformer.toModel( node, target :: add );
 		});
 		return target;
 	}

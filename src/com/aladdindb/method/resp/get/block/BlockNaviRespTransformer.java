@@ -16,12 +16,12 @@ public class BlockNaviRespTransformer extends Transformer< BlockNavResp > {
 
 	
 	@Override
-	public BlockNavResp newStore() {
+	public BlockNavResp newModel() {
 		return new BlockNavResp();
 	}
 
 	@Override
-	public BlockNavResp toStore(SnPoint src, BlockNavResp target) {
+	public BlockNavResp toModel(SnPoint src, BlockNavResp target) {
     	var srcAtr = new SnAttributeAccess( src );
 
     	srcAtr.asStr	.get( ATR.methodSesionID	,target.methodSessionID 	);

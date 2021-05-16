@@ -4,11 +4,11 @@ import com.aladdindb.MagicLamp;
 import com.aladdindb.method.req.ReqProcess;
 import com.aladdindb.method.resp.get.block.BlockNavResp;
 import com.aladdindb.method.resp.get.block.BlockNaviRespTransformer;
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.util.LineNavigator;
 
 
-public class BlockNaviReqProcess < UDM extends Store< UDM > > extends ReqProcess < BlockNaviReq, BlockNavResp, UDM > {
+public class BlockNaviReqProcess < UDM extends DataModel< UDM > > extends ReqProcess < BlockNaviReq, BlockNavResp, UDM > {
 
 	
     //****************************************************************

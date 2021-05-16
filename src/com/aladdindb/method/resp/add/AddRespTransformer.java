@@ -29,7 +29,7 @@ public final class AddRespTransformer  extends Transformer < AddResp > {
     //****************************************************************
 
     @Override
-	public AddResp newStore() {
+	public AddResp newModel() {
 		return new AddResp();
 	}
 	
@@ -38,7 +38,7 @@ public final class AddRespTransformer  extends Transformer < AddResp > {
     //****************************************************************
     
     @Override
-    public AddResp toStore( SnPoint src, AddResp target ) {
+    public AddResp toModel( SnPoint src, AddResp target ) {
     
     	var srcAtr = new SnAttributeAccess( src );
 

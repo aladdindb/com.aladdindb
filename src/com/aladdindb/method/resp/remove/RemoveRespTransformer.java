@@ -1,7 +1,7 @@
 package com.aladdindb.method.resp.remove;
 
 import com.aladdindb.method.Method;
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.units.models.UnitTransformer;
@@ -11,7 +11,7 @@ import com.aladdindb.units.models.UnitTransformer;
  * @author Macit Kandemir
  * @param <DUM>
  */
-public final class RemoveRespTransformer < UDM extends Store < UDM > > extends Transformer < RemoveResp < UDM > > {
+public final class RemoveRespTransformer < UDM extends DataModel < UDM > > extends Transformer < RemoveResp < UDM > > {
 	
 
     public final UnitTransformer < UDM > unitParser;
@@ -31,7 +31,7 @@ public final class RemoveRespTransformer < UDM extends Store < UDM > > extends T
     //
     //****************************************************************
 
-    public RemoveResp< UDM > newStore() {
+    public RemoveResp< UDM > newModel() {
 		return new RemoveResp< UDM >();
 	}
 	
@@ -39,9 +39,9 @@ public final class RemoveRespTransformer < UDM extends Store < UDM > > extends T
     //
     //****************************************************************
     @Override
-    public RemoveResp< UDM >  toStore( SnPoint src, RemoveResp< UDM > target ) {
+    public RemoveResp< UDM >  toModel( SnPoint src, RemoveResp< UDM > target ) {
     
-        unitParser.toStoreFromParent( src ,target.unit );
+        unitParser.toModelFromParent( src ,target.unit );
         
         return target;
     }

@@ -3,12 +3,12 @@ package com.aladdindb.finder.logical;
 import com.aladdindb.finder.Finder;
 import com.aladdindb.finder.Type;
 import com.aladdindb.finder.FinderSupport;
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 
 
-public class LogicalAndOperationsTransformer < UDM extends Store< UDM > > extends Transformer< LogicalAndOperations < UDM > > {
+public class LogicalAndOperationsTransformer < UDM extends DataModel< UDM > > extends Transformer< LogicalAndOperations < UDM > > {
 
 	
 	private final  FinderSupport < UDM > finderSupplier; 
@@ -30,12 +30,12 @@ public class LogicalAndOperationsTransformer < UDM extends Store< UDM > > extend
     //****************************************************************
 
 	@Override
-	public LogicalAndOperations < UDM > newStore() {
+	public LogicalAndOperations < UDM > newModel() {
 		return new LogicalAndOperations< UDM >( this.finderSupplier );
 	}
 
 	@Override
-	public LogicalAndOperations < UDM > toStore( SnPoint src, LogicalAndOperations < UDM > target ) {
+	public LogicalAndOperations < UDM > toModel( SnPoint src, LogicalAndOperations < UDM > target ) {
 		
 		src.children.forEach( node -> {
 			this.finderSupplier.newFinder( node, target.finderList :: add );

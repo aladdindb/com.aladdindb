@@ -14,12 +14,12 @@ public class TimeStampTransformer extends Transformer< TimeStamp > {
 	}
 	
 	@Override
-	public TimeStamp newStore() {
+	public TimeStamp newModel() {
 		return new TimeStamp();
 	}
 
 	@Override
-	public TimeStamp toStore( SnPoint src, TimeStamp target ) {
+	public TimeStamp toModel( SnPoint src, TimeStamp target ) {
     	var srcAtr = new SnAttributeAccess( src );
     	
     	srcAtr.asXlrZonedDateTime.get( ATR.generatedOn	, target.generatedOn 	);

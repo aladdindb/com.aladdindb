@@ -28,7 +28,7 @@ public class LoginParser extends Transformer < LoginModel > {
     //****************************************************************
 
     @Override
-    public LoginModel newStore() {
+    public LoginModel newModel() {
         return new LoginModel();
     }
     
@@ -37,7 +37,7 @@ public class LoginParser extends Transformer < LoginModel > {
     //****************************************************************
 
     @Override
-    public LoginModel toStore( SnPoint node, LoginModel model ) {
+    public LoginModel toModel( SnPoint node, LoginModel model ) {
     
     	var parse = new SnAttributeAccess( node );
     	

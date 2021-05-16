@@ -3,7 +3,7 @@ package com.aladdindb.method.req;
 import java.util.function.Consumer;
 
 import com.aladdindb.MagicLamp;
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.structure.types.SnAttributeAccess;
@@ -12,8 +12,8 @@ import com.aladdindb.util.Var;
 public abstract class ReqProcess <
 
 	REQ_MODEL 	extends Req			< REQ_MODEL >,
-	RESP 		extends Store	< RESP >,
-	UDM 		extends Store 	< UDM > 
+	RESP 		extends DataModel	< RESP >,
+	UDM 		extends DataModel 	< UDM > 
  
 > implements Runnable { 
 
@@ -42,7 +42,7 @@ public abstract class ReqProcess <
 					magicLamp.genieConnection.sendReq( reqNode, respNode -> {
 						this.respConsumer.get( respConsumer -> {
 							this.respTransformer.get( respTransformer -> {
-								respTransformer.toStore( respNode, respConsumer );
+								respTransformer.toModel( respNode, respConsumer );
 							});
 						});
 					});

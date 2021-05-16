@@ -16,12 +16,12 @@ public class CloseMethodSessionRespTransformer extends Transformer< CloseMethodS
 
 	
 	@Override
-	public CloseMethodSessionResp newStore() {
+	public CloseMethodSessionResp newModel() {
 		return new CloseMethodSessionResp();
 	}
 
 	@Override
-	public CloseMethodSessionResp toStore(SnPoint src, CloseMethodSessionResp target) {
+	public CloseMethodSessionResp toModel(SnPoint src, CloseMethodSessionResp target) {
     	var srcAtr = new SnAttributeAccess( src );
 
     	srcAtr.asBool	.get( ATR.successful			,target.successful			);

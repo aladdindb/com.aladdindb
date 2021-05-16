@@ -5,13 +5,13 @@ import com.aladdindb.method.req.get.all.GetAllReqTransformer;
 import com.aladdindb.method.resp.RespProcess;
 import com.aladdindb.method.resp.get.block.BlockNavResp;
 import com.aladdindb.method.resp.get.block.BlockNaviRespTransformer;
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.xml.XML;
 import com.aladdindb.units.UnitsIdBlockStorage;
 import com.aladdindb.util.Util;
 
 
-public class GetAllRespProcess < UDM extends Store < UDM > > extends RespProcess< UDM > { 
+public class GetAllRespProcess < UDM extends DataModel < UDM > > extends RespProcess< UDM > { 
 
 
 	public GetAllRespProcess( Genie < UDM > genie ) {
@@ -25,7 +25,7 @@ public class GetAllRespProcess < UDM extends Store < UDM > > extends RespProcess
 	@Override
 	public void run() {
 		genie.reqNode.get( reqNode -> {
-			new GetAllReqTransformer().toStore( reqNode, req -> {
+			new GetAllReqTransformer().toModel( reqNode, req -> {
 				req.blockSize.get( this :: resp );
 			});
 		});

@@ -7,7 +7,7 @@ import com.aladdindb.method.Method;
 import com.aladdindb.method.req.ReqTransformer;
 import com.aladdindb.sorter.Sorter;
 import com.aladdindb.sorter.SorterSupport;
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.structure.types.SnAttributeAccess;
 
@@ -18,7 +18,7 @@ import com.aladdindb.structure.types.SnAttributeAccess;
  */
 public final class SearchReqTransformer <
 
-	UDM 			extends Store		< UDM >,
+	UDM 			extends DataModel		< UDM >,
 	FINDER_MODEL 	extends Finder		< UDM, FINDER_MODEL>,
 	SORTER_MODEL 	extends Sorter		< UDM, SORTER_MODEL >
 
@@ -41,13 +41,13 @@ public final class SearchReqTransformer <
     //
     //****************************************************************
 
-    public SearchReq< UDM, FINDER_MODEL, SORTER_MODEL > newStore() {
+    public SearchReq< UDM, FINDER_MODEL, SORTER_MODEL > newModel() {
 		return new SearchReq<>();
 	}
 	
     @Override
-    public SearchReq< UDM, FINDER_MODEL, SORTER_MODEL > toStore( SnPoint src, SearchReq< UDM , FINDER_MODEL, SORTER_MODEL> target ) {
-    	super.toStore(src, target);
+    public SearchReq< UDM, FINDER_MODEL, SORTER_MODEL > toModel( SnPoint src, SearchReq< UDM , FINDER_MODEL, SORTER_MODEL> target ) {
+    	super.toModel(src, target);
     	
     	var srcAtr = new SnAttributeAccess( src );
 

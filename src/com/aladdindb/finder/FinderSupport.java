@@ -2,27 +2,27 @@ package com.aladdindb.finder;
 
 import java.util.function.Consumer;
 
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 
 
-public interface FinderSupport < UDM extends Store< UDM > > {
+public interface FinderSupport < UDM extends DataModel< UDM > > {
 	
 	
 
 	public Transformer< ? extends Finder< UDM, ?> > newTransformer( String finder );
 	
 	
-	default Finder< UDM, ? extends Store < ? > > newFinder( SnPoint finderNode ) {
+	default Finder< UDM, ? extends DataModel < ? > > newFinder( SnPoint finderNode ) {
 		 
 		var finderTransformer = this.newTransformer( finderNode.key.get() );
 		   
-		return finderTransformer != null ? (Finder< UDM, ? extends Store < ? > >) finderTransformer.toStore( finderNode ) : null;
+		return finderTransformer != null ? (Finder< UDM, ? extends DataModel < ? > >) finderTransformer.toModel( finderNode ) : null;
 		  
 	}
 	
-	default void newFinder( SnPoint node, Consumer < Finder < UDM, ? extends Store<?> > > finderConsumer ) {
+	default void newFinder( SnPoint node, Consumer < Finder < UDM, ? extends DataModel<?> > > finderConsumer ) {
 		var rv = newFinder( node );
 		if( rv != null ) finderConsumer.accept( rv );
 	}

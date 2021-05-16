@@ -28,7 +28,7 @@ public class ServerParser extends Transformer < ServerModel > {
     //****************************************************************
 
     @Override
-    public ServerModel newStore() {
+    public ServerModel newModel() {
         return new ServerModel();
     }
     
@@ -37,7 +37,7 @@ public class ServerParser extends Transformer < ServerModel > {
     //****************************************************************
 
     @Override
-    public ServerModel toStore( SnPoint node, ServerModel model ) {
+    public ServerModel toModel( SnPoint node, ServerModel model ) {
     
     	var parse = new SnAttributeAccess( node );
     	

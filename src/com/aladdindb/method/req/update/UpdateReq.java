@@ -1,12 +1,12 @@
 package com.aladdindb.method.req.update;
 
 import com.aladdindb.method.req.Req;
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.units.models.Unit;
 import com.aladdindb.util.Var;
 
 
-public class UpdateReq< UDM extends Store< UDM > > extends Req< UpdateReq< UDM > > {
+public class UpdateReq< UDM extends DataModel< UDM > > extends Req< UpdateReq< UDM > > {
 
 	
 	public final Var< Unit < UDM > >unitData = new Var<>();

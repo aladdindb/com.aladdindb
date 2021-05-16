@@ -4,10 +4,10 @@ import com.aladdindb.MagicLamp;
 import com.aladdindb.method.req.ReqProcess;
 import com.aladdindb.method.resp.close.method.session.CloseMethodSessionResp;
 import com.aladdindb.method.resp.close.method.session.CloseMethodSessionRespTransformer;
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 
 
-public class CloseMethodSessionReqProcess < UDM extends Store< UDM > > extends ReqProcess < CloseMethodSessionReq, CloseMethodSessionResp, UDM > {
+public class CloseMethodSessionReqProcess < UDM extends DataModel< UDM > > extends ReqProcess < CloseMethodSessionReq, CloseMethodSessionResp, UDM > {
 
 	
     //****************************************************************

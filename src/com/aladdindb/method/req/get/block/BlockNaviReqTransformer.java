@@ -27,13 +27,13 @@ public final class BlockNaviReqTransformer  extends ReqTransformer< BlockNaviReq
     //****************************************************************
 
     @Override
-	public BlockNaviReq newStore() {
+	public BlockNaviReq newModel() {
 		return new BlockNaviReq( null, null, null );
 	}
 	
     @Override
-    public BlockNaviReq toStore( SnPoint src, BlockNaviReq target ) {
-    	super.toStore(src, target);
+    public BlockNaviReq toModel( SnPoint src, BlockNaviReq target ) {
+    	super.toModel(src, target);
     	
     	var srcAtr = new SnAttributeAccess( src );
 

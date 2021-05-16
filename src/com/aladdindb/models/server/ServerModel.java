@@ -1,13 +1,13 @@
 package com.aladdindb.models.server;
 
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.util.Var;
 
 /**
  *
  * @author Macit Kandemir
  */
-public class ServerModel implements Store < ServerModel > {
+public class ServerModel implements DataModel < ServerModel > {
     
     public final Var < String   > host    = new Var<>();
     public final Var < Integer  > port    = new Var<>();

@@ -30,13 +30,13 @@ public final class RemoveReqTransformer  extends ReqTransformer< RemoveReq >  {
     //****************************************************************
 	
 	@Override
-	public RemoveReq newStore() {
+	public RemoveReq newModel() {
 		return new RemoveReq( null, null );
 	}
 	
     @Override
-    public RemoveReq toStore( SnPoint src, RemoveReq target ) {
-    	super.toStore( src, target );
+    public RemoveReq toModel( SnPoint src, RemoveReq target ) {
+    	super.toModel( src, target );
     	
     	var srcAtr = new SnAttributeAccess( src );
 

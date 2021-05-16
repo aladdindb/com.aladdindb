@@ -3,7 +3,7 @@ package com.aladdindb.sorter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
 import com.aladdindb.units.Units;
 import com.aladdindb.util.IntIndex;
@@ -14,7 +14,7 @@ import com.aladdindb.util.IntIndex;
  * @author Macit Kandemir
  *
  */
-public  class SorterList < UDM extends Store < UDM > > implements Sorter< UDM, SorterList < UDM > > {
+public  class SorterList < UDM extends DataModel < UDM > > implements Sorter< UDM, SorterList < UDM > > {
 
 	
     //****************************************************************
@@ -24,7 +24,7 @@ public  class SorterList < UDM extends Store < UDM > > implements Sorter< UDM, S
 	private final  SorterSupport < UDM > support;
 	
 	
-	public final List< Sorter < UDM, ? extends Store< ? > > > sorters = new ArrayList<>();
+	public final List< Sorter < UDM, ? extends DataModel< ? > > > sorters = new ArrayList<>();
 	
 	private IntIndex si = new IntIndex();
 	
@@ -38,11 +38,11 @@ public  class SorterList < UDM extends Store < UDM > > implements Sorter< UDM, S
 	}
 	
 	
-	public void addSorter(  Sorter<  UDM,  ? extends Store< ? >  > sorter ) {
+	public void addSorter(  Sorter<  UDM,  ? extends DataModel< ? >  > sorter ) {
 		this.sorters.add(sorter);
 	}
 	
-	public void addSorter(  Sorter<  UDM,  ? extends Store< ? >  >... sorters ) {
+	public void addSorter(  Sorter<  UDM,  ? extends DataModel< ? >  >... sorters ) {
 		for( var sorter : sorters ) this.sorters.add( sorter );
 	}
 	

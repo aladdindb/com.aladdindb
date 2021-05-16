@@ -1,6 +1,6 @@
 package com.aladdindb.units.models;
 
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.structure.types.SnAttributeAccess;
@@ -10,7 +10,7 @@ import com.aladdindb.structure.types.SnAttributeAccess;
  * @author Macit Kandemir
  * @param <DUM>
  */
-public final class UnitTransformer < UDM extends Store < UDM > > extends Transformer < Unit < UDM > > {
+public final class UnitTransformer < UDM extends DataModel < UDM > > extends Transformer < Unit < UDM > > {
 	
 
     private enum ATR { id, version };
@@ -25,7 +25,7 @@ public final class UnitTransformer < UDM extends Store < UDM > > extends Transfo
 	}
     
 	@Override
-	public Unit < UDM > newStore() {
+	public Unit < UDM > newModel() {
 		return new Unit< UDM >();
 	}
 	
@@ -34,16 +34,16 @@ public final class UnitTransformer < UDM extends Store < UDM > > extends Transfo
     //****************************************************************
 
     @Override
-    public Unit< UDM >  toStore( SnPoint src, Unit< UDM > target ) {
+    public Unit< UDM >  toModel( SnPoint src, Unit< UDM > target ) {
     
     	var srcAtr = new SnAttributeAccess( src );
 
     	srcAtr.asStr	.get( ATR.id		, target.id     	);
     	srcAtr.asFloat	.get( ATR.version	, target.version );
         
-        this.meta				.toStoreFromParent( src	, target.meta );
+        this.meta				.toModelFromParent( src	, target.meta );
         
-        if( this.dataTransformer != null) this.dataTransformer	.toStoreFromParent( src	, target.data );
+        if( this.dataTransformer != null) this.dataTransformer	.toModelFromParent( src	, target.data );
         
         return target;
     }

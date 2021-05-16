@@ -1,11 +1,11 @@
 package com.aladdindb.sorter;
 
 import com.aladdindb.finder.Type;
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
 
 
-public abstract class DefaultSorterSupport < UDM extends Store< UDM > > implements SorterSupport < UDM > {
+public abstract class DefaultSorterSupport < UDM extends DataModel< UDM > > implements SorterSupport < UDM > {
 
 	 
 	@Override

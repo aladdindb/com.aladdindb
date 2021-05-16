@@ -1,13 +1,13 @@
 package com.aladdindb.models.login;
 
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.util.Var;
 
 /**
  *
  * @author Macit Kandemir
  */
-public class LoginModel implements Store < LoginModel > {
+public class LoginModel implements DataModel < LoginModel > {
     
     public final Var < String > user    = new Var<>();
     public final Var < String > pwd     = new Var<>();

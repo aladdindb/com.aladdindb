@@ -3,13 +3,13 @@ package com.aladdindb.method.req.search;
 import com.aladdindb.finder.Finder;
 import com.aladdindb.method.req.Req;
 import com.aladdindb.sorter.Sorter;
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.util.Var;
 
 
 public class SearchReq <
 
-	UDM 			extends Store		< UDM >,
+	UDM 			extends DataModel		< UDM >,
 	FINDER_MODEL 	extends Finder		< UDM, FINDER_MODEL >,
 	SORTER_MODEL 	extends Sorter		< UDM, SORTER_MODEL >
 

@@ -4,7 +4,7 @@ import com.aladdindb.MagicLamp;
 import com.aladdindb.method.req.Req;
 import com.aladdindb.method.req.ReqProcess;
 import com.aladdindb.method.resp.get.block.BlockNavResp;
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.util.LineNavigator;
 
 /**
@@ -13,7 +13,7 @@ import com.aladdindb.util.LineNavigator;
 */
 public class BlockNavi <
 
-	UDM 		extends Store 	< UDM >,
+	UDM 		extends DataModel 	< UDM >,
 	REQ_MODEL 	extends Req	< REQ_MODEL >
 	
 > implements LineNavigator < BlockNavResp > { 

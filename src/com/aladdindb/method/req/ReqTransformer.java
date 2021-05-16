@@ -24,7 +24,7 @@ public abstract class ReqTransformer < DATA_MODEL extends Req< DATA_MODEL> >  ex
 
 	
     @Override
-    public DATA_MODEL toStore( SnPoint src, DATA_MODEL target ) {
+    public DATA_MODEL toModel( SnPoint src, DATA_MODEL target ) {
     
     	var srcAtr = new SnAttributeAccess( src );
 

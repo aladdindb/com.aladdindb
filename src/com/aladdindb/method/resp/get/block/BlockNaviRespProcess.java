@@ -3,12 +3,12 @@ package com.aladdindb.method.resp.get.block;
 import com.aladdindb.Genie;
 import com.aladdindb.method.req.get.block.BlockNaviReqTransformer;
 import com.aladdindb.method.resp.RespProcess;
-import com.aladdindb.structure.Store;
+import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.xml.XML;
 import com.aladdindb.util.LineNavigator;
 
 
-public class BlockNaviRespProcess < UDM extends Store < UDM > > extends RespProcess< UDM > { 
+public class BlockNaviRespProcess < UDM extends DataModel < UDM > > extends RespProcess< UDM > { 
 
 
 	public BlockNaviRespProcess( Genie < UDM > genie ) {
@@ -22,7 +22,7 @@ public class BlockNaviRespProcess < UDM extends Store < UDM > > extends RespProc
 	@Override
 	public void run() {
 		genie.reqNode.get( reqNode -> {
-			new BlockNaviReqTransformer().toStore( reqNode, req -> {
+			new BlockNaviReqTransformer().toModel( reqNode, req -> {
 				req.methodSessionID.get( cmdSessionID -> {
 					req.direction.get( direction -> {
 						this.resp(cmdSessionID, direction);
