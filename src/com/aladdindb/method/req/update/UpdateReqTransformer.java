@@ -2,8 +2,8 @@ package com.aladdindb.method.req.update;
 
 import com.aladdindb.method.Method;
 import com.aladdindb.method.req.ReqTransformer;
-import com.aladdindb.structure.DataModel;
-import com.aladdindb.structure.DataTransformer;
+import com.aladdindb.structure.Store;
+import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.units.models.UnitTransformer;
 
@@ -12,7 +12,7 @@ import com.aladdindb.units.models.UnitTransformer;
  * @author Macit Kandemir
  * @param <DUM>
  */
-public final class UpdateReqTransformer < UDM extends DataModel< UDM > > extends ReqTransformer< UpdateReq< UDM > >  {
+public final class UpdateReqTransformer < UDM extends Store< UDM > > extends ReqTransformer< UpdateReq< UDM > >  {
 	
 
 	public final UnitTransformer< UDM > unitParser;
@@ -22,7 +22,7 @@ public final class UpdateReqTransformer < UDM extends DataModel< UDM > > extends
     //
     //****************************************************************
 
-    public UpdateReqTransformer( DataTransformer< UDM > unitDataParser ) {
+    public UpdateReqTransformer( Transformer< UDM > unitDataParser ) {
 		super( Method.UPDATE.reqTagName() );
 		this.unitParser = new UnitTransformer<UDM>(unitDataParser);
 	}
@@ -32,7 +32,7 @@ public final class UpdateReqTransformer < UDM extends DataModel< UDM > > extends
     //****************************************************************
 
     @Override
-	public UpdateReq< UDM > newModel() {
+	public UpdateReq< UDM > newStore() {
 		return new UpdateReq< UDM >();
 	}
 	
@@ -41,10 +41,10 @@ public final class UpdateReqTransformer < UDM extends DataModel< UDM > > extends
     //****************************************************************
     
     @Override
-    public UpdateReq< UDM >  toModel( SnPoint src, UpdateReq< UDM > target ) {
-    	super.toModel( src, target );
+    public UpdateReq< UDM >  toStore( SnPoint src, UpdateReq< UDM > target ) {
+    	super.toStore( src, target );
         
-        unitParser.toModelFromParent( src ,target.unitData );
+        unitParser.toStoreFromParent( src ,target.unitData );
         
         return target;
     }

@@ -1,6 +1,6 @@
 package com.aladdindb.models.login;
 
-import com.aladdindb.structure.DataTransformer;
+import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.structure.sn.props.SnValueType;
 import com.aladdindb.structure.types.SnAttributeAccess;
@@ -9,7 +9,7 @@ import com.aladdindb.structure.types.SnAttributeAccess;
  *
  * @author Macit Kandemir
  */
-public class LoginParser extends DataTransformer < LoginModel > {
+public class LoginParser extends Transformer < LoginModel > {
     
     
     public enum ATR     { user, pwd };
@@ -28,7 +28,7 @@ public class LoginParser extends DataTransformer < LoginModel > {
     //****************************************************************
 
     @Override
-    public LoginModel newModel() {
+    public LoginModel newStore() {
         return new LoginModel();
     }
     
@@ -37,7 +37,7 @@ public class LoginParser extends DataTransformer < LoginModel > {
     //****************************************************************
 
     @Override
-    public LoginModel toModel( SnPoint node, LoginModel model ) {
+    public LoginModel toStore( SnPoint node, LoginModel model ) {
     
     	var parse = new SnAttributeAccess( node );
     	

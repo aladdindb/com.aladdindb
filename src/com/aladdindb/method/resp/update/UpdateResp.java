@@ -1,9 +1,9 @@
 package com.aladdindb.method.resp.update;
 
-import com.aladdindb.structure.DataModel;
+import com.aladdindb.structure.Store;
 import com.aladdindb.util.Var;
 
-public class UpdateResp  implements DataModel< UpdateResp > {
+public class UpdateResp  implements Store< UpdateResp > {
 
 	public final Var<String> unitID	= new Var<>();
 	

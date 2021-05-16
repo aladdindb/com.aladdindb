@@ -1,11 +1,11 @@
 package com.aladdindb.method.resp.get.by.id;
 
-import com.aladdindb.structure.DataModel;
+import com.aladdindb.structure.Store;
 import com.aladdindb.units.models.Unit;
 import com.aladdindb.util.Var;
 
 
-public class GetByIdResp < UDM extends DataModel < UDM > > implements DataModel< GetByIdResp < UDM > > {
+public class GetByIdResp < UDM extends Store < UDM > > implements Store< GetByIdResp < UDM > > {
 
 	
 	public final Var < Unit< UDM > > unit = new Var<>();

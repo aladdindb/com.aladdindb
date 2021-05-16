@@ -1,7 +1,7 @@
 package com.aladdindb.method.resp.update;
 
 import com.aladdindb.method.Method;
-import com.aladdindb.structure.DataTransformer;
+import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.structure.types.SnAttributeAccess;
 
@@ -10,7 +10,7 @@ import com.aladdindb.structure.types.SnAttributeAccess;
  * @author Macit Kandemir
  * @param <DUM>
  */
-public final class UpdateRespTransformer  extends DataTransformer < UpdateResp > {
+public final class UpdateRespTransformer  extends Transformer < UpdateResp > {
 	
 
     private enum ATR { unitID };
@@ -29,7 +29,7 @@ public final class UpdateRespTransformer  extends DataTransformer < UpdateResp >
     //****************************************************************
 
     @Override
-	public UpdateResp newModel() {
+	public UpdateResp newStore() {
 		return new UpdateResp();
 	}
 	
@@ -38,7 +38,7 @@ public final class UpdateRespTransformer  extends DataTransformer < UpdateResp >
     //****************************************************************
     
     @Override
-    public UpdateResp toModel( SnPoint src, UpdateResp target ) {
+    public UpdateResp toStore( SnPoint src, UpdateResp target ) {
     
     	var srcAtr = new SnAttributeAccess( src );
 

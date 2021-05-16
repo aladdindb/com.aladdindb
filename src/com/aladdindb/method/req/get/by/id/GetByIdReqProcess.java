@@ -4,10 +4,10 @@ import com.aladdindb.MagicLamp;
 import com.aladdindb.method.req.ReqProcess;
 import com.aladdindb.method.resp.get.by.id.GetByIdResp;
 import com.aladdindb.method.resp.get.by.id.GetByIdRespTransformer;
-import com.aladdindb.structure.DataModel;
+import com.aladdindb.structure.Store;
 
 
-public class GetByIdReqProcess < UDM extends DataModel< UDM > > extends ReqProcess < GetByIdReq, GetByIdResp < UDM > , UDM > {
+public class GetByIdReqProcess < UDM extends Store< UDM > > extends ReqProcess < GetByIdReq, GetByIdResp < UDM > , UDM > {
 
 	
     //****************************************************************

@@ -2,12 +2,15 @@ package com.aladdindb.finder;
 
 public enum Type {
 
-	LOGICAL_AND ("logical:and"),
-	LOGICAL_OR	("logical:or"),
-	LOGICAL_NOT	("logical:not"),
+	LOGICAL_AND (":logical:and"),
+	LOGICAL_OR	(":logical:or"),
+	LOGICAL_NOT	(":logical:not"),
 	
-	LIST		("list");
+	LIST		(":list"),
+	
+	IS			("");
 
+	
 	private final String tagName;
 	
 	private Type( String type ) {
@@ -15,11 +18,11 @@ public enum Type {
 	}
 	
 	public String finder() {
-		return "finder:"+tagName;
+		return "finder"+tagName;
 	}
 
 	public String sorter() {
-		return "sorter:"+tagName;
+		return "sorter"+tagName;
 	}
 	
 }

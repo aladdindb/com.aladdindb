@@ -26,13 +26,13 @@ public final class CloseMethodSessionReqTransformer  extends ReqTransformer< Clo
     //****************************************************************
 
     @Override
-	public CloseMethodSessionReq newModel() {
+	public CloseMethodSessionReq newStore() {
 		return new CloseMethodSessionReq( null, null );
 	}
 	
     @Override
-    public CloseMethodSessionReq toModel( SnPoint src, CloseMethodSessionReq target ) {
-    	super.toModel(src, target);
+    public CloseMethodSessionReq toStore( SnPoint src, CloseMethodSessionReq target ) {
+    	super.toStore(src, target);
     	
     	var srcAtr = new SnAttributeAccess( src );
 

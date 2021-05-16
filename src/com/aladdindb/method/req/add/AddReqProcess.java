@@ -4,10 +4,10 @@ import com.aladdindb.MagicLamp;
 import com.aladdindb.method.req.ReqProcess;
 import com.aladdindb.method.resp.add.AddResp;
 import com.aladdindb.method.resp.add.AddRespTransformer;
-import com.aladdindb.structure.DataModel;
+import com.aladdindb.structure.Store;
 
 
-public class AddReqProcess < UDM extends DataModel< UDM > > extends ReqProcess < AddReq< UDM >, AddResp, UDM > {
+public class AddReqProcess < UDM extends Store< UDM > > extends ReqProcess < AddReq< UDM >, AddResp, UDM > {
 
 	
     //****************************************************************

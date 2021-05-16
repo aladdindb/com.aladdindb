@@ -1,6 +1,6 @@
 package com.aladdindb.models.server;
 
-import com.aladdindb.structure.DataTransformer;
+import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.structure.sn.props.SnValueType;
 import com.aladdindb.structure.types.SnAttributeAccess;
@@ -9,7 +9,7 @@ import com.aladdindb.structure.types.SnAttributeAccess;
  *
  * @author Macit Kandemir
  */
-public class ServerParser extends DataTransformer < ServerModel > {
+public class ServerParser extends Transformer < ServerModel > {
     
     
     public enum ATR     { host, port };
@@ -28,7 +28,7 @@ public class ServerParser extends DataTransformer < ServerModel > {
     //****************************************************************
 
     @Override
-    public ServerModel newModel() {
+    public ServerModel newStore() {
         return new ServerModel();
     }
     
@@ -37,7 +37,7 @@ public class ServerParser extends DataTransformer < ServerModel > {
     //****************************************************************
 
     @Override
-    public ServerModel toModel( SnPoint node, ServerModel model ) {
+    public ServerModel toStore( SnPoint node, ServerModel model ) {
     
     	var parse = new SnAttributeAccess( node );
     	

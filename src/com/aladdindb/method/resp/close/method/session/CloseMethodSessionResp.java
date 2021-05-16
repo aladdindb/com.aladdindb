@@ -1,10 +1,10 @@
 package com.aladdindb.method.resp.close.method.session;
 
-import com.aladdindb.structure.DataModel;
+import com.aladdindb.structure.Store;
 import com.aladdindb.util.Var;
 
 
-public class CloseMethodSessionResp  implements DataModel< CloseMethodSessionResp  > {
+public class CloseMethodSessionResp  implements Store< CloseMethodSessionResp  > {
 
 	
 	public final Var<Boolean> successful = new Var<>();

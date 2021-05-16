@@ -3,8 +3,8 @@ package com.aladdindb.method.req;
 import java.util.function.Consumer;
 
 import com.aladdindb.MagicLamp;
-import com.aladdindb.structure.DataModel;
-import com.aladdindb.structure.DataTransformer;
+import com.aladdindb.structure.Store;
+import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.structure.types.SnAttributeAccess;
 import com.aladdindb.util.Var;
@@ -12,8 +12,8 @@ import com.aladdindb.util.Var;
 public abstract class ReqProcess <
 
 	REQ_MODEL 	extends Req			< REQ_MODEL >,
-	RESP 		extends DataModel	< RESP >,
-	UDM 		extends DataModel 	< UDM > 
+	RESP 		extends Store	< RESP >,
+	UDM 		extends Store 	< UDM > 
  
 > implements Runnable { 
 
@@ -25,8 +25,8 @@ public abstract class ReqProcess <
 	public final Var < REQ_MODEL 					> req 					= new Var<>(); 
 	
 	public final Var < MagicLamp		< UDM 		> 	> magicLamp 		= new Var<>();
-	public final Var < DataTransformer 	< REQ_MODEL > 	> reqTransformer 	= new Var<>();
-	public final Var < DataTransformer 	< RESP 		> 	> respTransformer 	= new Var<>();
+	public final Var < Transformer 	< REQ_MODEL > 	> reqTransformer 	= new Var<>();
+	public final Var < Transformer 	< RESP 		> 	> respTransformer 	= new Var<>();
 	public final Var < Consumer 		< RESP 		> 	> respConsumer 		= new Var<>();
 	
 	
@@ -42,7 +42,7 @@ public abstract class ReqProcess <
 					magicLamp.genieConnection.sendReq( reqNode, respNode -> {
 						this.respConsumer.get( respConsumer -> {
 							this.respTransformer.get( respTransformer -> {
-								respTransformer.toModel( respNode, respConsumer );
+								respTransformer.toStore( respNode, respConsumer );
 							});
 						});
 					});

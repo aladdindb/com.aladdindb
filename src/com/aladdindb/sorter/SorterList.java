@@ -3,8 +3,8 @@ package com.aladdindb.sorter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.aladdindb.structure.DataModel;
-import com.aladdindb.structure.DataTransformer;
+import com.aladdindb.structure.Store;
+import com.aladdindb.structure.Transformer;
 import com.aladdindb.units.Units;
 import com.aladdindb.util.IntIndex;
 
@@ -14,17 +14,17 @@ import com.aladdindb.util.IntIndex;
  * @author Macit Kandemir
  *
  */
-public  class SorterList < UDM extends DataModel < UDM > > implements Sorter< UDM, SorterList < UDM > > {
+public  class SorterList < UDM extends Store < UDM > > implements Sorter< UDM, SorterList < UDM > > {
 
 	
     //****************************************************************
     //						Class-Attributes 
     //****************************************************************
 	
-	private final  SorterSupplier < UDM > supplier;
+	private final  SorterSupport < UDM > support;
 	
 	
-	public final List< Sorter < UDM, ? extends DataModel< ? > > > sorters = new ArrayList<>();
+	public final List< Sorter < UDM, ? extends Store< ? > > > sorters = new ArrayList<>();
 	
 	private IntIndex si = new IntIndex();
 	
@@ -33,16 +33,16 @@ public  class SorterList < UDM extends DataModel < UDM > > implements Sorter< UD
     //						Constructor 
     //****************************************************************
 	
-	public SorterList( SorterSupplier< UDM > supplier ) {
-		this.supplier = supplier;
+	public SorterList( SorterSupport< UDM > support ) {
+		this.support = support;
 	}
 	
 	
-	public void addSorter(  Sorter<  UDM,  ? extends DataModel< ? >  > sorter ) {
+	public void addSorter(  Sorter<  UDM,  ? extends Store< ? >  > sorter ) {
 		this.sorters.add(sorter);
 	}
 	
-	public void addSorter(  Sorter<  UDM,  ? extends DataModel< ? >  >... sorters ) {
+	public void addSorter(  Sorter<  UDM,  ? extends Store< ? >  >... sorters ) {
 		for( var sorter : sorters ) this.sorters.add( sorter );
 	}
 	
@@ -95,8 +95,8 @@ public  class SorterList < UDM extends DataModel < UDM > > implements Sorter< UD
     //****************************************************************
 	
 	@Override
-	public DataTransformer< SorterList < UDM > > newTransformer() {
-		return new SorterListTransformer< UDM >( this.supplier ); 
+	public Transformer< SorterList < UDM > > newTransformer() {
+		return new SorterListTransformer< UDM >( this.support ); 
 	}
 	
 }

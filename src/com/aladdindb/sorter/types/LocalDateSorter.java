@@ -5,7 +5,7 @@ import java.util.Comparator;
 
 import com.aladdindb.sorter.DefaultSorter;
 import com.aladdindb.sorter.SortOrder;
-import com.aladdindb.structure.DataModel;
+import com.aladdindb.structure.Store;
 
 
 /**
@@ -15,7 +15,7 @@ import com.aladdindb.structure.DataModel;
  */
 public abstract class LocalDateSorter  <
 
-	UDM 			extends DataModel		< UDM >, 
+	UDM 			extends Store		< UDM >, 
 	SORTER_MODEL	extends DefaultSorter	< UDM, SORTER_MODEL, LocalDate >
 
 > extends DefaultSorter < UDM, SORTER_MODEL, LocalDate > {

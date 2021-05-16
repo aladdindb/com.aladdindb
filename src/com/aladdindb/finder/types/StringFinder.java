@@ -1,7 +1,7 @@
 package com.aladdindb.finder.types;
 
 import com.aladdindb.finder.DefaultFinder;
-import com.aladdindb.structure.DataModel;
+import com.aladdindb.structure.Store;
 import com.aladdindb.util.Var;
 
 
@@ -12,7 +12,7 @@ import com.aladdindb.util.Var;
  */
 public abstract class StringFinder <
 
-	UDM 	extends DataModel 		< UDM >, 
+	UDM 	extends Store 		< UDM >, 
 	MODEL	extends StringFinder	< UDM, MODEL >
 
 > extends DefaultFinder < UDM, MODEL, String  > {

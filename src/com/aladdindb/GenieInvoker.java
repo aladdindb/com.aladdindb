@@ -10,14 +10,14 @@ import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
 import com.aladdindb.method.req.ReqNode;
-import com.aladdindb.structure.DataModel;
+import com.aladdindb.structure.Store;
 import com.aladdindb.structure.xml.XML;
 import com.aladdindb.util.Var;
 
 public class GenieInvoker {
 
 	
-	public final HashMap < String , Genie < ? extends DataModel< ? > > > otherSide = new HashMap<>();
+	public final HashMap < String , Genie < ? extends Store< ? > > > otherSide = new HashMap<>();
 	
 	private final int port;
 	
@@ -145,12 +145,12 @@ public class GenieInvoker {
         
     }
     
-    public void getGenie( String unitGroupID, Consumer< Genie< ? extends DataModel< ? > > > genieConsumer ) {
+    public void getGenie( String unitGroupID, Consumer< Genie< ? extends Store< ? > > > genieConsumer ) {
     	var server = this.otherSide.get(unitGroupID);
     	if( server != null ) genieConsumer.accept( server );  
     }
     
-    public void putGenie( String unitGroupID, Genie< ? extends DataModel< ? > > genie ) {
+    public void putGenie( String unitGroupID, Genie< ? extends Store< ? > > genie ) {
     	this.otherSide.put( unitGroupID, genie );
     }
     

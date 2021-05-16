@@ -2,7 +2,7 @@ package com.aladdindb.finder;
 
 import java.util.function.Consumer;
 
-import com.aladdindb.structure.DataModel;
+import com.aladdindb.structure.Store;
 import com.aladdindb.units.models.Unit;
 import com.aladdindb.util.Var;
 
@@ -14,7 +14,7 @@ import com.aladdindb.util.Var;
  */
 public abstract class DefaultFinder <
 
-	UDM				extends DataModel 		< UDM >,  
+	UDM				extends Store 		< UDM >,  
 	FINDER_MODEL	extends DefaultFinder	< UDM, FINDER_MODEL, VT >,
 	VT
 	

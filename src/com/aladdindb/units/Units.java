@@ -12,8 +12,8 @@ import java.util.function.Consumer;
 
 import com.aladdindb.finder.Finder;
 import com.aladdindb.sorter.Sorter;
-import com.aladdindb.structure.DataModel;
-import com.aladdindb.structure.DataTransformer;
+import com.aladdindb.structure.Store;
+import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.units.models.Unit;
 import com.aladdindb.units.models.UnitTransformer;
@@ -24,7 +24,7 @@ import com.aladdindb.util.Var;
  * 
  * @author Macit Kandemir
  */
-public class Units < UDM extends DataModel < UDM > > {
+public class Units < UDM extends Store < UDM > > {
 
 	
 	public final 	Path path;
@@ -40,7 +40,7 @@ public class Units < UDM extends DataModel < UDM > > {
     	this( path, null );
     }
     
-    public Units( Path path, DataTransformer< UDM > unitDataTransformer ) {
+    public Units( Path path, Transformer< UDM > unitDataTransformer ) {
     	this.path 				= path;
         this.unitTransformer 	= new UnitTransformer< UDM >(unitDataTransformer);
         if( !Files.exists( path ) ) {
@@ -58,13 +58,15 @@ public class Units < UDM extends DataModel < UDM > > {
     //					 Unit Search
     //**********************************************************
     
-    public void search( Finder< UDM, ? extends DataModel < ? > > finder, Sorter< UDM, ? extends DataModel < ? > > sorter, Consumer < Unit < UDM > > unitConsumer ) {
+    public void search( Finder		< UDM, ? extends Store < ? > > 	finder, 
+    					Sorter		< UDM, ? extends Store < ? > > 	sorter, 
+    					Consumer 	< Unit < UDM > > 				unitConsumer ) {
     	this.search( finder, sorter ).forEach( unitId -> {
     		this.get( unitId, unitConsumer );
     	});
     }
     
-    public List < String > search( Finder< UDM, ? extends DataModel < ? > > finder, Sorter< UDM, ? extends DataModel < ? > > sorter ) {
+    public List < String > search( Finder< UDM, ? extends Store < ? > > finder, Sorter< UDM, ? extends Store < ? > > sorter ) {
     	var rv = new ArrayList< String >();
 
     	sorter.setUnits( this );
@@ -76,7 +78,7 @@ public class Units < UDM extends DataModel < UDM > > {
     	return sorter.sort(rv);
     }
     
-    public void search( Finder< UDM, ? extends DataModel<?> > finder, Consumer < Unit < UDM > > unitConsumer ) {
+    public void search( Finder< UDM, ? extends Store<?> > finder, Consumer < Unit < UDM > > unitConsumer ) {
 //    	Counter c = new Counter();
     	this.forEachUnit( unit -> {
        		if( finder.prove( unit ) ) unitConsumer.accept( unit ); 
@@ -96,7 +98,7 @@ public class Units < UDM extends DataModel < UDM > > {
 
     public void forEachUnit( Consumer < Unit < UDM > > unitConsumer ) {
         forEachUnitNode( unitNode -> {
-            unitTransformer.toModel( unitNode,  unitConsumer :: accept );
+            unitTransformer.toStore( unitNode,  unitConsumer :: accept );
         });
     }
 
@@ -154,7 +156,7 @@ public class Units < UDM extends DataModel < UDM > > {
     
     public void get( String unitID, Consumer < Unit < UDM > > unitConsumer ) {
 		getUnitNode( unitID, unitNode -> {
-            unitTransformer.toModel( unitNode, unitConsumer :: accept );
+            unitTransformer.toStore( unitNode, unitConsumer :: accept );
 		});
     } 
 

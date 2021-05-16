@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.aladdindb.finder.Finder;
-import com.aladdindb.finder.FinderSupplier;
-import com.aladdindb.structure.DataModel;
-import com.aladdindb.structure.DataTransformer;
+import com.aladdindb.finder.FinderSupport;
+import com.aladdindb.structure.Store;
+import com.aladdindb.structure.Transformer;
 import com.aladdindb.units.models.Unit;
 
-public class LogicalAndOperations < UDM extends DataModel< UDM > > implements Finder < UDM, LogicalAndOperations < UDM > > {  
+public class LogicalAndOperations < UDM extends Store< UDM > > implements Finder < UDM, LogicalAndOperations < UDM > > {  
 	
 	
     //****************************************************************
@@ -17,25 +17,25 @@ public class LogicalAndOperations < UDM extends DataModel< UDM > > implements Fi
     //****************************************************************
 
 	
-	private final  FinderSupplier < UDM > finderSupplier;
+	private final  FinderSupport < UDM > finderSupplier;
 	
 	
-	public final List < Finder< UDM, ? extends DataModel< ? > > >  finderList = new ArrayList<>();
+	public final List < Finder< UDM, ? extends Store< ? > > >  finderList = new ArrayList<>();
 	
 	
     //****************************************************************
     //						Constructor 
     //****************************************************************
 	
-	public LogicalAndOperations( FinderSupplier< UDM > finderSupplier ) {
+	public LogicalAndOperations( FinderSupport< UDM > finderSupplier ) {
 		this.finderSupplier = finderSupplier;
 	}
 
-	public void addFinder( Finder < UDM,  ? extends DataModel< ? > >... finders ) {
+	public void addFinder( Finder < UDM,  ? extends Store< ? > >... finders ) {
 		for( var finder : finders )  this.finderList.add( finder );
 	}
 
-	public void addFinder( Finder < UDM,  ? extends DataModel< ? > > finder ) {
+	public void addFinder( Finder < UDM,  ? extends Store< ? > > finder ) {
 		this.finderList.add(finder);
 	}
 	
@@ -70,7 +70,7 @@ public class LogicalAndOperations < UDM extends DataModel< UDM > > implements Fi
     //****************************************************************
 	
 	@Override
-	public DataTransformer< LogicalAndOperations < UDM > > newTransformer() {
+	public Transformer< LogicalAndOperations < UDM > > newTransformer() {
 		return new LogicalAndOperationsTransformer< UDM >( this.finderSupplier ); 
 	}
 	

@@ -1,10 +1,10 @@
 package com.aladdindb.units.models;
 
 import com.aladdindb.models.text.LabelParser;
-import com.aladdindb.structure.DataTransformer;
+import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 
-public class MetaTransformer extends DataTransformer<Meta> {
+public class MetaTransformer extends Transformer<Meta> {
 
 	private final LabelParser 			label 		= new LabelParser();
 	private final TimeStampTransformer 	timeStamp 	= new TimeStampTransformer();
@@ -14,14 +14,14 @@ public class MetaTransformer extends DataTransformer<Meta> {
 	}	
 	
 	@Override
-	public Meta newModel() {
+	public Meta newStore() {
 		return new Meta();
 	}
 
 	@Override
-	public Meta toModel( SnPoint src, Meta target ) {
-		label		.toModelFromParent( src, target.label		);
-		timeStamp	.toModelFromParent( src, target.timeStamp 	);
+	public Meta toStore( SnPoint src, Meta target ) {
+		label		.toStoreFromParent( src, target.label		);
+		timeStamp	.toStoreFromParent( src, target.timeStamp 	);
 		return target;
 	}
 

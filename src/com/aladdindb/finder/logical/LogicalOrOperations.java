@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.aladdindb.finder.Finder;
-import com.aladdindb.finder.FinderSupplier;
-import com.aladdindb.structure.DataModel;
-import com.aladdindb.structure.DataTransformer;
+import com.aladdindb.finder.FinderSupport;
+import com.aladdindb.structure.Store;
+import com.aladdindb.structure.Transformer;
 import com.aladdindb.units.models.Unit;
 
-public class LogicalOrOperations < UDM extends DataModel< UDM > > 
+public class LogicalOrOperations < UDM extends Store< UDM > > 
 
 		implements Finder < UDM, LogicalOrOperations < UDM > > {  
 	
@@ -18,26 +18,26 @@ public class LogicalOrOperations < UDM extends DataModel< UDM > >
     //						Class-Attributes 
     //****************************************************************
 
-	private final  FinderSupplier < UDM > finderSupplier;
+	private final  FinderSupport < UDM > finderSupplier;
 	
 	
-	public final List < Finder< UDM, ? extends DataModel< ? > > >  finderList = new ArrayList<>();
+	public final List < Finder< UDM, ? extends Store< ? > > >  finderList = new ArrayList<>();
 	
 	
     //****************************************************************
     //						Constructor 
     //****************************************************************
 	
-	public LogicalOrOperations( FinderSupplier< UDM > finderSupplier ) {
+	public LogicalOrOperations( FinderSupport< UDM > finderSupplier ) {
 		this.finderSupplier = finderSupplier;
 	}
 
 	
-	public void addFinder( Finder < UDM,  ? extends DataModel< ? > >... finders ) {
+	public void addFinder( Finder < UDM,  ? extends Store< ? > >... finders ) {
 		for( var finder : finders )  this.finderList.add( finder );
 	}
 
-	public void addFinder( Finder < UDM,  ? extends DataModel< ? > > finder ) {
+	public void addFinder( Finder < UDM,  ? extends Store< ? > > finder ) {
 		this.finderList.add(finder);
 	}
 	
@@ -72,7 +72,7 @@ public class LogicalOrOperations < UDM extends DataModel< UDM > >
     //****************************************************************
 	
 	@Override
-	public DataTransformer< LogicalOrOperations < UDM > > newTransformer() {
+	public Transformer< LogicalOrOperations < UDM > > newTransformer() {
 		return new LogicalOrOperationsTransformer< UDM >( this.finderSupplier ); 
 	}
 	

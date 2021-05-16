@@ -8,17 +8,17 @@ import com.aladdindb.util.Var;
 /**
  *
  * @author Macit Kandemir
- * @param <MODEL>
+ * @param <STORE>
  */
-public abstract class DataTransformer < MODEL extends DataModel < MODEL > > {
+public abstract class Transformer < STORE extends Store < STORE > > {
 
     private final String key;
 
-    public DataTransformer( Enum<?> key ) {
+    public Transformer( Enum<?> key ) {
         this( key.name() );
     }
     
-    public DataTransformer( String key ) {
+    public Transformer( String key ) {
         this.key = key;
     }
 
@@ -30,50 +30,50 @@ public abstract class DataTransformer < MODEL extends DataModel < MODEL > > {
     //
     //****************************************************************
     
-    public abstract MODEL newModel();
+    public abstract STORE newStore();
     
     //****************************************************************
     //
     //****************************************************************
 
-    public final MODEL toModel( SnPoint src ) {
-        return DataTransformer.this.toModel( src , newModel() );
+    public final STORE toStore( SnPoint src ) {
+        return Transformer.this.toStore( src , newStore() );
     }
 
-    public final void toModel( SnPoint src , Consumer < MODEL > target ) {
-        MODEL model = DataTransformer.this.toModel( src );
+    public final void toStore( SnPoint src , Consumer < STORE > target ) {
+        STORE model = Transformer.this.toStore( src );
         if( model != null ) target.accept( model );
     }
 
-    public final void toModel( SnPoint src , Var < MODEL > target ) {
-        DataTransformer.this.toModel( src, target :: set );
+    public final void toStore( SnPoint src , Var < STORE > target ) {
+        Transformer.this.toStore( src, target :: set );
     }
     
-    public abstract MODEL  toModel( SnPoint src , MODEL target );
+    public abstract STORE  toStore( SnPoint src , STORE target );
     
     //****************************************************************
     //
     //****************************************************************
 
-    public final MODEL toModelFromParent( SnPoint src ) {
-        Var < MODEL > target = new Var<>();
+    public final STORE toStoreFromParent( SnPoint src ) {
+        Var < STORE > target = new Var<>();
         src.children.get( getKey(), node -> {
-            DataTransformer.this.toModel( node, target :: set );
+            Transformer.this.toStore( node, target :: set );
         });
         return target.get();
     }
     
-    public final void toModelFromParent( SnPoint src,  MODEL  target ) {
-    	toModelFromParent( src, target :: fill );
+    public final void toStoreFromParent( SnPoint src,  STORE  target ) {
+    	toStoreFromParent( src, target :: fill );
     }
     
-    public final void toModelFromParent( SnPoint src, Consumer < MODEL > target ) {
-        MODEL model = DataTransformer.this.toModelFromParent( src );
+    public final void toStoreFromParent( SnPoint src, Consumer < STORE > target ) {
+        STORE model = Transformer.this.toStoreFromParent( src );
         if( model != null ) target.accept( model );
     }
 
-    public final void toModelFromParent( SnPoint parentNode, Var < MODEL > target ) {
-        DataTransformer.this.toModelFromParent( parentNode, target :: set );
+    public final void toStoreFromParent( SnPoint parentNode, Var < STORE > target ) {
+        Transformer.this.toStoreFromParent( parentNode, target :: set );
     }
 
     
@@ -81,27 +81,27 @@ public abstract class DataTransformer < MODEL extends DataModel < MODEL > > {
     //
     //****************************************************************
 
-    public final void toNode( Var < MODEL > src, Consumer < SnPoint > target  ) {
-        src.get( model -> DataTransformer.this.toNode( model, target ) );
+    public final void toNode( Var < STORE > src, Consumer < SnPoint > target  ) {
+        src.get( model -> Transformer.this.toNode( model, target ) );
     }
     
-    public final void toNode( MODEL src, Consumer < SnPoint > target ) {
-        var node = DataTransformer.this.toNode( src );
+    public final void toNode( STORE src, Consumer < SnPoint > target ) {
+        var node = Transformer.this.toNode( src );
         if( node != null ) target.accept( node );
     }
 
-    public final SnPoint toNode( MODEL src ) {
-        return DataTransformer.this.toNode( src, new SnPoint( getKey()) );
+    public final SnPoint toNode( STORE src ) {
+        return Transformer.this.toNode( src, new SnPoint( getKey()) );
     }
     
-    public final SnPoint toNode( Var < MODEL > src, SnPoint target ) {
+    public final SnPoint toNode( Var < STORE > src, SnPoint target ) {
         src.get( model -> {
-            DataTransformer.this.toNode( model, target);
+            Transformer.this.toNode( model, target);
         });
         return target;
     }
 
-    public abstract SnPoint toNode( MODEL src , SnPoint target );
+    public abstract SnPoint toNode( STORE src , SnPoint target );
     
     
     //****************************************************************
@@ -117,7 +117,7 @@ public abstract class DataTransformer < MODEL extends DataModel < MODEL > > {
      * @param target    Älternknoten als Ziel Konoten.
      */
     
-    public final void toParentNode( Var < MODEL > src, SnPoint target ) {
+    public final void toParentNode( Var < STORE > src, SnPoint target ) {
         src.get( model -> {
             toParentNode( model, target );
         });
@@ -131,7 +131,7 @@ public abstract class DataTransformer < MODEL extends DataModel < MODEL > > {
      * @param target    Älternknoten als Ziel Konoten. 
      */
     
-    public final void toParentNode( MODEL src, SnPoint target ) {
+    public final void toParentNode( STORE src, SnPoint target ) {
         this.toNode( src, target.children :: add );
     } 
 

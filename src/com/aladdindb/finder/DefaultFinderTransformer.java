@@ -1,7 +1,7 @@
 package com.aladdindb.finder;
 
-import com.aladdindb.structure.DataModel;
-import com.aladdindb.structure.DataTransformer;
+import com.aladdindb.structure.Store;
+import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.structure.types.SnAttributeAccess;
 
@@ -13,11 +13,11 @@ import com.aladdindb.structure.types.SnAttributeAccess;
  */
 public abstract class DefaultFinderTransformer <
 
-	UDM 			extends DataModel		< UDM >,
+	UDM 			extends Store			< UDM >,
 	FINDER_MODEL	extends DefaultFinder	< UDM, FINDER_MODEL, VT >,
 	VT
 
-> extends DataTransformer< FINDER_MODEL > {
+> extends Transformer< FINDER_MODEL > {
 	
 	
 	public enum ATR { operator, pattern }
@@ -36,7 +36,7 @@ public abstract class DefaultFinderTransformer <
     //****************************************************************
 	
 	@Override
-	public FINDER_MODEL toModel( SnPoint src, FINDER_MODEL target ) {
+	public FINDER_MODEL toStore( SnPoint src, FINDER_MODEL target ) {
 		var srcAtr = new SnAttributeAccess(src);
 		srcAtr.asStr.get( ATR.operator	,target.operator );
 		srcAtr.asStr.get( ATR.pattern	,target.pattern );

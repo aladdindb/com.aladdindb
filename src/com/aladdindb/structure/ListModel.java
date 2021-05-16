@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class ListModel <
 
-		LIST_ITEM_TYPE extends DataModel < LIST_ITEM_TYPE > 
+		LIST_ITEM_TYPE extends Store < LIST_ITEM_TYPE > 
 
-> extends ArrayList< LIST_ITEM_TYPE > implements DataModel< ListModel < LIST_ITEM_TYPE > > {
+> extends ArrayList< LIST_ITEM_TYPE > implements Store< ListModel < LIST_ITEM_TYPE > > {
 
 	
 	@Override

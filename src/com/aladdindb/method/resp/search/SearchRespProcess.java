@@ -6,7 +6,8 @@ import com.aladdindb.method.req.search.SearchReqTransformer;
 import com.aladdindb.method.resp.RespProcess;
 import com.aladdindb.method.resp.get.block.BlockNavResp;
 import com.aladdindb.method.resp.get.block.BlockNaviRespTransformer;
-import com.aladdindb.structure.DataModel;
+import com.aladdindb.sorter.Sorter;
+import com.aladdindb.structure.Store;
 import com.aladdindb.structure.xml.XML;
 import com.aladdindb.units.UnitsIdBlockStorage;
 import com.aladdindb.util.Util;
@@ -14,8 +15,9 @@ import com.aladdindb.util.Util;
 
 public class SearchRespProcess <
 
-	UDM 			extends DataModel 	< UDM >, 
-	FINDER_MODEL 	extends Finder		< UDM, FINDER_MODEL >
+	UDM 			extends Store 	< UDM >, 
+	FINDER_MODEL 	extends Finder	< UDM, FINDER_MODEL >,
+	SORTER_MODEL	extends Sorter	< UDM, SORTER_MODEL >
 
 > extends RespProcess< UDM > { 
 
@@ -31,13 +33,14 @@ public class SearchRespProcess <
 	@Override
 	public void run() {
 		genie.reqNode.get( reqNode -> {
-			var p = new SearchReqTransformer< UDM, FINDER_MODEL >( genie.finderSupplier );
-			p.toModel( reqNode, req -> {
-				req.blockSize.get( blockSize -> {
-					req.finder.get( finder -> {
-						this.resp( blockSize, finder );
-					});
-				});
+			var transformer = new SearchReqTransformer< UDM, FINDER_MODEL, SORTER_MODEL >( genie.finderSupport,genie.sorterSupport );
+			transformer.toStore( reqNode, req -> {
+				
+				var blockSize 	= req.blockSize	.get();
+				var finder 		= req.finder	.get();
+				var sorter 		= req.sorter	.get();
+				
+				this.resp( blockSize, finder, sorter );
 			});
 		});
 	}
@@ -46,14 +49,14 @@ public class SearchRespProcess <
     //					
     //************************************************************
 	
-	private void resp( int blockSize, Finder finder) {
+	private void resp( int blockSize, Finder finder, Sorter sorter ) {
 
 		var respParser 	= new BlockNaviRespTransformer();
 		var resp 		= new BlockNavResp();
 
 		var blockMap 	= new UnitsIdBlockStorage( blockSize );
 		
-		this.genie.units.search( finder, unit -> {
+		this.genie.units.search( finder, sorter, unit -> {
 			unit.id.get( blockMap::addUnitID );
 		});
 		
@@ -65,10 +68,10 @@ public class SearchRespProcess <
 		
 		resp.methodSessionID	.set( cmdSesionID );
 		
-		resp.unitsIdBlock	.set( navi.right());
+		resp.unitsIdBlock		.set( navi.right());
 		
-		resp.hasLeft		.set( navi.hasLeft() );
-		resp.hasRight		.set( navi.hasRight());
+		resp.hasLeft			.set( navi.hasLeft() );
+		resp.hasRight			.set( navi.hasRight());
 		
 		respParser.toNode( resp, respNode -> {
 			this.genie.respConsumer.get( respConsumer -> {

@@ -2,23 +2,23 @@ package com.aladdindb.finder.logical;
 
 import com.aladdindb.finder.Finder;
 import com.aladdindb.finder.Type;
-import com.aladdindb.finder.FinderSupplier;
-import com.aladdindb.structure.DataModel;
-import com.aladdindb.structure.DataTransformer;
+import com.aladdindb.finder.FinderSupport;
+import com.aladdindb.structure.Store;
+import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 
 
-public class LogicalAndOperationsTransformer < UDM extends DataModel< UDM > > extends DataTransformer< LogicalAndOperations < UDM > > {
+public class LogicalAndOperationsTransformer < UDM extends Store< UDM > > extends Transformer< LogicalAndOperations < UDM > > {
 
 	
-	private final  FinderSupplier < UDM > finderSupplier; 
+	private final  FinderSupport < UDM > finderSupplier; 
 	
 	
     //****************************************************************
     //						Constructor 
     //****************************************************************
 	
-	public LogicalAndOperationsTransformer( FinderSupplier < UDM > finderSupplier ) { 
+	public LogicalAndOperationsTransformer( FinderSupport < UDM > finderSupplier ) { 
 		
 		super( Type.LOGICAL_AND.finder() );
 		
@@ -30,12 +30,12 @@ public class LogicalAndOperationsTransformer < UDM extends DataModel< UDM > > ex
     //****************************************************************
 
 	@Override
-	public LogicalAndOperations < UDM > newModel() {
+	public LogicalAndOperations < UDM > newStore() {
 		return new LogicalAndOperations< UDM >( this.finderSupplier );
 	}
 
 	@Override
-	public LogicalAndOperations < UDM > toModel( SnPoint src, LogicalAndOperations < UDM > target ) {
+	public LogicalAndOperations < UDM > toStore( SnPoint src, LogicalAndOperations < UDM > target ) {
 		
 		src.children.forEach( node -> {
 			this.finderSupplier.newFinder( node, target.finderList :: add );

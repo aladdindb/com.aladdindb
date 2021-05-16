@@ -1,13 +1,13 @@
 package com.aladdindb.units.models;
 
-import com.aladdindb.structure.DataModel;
+import com.aladdindb.structure.Store;
 import com.aladdindb.util.Var;
 
 /**
  *
  * @author Macit Kandemir
  */
-public final class Unit < UDM extends DataModel < UDM > > implements DataModel < Unit < UDM > > { 
+public final class Unit < UDM extends Store < UDM > > implements Store < Unit < UDM > > { 
     
     public final Var < String > id      = new Var<>();
     public final Var < Float > 	version = new Var<>( 1.0f );

@@ -1,7 +1,7 @@
 package com.aladdindb.sorter;
 
-import com.aladdindb.structure.DataModel;
-import com.aladdindb.structure.DataTransformer;
+import com.aladdindb.structure.Store;
+import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.structure.types.SnAttributeAccess;
 
@@ -13,11 +13,11 @@ import com.aladdindb.structure.types.SnAttributeAccess;
  */
 public abstract  class DefaultSorterTransformer <
 
-	UDM 			extends DataModel		< UDM >,
+	UDM 			extends Store		< UDM >,
 	SORTER_MODEL	extends DefaultSorter	< UDM, SORTER_MODEL, VT >,
 	VT
 
-> extends DataTransformer< SORTER_MODEL > {
+> extends Transformer< SORTER_MODEL > {
 	
 	
 	public enum ATR { sortOrder }
@@ -36,7 +36,7 @@ public abstract  class DefaultSorterTransformer <
     //****************************************************************
 	
 	@Override
-	public SORTER_MODEL toModel( SnPoint src, SORTER_MODEL target ) {
+	public SORTER_MODEL toStore( SnPoint src, SORTER_MODEL target ) {
 		var srcAtr = new SnAttributeAccess(src);
 		srcAtr.asStr.get( ATR.sortOrder	,target.sortOrder );
 		return target;

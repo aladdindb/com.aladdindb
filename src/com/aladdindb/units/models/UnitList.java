@@ -3,7 +3,7 @@ package com.aladdindb.units.models;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-import com.aladdindb.structure.DataModel;
+import com.aladdindb.structure.Store;
 
 /**
  *
@@ -11,9 +11,9 @@ import com.aladdindb.structure.DataModel;
  */
 public final class UnitList <
 
-	DATA_MODEL extends DataModel < DATA_MODEL > 
+	DATA_MODEL extends Store < DATA_MODEL > 
 
-> extends ArrayList < Unit < DATA_MODEL > > implements DataModel <  UnitList < DATA_MODEL >  >  {
+> extends ArrayList < Unit < DATA_MODEL > > implements Store <  UnitList < DATA_MODEL >  >  {
 
 	
     public UnitList() {

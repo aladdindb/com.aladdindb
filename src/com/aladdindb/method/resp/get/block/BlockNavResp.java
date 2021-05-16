@@ -1,10 +1,10 @@
 package com.aladdindb.method.resp.get.block;
 
-import com.aladdindb.structure.DataModel;
+import com.aladdindb.structure.Store;
 import com.aladdindb.util.Var;
 
 
-public class BlockNavResp  implements DataModel< BlockNavResp  > {
+public class BlockNavResp  implements Store< BlockNavResp  > {
 
 	
 	public final Var<String> 	methodSessionID 	= new Var<>();

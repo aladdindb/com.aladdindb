@@ -1,9 +1,9 @@
 package com.aladdindb.method.req;
 
-import com.aladdindb.structure.DataModel;
+import com.aladdindb.structure.Store;
 import com.aladdindb.util.Var;
 
-public abstract class Req < DATA_MODEL extends Req< DATA_MODEL > > implements DataModel< DATA_MODEL > { 
+public abstract class Req < DATA_MODEL extends Req< DATA_MODEL > > implements Store< DATA_MODEL > { 
 
 
 	public final Var< String > unitGroupID = new Var<>();

@@ -3,7 +3,7 @@ package com.aladdindb.sorter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.aladdindb.structure.DataModel;
+import com.aladdindb.structure.Store;
 import com.aladdindb.units.models.Unit;
 import com.aladdindb.util.IntIndex;
 import com.aladdindb.util.Var;
@@ -20,7 +20,7 @@ import com.aladdindb.util.Var;
  * @author Macit Kandemir
  *
  */
-public class UnitIdListBlocksGenerator < UDM extends DataModel< UDM >, VT >  {
+public class UnitIdListBlocksGenerator < UDM extends Store< UDM >, VT >  {
 
 	
 	/**
@@ -56,10 +56,10 @@ public class UnitIdListBlocksGenerator < UDM extends DataModel< UDM >, VT >  {
 	/**
 	 * Das zuständige Sorter Objekt für das entsprechende Feld.
 	 */
-	private final DefaultSorter< UDM, ? extends DataModel < ? >, VT> sorter;
+	private final DefaultSorter< UDM, ? extends Store < ? >, VT> sorter;
 	
 	
-	protected UnitIdListBlocksGenerator(  DefaultSorter< UDM, ? extends DataModel < ? >, VT> sorter ) {
+	protected UnitIdListBlocksGenerator(  DefaultSorter< UDM, ? extends Store < ? >, VT> sorter ) {
 		this.sorter = sorter;
 	}
 	

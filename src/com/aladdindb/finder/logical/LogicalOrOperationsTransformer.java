@@ -2,23 +2,23 @@ package com.aladdindb.finder.logical;
 
 import com.aladdindb.finder.Finder;
 import com.aladdindb.finder.Type;
-import com.aladdindb.finder.FinderSupplier;
-import com.aladdindb.structure.DataModel;
-import com.aladdindb.structure.DataTransformer;
+import com.aladdindb.finder.FinderSupport;
+import com.aladdindb.structure.Store;
+import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 
 
-public class LogicalOrOperationsTransformer < UDM extends DataModel< UDM > > extends DataTransformer< LogicalOrOperations < UDM > > {
+public class LogicalOrOperationsTransformer < UDM extends Store< UDM > > extends Transformer< LogicalOrOperations < UDM > > {
 
 	
-	private final  FinderSupplier < UDM > factory; 
+	private final  FinderSupport < UDM > factory; 
 	
 	
     //****************************************************************
     //						Constructor 
     //****************************************************************
 	
-	public LogicalOrOperationsTransformer( FinderSupplier < UDM > factory ) { 
+	public LogicalOrOperationsTransformer( FinderSupport < UDM > factory ) { 
 		
 		super( Type.LOGICAL_OR.finder() );
 		
@@ -30,12 +30,12 @@ public class LogicalOrOperationsTransformer < UDM extends DataModel< UDM > > ext
     //****************************************************************
 
 	@Override
-	public LogicalOrOperations < UDM > newModel() {
+	public LogicalOrOperations < UDM > newStore() {
 		return new LogicalOrOperations< UDM >( this.factory );
 	}
 
 	@Override
-	public LogicalOrOperations < UDM > toModel( SnPoint src, LogicalOrOperations < UDM > target ) {
+	public LogicalOrOperations < UDM > toStore( SnPoint src, LogicalOrOperations < UDM > target ) {
 		
 		src.children.forEach( node -> {
 			this.factory.newFinder( node, target.finderList :: add );

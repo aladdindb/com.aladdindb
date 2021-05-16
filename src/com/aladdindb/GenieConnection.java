@@ -34,6 +34,7 @@ public class GenieConnection {
 	public GenieConnection( String host, int port ) {
 		this.host = host;
 		this.port = port;
+		this.open();
 	}
 
 	public boolean open() {
@@ -67,7 +68,7 @@ public class GenieConnection {
 	public void sendReq( SnPoint reqNode,  Consumer < SnPoint > respNodeConsumer ) {
 		XML.parse( reqNode, reqStr -> {
 			this.sendReq( reqStr, respStr -> {
-				System.out.println("\n"+ respStr+ "\n" );
+//				System.out.println("\n"+ respStr+ "\n" );
 				XML.parse( respStr, respNodeConsumer);
 			});
 		});

@@ -2,7 +2,7 @@ package com.aladdindb.units;
 
 import com.aladdindb.MagicLamp;
 import com.aladdindb.method.resp.get.block.BlockNavResp;
-import com.aladdindb.structure.DataModel;
+import com.aladdindb.structure.Store;
 import com.aladdindb.structure.sn.SnLineNavi;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.units.models.Unit;
@@ -11,7 +11,7 @@ import com.aladdindb.util.Var;
 
 
 
-public class UnitsNavi < UDM extends DataModel < UDM > > implements LineNavigator < Unit < UDM > >  {
+public class UnitsNavi < UDM extends Store < UDM > > implements LineNavigator < Unit < UDM > >  {
 
 	
 	private BlockNavResp 			blockResp;

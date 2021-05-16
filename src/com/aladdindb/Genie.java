@@ -4,7 +4,7 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.function.Consumer;
 
-import com.aladdindb.finder.FinderSupplier;
+import com.aladdindb.finder.FinderSupport;
 import com.aladdindb.method.Method;
 import com.aladdindb.method.resp.RespProcess;
 import com.aladdindb.method.resp.add.AddRespProcess;
@@ -15,32 +15,35 @@ import com.aladdindb.method.resp.get.by.id.GetByIdRespProcess;
 import com.aladdindb.method.resp.remove.RemoveRespProcess;
 import com.aladdindb.method.resp.search.SearchRespProcess;
 import com.aladdindb.method.resp.update.UpdateRespProcess;
-import com.aladdindb.structure.DataModel;
-import com.aladdindb.structure.DataTransformer;
+import com.aladdindb.sorter.SorterSupport;
+import com.aladdindb.structure.Store;
+import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.units.Units;
 import com.aladdindb.units.UnitsIdBlockNavi;
 import com.aladdindb.util.Var;
 
 
-public class Genie < UDM extends DataModel < UDM > > implements Runnable { 
+public class Genie < UDM extends Store < UDM > > implements Runnable { 
 
 
 	public final HashMap< String, UnitsIdBlockNavi > unitsIdBlockNaviMap = new HashMap<>();
 	
-	public final	Units				< UDM > units;
-	public final	DataTransformer 	< UDM > dataTransformer;
+	public final	Units			< UDM > units;
+	public final	Transformer 	< UDM > dataTransformer;
 
-	public final 	FinderSupplier< UDM > finderSupplier;
+	public final 	FinderSupport 	< UDM > finderSupport;
+	public final 	SorterSupport 	< UDM > sorterSupport;
 	
 	public final Var < SnPoint > 				reqNode 		= new Var<>();
 	public final Var < Consumer < String > > 	respConsumer 	= new Var<>();
 	
 	
-	public Genie( Path dbPath, DataTransformer < UDM > dataTransformer, FinderSupplier< UDM > finderSupplier )  {
+	public Genie( Path dbPath, Transformer < UDM > dataTransformer, FinderSupport< UDM > finderSupport, SorterSupport< UDM > sorterSupport )  {
 		
 		this.dataTransformer	= dataTransformer;
-		this.finderSupplier 	= finderSupplier;
+		this.finderSupport 		= finderSupport;
+		this.sorterSupport		= sorterSupport;
 		
 		this.units				= new Units	< UDM > ( dbPath, dataTransformer );
 	}

@@ -1,11 +1,11 @@
 package com.aladdindb.method.resp.remove;
 
-import com.aladdindb.structure.DataModel;
+import com.aladdindb.structure.Store;
 import com.aladdindb.units.models.Unit;
 import com.aladdindb.util.Var;
 
 
-public class RemoveResp < UDM extends DataModel < UDM > > implements DataModel< RemoveResp < UDM > > {
+public class RemoveResp < UDM extends Store < UDM > > implements Store< RemoveResp < UDM > > {
 
 	
 	public final Var < Unit< UDM > > unit = new Var<>();

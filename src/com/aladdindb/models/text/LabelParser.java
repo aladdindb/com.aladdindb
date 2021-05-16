@@ -1,6 +1,6 @@
 package com.aladdindb.models.text;
 
-import com.aladdindb.structure.DataTransformer;
+import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.structure.sn.props.SnValueType;
 
@@ -8,7 +8,7 @@ import com.aladdindb.structure.sn.props.SnValueType;
  *
  * @author Macit Kandemir
  */
-public class LabelParser extends DataTransformer < LabelModel > {
+public class LabelParser extends Transformer < LabelModel > {
     
     
 	public LabelParser() {
@@ -24,7 +24,7 @@ public class LabelParser extends DataTransformer < LabelModel > {
     //****************************************************************
 
     @Override
-    public LabelModel newModel() {
+    public LabelModel newStore() {
         return new LabelModel();
     }
     
@@ -33,7 +33,7 @@ public class LabelParser extends DataTransformer < LabelModel > {
     //****************************************************************
 
     @Override
-    public LabelModel toModel( SnPoint src, LabelModel target ) {
+    public LabelModel toStore( SnPoint src, LabelModel target ) {
         
     	src.value.get( target :: set );
         

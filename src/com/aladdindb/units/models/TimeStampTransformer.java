@@ -1,11 +1,11 @@
 package com.aladdindb.units.models;
 
-import com.aladdindb.structure.DataTransformer;
+import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.structure.sn.props.SnValueType;
 import com.aladdindb.structure.types.SnAttributeAccess;
 
-public class TimeStampTransformer extends DataTransformer< TimeStamp > {
+public class TimeStampTransformer extends Transformer< TimeStamp > {
 
 	private enum ATR { generatedOn, modifiedOn };
 	
@@ -14,12 +14,12 @@ public class TimeStampTransformer extends DataTransformer< TimeStamp > {
 	}
 	
 	@Override
-	public TimeStamp newModel() {
+	public TimeStamp newStore() {
 		return new TimeStamp();
 	}
 
 	@Override
-	public TimeStamp toModel( SnPoint src, TimeStamp target ) {
+	public TimeStamp toStore( SnPoint src, TimeStamp target ) {
     	var srcAtr = new SnAttributeAccess( src );
     	
     	srcAtr.asXlrZonedDateTime.get( ATR.generatedOn	, target.generatedOn 	);

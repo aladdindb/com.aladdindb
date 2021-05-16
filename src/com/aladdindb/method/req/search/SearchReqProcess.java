@@ -5,29 +5,32 @@ import com.aladdindb.finder.Finder;
 import com.aladdindb.method.req.ReqProcess;
 import com.aladdindb.method.resp.get.block.BlockNavResp;
 import com.aladdindb.method.resp.get.block.BlockNaviRespTransformer;
-import com.aladdindb.structure.DataModel;
+import com.aladdindb.sorter.Sorter;
+import com.aladdindb.structure.Store;
 
 
 public class SearchReqProcess <
 
-	UDM 			extends DataModel	< UDM >,
-	FILTER_MODEL 	extends Finder		< UDM, FILTER_MODEL >
+	UDM 			extends Store	< UDM >,
+	FINDER_MODEL 	extends Finder	< UDM, FINDER_MODEL >,
+	SORTER_MODEL 	extends Sorter	< UDM, SORTER_MODEL >
+	
 
-> extends ReqProcess < SearchReq < UDM, FILTER_MODEL >, BlockNavResp , UDM > {
+> extends ReqProcess < SearchReq < UDM, FINDER_MODEL, SORTER_MODEL >, BlockNavResp , UDM > {
 
 	
     //****************************************************************
     //						Constructors
     //****************************************************************
 
-	public SearchReqProcess( int blockSize, FILTER_MODEL filter,  MagicLamp< UDM > unitsChanel ) {
+	public SearchReqProcess( int blockSize, FINDER_MODEL filter, SORTER_MODEL sorter,  MagicLamp < UDM > unitsChanel ) {
 		
 		this.magicLamp.set ( unitsChanel);
 
-		var req = new SearchReq < UDM, FILTER_MODEL >( unitsChanel.unitGroupID, blockSize, filter );
+		var req = new SearchReq < UDM, FINDER_MODEL, SORTER_MODEL >( unitsChanel.unitGroupID, blockSize, filter, sorter );
 		
-		this.req		.set ( req );
-		this.reqTransformer	.set ( new SearchReqTransformer	< UDM, FILTER_MODEL >( unitsChanel.finderSupplier ) ); 
+		this.req				.set ( req );
+		this.reqTransformer		.set ( new SearchReqTransformer	< UDM, FINDER_MODEL, SORTER_MODEL >( unitsChanel.finderSupport, unitsChanel.sorterSupport ) ); 
 		this.respTransformer	.set ( new BlockNaviRespTransformer() );
 	}
 

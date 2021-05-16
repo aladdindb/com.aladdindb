@@ -3,7 +3,7 @@ package com.aladdindb;
 import java.util.function.Consumer;
 
 import com.aladdindb.finder.Finder;
-import com.aladdindb.finder.FinderSupplier;
+import com.aladdindb.finder.FinderSupport;
 import com.aladdindb.method.req.add.AddReqProcess;
 import com.aladdindb.method.req.close.method.session.CloseMethodSessionReqProcess;
 import com.aladdindb.method.req.get.all.GetAllReqProcess;
@@ -17,31 +17,40 @@ import com.aladdindb.method.resp.get.block.BlockNavResp;
 import com.aladdindb.method.resp.get.by.id.GetByIdResp;
 import com.aladdindb.method.resp.remove.RemoveResp;
 import com.aladdindb.method.resp.update.UpdateResp;
-import com.aladdindb.structure.DataModel;
-import com.aladdindb.structure.DataTransformer;
+import com.aladdindb.sorter.Sorter;
+import com.aladdindb.sorter.SorterSupport;
+import com.aladdindb.structure.Store;
+import com.aladdindb.structure.Transformer;
 import com.aladdindb.units.models.Unit;
 import com.aladdindb.units.models.UnitTransformer;
 
 
-public class MagicLamp < UDM extends DataModel < UDM > > {
+public class MagicLamp < UDM extends Store < UDM > > {
 
 	
     public final  GenieConnection genieConnection;
 
     
     public final String 					unitGroupID;
-    public final DataTransformer	< UDM >	unitDataTransformer;
-    public final FinderSupplier		< UDM > finderSupplier;
+    public final Transformer		< UDM >	unitDataTransformer;
+    
+    public final FinderSupport		< UDM > finderSupport;
+    public final SorterSupport		< UDM > sorterSupport;
     
     //************************************************************
     //					
     //************************************************************
 
-    public MagicLamp( String unitGroupID, DataTransformer< UDM > unitDataTransformer, FinderSupplier< UDM > finderSupplier, GenieConnection genieConnection ) {
+    public MagicLamp( 	String unitGroupID, 
+    					Transformer		< UDM > unitDataTransformer, 
+    					FinderSupport	< UDM > finderSupport, 
+    					SorterSupport	< UDM > sorterSupport, 
+    					GenieConnection genieConnection ) {
     	
 		this.unitGroupID 			= unitGroupID;
 		this.unitDataTransformer 	= unitDataTransformer;
-		this.finderSupplier 		= finderSupplier;
+		this.finderSupport 			= finderSupport;
+		this.sorterSupport 			= sorterSupport;
 		
 		this.genieConnection 		= genieConnection;
 		
@@ -73,8 +82,11 @@ public class MagicLamp < UDM extends DataModel < UDM > > {
     	reqProcess.run();
     }
 
-    public void search( int blockSize, Finder < UDM, ? extends Finder < UDM, ? > >  finder, Consumer < BlockNavResp > respConsumer ) {
-    	var reqProcess = new SearchReqProcess( blockSize, finder, this );
+    public void search( int blockSize, 
+    					Finder 		< UDM, ? extends Finder < UDM, ? > >  	finder, 
+    					Sorter 		< UDM, ? extends Sorter < UDM, ? > >  	sorter, 
+    					Consumer 	< BlockNavResp > 						respConsumer ) {
+    	var reqProcess = new SearchReqProcess( blockSize, finder, sorter, this );
     	reqProcess.respConsumer.set( respConsumer );
     	reqProcess.run();
     }

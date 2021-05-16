@@ -1,13 +1,13 @@
 package com.aladdindb.models.text;
 
-import com.aladdindb.structure.DataModel;
+import com.aladdindb.structure.Store;
 import com.aladdindb.util.Var;
 
 /**
  *
  * @author Macit Kandemir
  */
-public class TextModel extends Var< String > implements DataModel < TextModel > {
+public class TextModel extends Var< String > implements Store < TextModel > {
     
     public TextModel() {
     }

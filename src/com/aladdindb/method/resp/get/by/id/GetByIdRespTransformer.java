@@ -1,8 +1,8 @@
 package com.aladdindb.method.resp.get.by.id;
 
 import com.aladdindb.method.Method;
-import com.aladdindb.structure.DataModel;
-import com.aladdindb.structure.DataTransformer;
+import com.aladdindb.structure.Store;
+import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.units.models.UnitTransformer;
 
@@ -11,7 +11,7 @@ import com.aladdindb.units.models.UnitTransformer;
  * @author Macit Kandemir
  * @param <DUM>
  */
-public final class GetByIdRespTransformer < UDM extends DataModel< UDM > > extends DataTransformer < GetByIdResp< UDM > > {
+public final class GetByIdRespTransformer < UDM extends Store< UDM > > extends Transformer < GetByIdResp< UDM > > {
 	
 
     public final UnitTransformer< UDM > unitParser;
@@ -21,7 +21,7 @@ public final class GetByIdRespTransformer < UDM extends DataModel< UDM > > exten
     //
     //****************************************************************
 
-    public GetByIdRespTransformer( DataTransformer< UDM > unitDataParser ) {
+    public GetByIdRespTransformer( Transformer< UDM > unitDataParser ) {
 		super( Method.GET_BY_ID.respTagName() );
 		this.unitParser = new UnitTransformer< UDM >(unitDataParser);
 	}
@@ -30,7 +30,7 @@ public final class GetByIdRespTransformer < UDM extends DataModel< UDM > > exten
     //
     //****************************************************************
 
-    public GetByIdResp< UDM > newModel() {
+    public GetByIdResp< UDM > newStore() {
 		return new GetByIdResp< UDM >();
 	}
 	
@@ -38,9 +38,9 @@ public final class GetByIdRespTransformer < UDM extends DataModel< UDM > > exten
     //
     //****************************************************************
     @Override
-    public GetByIdResp< UDM >  toModel( SnPoint src, GetByIdResp< UDM > target ) {
+    public GetByIdResp< UDM >  toStore( SnPoint src, GetByIdResp< UDM > target ) {
     
-        unitParser.toModelFromParent( src ,target.unit );
+        unitParser.toStoreFromParent( src ,target.unit );
         
         return target;
     }
