@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import com.aladdindb.finder.DefaultFinder;
+import com.aladdindb.finder.OP;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.util.Var;
 
@@ -35,19 +36,34 @@ public abstract class DateFinder <
 	
 	@Override
 	public boolean provePattern( LocalDate value) {
+		
 		var rv = new Var<Boolean>(false);
+		
 		this.operator.get( operator -> {
 			this.pattern.get( patternStr -> {
-				var pattern = LocalDate.parse( patternStr, DateTimeFormatter.ISO_LOCAL_DATE );
-				rv.set( switch( operator.trim().toLowerCase() ) {
 				
-					case "=="	-> 	value.isEqual 	( pattern ); 
-					case "!="	-> !value.isEqual 	( pattern ); 
-					case ">"	-> 	value.isAfter 	( pattern );
-					case ">="	-> 	value.isAfter 	( pattern) || value.isEqual( pattern );
-					case "<"	-> 	value.isBefore	( pattern );
-					case "<="	-> 	value.isBefore 	( pattern) || value.isEqual( pattern );
+				var date = LocalDate.parse( patternStr, DateTimeFormatter.ISO_LOCAL_DATE );
+				
+				rv.set(	switch( OP.valueOf ( operator ) ) {
+					//--------------------------------
+					case EQUAL 						-> value.isEqual 	( date );
 					
+					case GREATER 					-> value.isAfter 	( date );
+					case GREATER_OR_EQUAL 			-> value.isAfter 	( date) || value.isEqual( date );
+					
+					case LESS 						-> value.isBefore	( date );
+					case LESS_OR_EQUAL 				-> value.isBefore 	( date) || value.isEqual( date );
+					//--------------------------------
+					//				not
+					//--------------------------------
+					case NOT_EQUAL 					-> !value.isEqual 	( date );
+					
+					case NOT_GREATER 				-> !value.isAfter 	( date );
+					case NOT_GREATER_OR_EQUAL 		-> !(value.isAfter 	( date) || value.isEqual( date ));
+					
+					case NOT_LESS 					-> !value.isBefore	( date );
+					case NOT_LESS_OR_EQUAL 			-> !(value.isBefore ( date) || value.isEqual( date ));
+					//--------------------------------
 					default -> false;
 				});
 			});

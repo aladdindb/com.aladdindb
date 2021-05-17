@@ -1,6 +1,6 @@
 package com.aladdindb.sorter;
 
-import com.aladdindb.finder.Type;
+import com.aladdindb.Type;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
 

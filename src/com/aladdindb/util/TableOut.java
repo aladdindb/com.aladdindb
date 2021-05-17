@@ -48,6 +48,16 @@ public class TableOut {
 		System.out.printf( sb.toString(), this.labels 	);
 	}
 
+	public void printData( Var<?>... vars ) {
+		var data = new Object[ vars.length ];
+		
+		for( int i = 0; i < vars.length; i++ ) {
+			data[i] = vars[i].get();
+		}
+		
+		this.printData( data );
+	}
+	
 	public void printData( Object...data) {
 		var sb = new StringBuilder();
 		sb.append( "%"+(columns[0].size-1)+"s.|");
@@ -86,7 +96,7 @@ public class TableOut {
 	    return String.format("%-" + width  + "s", String.format("%" + (s.length() + (width - s.length()) / 2) + "s", s));
 	}
 	
-	public static Column column( String label, int size ) {
+	public static Column newColumn( String label, int size ) {
 		return new Column(size, label);
 	}
 	

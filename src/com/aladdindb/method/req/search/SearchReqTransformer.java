@@ -1,8 +1,8 @@
 package com.aladdindb.method.req.search;
 
+import com.aladdindb.Type;
 import com.aladdindb.finder.Finder;
 import com.aladdindb.finder.FinderSupport;
-import com.aladdindb.finder.Type;
 import com.aladdindb.method.Method;
 import com.aladdindb.method.req.ReqTransformer;
 import com.aladdindb.sorter.Sorter;

@@ -18,7 +18,7 @@ public class LogicalOrOperations < UDM extends DataModel< UDM > >
     //						Class-Attributes 
     //****************************************************************
 
-	private final  FinderSupport < UDM > finderSupplier;
+	private final  FinderSupport < UDM > finderSupport;
 	
 	
 	public final List < Finder< UDM, ? extends DataModel< ? > > >  finderList = new ArrayList<>();
@@ -28,8 +28,8 @@ public class LogicalOrOperations < UDM extends DataModel< UDM > >
     //						Constructor 
     //****************************************************************
 	
-	public LogicalOrOperations( FinderSupport< UDM > finderSupplier ) {
-		this.finderSupplier = finderSupplier;
+	public LogicalOrOperations( FinderSupport< UDM > finderSupport ) {
+		this.finderSupport = finderSupport;
 	}
 
 	
@@ -45,14 +45,14 @@ public class LogicalOrOperations < UDM extends DataModel< UDM > >
     //				Filter Implements ( prove ) 
     //****************************************************************
 	
-	public boolean prove( Unit<UDM> model ) {
+	public boolean prove( Unit<UDM> unit ) {
 		boolean rv = false;
 		
-		var array = this.finderList.toArray( new Finder[ this.finderList.size() ] );
+		var finders = this.finderList.toArray( new Finder[ this.finderList.size() ] );
 		
 		int i = 0; do {
-			rv = array[i++].prove( model );
-		} while( i < array.length && !rv );
+			rv = finders[i++].prove( unit );
+		} while( i < finders.length && !rv );
 		
 		return rv;
 	}
@@ -73,7 +73,7 @@ public class LogicalOrOperations < UDM extends DataModel< UDM > >
 	
 	@Override
 	public Transformer< LogicalOrOperations < UDM > > newTransformer() {
-		return new LogicalOrOperationsTransformer< UDM >( this.finderSupplier ); 
+		return new LogicalOrOperationsTransformer< UDM >( this.finderSupport ); 
 	}
 	
 	

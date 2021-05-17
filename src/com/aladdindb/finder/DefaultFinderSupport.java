@@ -1,5 +1,6 @@
 package com.aladdindb.finder;
 
+import com.aladdindb.Type;
 import com.aladdindb.finder.logical.LogicalAndOperationsTransformer;
 import com.aladdindb.finder.logical.LogicalOrOperationsTransformer;
 import com.aladdindb.structure.DataModel;

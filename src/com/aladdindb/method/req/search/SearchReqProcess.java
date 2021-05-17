@@ -23,14 +23,14 @@ public class SearchReqProcess <
     //						Constructors
     //****************************************************************
 
-	public SearchReqProcess( int blockSize, FINDER_MODEL filter, SORTER_MODEL sorter,  MagicLamp < UDM > unitsChanel ) {
+	public SearchReqProcess( int blockSize, FINDER_MODEL finder, SORTER_MODEL sorter,  MagicLamp < UDM > magicLamp ) {
 		
-		this.magicLamp.set ( unitsChanel);
+		this.magicLamp.set ( magicLamp);
 
-		var req = new SearchReq < UDM, FINDER_MODEL, SORTER_MODEL >( unitsChanel.unitGroupID, blockSize, filter, sorter );
+		var req = new SearchReq < UDM, FINDER_MODEL, SORTER_MODEL >( magicLamp.unitGroupID, blockSize, finder, sorter );
 		
 		this.req				.set ( req );
-		this.reqTransformer		.set ( new SearchReqTransformer	< UDM, FINDER_MODEL, SORTER_MODEL >( unitsChanel.finderSupport, unitsChanel.sorterSupport ) ); 
+		this.reqTransformer		.set ( new SearchReqTransformer	< UDM, FINDER_MODEL, SORTER_MODEL >( magicLamp.finderSupport, magicLamp.sorterSupport ) ); 
 		this.respTransformer	.set ( new BlockNaviRespTransformer() );
 	}
 

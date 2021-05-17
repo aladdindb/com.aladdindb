@@ -1,14 +1,12 @@
-package com.aladdindb.finder;
+package com.aladdindb;
 
 public enum Type {
 
-	LOGICAL_AND (":logical:and"),
-	LOGICAL_OR	(":logical:or"),
-	LOGICAL_NOT	(":logical:not"),
+	LOGICAL_AND (":list:logical:and"),
+	LOGICAL_OR	(":list:logical:or"),
+	LOGICAL_NOT	(":list:logical:not"),
 	
-	LIST		(":list"),
-	
-	IS			("");
+	LIST		(":list");
 
 	
 	private final String tagName;

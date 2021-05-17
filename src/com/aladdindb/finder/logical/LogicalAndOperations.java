@@ -17,7 +17,7 @@ public class LogicalAndOperations < UDM extends DataModel< UDM > > implements Fi
     //****************************************************************
 
 	
-	private final  FinderSupport < UDM > finderSupplier;
+	private final  FinderSupport < UDM > finderSupport;
 	
 	
 	public final List < Finder< UDM, ? extends DataModel< ? > > >  finderList = new ArrayList<>();
@@ -27,8 +27,8 @@ public class LogicalAndOperations < UDM extends DataModel< UDM > > implements Fi
     //						Constructor 
     //****************************************************************
 	
-	public LogicalAndOperations( FinderSupport< UDM > finderSupplier ) {
-		this.finderSupplier = finderSupplier;
+	public LogicalAndOperations( FinderSupport< UDM > finderSupport ) {
+		this.finderSupport = finderSupport;
 	}
 
 	public void addFinder( Finder < UDM,  ? extends DataModel< ? > >... finders ) {
@@ -44,13 +44,14 @@ public class LogicalAndOperations < UDM extends DataModel< UDM > > implements Fi
     //****************************************************************
 	
 	@Override
-	public boolean prove( Unit<UDM> model ) {
+	public boolean prove( Unit<UDM> unit ) {
 		boolean rv = true;
-		var array = this.finderList.toArray( new Finder[ this.finderList.size() ] );
+		
+		var finders = this.finderList.toArray( new Finder[ this.finderList.size() ] );
 		
 		int i = 0; do {
-			rv = array[i++].prove( model ); 
-		} while( i < array.length && rv );
+			rv = finders[i++].prove( unit ); 
+		} while( i < finders.length && rv );
 		
 		return rv;
 	}
@@ -71,7 +72,7 @@ public class LogicalAndOperations < UDM extends DataModel< UDM > > implements Fi
 	
 	@Override
 	public Transformer< LogicalAndOperations < UDM > > newTransformer() {
-		return new LogicalAndOperationsTransformer< UDM >( this.finderSupplier ); 
+		return new LogicalAndOperationsTransformer< UDM >( this.finderSupport ); 
 	}
 	
 }

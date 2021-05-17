@@ -1,7 +1,7 @@
 package com.aladdindb.finder.logical;
 
+import com.aladdindb.Type;
 import com.aladdindb.finder.Finder;
-import com.aladdindb.finder.Type;
 import com.aladdindb.finder.FinderSupport;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
@@ -11,18 +11,18 @@ import com.aladdindb.structure.sn.SnPoint;
 public class LogicalOrOperationsTransformer < UDM extends DataModel< UDM > > extends Transformer< LogicalOrOperations < UDM > > {
 
 	
-	private final  FinderSupport < UDM > factory; 
+	private final  FinderSupport < UDM > finderSupport; 
 	
 	
     //****************************************************************
     //						Constructor 
     //****************************************************************
 	
-	public LogicalOrOperationsTransformer( FinderSupport < UDM > factory ) { 
+	public LogicalOrOperationsTransformer( FinderSupport < UDM > finderSupport ) { 
 		
 		super( Type.LOGICAL_OR.finder() );
 		
-		this.factory = factory;
+		this.finderSupport = finderSupport;
 	}
 	
     //****************************************************************
@@ -31,14 +31,14 @@ public class LogicalOrOperationsTransformer < UDM extends DataModel< UDM > > ext
 
 	@Override
 	public LogicalOrOperations < UDM > newModel() {
-		return new LogicalOrOperations< UDM >( this.factory );
+		return new LogicalOrOperations< UDM >( this.finderSupport );
 	}
 
 	@Override
 	public LogicalOrOperations < UDM > toModel( SnPoint src, LogicalOrOperations < UDM > target ) {
 		
 		src.children.forEach( node -> {
-			this.factory.newFinder( node, target.finderList :: add );
+			this.finderSupport.newFinder( node, target.finderList :: add );
 		});
 		
 		return target;
@@ -49,8 +49,8 @@ public class LogicalOrOperationsTransformer < UDM extends DataModel< UDM > > ext
 
 		var array = src.finderList.toArray( new Finder[ src.finderList.size() ] );
 //		 
-		for( var filter : array ) {
-			var node = filter.newTransformer().toNode( filter );
+		for( var finder : array ) {
+			var node = finder.newTransformer().toNode( finder );
 			target.children.add( node );  
 		}
 //		

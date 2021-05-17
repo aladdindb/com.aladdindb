@@ -29,13 +29,13 @@ public class UnitsIdBlockNavi implements LineNavigator< String >  {
 	@Override
 	public String right() {
 		var node = navi.right();
-		return node.value.get();
+		return node != null ? node.value.get() : null;
 	}
 
 	@Override
 	public String left() {
 		var node = navi.left();
-		return node.value.get();
+		return node != null ? node.value.get() : null;
 	}
     
 }

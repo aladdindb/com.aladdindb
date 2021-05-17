@@ -13,7 +13,7 @@ public class SnLineNavi implements LineNavigator < SnPoint >  {
     private SnPoint left 	= null;
     
     public SnLineNavi( SnPoint snPoint ) {
-    	this.right = snPoint.start.get();
+    	this.right = snPoint != null ? snPoint.start.get() : null;
     }
     
 	@Override
