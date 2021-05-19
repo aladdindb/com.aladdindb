@@ -150,8 +150,8 @@ public class GenieInvoker {
     	if( server != null ) genieConsumer.accept( server );  
     }
     
-    public void putGenie( String unitGroupID, Genie< ? extends DataModel< ? > > genie ) {
-    	this.otherSide.put( unitGroupID, genie );
+    public void putGenie( Genie< ? extends DataModel< ? > > genie ) {
+    	this.otherSide.put( genie.support.getStoreId(), genie );
     }
     
     

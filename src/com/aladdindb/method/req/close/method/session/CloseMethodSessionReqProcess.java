@@ -18,7 +18,7 @@ public class CloseMethodSessionReqProcess < UDM extends DataModel< UDM > > exten
 		
 		this.magicLamp.set ( magicLamp);
 
-		var req = new CloseMethodSessionReq( magicLamp.unitGroupID, methodSessionID ); 
+		var req = new CloseMethodSessionReq( magicLamp.support.getStoreId(), methodSessionID ); 
 		
 		this.req				.set ( req );
 		this.reqTransformer		.set ( new CloseMethodSessionReqTransformer	() );

@@ -14,16 +14,16 @@ import com.aladdindb.structure.sn.SnPoint;
 public final class AddReqTransformer < UDM extends DataModel< UDM > > extends ReqTransformer< AddReq< UDM > >  {
 	
 
-	public final Transformer< UDM > unitDataParser;
+	public final Transformer< UDM > dataTransformer;
     
     
     //****************************************************************
     //
     //****************************************************************
 
-    public AddReqTransformer( Transformer< UDM > unitDataParser ) {
+    public AddReqTransformer( Transformer< UDM > dataTransformer ) {
 		super( Method.ADD.reqTagName() );
-		this.unitDataParser = unitDataParser;
+		this.dataTransformer = dataTransformer;
 	}
     
     //****************************************************************
@@ -43,7 +43,7 @@ public final class AddReqTransformer < UDM extends DataModel< UDM > > extends Re
     public AddReq< UDM >  toModel( SnPoint src, AddReq< UDM > target ) {
     	super.toModel( src, target );
         
-        unitDataParser.toModelFromParent( src ,target.unitData );
+        dataTransformer.toModelFromParent( src ,target.unitData );
         
         return target;
     }
@@ -52,7 +52,7 @@ public final class AddReqTransformer < UDM extends DataModel< UDM > > extends Re
     public SnPoint toNode( AddReq< UDM > src, SnPoint target ) {
     	super.toNode( src, target );
         
-        unitDataParser.toParentNode( src.unitData ,target );
+        dataTransformer.toParentNode( src.unitData ,target );
 
         return target;
     }

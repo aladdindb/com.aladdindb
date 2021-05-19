@@ -20,7 +20,7 @@ public class AddRespProcess < UDM extends DataModel < UDM > > extends RespProces
 	@Override
 	public void run() {
 		genie.reqNode.get( reqNode -> {
-			new AddReqTransformer < UDM > ( genie.dataTransformer ).toModel( reqNode, req -> {
+			new AddReqTransformer < UDM > ( genie.support.newTransformer() ).toModel( reqNode, req -> {
 				req.unitData.get( unitData -> { 
 					String unitID = genie.units.add( unitData );
 					resp( unitID );

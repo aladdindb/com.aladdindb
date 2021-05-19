@@ -3,7 +3,6 @@ package com.aladdindb;
 import java.util.function.Consumer;
 
 import com.aladdindb.finder.Finder;
-import com.aladdindb.finder.FinderSupport;
 import com.aladdindb.method.req.add.AddReqProcess;
 import com.aladdindb.method.req.close.method.session.CloseMethodSessionReqProcess;
 import com.aladdindb.method.req.get.all.GetAllReqProcess;
@@ -18,11 +17,8 @@ import com.aladdindb.method.resp.get.by.id.GetByIdResp;
 import com.aladdindb.method.resp.remove.RemoveResp;
 import com.aladdindb.method.resp.update.UpdateResp;
 import com.aladdindb.sorter.Sorter;
-import com.aladdindb.sorter.SorterSupport;
 import com.aladdindb.structure.DataModel;
-import com.aladdindb.structure.Transformer;
 import com.aladdindb.units.models.Unit;
-import com.aladdindb.units.models.UnitTransformer;
 
 
 public class MagicLamp < UDM extends DataModel < UDM > > {
@@ -31,34 +27,32 @@ public class MagicLamp < UDM extends DataModel < UDM > > {
     public final  GenieConnection genieConnection;
 
     
-    public final String 					unitGroupID;
-    public final Transformer		< UDM >	unitDataTransformer;
+//    public final String 					unitGroupID;
+//    public final Transformer		< UDM >	unitDataTransformer;
     
-    public final FinderSupport		< UDM > finderSupport;
-    public final SorterSupport		< UDM > sorterSupport;
+//    public final FinderSupport		< UDM > finderSupport;
+//    public final SorterSupport		< UDM > sorterSupport;
     
+    public final Support			< UDM > support;
     //************************************************************
     //					
     //************************************************************
 
-    public MagicLamp( 	String unitGroupID, 
-    					Transformer		< UDM > unitDataTransformer, 
-    					FinderSupport	< UDM > finderSupport, 
-    					SorterSupport	< UDM > sorterSupport, 
-    					GenieConnection genieConnection ) {
+    public MagicLamp( Support< UDM > support, GenieConnection genieConnection ) {
     	
-		this.unitGroupID 			= unitGroupID;
-		this.unitDataTransformer 	= unitDataTransformer;
-		this.finderSupport 			= finderSupport;
-		this.sorterSupport 			= sorterSupport;
-		
+//		this.unitGroupID 			= unitGroupID;
+//		this.unitDataTransformer 	= unitDataTransformer;
+//		this.finderSupport 			= finderSupport;
+//		this.sorterSupport 			= sorterSupport;
+
+    	this.support 				= support;
 		this.genieConnection 		= genieConnection;
 		
     }
     
-    public UnitTransformer< UDM > createUnitParser() {
-    	return new UnitTransformer < UDM >( this.unitDataTransformer );
-    }
+//    public UnitTransformer< UDM > createUnitParser() {
+//    	return new UnitTransformer < UDM >( this.unitDataTransformer );
+//    }
     
     //************************************************************
     //					

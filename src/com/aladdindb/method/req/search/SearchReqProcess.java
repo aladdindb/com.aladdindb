@@ -27,10 +27,10 @@ public class SearchReqProcess <
 		
 		this.magicLamp.set ( magicLamp);
 
-		var req = new SearchReq < UDM, FINDER_MODEL, SORTER_MODEL >( magicLamp.unitGroupID, blockSize, finder, sorter );
+		var req = new SearchReq < UDM, FINDER_MODEL, SORTER_MODEL >( magicLamp.support.getStoreId(), blockSize, finder, sorter );
 		
 		this.req				.set ( req );
-		this.reqTransformer		.set ( new SearchReqTransformer	< UDM, FINDER_MODEL, SORTER_MODEL >( magicLamp.finderSupport, magicLamp.sorterSupport ) ); 
+		this.reqTransformer		.set ( new SearchReqTransformer	< UDM, FINDER_MODEL, SORTER_MODEL >( magicLamp.support ) ); 
 		this.respTransformer	.set ( new BlockNaviRespTransformer() );
 	}
 

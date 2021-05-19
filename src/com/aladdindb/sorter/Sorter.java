@@ -8,17 +8,17 @@ import com.aladdindb.units.Units;
 
 public interface Sorter <
 
-	UDM 	extends DataModel 	< UDM >, 
-	MODEL 	extends Sorter		< UDM, MODEL	>
+	UDM 			extends DataModel 	< UDM >, 
+	SORTER_MODEL 	extends Sorter		< UDM, SORTER_MODEL	>
 
-> extends DataModel < MODEL > {
+> extends DataModel < SORTER_MODEL > {
 	
 	public List	< String > 				sort				( List<String> unitIdList );
 	public List	< List < String > > 	sortBlockWise		( List<String> unitIdList );
 	
 	public void 						setUnits			( Units< UDM > units );
 	
-	public Transformer < MODEL > 		newTransformer		(); 
+	public Transformer < SORTER_MODEL > newTransformer		(); 
 	
 	
 }

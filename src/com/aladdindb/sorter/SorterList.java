@@ -3,6 +3,7 @@ package com.aladdindb.sorter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.aladdindb.Support;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
 import com.aladdindb.units.Units;
@@ -21,7 +22,7 @@ public  class SorterList < UDM extends DataModel < UDM > > implements Sorter< UD
     //						Class-Attributes 
     //****************************************************************
 	
-	private final  SorterSupport < UDM > support;
+	private final  Support< UDM > support;
 	
 	
 	public final List< Sorter < UDM, ? extends DataModel< ? > > > sorters = new ArrayList<>();
@@ -33,7 +34,7 @@ public  class SorterList < UDM extends DataModel < UDM > > implements Sorter< UD
     //						Constructor 
     //****************************************************************
 	
-	public SorterList( SorterSupport< UDM > support ) {
+	public SorterList( Support< UDM > support ) {
 		this.support = support;
 	}
 	

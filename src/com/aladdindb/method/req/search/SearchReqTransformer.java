@@ -1,12 +1,10 @@
 package com.aladdindb.method.req.search;
 
-import com.aladdindb.Type;
+import com.aladdindb.Support;
 import com.aladdindb.finder.Finder;
-import com.aladdindb.finder.FinderSupport;
 import com.aladdindb.method.Method;
 import com.aladdindb.method.req.ReqTransformer;
 import com.aladdindb.sorter.Sorter;
-import com.aladdindb.sorter.SorterSupport;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.structure.types.SnAttributeAccess;
@@ -27,14 +25,12 @@ public final class SearchReqTransformer <
 
     private enum ATR { blockSize };
     
-    private final FinderSupport< UDM > finderSupport; 
-    private final SorterSupport< UDM > sorterSupport; 
+    private final Support< UDM > support;
     
-	public SearchReqTransformer( FinderSupport< UDM > finderSupport, SorterSupport< UDM > sorterSupport ) {
+	public SearchReqTransformer( Support< UDM > support ) {
 		super( Method.SEARCH.reqTagName() );
 		
-		this.finderSupport = finderSupport; 
-		this.sorterSupport = sorterSupport;
+		this.support = support;
 	}
     
     //****************************************************************
@@ -58,11 +54,11 @@ public final class SearchReqTransformer <
     			var type = key.split(":");
     			switch( type[0] ) {
     				case "finder": 
-    		    		this.finderSupport.newFinder( node, finderModel -> {
+    		    		this.support.newFinder( node, finderModel -> {
     		    			target.finder.set( (FINDER_MODEL) finderModel );
     		    		});break;
     				case "sorter": 
-    		    		this.sorterSupport.newSorter( node, sorterModel -> {
+    		    		this.support.newSorter( node, sorterModel -> {
     		    			target.sorter.set( (SORTER_MODEL) sorterModel );
     		    		});break;
     			}

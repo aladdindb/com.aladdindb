@@ -18,10 +18,10 @@ public class AddReqProcess < UDM extends DataModel< UDM > > extends ReqProcess <
 		
 		this.magicLamp.set ( unitsChanel);
 
-		var req = new AddReq < UDM > ( unitsChanel.unitGroupID, unitData );
+		var req = new AddReq < UDM > ( unitsChanel.support.getStoreId(), unitData );
 		
-		this.req		.set ( req );
-		this.reqTransformer	.set ( new AddReqTransformer	< UDM > ( unitsChanel.unitDataTransformer ) );
+		this.req				.set ( req );
+		this.reqTransformer		.set ( new AddReqTransformer	< UDM > ( unitsChanel.support.newTransformer() ) );
 		this.respTransformer	.set ( new AddRespTransformer() );
 	}
 

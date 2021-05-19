@@ -4,7 +4,6 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.function.Consumer;
 
-import com.aladdindb.finder.FinderSupport;
 import com.aladdindb.method.Method;
 import com.aladdindb.method.resp.RespProcess;
 import com.aladdindb.method.resp.add.AddRespProcess;
@@ -15,9 +14,7 @@ import com.aladdindb.method.resp.get.by.id.GetByIdRespProcess;
 import com.aladdindb.method.resp.remove.RemoveRespProcess;
 import com.aladdindb.method.resp.search.SearchRespProcess;
 import com.aladdindb.method.resp.update.UpdateRespProcess;
-import com.aladdindb.sorter.SorterSupport;
 import com.aladdindb.structure.DataModel;
-import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.units.Units;
 import com.aladdindb.units.UnitsIdBlockNavi;
@@ -29,25 +26,20 @@ public class Genie < UDM extends DataModel < UDM > > implements Runnable {
 
 	public final HashMap< String, UnitsIdBlockNavi > unitsIdBlockNaviMap = new HashMap<>();
 	
-	public final	Units			< UDM > units;
-	public final	Transformer 	< UDM > dataTransformer;
-
-	public final 	FinderSupport 	< UDM > finderSupport;
-	public final 	SorterSupport 	< UDM > sorterSupport;
+	public final Units	< UDM > 					units;
 	
-	public final Var < SnPoint > 				reqNode 		= new Var<>();
-	public final Var < Consumer < String > > 	respConsumer 	= new Var<>();
+	public final Var 	< SnPoint > 				reqNode 		= new Var<>();
+	public final Var 	< Consumer < String > > 	respConsumer 	= new Var<>();
+	
+	public final Support< UDM > support;
 	
 	
-	public Genie( Path dbPath, Transformer < UDM > dataTransformer, FinderSupport< UDM > finderSupport, SorterSupport< UDM > sorterSupport )  {
-		
-		this.dataTransformer	= dataTransformer;
-		this.finderSupport 		= finderSupport;
-		this.sorterSupport		= sorterSupport;
-		
-		this.units				= new Units	< UDM > ( dbPath, dataTransformer );
+	public Genie( Path dbPath, Support< UDM > support )  {
+		this.support 	= support;
+		this.units		= new Units	< UDM > ( dbPath, this.support.newTransformer() );
 	}
     
+	
 	@Override
 	public void run() {
 		this.reqNode.get( reqNode -> {
@@ -58,7 +50,7 @@ public class Genie < UDM extends DataModel < UDM > > implements Runnable {
 		});
 	}
 	
-	private RespProcess< UDM > createRespProcess( String reqCmd ) {  
+	private RespProcess< UDM > createRespProcess( String reqCmd ) {
 		
 		return 	  reqCmd.equals( Method.ADD				.reqTagName() ) ? new AddRespProcess 			< UDM > ( this )
 				: reqCmd.equals( Method.GET_BY_ID		.reqTagName() ) ? new GetByIdRespProcess 		< UDM > ( this )

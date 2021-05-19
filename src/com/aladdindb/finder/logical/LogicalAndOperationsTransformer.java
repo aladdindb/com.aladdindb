@@ -1,8 +1,8 @@
 package com.aladdindb.finder.logical;
 
+import com.aladdindb.Support;
 import com.aladdindb.Type;
 import com.aladdindb.finder.Finder;
-import com.aladdindb.finder.FinderSupport;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
@@ -11,18 +11,18 @@ import com.aladdindb.structure.sn.SnPoint;
 public class LogicalAndOperationsTransformer < UDM extends DataModel< UDM > > extends Transformer< LogicalAndOperations < UDM > > {
 
 	
-	private final  FinderSupport < UDM > finderSupport; 
+	private final  Support< UDM > support; 
 	
 	
     //****************************************************************
     //						Constructor 
     //****************************************************************
 	
-	public LogicalAndOperationsTransformer( FinderSupport < UDM > finderSupplier ) { 
+	public LogicalAndOperationsTransformer( Support< UDM > support ) { 
 		
 		super( Type.LOGICAL_AND.finder() );
 		
-		this.finderSupport = finderSupplier;
+		this.support = support;
 	}
 	
     //****************************************************************
@@ -31,14 +31,14 @@ public class LogicalAndOperationsTransformer < UDM extends DataModel< UDM > > ex
 
 	@Override
 	public LogicalAndOperations < UDM > newModel() {
-		return new LogicalAndOperations< UDM >( this.finderSupport );
+		return new LogicalAndOperations< UDM >( this.support );
 	}
 
 	@Override
 	public LogicalAndOperations < UDM > toModel( SnPoint src, LogicalAndOperations < UDM > target ) {
 		
 		src.children.forEach( node -> {
-			this.finderSupport.newFinder( node, target.finderList :: add );
+			this.support.newFinder( node, target.finderList :: add );
 		});
 		
 		return target;

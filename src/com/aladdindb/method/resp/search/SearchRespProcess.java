@@ -33,7 +33,7 @@ public class SearchRespProcess <
 	@Override
 	public void run() {
 		genie.reqNode.get( reqNode -> {
-			var transformer = new SearchReqTransformer< UDM, FINDER_MODEL, SORTER_MODEL >( genie.finderSupport,genie.sorterSupport );
+			var transformer = new SearchReqTransformer< UDM, FINDER_MODEL, SORTER_MODEL >( genie.support );
 			transformer.toModel( reqNode, req -> {
 				
 				var blockSize 	= req.blockSize	.get();

@@ -3,8 +3,8 @@ package com.aladdindb.finder.logical;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.aladdindb.Support;
 import com.aladdindb.finder.Finder;
-import com.aladdindb.finder.FinderSupport;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
 import com.aladdindb.units.models.Unit;
@@ -18,7 +18,7 @@ public class LogicalOrOperations < UDM extends DataModel< UDM > >
     //						Class-Attributes 
     //****************************************************************
 
-	private final  FinderSupport < UDM > finderSupport;
+	private final  Support< UDM > support;
 	
 	
 	public final List < Finder< UDM, ? extends DataModel< ? > > >  finderList = new ArrayList<>();
@@ -28,11 +28,10 @@ public class LogicalOrOperations < UDM extends DataModel< UDM > >
     //						Constructor 
     //****************************************************************
 	
-	public LogicalOrOperations( FinderSupport< UDM > finderSupport ) {
-		this.finderSupport = finderSupport;
-	}
+	public LogicalOrOperations( Support< UDM > support ) {
+		this.support = support;
+	} 
 
-	
 	public void addFinder( Finder < UDM,  ? extends DataModel< ? > >... finders ) {
 		for( var finder : finders )  this.finderList.add( finder );
 	}
@@ -73,7 +72,7 @@ public class LogicalOrOperations < UDM extends DataModel< UDM > >
 	
 	@Override
 	public Transformer< LogicalOrOperations < UDM > > newTransformer() {
-		return new LogicalOrOperationsTransformer< UDM >( this.finderSupport ); 
+		return new LogicalOrOperationsTransformer< UDM >( this.support ); 
 	}
 	
 	

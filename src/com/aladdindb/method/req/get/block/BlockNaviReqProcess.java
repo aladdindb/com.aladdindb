@@ -15,14 +15,14 @@ public class BlockNaviReqProcess < UDM extends DataModel< UDM > > extends ReqPro
     //						Constructors
     //****************************************************************
 
-	public BlockNaviReqProcess( String cmdSessionID, LineNavigator.DIRECTION direction, MagicLamp< UDM > unitsChanel ) {
+	public BlockNaviReqProcess( String cmdSessionID, LineNavigator.DIRECTION direction, MagicLamp< UDM > magicLamp ) {
 		
-		this.magicLamp.set ( unitsChanel);
+		this.magicLamp.set ( magicLamp);
 
-		var req = new BlockNaviReq( unitsChanel.unitGroupID, cmdSessionID, direction );
+		var req = new BlockNaviReq( magicLamp.support.getStoreId(), cmdSessionID, direction );
 		
-		this.req		.set ( req );
-		this.reqTransformer	.set ( new BlockNaviReqTransformer() );
+		this.req				.set ( req );
+		this.reqTransformer		.set ( new BlockNaviReqTransformer() );
 		this.respTransformer	.set ( new BlockNaviRespTransformer() );
 	}
 
