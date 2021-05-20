@@ -4,51 +4,169 @@ import java.nio.file.Path;
 import java.util.function.Consumer;
 
 import com.aladdindb.finder.Finder;
+import com.aladdindb.finder.logical.LogicalAndFinders;
+import com.aladdindb.finder.logical.LogicalOrFinders;
 import com.aladdindb.sorter.Sorter;
+import com.aladdindb.sorter.SorterList;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 
 public interface Support < UDM extends DataModel< UDM > > {
 	
-	public MagicLamp < UDM > 	newMagicLamp 	( GenieConnection genieConnection );
-	public Path 				getOrigin		( );
-	public String 				getStoreId		( );
-	public Transformer < UDM > 	newTransformer	( );
+    //****************************************************************
+    //						 StoreId 
+    //****************************************************************
+	
+	public String getStoreId();
 
+	default void getStoreId( Consumer < String > storeIdConsumer ) {
+		var rv = getStoreId();
+		if( rv != null )storeIdConsumer.accept( rv );
+	}
+
+	//****************************************************************
+    //						 Origin 
+    //****************************************************************
+	
+	public Path getStoreOrigin();
+
+	default void getStoreOrigin( Consumer< Path > originConsumer ) {
+		var rv = getStoreOrigin();
+		if( rv != null )originConsumer.accept( rv );
+	}
+
+	//****************************************************************
+    //						 Transformer 
+    //****************************************************************
+	
+	public Transformer < UDM > 	newTransformer( );
+	
+	default void newTransformer( Consumer< Transformer < UDM > > transformerConsumer ) {
+		var rv = newTransformer();
+		if( rv != null )transformerConsumer.accept( rv );
+	}
+
+	//****************************************************************
+    //						 MagicLamp 
+    //****************************************************************
+	
+	default void newMagicLamp( GenieConnection genieConnection, Consumer< MagicLamp < UDM > > magicLampConsumer ) {
+		var rv = newMagicLamp(genieConnection);
+		if( rv != null )magicLampConsumer.accept( rv );
+	}
+	
+	default MagicLamp<UDM> newMagicLamp( GenieConnection genieConnection ) {
+		return new MagicLamp <> ( this, genieConnection );
+	}
+	
+	//****************************************************************
+    //						 Genie 
+    //****************************************************************
+
+	default void newGenie( Consumer< Genie < UDM > > genieConsumer ) {
+		var rv = newGenie();
+		if( rv != null )genieConsumer.accept( rv );
+	}
+	
+	default Genie < UDM > newGenie() {
+		return new Genie <> ( this.getStoreOrigin().resolve( getStoreId() ), this );
+	}
 	
     //****************************************************************
     //						 Finder 
     //****************************************************************
 	
-	public Finder< UDM, ? > newFinder( String finderType );
+	default void newFinder( SnPoint finderNode, Consumer < Finder < UDM, ? extends DataModel<?> > > finderConsumer ) {
+		var rv = newFinder( finderNode );
+		if( rv != null ) finderConsumer.accept( rv );
+	}
 	
-
 	default Finder< UDM, ? extends DataModel < ? > > newFinder( SnPoint finderNode ) {
 		var finder = this.newFinder( finderNode.key.get() );
 		return finder != null ? ( Finder< UDM, ? extends DataModel < ? > >) finder.newTransformer().toModel( finderNode ) : null;
 	}
 	
-	default void newFinder( SnPoint node, Consumer < Finder < UDM, ? extends DataModel<?> > > finderConsumer ) {
-		var rv = newFinder( node );
-		if( rv != null ) finderConsumer.accept( rv );
+	default Finder< UDM, ? > newFinder( String finderType ) {
+		return 	finderType.equals( Type.LOGICAL_AND	.finder() ) ? new LogicalAndFinders	< UDM >( this ) : 
+				finderType.equals( Type.LOGICAL_OR	.finder() ) ? new LogicalOrFinders	< UDM >( this ) : null; 
+	}
+	
+    //****************************************************************
+    //						 Or Finders 
+    //****************************************************************
+	
+	default void newOrFinders( Consumer < LogicalOrFinders< UDM > > orFindersConsumer ) {
+		var rv = newOrFinders();
+		if( rv != null )orFindersConsumer.accept( rv );
+	}
+
+	default LogicalOrFinders < UDM > newOrFinders() {
+		return new LogicalOrFinders	< UDM >( this );
+	}
+
+	default LogicalOrFinders< UDM > newOrFinders( Finder... finders ) {
+		var rv = new LogicalOrFinders< UDM >( this );
+		rv.addFinder( finders );
+		return rv;
+	}
+	
+    //****************************************************************
+    //						 And Finders 
+    //****************************************************************
+
+	default void newAndFinders( Consumer < LogicalAndFinders< UDM > > andFindersConsumer ) {
+		var rv = newAndFinders();
+		if( rv != null )andFindersConsumer.accept( rv );
+	}
+
+	default LogicalAndFinders< UDM > newAndFinders() {
+		return new LogicalAndFinders < UDM >( this );
+	}
+
+	default LogicalAndFinders< UDM > newAndFinders( Finder... finders ) {
+		var rv = new LogicalAndFinders	< UDM >( this );
+		rv.addFinder( finders );
+		return rv;
 	}
 	
     //****************************************************************
     //						  Sorter
     //****************************************************************
 	
-	public Sorter< UDM, ? > newSorter( String sorterType );
+	default void newSorter( SnPoint sorterNode, Consumer < Sorter < UDM, ? extends DataModel<?> > > sorterConsumer ) {
+		var rv = newSorter( sorterNode );
+		if( rv != null ) sorterConsumer.accept( rv );
+	}
 	
-
 	default Sorter< UDM, ? extends DataModel < ? > > newSorter( SnPoint sorterNode ) {
 		var sorter = this.newSorter( sorterNode.key.get() );
 		return sorter != null ? ( Sorter< UDM, ? extends DataModel < ? > >) sorter.newTransformer().toModel( sorterNode ) : null;
 	}
 	
-	default void newSorter( SnPoint sorterNode, Consumer < Sorter < UDM, ? extends DataModel<?> > > sorterConsumer ) {
-		var rv = newSorter( sorterNode );
-		if( rv != null ) sorterConsumer.accept( rv );
+	default Sorter< UDM, ? > newSorter( String sorterType ) { 
+		return 	sorterType.equals( Type.LIST.sorter() ) ? new SorterList< UDM >( this ) : null; 
 	}
+	
+	//**********************************************************
+	//					Sorters
+	//**********************************************************
+	
+	default void newSorters( Consumer < SorterList< UDM > > sortersConsumer ) {
+		var rv = newSorters();
+		if( rv != null )sortersConsumer.accept( rv );
+	}
+
+	default SorterList< UDM > newSorters() {
+		return new SorterList	< UDM >( this );
+	}
+
+	default SorterList< UDM > newSorters( Sorter...sorters ) {
+		var rv = new SorterList	< UDM >( this );
+		rv.addSorter(sorters);
+		return rv;
+	}
+
+
 	
 }

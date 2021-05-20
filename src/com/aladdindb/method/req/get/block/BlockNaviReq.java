@@ -12,8 +12,8 @@ public class BlockNaviReq extends Req< BlockNaviReq > {
 	public final Var < LineNavigator.DIRECTION > 	direction 			= new Var<>();
 
 	
-	public BlockNaviReq( String unitGroupID, String methodSessionID, LineNavigator.DIRECTION direction ) {
-		super( unitGroupID );
+	public BlockNaviReq( String storeId, String methodSessionID, LineNavigator.DIRECTION direction ) {
+		super( storeId );
 		this.methodSessionID 	.set( methodSessionID	);
 		this.direction			.set( direction		);
 	}

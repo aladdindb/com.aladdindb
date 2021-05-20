@@ -7,7 +7,7 @@ import com.aladdindb.structure.types.SnAttributeAccess;
 public abstract class ReqTransformer < DATA_MODEL extends Req< DATA_MODEL> >  extends Transformer< DATA_MODEL > {  
  
 
-    private enum ATR { unitGroupID };
+    public enum ATR { storeId };
 	
     //****************************************************************
     //						Constructors
@@ -28,7 +28,7 @@ public abstract class ReqTransformer < DATA_MODEL extends Req< DATA_MODEL> >  ex
     
     	var srcAtr = new SnAttributeAccess( src );
 
-    	srcAtr.asStr.get( ATR.unitGroupID ,target.unitGroupID );
+    	srcAtr.asStr.get( ATR.storeId ,target.storeId );
         
         return target;
     }
@@ -38,7 +38,7 @@ public abstract class ReqTransformer < DATA_MODEL extends Req< DATA_MODEL> >  ex
         
     	var targetAtr = new SnAttributeAccess( target );
 
-    	targetAtr.asStr.set( ATR.unitGroupID ,src.unitGroupID );
+    	targetAtr.asStr.set( ATR.storeId ,src.storeId );
 
         return target;
     }

@@ -14,16 +14,16 @@ import com.aladdindb.units.models.UnitTransformer;
 public final class GetByIdRespTransformer < UDM extends DataModel< UDM > > extends Transformer < GetByIdResp< UDM > > {
 	
 
-    public final UnitTransformer< UDM > unitParser;
+    public final UnitTransformer< UDM > unitTransformer;
     
     
     //****************************************************************
     //
     //****************************************************************
 
-    public GetByIdRespTransformer( Transformer< UDM > unitDataParser ) {
+    public GetByIdRespTransformer( Transformer< UDM > unitDataTransformer ) {
 		super( Method.GET_BY_ID.respTagName() );
-		this.unitParser = new UnitTransformer< UDM >(unitDataParser);
+		this.unitTransformer = new UnitTransformer< UDM >(unitDataTransformer);
 	}
     
     //****************************************************************
@@ -40,7 +40,7 @@ public final class GetByIdRespTransformer < UDM extends DataModel< UDM > > exten
     @Override
     public GetByIdResp< UDM >  toModel( SnPoint src, GetByIdResp< UDM > target ) {
     
-        unitParser.toModelFromParent( src ,target.unit );
+        unitTransformer.toModelFromParent( src ,target.unit );
         
         return target;
     }
@@ -48,7 +48,7 @@ public final class GetByIdRespTransformer < UDM extends DataModel< UDM > > exten
     @Override
     public SnPoint toNode( GetByIdResp< UDM > src, SnPoint target ) {
         
-        unitParser.toParentNode( src.unit ,target );
+        unitTransformer.toParentNode( src.unit ,target );
 
         return target;
     }

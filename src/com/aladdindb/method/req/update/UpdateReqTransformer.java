@@ -15,16 +15,16 @@ import com.aladdindb.units.models.UnitTransformer;
 public final class UpdateReqTransformer < UDM extends DataModel< UDM > > extends ReqTransformer< UpdateReq< UDM > >  {
 	
 
-	public final UnitTransformer< UDM > unitParser;
+	public final UnitTransformer< UDM > unitTransformer;
     
     
     //****************************************************************
     //
     //****************************************************************
 
-    public UpdateReqTransformer( Transformer< UDM > unitDataParser ) {
+    public UpdateReqTransformer( Transformer< UDM > unitTransformer ) {
 		super( Method.UPDATE.reqTagName() );
-		this.unitParser = new UnitTransformer<UDM>(unitDataParser);
+		this.unitTransformer = new UnitTransformer<UDM>(unitTransformer);
 	}
     
     //****************************************************************
@@ -44,7 +44,7 @@ public final class UpdateReqTransformer < UDM extends DataModel< UDM > > extends
     public UpdateReq< UDM >  toModel( SnPoint src, UpdateReq< UDM > target ) {
     	super.toModel( src, target );
         
-        unitParser.toModelFromParent( src ,target.unitData );
+        unitTransformer.toModelFromParent( src ,target.unitData );
         
         return target;
     }
@@ -53,7 +53,7 @@ public final class UpdateReqTransformer < UDM extends DataModel< UDM > > extends
     public SnPoint toNode( UpdateReq< UDM > src, SnPoint target ) {
     	super.toNode( src, target );
         
-        unitParser.toParentNode( src.unitData ,target );
+        unitTransformer.toParentNode( src.unitData ,target );
 
         return target;
     }

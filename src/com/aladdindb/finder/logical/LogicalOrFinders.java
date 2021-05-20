@@ -9,14 +9,15 @@ import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
 import com.aladdindb.units.models.Unit;
 
-public class LogicalAndOperations < UDM extends DataModel< UDM > > implements Finder < UDM, LogicalAndOperations < UDM > > {  
+public class LogicalOrFinders < UDM extends DataModel< UDM > > 
+
+		implements Finder < UDM, LogicalOrFinders < UDM > > {  
 	
 	
     //****************************************************************
     //						Class-Attributes 
     //****************************************************************
 
-	
 	private final  Support< UDM > support;
 	
 	
@@ -27,9 +28,9 @@ public class LogicalAndOperations < UDM extends DataModel< UDM > > implements Fi
     //						Constructor 
     //****************************************************************
 	
-	public LogicalAndOperations( Support< UDM > finderSupport ) {
-		this.support = finderSupport;
-	}
+	public LogicalOrFinders( Support< UDM > support ) {
+		this.support = support;
+	} 
 
 	public void addFinder( Finder < UDM,  ? extends DataModel< ? > >... finders ) {
 		for( var finder : finders )  this.finderList.add( finder );
@@ -43,15 +44,14 @@ public class LogicalAndOperations < UDM extends DataModel< UDM > > implements Fi
     //				Filter Implements ( prove ) 
     //****************************************************************
 	
-	@Override
 	public boolean prove( Unit<UDM> unit ) {
-		boolean rv = true;
+		boolean rv = false;
 		
 		var finders = this.finderList.toArray( new Finder[ this.finderList.size() ] );
 		
 		int i = 0; do {
-			rv = finders[i++].prove( unit ); 
-		} while( i < finders.length && rv );
+			rv = finders[i++].prove( unit );
+		} while( i < finders.length && !rv );
 		
 		return rv;
 	}
@@ -61,7 +61,7 @@ public class LogicalAndOperations < UDM extends DataModel< UDM > > implements Fi
     //****************************************************************
 
 	@Override
-	public void fill( LogicalAndOperations < UDM > model) {
+	public void fill( LogicalOrFinders < UDM > model) {
 		this.finderList.clear();
 		model.finderList.forEach( this.finderList :: add );
 	}
@@ -71,8 +71,9 @@ public class LogicalAndOperations < UDM extends DataModel< UDM > > implements Fi
     //****************************************************************
 	
 	@Override
-	public Transformer< LogicalAndOperations < UDM > > newTransformer() {
-		return new LogicalAndOperationsTransformer< UDM >( this.support ); 
+	public Transformer< LogicalOrFinders < UDM > > newTransformer() {
+		return new LogicalOrFindersTransformer< UDM >( this.support ); 
 	}
+	
 	
 }

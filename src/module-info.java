@@ -1,7 +1,7 @@
 module com.aladdindb {
 	
 	exports com.aladdindb;
-	
+	exports com.aladdindb.method.req;
     exports com.aladdindb.method.req.add;
     exports com.aladdindb.method.req.get.by.id;
     exports com.aladdindb.method.req.get.all;

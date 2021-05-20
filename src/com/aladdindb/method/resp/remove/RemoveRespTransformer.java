@@ -14,17 +14,17 @@ import com.aladdindb.units.models.UnitTransformer;
 public final class RemoveRespTransformer < UDM extends DataModel < UDM > > extends Transformer < RemoveResp < UDM > > {
 	
 
-    public final UnitTransformer < UDM > unitParser;
+    public final UnitTransformer < UDM > unitTransformer;
     
     
     //****************************************************************
     //
     //****************************************************************
 
-    public RemoveRespTransformer( Transformer < UDM > unitDataParser ) {
+    public RemoveRespTransformer( Transformer < UDM > unitDataTransformer ) {
 		super( Method.REMOVE.respTagName() );
 		
-		this.unitParser = new UnitTransformer < UDM > (unitDataParser );
+		this.unitTransformer = new UnitTransformer < UDM > (unitDataTransformer );
 	}
     
     //****************************************************************
@@ -41,7 +41,7 @@ public final class RemoveRespTransformer < UDM extends DataModel < UDM > > exten
     @Override
     public RemoveResp< UDM >  toModel( SnPoint src, RemoveResp< UDM > target ) {
     
-        unitParser.toModelFromParent( src ,target.unit );
+        unitTransformer.toModelFromParent( src ,target.unit );
         
         return target;
     }
@@ -49,7 +49,7 @@ public final class RemoveRespTransformer < UDM extends DataModel < UDM > > exten
     @Override
     public SnPoint toNode( RemoveResp< UDM > src, SnPoint target ) {
         
-        unitParser.toParentNode( src.unit ,target );
+        unitTransformer.toParentNode( src.unit ,target );
 
         return target;
     }

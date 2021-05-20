@@ -8,7 +8,7 @@ import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 
 
-public class LogicalOrOperationsTransformer < UDM extends DataModel< UDM > > extends Transformer< LogicalOrOperations < UDM > > {
+public class LogicalOrFindersTransformer < UDM extends DataModel< UDM > > extends Transformer< LogicalOrFinders < UDM > > {
 
 	
 	private final  Support< UDM > support; 
@@ -18,7 +18,7 @@ public class LogicalOrOperationsTransformer < UDM extends DataModel< UDM > > ext
     //						Constructor 
     //****************************************************************
 	
-	public LogicalOrOperationsTransformer( Support< UDM > support ) { 
+	public LogicalOrFindersTransformer( Support< UDM > support ) { 
 		
 		super( Type.LOGICAL_OR.finder() );
 		
@@ -30,12 +30,12 @@ public class LogicalOrOperationsTransformer < UDM extends DataModel< UDM > > ext
     //****************************************************************
 
 	@Override
-	public LogicalOrOperations < UDM > newModel() {
-		return new LogicalOrOperations< UDM >( this.support );
+	public LogicalOrFinders < UDM > newModel() {
+		return new LogicalOrFinders< UDM >( this.support );
 	}
 
 	@Override
-	public LogicalOrOperations < UDM > toModel( SnPoint src, LogicalOrOperations < UDM > target ) {
+	public LogicalOrFinders < UDM > toModel( SnPoint src, LogicalOrFinders < UDM > target ) {
 		
 		src.children.forEach( node -> {
 			this.support.newFinder( node, target.finderList :: add );
@@ -45,7 +45,7 @@ public class LogicalOrOperationsTransformer < UDM extends DataModel< UDM > > ext
 	}
 
 	@Override
-	public SnPoint toNode( LogicalOrOperations < UDM > src, SnPoint target ) {
+	public SnPoint toNode( LogicalOrFinders < UDM > src, SnPoint target ) {
 
 		var array = src.finderList.toArray( new Finder[ src.finderList.size() ] );
 //		 

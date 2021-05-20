@@ -23,8 +23,8 @@ public class SearchReq <
 		super( null );
 	}
 	
-	public SearchReq( String unitGroupID, int blockSize,  FINDER_MODEL finder, SORTER_MODEL sorter ) {
-		super( unitGroupID );
+	public SearchReq( String storeId, int blockSize,  FINDER_MODEL finder, SORTER_MODEL sorter ) {
+		super( storeId );
 		
 		this.blockSize	.set( blockSize );
 		this.finder		.set( finder	);

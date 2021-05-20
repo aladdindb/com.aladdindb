@@ -17,7 +17,7 @@ public class ReqNode {
 		if( rv != null && !rv.trim().isEmpty() ) consumer.accept( rv );
 	}
 	
-	public String getUnitGroupID() {
-		return reqNode.attributes.getValue("unitGroupID");
+	public String getUnitGroupID() { 
+		return reqNode.attributes.getValue( ReqTransformer.ATR.storeId.name() );
 	}
 }

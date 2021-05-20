@@ -51,10 +51,10 @@ public class SearchRespProcess <
 	
 	private void resp( int blockSize, Finder finder, Sorter sorter ) {
 
-		var respParser 	= new BlockNaviRespTransformer();
-		var resp 		= new BlockNavResp();
+		var respTransformer 	= new BlockNaviRespTransformer();
+		var resp 				= new BlockNavResp();
 
-		var blockMap 	= new UnitsIdBlockStorage( blockSize );
+		var blockMap 			= new UnitsIdBlockStorage( blockSize );
 		
 		this.genie.units.search( finder, sorter, unit -> {
 			unit.id.get( blockMap::addUnitID );
@@ -73,7 +73,7 @@ public class SearchRespProcess <
 		resp.hasLeft			.set( navi.hasLeft() );
 		resp.hasRight			.set( navi.hasRight());
 		
-		respParser.toNode( resp, respNode -> {
+		respTransformer.toNode( resp, respNode -> {
 			this.genie.respConsumer.get( respConsumer -> {
 				XML.parse( respNode, respConsumer );
 			});

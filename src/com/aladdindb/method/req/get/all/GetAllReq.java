@@ -10,8 +10,8 @@ public class GetAllReq extends Req< GetAllReq > {
 	public final Var < Integer > blockSize 	= new Var<>();
 
 	
-	public GetAllReq( String unitGroupID, int blockSize ) {
-		super( unitGroupID );
+	public GetAllReq( String storeId, int blockSize ) {
+		super( storeId );
 		
 		this.blockSize.set( blockSize );
 	}

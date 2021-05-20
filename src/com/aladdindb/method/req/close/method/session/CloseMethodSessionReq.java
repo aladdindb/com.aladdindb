@@ -10,8 +10,8 @@ public class CloseMethodSessionReq extends Req< CloseMethodSessionReq > {
 	public final Var < String > methodSessionID	= new Var<>();
 
 	
-	public CloseMethodSessionReq( String unitGroupID, String methodSessionID ) {
-		super( unitGroupID );
+	public CloseMethodSessionReq( String storeId, String methodSessionID ) {
+		super( storeId );
 		
 		this.methodSessionID 	.set( methodSessionID	);
 	}

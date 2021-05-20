@@ -15,8 +15,8 @@ public class UpdateReq< UDM extends DataModel< UDM > > extends Req< UpdateReq< U
 		this( null, null );
 	}
 	
-	public UpdateReq( String unitGroupID, Unit < UDM > unit ) {
-		super( unitGroupID );
+	public UpdateReq( String storeId, Unit < UDM > unit ) {
+		super( storeId );
 		this.unitData.set( unit );
 	}
 

@@ -14,15 +14,15 @@ public class RemoveReqProcess < UDM extends DataModel< UDM > > extends ReqProces
     //						Constructors
     //****************************************************************
 
-	public RemoveReqProcess( String unitID, MagicLamp< UDM > unitsChanel ) {
+	public RemoveReqProcess( String unitID, MagicLamp< UDM > magicLamp ) {
 		
-		this.magicLamp.set ( unitsChanel);
+		this.magicLamp.set ( magicLamp);
 
-		var req = new RemoveReq( unitsChanel.support.getStoreId(), unitID );
+		var req = new RemoveReq( magicLamp.support.getStoreId(), unitID );
 		
 		this.req		.set ( req );
 		this.reqTransformer	.set ( new RemoveReqTransformer());
-		this.respTransformer	.set ( new RemoveRespTransformer<UDM>( unitsChanel.support.newTransformer() ) );
+		this.respTransformer	.set ( new RemoveRespTransformer<UDM>( magicLamp.support.newTransformer() ) );
 	}
 
 	

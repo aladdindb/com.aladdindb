@@ -35,6 +35,7 @@ public class Genie < UDM extends DataModel < UDM > > implements Runnable {
 	
 	
 	public Genie( Path dbPath, Support< UDM > support )  {
+		System.out.println( "Store Path :"+dbPath );
 		this.support 	= support;
 		this.units		= new Units	< UDM > ( dbPath, this.support.newTransformer() );
 	}

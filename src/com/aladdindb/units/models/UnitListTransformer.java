@@ -18,20 +18,20 @@ public final class UnitListTransformer <
 > extends Transformer < UnitList	< DATA_MODEL > > {
     
 
-	private final UnitTransformer< DATA_MODEL > unitModelParser;
+	private final UnitTransformer< DATA_MODEL > unitTransformer;
     
 	
     //****************************************************************
     //
     //****************************************************************
 
-    public UnitListTransformer( Transformer< DATA_MODEL > dataModelParser  ) {
-    	this( "units", dataModelParser );
+    public UnitListTransformer( Transformer< DATA_MODEL > unitDataTransformer  ) {
+    	this( "units", unitDataTransformer );
     }
 
-    public UnitListTransformer( String key, Transformer< DATA_MODEL > dataModelParser  ) {
+    public UnitListTransformer( String key, Transformer< DATA_MODEL > unitDataTransformer  ) {
         super( key );
-        this.unitModelParser = new UnitTransformer< DATA_MODEL >(dataModelParser);
+        this.unitTransformer = new UnitTransformer< DATA_MODEL >(unitDataTransformer);
     }
     
     //****************************************************************
@@ -47,7 +47,7 @@ public final class UnitListTransformer <
 	@ Override
 	public UnitList < DATA_MODEL > toModel( SnPoint src, UnitList < DATA_MODEL > target ) {
     	src.children.forEach( unode -> {
-    		unitModelParser.toModel( unode, target :: add );
+    		unitTransformer.toModel( unode, target :: add );
     	});
 		return target ;
 	}
@@ -56,7 +56,7 @@ public final class UnitListTransformer <
 	@ Override
 	public SnPoint toNode( UnitList < DATA_MODEL > src, SnPoint target ) {
     	src.forEach( unit -> {
-    		unitModelParser.toNode( unit, target.children :: add );
+    		unitTransformer.toNode( unit, target.children :: add );
     	});
 		return target;
 	}

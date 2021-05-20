@@ -14,14 +14,14 @@ public class AddReqProcess < UDM extends DataModel< UDM > > extends ReqProcess <
     //						Constructors
     //****************************************************************
 
-	public AddReqProcess( UDM unitData, MagicLamp< UDM > unitsChanel ) {
+	public AddReqProcess( UDM unitData, MagicLamp< UDM > magicLamp ) {
 		
-		this.magicLamp.set ( unitsChanel);
+		this.magicLamp.set ( magicLamp);
 
-		var req = new AddReq < UDM > ( unitsChanel.support.getStoreId(), unitData );
+		var req = new AddReq < UDM > ( magicLamp.support.getStoreId(), unitData );
 		
 		this.req				.set ( req );
-		this.reqTransformer		.set ( new AddReqTransformer	< UDM > ( unitsChanel.support.newTransformer() ) );
+		this.reqTransformer		.set ( new AddReqTransformer	< UDM > ( magicLamp.support.newTransformer() ) );
 		this.respTransformer	.set ( new AddRespTransformer() );
 	}
 

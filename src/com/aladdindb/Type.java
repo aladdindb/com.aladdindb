@@ -2,25 +2,25 @@ package com.aladdindb;
 
 public enum Type {
 
-	LOGICAL_AND (":list:logical:and"),
-	LOGICAL_OR	(":list:logical:or"),
-	LOGICAL_NOT	(":list:logical:not"),
+	LOGICAL_AND ("list:logical:and"),
+	LOGICAL_OR	("list:logical:or"),
+	LOGICAL_NOT	("list:logical:not"),
 	
 	LIST		(":list");
 
 	
-	private final String tagName;
+	private final String realName;
 	
-	private Type( String type ) {
-		this.tagName = type;
+	private Type( String realName ) {
+		this.realName = realName;
 	}
 	
 	public String finder() {
-		return "finder"+tagName;
+		return "finder:"+realName;
 	}
 
 	public String sorter() {
-		return "sorter"+tagName;
+		return "sorter:"+realName;
 	}
 	
 }

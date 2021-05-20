@@ -10,8 +10,8 @@ public class GetByIdReq extends Req< GetByIdReq > {
 	public final Var< String > unitID = new Var<>();
 
 	
-	public GetByIdReq( String unitGroupID, String unitID ) {
-		super( unitGroupID );
+	public GetByIdReq( String storeId, String unitID ) {
+		super( storeId );
 		this.unitID.set(unitID);
 	}
 

@@ -14,8 +14,8 @@ public class AddReq< UDM extends DataModel< UDM > > extends Req< AddReq< UDM > >
 		this( null, null );
 	}
 	
-	public AddReq( String unitGroupID, UDM unitData ) {
-		super( unitGroupID );
+	public AddReq( String storeId, UDM unitData ) {
+		super( storeId );
 		this.unitData.set( unitData );
 	}
 

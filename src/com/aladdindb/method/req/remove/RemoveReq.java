@@ -10,8 +10,8 @@ public class RemoveReq extends Req< RemoveReq > {
 	public final Var< String > unitID = new Var<>();
 
 	
-	public RemoveReq( String unitGroupID, String unitID ) {
-		super( unitGroupID );
+	public RemoveReq( String storeId, String unitID ) {
+		super( storeId );
 		this.unitID.set(unitID);
 	}
 
