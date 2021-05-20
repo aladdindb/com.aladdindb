@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.aladdindb.Support;
+import com.aladdindb.store.Store;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
-import com.aladdindb.units.Units;
 import com.aladdindb.util.IntIndex;
 
 
@@ -77,7 +77,7 @@ public  class SorterList < UDM extends DataModel < UDM > > implements Sorter< UD
 	}
 	
 	@Override
-	public void setUnits( Units<UDM> units ) {
+	public void setUnits( Store<UDM> units ) {
 		this.sorters.forEach( sorter -> sorter.setUnits(units) );
 	}
 	

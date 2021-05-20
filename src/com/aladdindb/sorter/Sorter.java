@@ -2,9 +2,9 @@ package com.aladdindb.sorter;
 
 import java.util.List;
 
+import com.aladdindb.store.Store;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
-import com.aladdindb.units.Units;
 
 public interface Sorter <
 
@@ -16,7 +16,7 @@ public interface Sorter <
 	public List	< String > 				sort				( List<String> unitIdList );
 	public List	< List < String > > 	sortBlockWise		( List<String> unitIdList );
 	
-	public void 						setUnits			( Units< UDM > units );
+	public void 						setUnits			( Store< UDM > units );
 	
 	public Transformer < SORTER_MODEL > newTransformer		(); 
 	

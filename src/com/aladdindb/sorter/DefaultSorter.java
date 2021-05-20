@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.aladdindb.store.Store;
+import com.aladdindb.store.models.Unit;
 import com.aladdindb.structure.DataModel;
-import com.aladdindb.units.Units;
-import com.aladdindb.units.models.Unit;
 import com.aladdindb.util.Var;
 
 
@@ -28,7 +28,7 @@ public abstract class DefaultSorter <
 	
 	public final Var 						< String > 			sortOrder 	= new Var<>();
 	
-	public final Var						< Units< UDM > > 	units 		= new Var<>();
+	public final Var						< Store< UDM > > 	units 		= new Var<>();
 	
 	public final Comparator					< VT > 				comparator;
 	public final UnitIdListBlocksGenerator	< UDM, VT>  		blockWise;
@@ -80,7 +80,7 @@ public abstract class DefaultSorter <
 	
 	
 	@Override
-	public void setUnits(Units<UDM> units) {
+	public void setUnits(Store<UDM> units) {
 		this.units.set(units);
 	}
 	

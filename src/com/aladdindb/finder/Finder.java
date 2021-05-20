@@ -1,8 +1,8 @@
 package com.aladdindb.finder;
 
+import com.aladdindb.store.models.Unit;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
-import com.aladdindb.units.models.Unit;
 
 public interface Finder <
 

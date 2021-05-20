@@ -1,4 +1,4 @@
-package com.aladdindb.units;
+package com.aladdindb.store;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,11 +12,11 @@ import java.util.function.Consumer;
 
 import com.aladdindb.finder.Finder;
 import com.aladdindb.sorter.Sorter;
+import com.aladdindb.store.models.Unit;
+import com.aladdindb.store.models.UnitTransformer;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
-import com.aladdindb.units.models.Unit;
-import com.aladdindb.units.models.UnitTransformer;
 import com.aladdindb.util.Var;
 
 
@@ -24,10 +24,10 @@ import com.aladdindb.util.Var;
  * 
  * @author Macit Kandemir
  */
-public class Units < UDM extends DataModel < UDM > > {
+public class Store < UDM extends DataModel < UDM > > {
 
 	
-	public final 	Path path;
+	public final 	Path storePath;
 	
     private final  	UnitTransformer < UDM > unitTransformer;
 
@@ -36,18 +36,17 @@ public class Units < UDM extends DataModel < UDM > > {
     //					 Constructors
     //**********************************************************
     
-    public Units( Path path ) {
-    	this( path, null );
+    public Store( Path storePath ) {
+    	this( storePath, null );
     }
     
-    public Units( Path path, Transformer< UDM > unitDataTransformer ) {
-    	this.path 				= path;
-        this.unitTransformer 	= new UnitTransformer< UDM >(unitDataTransformer);
-        if( !Files.exists( path ) ) {
+    public Store( Path storePath, Transformer< UDM > dataTransformer ) {
+    	this.storePath 			= storePath;
+        this.unitTransformer 	= new UnitTransformer< UDM >(dataTransformer);
+        if( !Files.exists( storePath ) ) {
         	try {
-				Files.createDirectories( path );
+				Files.createDirectories( storePath );
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         }
@@ -79,16 +78,8 @@ public class Units < UDM extends DataModel < UDM > > {
     }
     
     public void search( Finder< UDM, ? extends DataModel<?> > finder, Consumer < Unit < UDM > > unitConsumer ) {
-//    	Counter c = new Counter();
     	this.forEachUnit( unit -> {
        		if( finder.prove( unit ) ) unitConsumer.accept( unit ); 
-    		
-//    		c.inc();
-//    		if( c.getIndex() > 1000 ) {
-//    			System.out.println( "  1000 Erreicht :-) ");
-//    			c.reset();
-//    		}
-    		
     	});
     }
     
@@ -112,8 +103,8 @@ public class Units < UDM extends DataModel < UDM > > {
     	}
     }
 
-    public void add( UDM... unitDatas ) {
-    	for( var unitData : unitDatas ) {
+    public void add( UDM... datas ) {
+    	for( var unitData : datas ) {
     		this.add( unitData );
     	}
     }
@@ -128,13 +119,13 @@ public class Units < UDM extends DataModel < UDM > > {
     	return this.add( null, label );
     }
     
-    public String add( UDM unitData ) {
-    	return this.add(unitData, null);
+    public String add( UDM data ) {
+    	return this.add(data, null);
     }
     
-    public String add( UDM unitData, String label ) {
+    public String add( UDM data, String label ) {
     	
-    	Var<String> newIdVar = new Var<>();
+    	Var<String> newUnitIdVar = new Var<>();
     	
     	ZonedDateTime timeStamp = ZonedDateTime.now();
     	
@@ -145,13 +136,13 @@ public class Units < UDM extends DataModel < UDM > > {
     	unit.meta.timeStamp.generatedOn	.set( timeStamp );
     	unit.meta.timeStamp.modifiedOn	.set( timeStamp );
     	
-    	unit.data.set( unitData );
+    	unit.data.set( data );
     	
     	unitTransformer.toNode( unit, unitNode -> {
-    		newIdVar.set( addUnitNode( unitNode ) );
+    		newUnitIdVar.set( addUnitNode( unitNode ) );
     	});
     	
-    	return newIdVar.get();
+    	return newUnitIdVar.get();
     }
     
     public void get( String unitID, Consumer < Unit < UDM > > unitConsumer ) {
@@ -194,24 +185,24 @@ public class Units < UDM extends DataModel < UDM > > {
      * @return
      */
     public String addUnitNode( SnPoint unitModelNode ) {
-        var unitFile = UnitFile.createNew ( this.path, unitModelNode );
+        var unitFile = UnitFile.createNew ( this.storePath, unitModelNode );
         return unitFile != null ? unitFile.unitID : null;
     }
     
     public boolean updateUnitNode( SnPoint unitModelNode ) {
-        var unitFile = UnitFile.get ( this.path, unitModelNode );
+        var unitFile = UnitFile.get ( this.storePath, unitModelNode );
         return unitFile != null ?  unitFile.saveUnitNode ( unitModelNode ) : false;
     }
 
     public void getUnitNode( String unitID, Consumer< SnPoint > consumer ) {
-    	UnitFile.get ( this.path, unitID, unitFile -> {
+    	UnitFile.get ( this.storePath, unitID, unitFile -> {
     		unitFile.getUnitNode ( consumer );
     	} );
     }
 
     public void forEachUnitNode( Consumer < SnPoint > consumer ) {
         try {
-			Files.newDirectoryStream( this.path ).forEach( unitPath -> {
+			Files.newDirectoryStream( this.storePath ).forEach( unitPath -> {
 				UnitFile.getUnitNode ( unitPath, consumer );
 			});
 		} catch (IOException e) {
@@ -232,7 +223,7 @@ public class Units < UDM extends DataModel < UDM > > {
     //**********************************************************
     
     public void removeUnitFile( String unitID ) throws IOException {
-        var unitFile = UnitFile.remove ( this.path, unitID );
+        var unitFile = UnitFile.remove ( this.storePath, unitID );
     }
 
     

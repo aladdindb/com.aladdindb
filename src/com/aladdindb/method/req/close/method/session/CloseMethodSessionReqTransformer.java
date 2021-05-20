@@ -14,7 +14,7 @@ public final class CloseMethodSessionReqTransformer  extends ReqTransformer< Clo
 	
 
     
-    private enum ATR { methodSessionID };
+    private enum ATR { methodSessionId };
     
     
 	public CloseMethodSessionReqTransformer() {
@@ -36,7 +36,7 @@ public final class CloseMethodSessionReqTransformer  extends ReqTransformer< Clo
     	
     	var srcAtr = new SnAttributeAccess( src );
 
-    	srcAtr.asStr	.get( ATR.methodSessionID	,target.methodSessionID 	);
+    	srcAtr.asStr	.get( ATR.methodSessionId	,target.methodSessionId 	);
         
         return target;
     }
@@ -47,7 +47,7 @@ public final class CloseMethodSessionReqTransformer  extends ReqTransformer< Clo
         
     	var targetAtr = new SnAttributeAccess( target );
 
-    	targetAtr.asStr		.set( ATR.methodSessionID  	,src.methodSessionID	);
+    	targetAtr.asStr		.set( ATR.methodSessionId  	,src.methodSessionId	);
 
         return target;
     }

@@ -5,9 +5,9 @@ import com.aladdindb.method.req.get.all.GetAllReqTransformer;
 import com.aladdindb.method.resp.RespProcess;
 import com.aladdindb.method.resp.get.block.BlockNavResp;
 import com.aladdindb.method.resp.get.block.BlockNaviRespTransformer;
+import com.aladdindb.store.UnitIdBlock;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.xml.XML;
-import com.aladdindb.units.UnitsIdBlockStorage;
 import com.aladdindb.util.Util;
 
 
@@ -40,15 +40,15 @@ public class GetAllRespProcess < UDM extends DataModel < UDM > > extends RespPro
 		var respTransformer = new BlockNaviRespTransformer();
 		var resp 			= new BlockNavResp();
 
-		var blockStorage 	= new UnitsIdBlockStorage( blockSize );
+		var unitIdBlock 	= new UnitIdBlock( blockSize );
 		
-		this.genie.units.forEachUnit( unit -> {
-			unit.id.get( blockStorage::addUnitID );
+		this.genie.store.forEachUnit( unit -> {
+			unit.id.get( unitIdBlock::addUnitId );
 		});
 		
 		String cmdSesionID = Util.createAlphaNumericInclUpperCaseHashCode( 20 );
 		
-		var navi = blockStorage.createBlockNavi();
+		var navi = unitIdBlock.newUnitIdBlockNavi();
 		
 		genie.unitsIdBlockNaviMap.put( cmdSesionID,  navi );
 		

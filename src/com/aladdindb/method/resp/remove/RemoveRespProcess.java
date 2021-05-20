@@ -3,9 +3,9 @@ package com.aladdindb.method.resp.remove;
 import com.aladdindb.Genie;
 import com.aladdindb.method.req.get.by.id.GetByIdReqTransformer;
 import com.aladdindb.method.resp.RespProcess;
+import com.aladdindb.store.models.Unit;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.xml.XML;
-import com.aladdindb.units.models.Unit;
 
 
 public class RemoveRespProcess < UDM extends DataModel < UDM > > extends RespProcess< UDM > { 
@@ -23,9 +23,9 @@ public class RemoveRespProcess < UDM extends DataModel < UDM > > extends RespPro
 	public void run() {
 		genie.reqNode.get( reqNode -> {
 			new GetByIdReqTransformer().toModel( reqNode, req -> {
-				req.unitID.get( unitID -> {
-					genie.units.get( unitID, unit -> {
-						if( genie.units.remove( unitID ) ) {
+				req.unitId.get( unitID -> {
+					genie.store.get( unitID, unit -> {
+						if( genie.store.remove( unitID ) ) {
 							resp( unit );
 						}
 					});

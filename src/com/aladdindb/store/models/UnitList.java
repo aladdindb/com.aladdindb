@@ -1,4 +1,4 @@
-package com.aladdindb.units.models;
+package com.aladdindb.store.models;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;

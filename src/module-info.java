@@ -19,8 +19,8 @@ module com.aladdindb {
     exports com.aladdindb.method.resp.remove; 
     exports com.aladdindb.method.resp.close.method.session; 
 
-    exports com.aladdindb.units;
-    exports com.aladdindb.units.models;
+    exports com.aladdindb.store;
+    exports com.aladdindb.store.models;
     
     exports com.aladdindb.finder;
     exports com.aladdindb.finder.types;

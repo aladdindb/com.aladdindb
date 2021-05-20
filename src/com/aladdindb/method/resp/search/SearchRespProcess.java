@@ -7,9 +7,9 @@ import com.aladdindb.method.resp.RespProcess;
 import com.aladdindb.method.resp.get.block.BlockNavResp;
 import com.aladdindb.method.resp.get.block.BlockNaviRespTransformer;
 import com.aladdindb.sorter.Sorter;
+import com.aladdindb.store.UnitIdBlock;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.xml.XML;
-import com.aladdindb.units.UnitsIdBlockStorage;
 import com.aladdindb.util.Util;
 
 
@@ -54,15 +54,15 @@ public class SearchRespProcess <
 		var respTransformer 	= new BlockNaviRespTransformer();
 		var resp 				= new BlockNavResp();
 
-		var blockMap 			= new UnitsIdBlockStorage( blockSize );
+		var unitIdBlock			= new UnitIdBlock( blockSize );
 		
-		this.genie.units.search( finder, sorter, unit -> {
-			unit.id.get( blockMap::addUnitID );
+		this.genie.store.search( finder, sorter, unit -> {
+			unit.id.get( unitIdBlock::addUnitId );
 		});
 		
 		String cmdSesionID = Util.createAlphaNumericInclUpperCaseHashCode( 20 );
 		
-		var navi = blockMap.createBlockNavi();
+		var navi = unitIdBlock.newUnitIdBlockNavi();
 		
 		genie.unitsIdBlockNaviMap.put( cmdSesionID,  navi );
 		

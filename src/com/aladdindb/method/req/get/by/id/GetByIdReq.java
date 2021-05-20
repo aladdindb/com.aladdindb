@@ -7,17 +7,17 @@ import com.aladdindb.util.Var;
 public class GetByIdReq extends Req< GetByIdReq > {
 
 	
-	public final Var< String > unitID = new Var<>();
+	public final Var< String > unitId = new Var<>();
 
 	
-	public GetByIdReq( String storeId, String unitID ) {
+	public GetByIdReq( String storeId, String unitId ) {
 		super( storeId );
-		this.unitID.set(unitID);
+		this.unitId.set(unitId);
 	}
 
 	@Override
 	public void fill( GetByIdReq model ) {
-		this.unitID.set( model.unitID );
+		this.unitId.set( model.unitId );
 	}
 	
 

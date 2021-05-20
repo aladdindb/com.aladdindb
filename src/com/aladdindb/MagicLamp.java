@@ -17,8 +17,8 @@ import com.aladdindb.method.resp.get.by.id.GetByIdResp;
 import com.aladdindb.method.resp.remove.RemoveResp;
 import com.aladdindb.method.resp.update.UpdateResp;
 import com.aladdindb.sorter.Sorter;
+import com.aladdindb.store.models.Unit;
 import com.aladdindb.structure.DataModel;
-import com.aladdindb.units.models.Unit;
 
 
 public class MagicLamp < UDM extends DataModel < UDM > > {
@@ -26,46 +26,31 @@ public class MagicLamp < UDM extends DataModel < UDM > > {
 	
     public final  GenieConnection genieConnection;
 
+    public final Support < UDM > support;
     
-//    public final String 					unitGroupID;
-//    public final Transformer		< UDM >	unitDataTransformer;
-    
-//    public final FinderSupport		< UDM > finderSupport;
-//    public final SorterSupport		< UDM > sorterSupport;
-    
-    public final Support			< UDM > support;
     //************************************************************
     //					
     //************************************************************
 
     public MagicLamp( Support< UDM > support, GenieConnection genieConnection ) {
     	
-//		this.unitGroupID 			= unitGroupID;
-//		this.unitDataTransformer 	= unitDataTransformer;
-//		this.finderSupport 			= finderSupport;
-//		this.sorterSupport 			= sorterSupport;
-
     	this.support 				= support;
 		this.genieConnection 		= genieConnection;
 		
     }
     
-//    public UnitTransformer< UDM > createUnitParser() {
-//    	return new UnitTransformer < UDM >( this.unitDataTransformer );
-//    }
-    
     //************************************************************
     //					
     //************************************************************
 	
-    public void add( UDM unitData, Consumer< AddResp > respConsumer ) {
-    	var reqProcess = new AddReqProcess< UDM > ( unitData, this );
+    public void add( UDM data, Consumer< AddResp > respConsumer ) {
+    	var reqProcess = new AddReqProcess< UDM > ( data, this );
     	reqProcess.respConsumer.set( respConsumer );
     	reqProcess.run();
     }
 
-    public void getByID( String unitID, Consumer< GetByIdResp< UDM > > respConsumer ) {
-    	var reqProcess =  new GetByIdReqProcess< UDM > ( unitID, this );
+    public void getById( String unitId, Consumer< GetByIdResp< UDM > > respConsumer ) {
+    	var reqProcess =  new GetByIdReqProcess< UDM > ( unitId, this );
     	reqProcess.respConsumer.set( respConsumer );
     	reqProcess.run();
     }
@@ -91,14 +76,14 @@ public class MagicLamp < UDM extends DataModel < UDM > > {
     	reqProcess.run();
     }
 
-    public void remove( String unitID, Consumer < RemoveResp< UDM > > respConsumer ) {
-    	var reqProcess =  new RemoveReqProcess< UDM > ( unitID, this );
+    public void remove( String unitId, Consumer < RemoveResp< UDM > > respConsumer ) {
+    	var reqProcess =  new RemoveReqProcess< UDM > ( unitId, this );
     	reqProcess.respConsumer.set( respConsumer );
     	reqProcess.run();
     } 
     
-    public void closeMethodSession( String methodSessionID, Consumer< CloseMethodSessionResp > respConsumer ) {
-    	var reqProcess = new CloseMethodSessionReqProcess< UDM >( methodSessionID,  this );
+    public void closeMethodSession( String methodSessionId, Consumer< CloseMethodSessionResp > respConsumer ) {
+    	var reqProcess = new CloseMethodSessionReqProcess< UDM >( methodSessionId,  this );
     	reqProcess.respConsumer.set( respConsumer );
     	reqProcess.run();
     }

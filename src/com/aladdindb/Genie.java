@@ -14,19 +14,19 @@ import com.aladdindb.method.resp.get.by.id.GetByIdRespProcess;
 import com.aladdindb.method.resp.remove.RemoveRespProcess;
 import com.aladdindb.method.resp.search.SearchRespProcess;
 import com.aladdindb.method.resp.update.UpdateRespProcess;
+import com.aladdindb.store.Store;
+import com.aladdindb.store.UnitIdBlockNavi;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.sn.SnPoint;
-import com.aladdindb.units.Units;
-import com.aladdindb.units.UnitsIdBlockNavi;
 import com.aladdindb.util.Var;
 
 
 public class Genie < UDM extends DataModel < UDM > > implements Runnable { 
 
 
-	public final HashMap< String, UnitsIdBlockNavi > unitsIdBlockNaviMap = new HashMap<>();
+	public final HashMap< String, UnitIdBlockNavi > unitsIdBlockNaviMap = new HashMap<>();
 	
-	public final Units	< UDM > 					units;
+	public final Store	< UDM > 					store;
 	
 	public final Var 	< SnPoint > 				reqNode 		= new Var<>();
 	public final Var 	< Consumer < String > > 	respConsumer 	= new Var<>();
@@ -34,10 +34,10 @@ public class Genie < UDM extends DataModel < UDM > > implements Runnable {
 	public final Support< UDM > support;
 	
 	
-	public Genie( Path dbPath, Support< UDM > support )  {
-		System.out.println( "Store Path :"+dbPath );
+	public Genie( Path storePath, Support< UDM > support )  {
+		System.out.println( "Store-Path :"+storePath );
 		this.support 	= support;
-		this.units		= new Units	< UDM > ( dbPath, this.support.newTransformer() );
+		this.store		= new Store	< UDM > ( storePath, this.support.newTransformer() );
 	}
     
 	

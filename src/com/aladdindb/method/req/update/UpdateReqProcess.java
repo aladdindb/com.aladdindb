@@ -4,8 +4,8 @@ import com.aladdindb.MagicLamp;
 import com.aladdindb.method.req.ReqProcess;
 import com.aladdindb.method.resp.update.UpdateResp;
 import com.aladdindb.method.resp.update.UpdateRespTransformer;
+import com.aladdindb.store.models.Unit;
 import com.aladdindb.structure.DataModel;
-import com.aladdindb.units.models.Unit;
 
 
 public class UpdateReqProcess < UDM extends DataModel< UDM > > extends ReqProcess < UpdateReq< UDM >, UpdateResp, UDM > {

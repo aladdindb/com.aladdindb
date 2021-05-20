@@ -5,9 +5,9 @@ import java.util.List;
 
 import com.aladdindb.Support;
 import com.aladdindb.finder.Finder;
+import com.aladdindb.store.models.Unit;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
-import com.aladdindb.units.models.Unit;
 
 public class LogicalAndFinders < UDM extends DataModel< UDM > > implements Finder < UDM, LogicalAndFinders < UDM > > {  
 	

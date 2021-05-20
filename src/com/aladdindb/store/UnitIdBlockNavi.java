@@ -1,4 +1,4 @@
-package com.aladdindb.units;
+package com.aladdindb.store;
 
 import com.aladdindb.structure.sn.SnLineNavi;
 import com.aladdindb.structure.sn.SnPoint;
@@ -8,11 +8,11 @@ import com.aladdindb.util.LineNavigator;
 *
 * @author Macit Kandemir
 */
-public class UnitsIdBlockNavi implements LineNavigator< String >  { 
+public class UnitIdBlockNavi implements LineNavigator< String >  { 
 	
 	private final  SnLineNavi navi;
 	
-    public UnitsIdBlockNavi( SnPoint node ) {
+    public UnitIdBlockNavi( SnPoint node ) {
     	this.navi = new SnLineNavi(node.children.snBottom.get() );
     }
 

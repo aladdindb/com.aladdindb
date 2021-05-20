@@ -1,8 +1,8 @@
-package com.aladdindb.units;
+package com.aladdindb.store;
 
 import com.aladdindb.structure.sn.SnPoint;
 
-public class UnitsIdBlockStorage {
+public class UnitIdBlock {
 
 	private final int blockSize;
 	
@@ -16,17 +16,17 @@ public class UnitsIdBlockStorage {
 	private SnPoint blockNode = new SnPoint();
 
 	
-	public UnitsIdBlockStorage( int blockSize ) {
+	public UnitIdBlock( int blockSize ) {
 		this.blockSize 	= blockSize;
 	}
 	
-	public void addUnitID( String... unitIDs ) {
-		for( String unitID:unitIDs ) this.addUnitID(unitID);
+	public void addUnitId( String... unitIds ) {
+		for( String unitId : unitIds ) this.addUnitId(unitId);
 	}
 	
-	public void addUnitID( String unitID ) {
+	public void addUnitId( String unitId ) {
 		block.append( delim);
-		block.append( unitID );
+		block.append( unitId );
 		this.delim = ",";
 		if( index++ == this.blockSize ) saveBlock();
 	}
@@ -40,13 +40,13 @@ public class UnitsIdBlockStorage {
 			this.index = 1;
 			this.delim = "";
 			
-			System.out.println( "Block was created : Number - "+ ++blockCounter );
+			System.out.printf( " Block was created : Number - %s%n", ++blockCounter );
 		}
 	}
 	
-	public UnitsIdBlockNavi createBlockNavi()  {
+	public UnitIdBlockNavi newUnitIdBlockNavi()  {
 		this.saveBlock();
-		return new UnitsIdBlockNavi( blockNode );
+		return new UnitIdBlockNavi( blockNode );
 	}
 }
 	

@@ -3,9 +3,9 @@ package com.aladdindb.method.resp.get.by.id;
 import com.aladdindb.Genie;
 import com.aladdindb.method.req.get.by.id.GetByIdReqTransformer;
 import com.aladdindb.method.resp.RespProcess;
+import com.aladdindb.store.models.Unit;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.xml.XML;
-import com.aladdindb.units.models.Unit;
 
 
 public class GetByIdRespProcess < UDM extends DataModel < UDM > > extends RespProcess< UDM > { 
@@ -23,8 +23,8 @@ public class GetByIdRespProcess < UDM extends DataModel < UDM > > extends RespPr
 	public void run() {
 		genie.reqNode.get( reqNode -> {
 			new GetByIdReqTransformer().toModel( reqNode, req -> {
-				req.unitID.get( unitID -> {
-					genie.units.get( unitID, this :: resp );
+				req.unitId.get( unitID -> {
+					genie.store.get( unitID, this :: resp );
 				});
 			});
 		});

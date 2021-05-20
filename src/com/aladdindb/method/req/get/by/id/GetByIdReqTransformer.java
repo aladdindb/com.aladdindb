@@ -14,7 +14,7 @@ public final class GetByIdReqTransformer  extends ReqTransformer< GetByIdReq >  
 	
 
     
-    private enum ATR { unitID };
+    private enum ATR { unitId };
     
     
     //****************************************************************
@@ -40,7 +40,7 @@ public final class GetByIdReqTransformer  extends ReqTransformer< GetByIdReq >  
     	
     	var srcAtr = new SnAttributeAccess( src );
 
-    	srcAtr.asStr.get( ATR.unitID ,target.unitID );
+    	srcAtr.asStr.get( ATR.unitId ,target.unitId );
         
         return target;
     }
@@ -51,7 +51,7 @@ public final class GetByIdReqTransformer  extends ReqTransformer< GetByIdReq >  
     	
     	var targetAtr = new SnAttributeAccess( target );
 
-    	targetAtr.asStr.set( ATR.unitID ,src.unitID	);
+    	targetAtr.asStr.set( ATR.unitId ,src.unitId	);
 
         return target;
     }
