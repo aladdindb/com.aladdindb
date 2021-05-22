@@ -21,7 +21,7 @@ public final class UpdateRespTransformer  extends Transformer < UpdateResp > {
     //****************************************************************
 
     public UpdateRespTransformer() {
-		super( Method.UPDATE.respTagName() );
+		super( Method.update.respTagName() );
 	}
     
     //****************************************************************

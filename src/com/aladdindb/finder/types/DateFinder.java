@@ -46,23 +46,23 @@ public abstract class DateFinder <
 				
 				rv.set(	switch( OP.valueOf ( operator ) ) {
 					//--------------------------------
-					case EQUAL 						-> value.isEqual 	( date );
+					case equal 						-> value.isEqual 	( date );
 					
-					case GREATER 					-> value.isAfter 	( date );
-					case GREATER_OR_EQUAL 			-> value.isAfter 	( date) || value.isEqual( date );
+					case greater 					-> value.isAfter 	( date );
+					case greaterOrEqual 			-> value.isAfter 	( date) || value.isEqual( date );
 					
-					case LESS 						-> value.isBefore	( date );
-					case LESS_OR_EQUAL 				-> value.isBefore 	( date) || value.isEqual( date );
+					case less 						-> value.isBefore	( date );
+					case lessOrEqual 				-> value.isBefore 	( date) || value.isEqual( date );
 					//--------------------------------
 					//				not
 					//--------------------------------
-					case NOT_EQUAL 					-> !value.isEqual 	( date );
+					case notEqual 					-> !value.isEqual 	( date );
 					
-					case NOT_GREATER 				-> !value.isAfter 	( date );
-					case NOT_GREATER_OR_EQUAL 		-> !(value.isAfter 	( date) || value.isEqual( date ));
+					case notGreater 				-> !value.isAfter 	( date );
+					case notGreaterOrEqual 		-> !(value.isAfter 	( date) || value.isEqual( date ));
 					
-					case NOT_LESS 					-> !value.isBefore	( date );
-					case NOT_LESS_OR_EQUAL 			-> !(value.isBefore ( date) || value.isEqual( date ));
+					case notLess 					-> !value.isBefore	( date );
+					case notLessOrEqual 			-> !(value.isBefore ( date) || value.isEqual( date ));
 					//--------------------------------
 					default -> false;
 				});

@@ -134,8 +134,8 @@ public class GenieInvoker {
         
         private void getGenie( String reqStr, Consumer < Genie<?> > genieConsumer ) {
 			XML.parse( reqStr, reqNode -> {
-				new ReqNode(reqNode).getUnitGroupID( unitGroupID -> {
-					this.invoker.getGenie( unitGroupID, genie -> {
+				new ReqNode(reqNode).getStoreId( storeId -> {
+					this.invoker.getGenie( storeId, genie -> {
 						genie.reqNode.set( reqNode );
 						genieConsumer.accept( genie );
 					});

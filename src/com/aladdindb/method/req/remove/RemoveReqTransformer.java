@@ -22,7 +22,7 @@ public final class RemoveReqTransformer  extends ReqTransformer< RemoveReq >  {
     //****************************************************************
 
     public RemoveReqTransformer() {
-		super( Method.REMOVE.reqTagName() );
+		super( Method.remove.store() );
 	}
     
     //****************************************************************

@@ -40,7 +40,7 @@ public class RemoveRespProcess < UDM extends DataModel < UDM > > extends RespPro
 	
 	private void resp( Unit< UDM > unit ) {
 		
-		var respParser 	= new RemoveRespTransformer 	< UDM > ( genie.support.newTransformer() );
+		var respParser 	= new RemoveRespTransformer 	< UDM > ( genie.support.newDataTransformer() );
 		var resp 		= new RemoveResp		< UDM > ( unit );
 		
 		respParser.toNode( resp, respNode -> {

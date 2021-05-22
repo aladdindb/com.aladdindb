@@ -18,7 +18,7 @@ public final class GetAllReqTransformer  extends ReqTransformer< GetAllReq >  {
     
     
 	public GetAllReqTransformer() {
-		super( Method.GET_ALL.reqTagName() );
+		super( Method.getAll.store() );
 	}
     
     //****************************************************************

@@ -22,7 +22,7 @@ public final class RemoveRespTransformer < UDM extends DataModel < UDM > > exten
     //****************************************************************
 
     public RemoveRespTransformer( Transformer < UDM > unitDataTransformer ) {
-		super( Method.REMOVE.respTagName() );
+		super( Method.remove.respTagName() );
 		
 		this.unitTransformer = new UnitTransformer < UDM > (unitDataTransformer );
 	}

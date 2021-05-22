@@ -23,7 +23,7 @@ public final class UpdateReqTransformer < UDM extends DataModel< UDM > > extends
     //****************************************************************
 
     public UpdateReqTransformer( Transformer< UDM > unitTransformer ) {
-		super( Method.UPDATE.reqTagName() );
+		super( Method.update.store() );
 		this.unitTransformer = new UnitTransformer<UDM>(unitTransformer);
 	}
     

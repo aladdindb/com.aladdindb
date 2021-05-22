@@ -22,7 +22,7 @@ public final class AddReqTransformer < UDM extends DataModel< UDM > > extends Re
     //****************************************************************
 
     public AddReqTransformer( Transformer< UDM > dataTransformer ) {
-		super( Method.ADD.reqTagName() );
+		super( Method.add.store() );
 		this.dataTransformer = dataTransformer;
 	}
     

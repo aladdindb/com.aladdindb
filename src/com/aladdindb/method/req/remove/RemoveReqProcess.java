@@ -22,7 +22,7 @@ public class RemoveReqProcess < UDM extends DataModel< UDM > > extends ReqProces
 		
 		this.req		.set ( req );
 		this.reqTransformer	.set ( new RemoveReqTransformer());
-		this.respTransformer	.set ( new RemoveRespTransformer<UDM>( magicLamp.support.newTransformer() ) );
+		this.respTransformer	.set ( new RemoveRespTransformer<UDM>( magicLamp.support.newDataTransformer() ) );
 	}
 
 	

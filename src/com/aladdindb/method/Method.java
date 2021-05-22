@@ -2,15 +2,15 @@ package com.aladdindb.method;
 
 public enum Method {
 	
-	ADD				("add"),
-	GET_BY_ID		("get:by:id"),
-	SEARCH			("search"),
-	GET_ALL			("get:all"),
-	GET_BLOCK		("get:block"),
-	UPDATE			("update"),
-	REMOVE			("remove"),
+	add				("add"),
+	getById			("getById"),
+	search			("search"),
+	getAll			("getAll"),
+	getBlock		("getBlock"),
+	update			("update"),
+	remove			("remove"),
 	
-	CLOSE_METHOD_SESSION ("close:method.session");
+	closeSession 	("closeSession");
 	
 	private final String method;
 	
@@ -19,12 +19,15 @@ public enum Method {
 	}
 	
 	public String respTagName() {
-		return "resp:"+method;
+		return "Resp."+method;
 	}
 	
-	public String reqTagName() {
-		return "req:"+method;
+	public String store() {
+		return "Store."+method;
 	}
 	
+	public String method() {
+		return "Method."+method;
+	}
 	
 }

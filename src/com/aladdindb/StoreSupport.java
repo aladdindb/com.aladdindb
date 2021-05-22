@@ -12,7 +12,7 @@ import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 
-public interface Support < UDM extends DataModel< UDM > > {
+public interface StoreSupport < UDM extends DataModel< UDM > > {
 	
     //****************************************************************
     //						 StoreId 
@@ -40,10 +40,10 @@ public interface Support < UDM extends DataModel< UDM > > {
     //						 Transformer 
     //****************************************************************
 	
-	public Transformer < UDM > 	newTransformer( );
+	public Transformer < UDM > 	newDataTransformer( );
 	
-	default void newTransformer( Consumer< Transformer < UDM > > transformerConsumer ) {
-		var rv = newTransformer();
+	default void newDataTransformer( Consumer< Transformer < UDM > > transformerConsumer ) {
+		var rv = newDataTransformer();
 		if( rv != null )transformerConsumer.accept( rv );
 	}
 
@@ -52,7 +52,7 @@ public interface Support < UDM extends DataModel< UDM > > {
     //****************************************************************
 	
 	default void newMagicLamp( GenieConnection genieConnection, Consumer< MagicLamp < UDM > > magicLampConsumer ) {
-		var rv = newMagicLamp(genieConnection);
+		var rv = newMagicLamp( genieConnection );
 		if( rv != null )magicLampConsumer.accept( rv );
 	}
 	
@@ -88,8 +88,8 @@ public interface Support < UDM extends DataModel< UDM > > {
 	}
 	
 	default Finder< UDM, ? > newFinder( String finderType ) {
-		return 	finderType.equals( Type.LOGICAL_AND	.finder() ) ? new LogicalAndFinders	< UDM >( this ) : 
-				finderType.equals( Type.LOGICAL_OR	.finder() ) ? new LogicalOrFinders	< UDM >( this ) : null; 
+		return 	finderType.equals( MethodField.LOGICAL_AND	.asFinderList() ) ? new LogicalAndFinders	< UDM >( this ) : 
+				finderType.equals( MethodField.LOGICAL_OR	.asFinderList() ) ? new LogicalOrFinders	< UDM >( this ) : null; 
 	}
 	
     //****************************************************************
@@ -145,7 +145,7 @@ public interface Support < UDM extends DataModel< UDM > > {
 	}
 	
 	default Sorter< UDM, ? > newSorter( String sorterType ) { 
-		return 	sorterType.equals( Type.LIST.sorter() ) ? new SorterList< UDM >( this ) : null; 
+		return 	sorterType.equals( MethodField.LIST.asSorterList() ) ? new SorterList< UDM >( this ) : null; 
 	}
 	
 	//**********************************************************

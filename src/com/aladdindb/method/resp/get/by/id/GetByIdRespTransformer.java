@@ -22,7 +22,7 @@ public final class GetByIdRespTransformer < UDM extends DataModel< UDM > > exten
     //****************************************************************
 
     public GetByIdRespTransformer( Transformer< UDM > unitDataTransformer ) {
-		super( Method.GET_BY_ID.respTagName() );
+		super( Method.getById.respTagName() );
 		this.unitTransformer = new UnitTransformer< UDM >(unitDataTransformer);
 	}
     

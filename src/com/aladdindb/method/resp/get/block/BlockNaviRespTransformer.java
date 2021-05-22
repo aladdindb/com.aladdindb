@@ -11,7 +11,7 @@ public class BlockNaviRespTransformer extends Transformer< BlockNavResp > {
 	
 	
 	public BlockNaviRespTransformer() {
-		super( Method.GET_BLOCK.respTagName() );
+		super( Method.getBlock.respTagName() );
 	}
 
 	

@@ -26,13 +26,13 @@ public class MagicLamp < UDM extends DataModel < UDM > > {
 	
     public final  GenieConnection genieConnection;
 
-    public final Support < UDM > support;
+    public final StoreSupport < UDM > support;
     
     //************************************************************
     //					
     //************************************************************
 
-    public MagicLamp( Support< UDM > support, GenieConnection genieConnection ) {
+    public MagicLamp( StoreSupport< UDM > support, GenieConnection genieConnection ) {
     	
     	this.support 				= support;
 		this.genieConnection 		= genieConnection;

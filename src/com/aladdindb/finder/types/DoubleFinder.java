@@ -45,23 +45,23 @@ public abstract class DoubleFinder <
 				
 				rv.set(	switch( OP.valueOf ( operator ) ) {
 					//--------------------------------
-					case EQUAL 						-> value == 	operand ;
+					case equal 						-> value == 	operand ;
 					
-					case GREATER 					-> value > 		operand ;
-					case GREATER_OR_EQUAL 			-> value >= 	operand ;
+					case greater 					-> value > 		operand ;
+					case greaterOrEqual 			-> value >= 	operand ;
 					
-					case LESS 						-> value < 		operand ;
-					case LESS_OR_EQUAL 				-> value <= 	operand ;
+					case less 						-> value < 		operand ;
+					case lessOrEqual 				-> value <= 	operand ;
 					//--------------------------------
 					//				not
 					//--------------------------------
-					case NOT_EQUAL 					->  value != 	operand ;
+					case notEqual 					->  value != 	operand ;
 					
-					case NOT_GREATER 				-> !(value >	operand );
-					case NOT_GREATER_OR_EQUAL 		-> !(value >= 	operand );
+					case notGreater 				-> !(value >	operand );
+					case notGreaterOrEqual 		-> !(value >= 	operand );
 					
-					case NOT_LESS 					-> !(value < 	operand );
-					case NOT_LESS_OR_EQUAL 			-> !(value <= 	operand );
+					case notLess 					-> !(value < 	operand );
+					case notLessOrEqual 			-> !(value <= 	operand );
 					//--------------------------------
 					default -> false;
 				});

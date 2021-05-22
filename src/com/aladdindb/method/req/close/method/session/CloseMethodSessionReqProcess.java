@@ -14,11 +14,11 @@ public class CloseMethodSessionReqProcess < UDM extends DataModel< UDM > > exten
     //						Constructors
     //****************************************************************
 
-	public CloseMethodSessionReqProcess( String methodSessionId, MagicLamp< UDM > magicLamp ) {
+	public CloseMethodSessionReqProcess( String sessionId, MagicLamp< UDM > magicLamp ) {
 		
 		this.magicLamp.set ( magicLamp);
 
-		var req = new CloseMethodSessionReq( magicLamp.support.getStoreId(), methodSessionId ); 
+		var req = new CloseMethodSessionReq( magicLamp.support.getStoreId(), sessionId ); 
 		
 		this.req				.set ( req );
 		this.reqTransformer		.set ( new CloseMethodSessionReqTransformer	() );

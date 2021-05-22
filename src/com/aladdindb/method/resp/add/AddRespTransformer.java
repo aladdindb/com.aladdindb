@@ -21,7 +21,7 @@ public final class AddRespTransformer  extends Transformer < AddResp > {
     //****************************************************************
 
     public AddRespTransformer() {
-		super( Method.ADD.respTagName() );
+		super( Method.add.respTagName() );
 	}
     
     //****************************************************************

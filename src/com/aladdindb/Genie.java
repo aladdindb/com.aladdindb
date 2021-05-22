@@ -31,13 +31,13 @@ public class Genie < UDM extends DataModel < UDM > > implements Runnable {
 	public final Var 	< SnPoint > 				reqNode 		= new Var<>();
 	public final Var 	< Consumer < String > > 	respConsumer 	= new Var<>();
 	
-	public final Support< UDM > support;
+	public final StoreSupport< UDM > support;
 	
 	
-	public Genie( Path storePath, Support< UDM > support )  {
+	public Genie( Path storePath, StoreSupport< UDM > support )  {
 		System.out.println( "Store-Path :"+storePath );
 		this.support 	= support;
-		this.store		= new Store	< UDM > ( storePath, this.support.newTransformer() );
+		this.store		= new Store	< UDM > ( storePath, this.support.newDataTransformer() );
 	}
     
 	
@@ -53,15 +53,15 @@ public class Genie < UDM extends DataModel < UDM > > implements Runnable {
 	
 	private RespProcess< UDM > createRespProcess( String reqCmd ) {
 		
-		return 	  reqCmd.equals( Method.ADD				.reqTagName() ) ? new AddRespProcess 			< UDM > ( this )
-				: reqCmd.equals( Method.GET_BY_ID		.reqTagName() ) ? new GetByIdRespProcess 		< UDM > ( this )
-				: reqCmd.equals( Method.SEARCH			.reqTagName() ) ? new SearchRespProcess 		<     > ( this ) 
-				: reqCmd.equals( Method.GET_ALL			.reqTagName() ) ? new GetAllRespProcess 		< UDM > ( this ) 
-				: reqCmd.equals( Method.GET_BLOCK		.reqTagName() ) ? new BlockNaviRespProcess 		< UDM > ( this ) 
-				: reqCmd.equals( Method.UPDATE			.reqTagName() ) ? new UpdateRespProcess 		< UDM > ( this ) 
-				: reqCmd.equals( Method.REMOVE			.reqTagName() ) ? new RemoveRespProcess 		< UDM > ( this )
+		return 	  reqCmd.equals( Method.add				.store() ) ? new AddRespProcess 		< UDM > ( this )
+				: reqCmd.equals( Method.getById			.store() ) ? new GetByIdRespProcess 	< UDM > ( this )
+				: reqCmd.equals( Method.search			.store() ) ? new SearchRespProcess 		<     > ( this ) 
+				: reqCmd.equals( Method.getAll			.store() ) ? new GetAllRespProcess 		< UDM > ( this ) 
+				: reqCmd.equals( Method.getBlock		.store() ) ? new BlockNaviRespProcess 	< UDM > ( this ) 
+				: reqCmd.equals( Method.update			.store() ) ? new UpdateRespProcess 		< UDM > ( this ) 
+				: reqCmd.equals( Method.remove			.store() ) ? new RemoveRespProcess 		< UDM > ( this )
 						
-				: reqCmd.equals( Method.CLOSE_METHOD_SESSION.reqTagName() ) ? new CloseMethodSessionRespProcess < UDM > ( this )
+				: reqCmd.equals( Method.closeSession	.method() ) ? new CloseMethodSessionRespProcess < UDM > ( this )
 						
 				: null;
 	}

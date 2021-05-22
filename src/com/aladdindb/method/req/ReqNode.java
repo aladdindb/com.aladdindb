@@ -12,12 +12,12 @@ public class ReqNode {
 		this.reqNode = reqNode;
 	}
 
-	public void getUnitGroupID( Consumer<String> consumer ) {
-		var rv = this.getUnitGroupID();
+	public void getStoreId( Consumer<String> consumer ) {
+		var rv = this.getStoreId();
 		if( rv != null && !rv.trim().isEmpty() ) consumer.accept( rv );
 	}
 	
-	public String getUnitGroupID() { 
+	public String getStoreId() { 
 		return reqNode.attributes.getValue( ReqTransformer.ATR.storeId.name() );
 	}
 }

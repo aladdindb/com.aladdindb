@@ -11,7 +11,7 @@ public class CloseMethodSessionRespTransformer extends Transformer< CloseMethodS
 	
 	
 	public CloseMethodSessionRespTransformer() {
-		super( Method.CLOSE_METHOD_SESSION.respTagName() );
+		super( Method.closeSession.respTagName() );
 	}
 
 	

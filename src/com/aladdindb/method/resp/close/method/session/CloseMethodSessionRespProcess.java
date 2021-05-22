@@ -22,7 +22,7 @@ public class CloseMethodSessionRespProcess < UDM extends DataModel < UDM > > ext
 	public void run() {
 		genie.reqNode.get( reqNode -> {
 			new CloseMethodSessionReqTransformer().toModel( reqNode, req -> {
-				req.methodSessionId.get( methodSessionID -> {
+				req.sessionId.get( methodSessionID -> {
 					this.resp( methodSessionID );
 				});
 			});

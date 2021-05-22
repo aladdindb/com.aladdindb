@@ -10,13 +10,13 @@ import com.aladdindb.sorter.SorterList;
 import com.aladdindb.structure.DataModel;
 
 
-public abstract class DefaultSupport < UDM extends DataModel< UDM > > implements Support < UDM > {
+public abstract class DefaultStoreSupport < UDM extends DataModel< UDM > > implements StoreSupport < UDM > {
 	
 	private final String 	storeId;
 	private final Path 		storeOrigin;
 	
 	
-	public DefaultSupport( String storeId, Path storeOrigin ) {
+	public DefaultStoreSupport( String storeId, Path storeOrigin ) {
 		this.storeId 		= storeId;
 		this.storeOrigin 	= storeOrigin;
 	}

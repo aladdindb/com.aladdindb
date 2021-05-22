@@ -39,25 +39,25 @@ public abstract class StringFinder <
 				
 				rv.set(	switch( OP.valueOf ( operator ) ) {
 					//--------------------------------
-					case MATCHES 				-> fieldValue.matches				( pattern );
-					case EQUAL 					-> fieldValue.equals				( pattern );
+					case matches 				-> fieldValue.matches				( pattern );
+					case equal 					-> fieldValue.equals				( pattern );
 					
-					case GREATER 				-> fieldValue.compareToIgnoreCase	( pattern ) > 	0;
-					case GREATER_OR_EQUAL 		-> fieldValue.compareToIgnoreCase	( pattern ) >= 	0;
+					case greater 				-> fieldValue.compareToIgnoreCase	( pattern ) > 	0;
+					case greaterOrEqual 		-> fieldValue.compareToIgnoreCase	( pattern ) >= 	0;
 					
-					case LESS 					-> fieldValue.compareToIgnoreCase	( pattern ) <	0;
-					case LESS_OR_EQUAL 			-> fieldValue.compareToIgnoreCase	( pattern ) <=	0;
+					case less 					-> fieldValue.compareToIgnoreCase	( pattern ) <	0;
+					case lessOrEqual 			-> fieldValue.compareToIgnoreCase	( pattern ) <=	0;
 					//--------------------------------
 					//				not
 					//--------------------------------
-					case NOT_MATCHES 			-> !fieldValue.matches				( pattern );
-					case NOT_EQUAL 				-> !fieldValue.equals				( pattern );
+					case notMatches 			-> !fieldValue.matches				( pattern );
+					case notEqual 				-> !fieldValue.equals				( pattern );
 					
-					case NOT_GREATER 			-> !(fieldValue.compareToIgnoreCase	( pattern ) > 	0);
-					case NOT_GREATER_OR_EQUAL 	-> !(fieldValue.compareToIgnoreCase	( pattern ) >= 	0);
+					case notGreater 			-> !(fieldValue.compareToIgnoreCase	( pattern ) > 	0);
+					case notGreaterOrEqual 	-> !(fieldValue.compareToIgnoreCase	( pattern ) >= 	0);
 					
-					case NOT_LESS 				-> !(fieldValue.compareToIgnoreCase	( pattern ) <	0);
-					case NOT_LESS_OR_EQUAL 		-> !(fieldValue.compareToIgnoreCase	( pattern ) <=	0);
+					case notLess 				-> !(fieldValue.compareToIgnoreCase	( pattern ) <	0);
+					case notLessOrEqual 		-> !(fieldValue.compareToIgnoreCase	( pattern ) <=	0);
 					//--------------------------------
 					default -> false;
 				});

@@ -19,7 +19,7 @@ public final class BlockNaviReqTransformer  extends ReqTransformer< BlockNaviReq
     
     
 	public BlockNaviReqTransformer() {
-		super( Method.GET_BLOCK.reqTagName() );
+		super( Method.getBlock.store() );
 	}
     
     //****************************************************************

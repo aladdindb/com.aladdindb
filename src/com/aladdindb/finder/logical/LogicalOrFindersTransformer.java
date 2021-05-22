@@ -1,7 +1,7 @@
 package com.aladdindb.finder.logical;
 
-import com.aladdindb.Support;
-import com.aladdindb.Type;
+import com.aladdindb.StoreSupport;
+import com.aladdindb.MethodField;
 import com.aladdindb.finder.Finder;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
@@ -11,16 +11,16 @@ import com.aladdindb.structure.sn.SnPoint;
 public class LogicalOrFindersTransformer < UDM extends DataModel< UDM > > extends Transformer< LogicalOrFinders < UDM > > {
 
 	
-	private final  Support< UDM > support; 
+	private final  StoreSupport< UDM > support; 
 	
 	
     //****************************************************************
     //						Constructor 
     //****************************************************************
 	
-	public LogicalOrFindersTransformer( Support< UDM > support ) { 
+	public LogicalOrFindersTransformer( StoreSupport< UDM > support ) { 
 		
-		super( Type.LOGICAL_OR.finder() );
+		super( MethodField.LOGICAL_OR.asFinderList() );
 		
 		this.support = support;
 	}

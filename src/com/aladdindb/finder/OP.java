@@ -2,27 +2,25 @@ package com.aladdindb.finder;
 
 public enum OP {
 	
-	MATCHES					("matches"),
-	EQUAL					("=="), 
+	matches					("matches"),
+	equal					("=="), 
 
-	GREATER 				(">"), 
-	GREATER_OR_EQUAL		(">="), 
+	greater 				(">"), 
+	greaterOrEqual			(">="), 
 
-	LESS					("<"),
-	LESS_OR_EQUAL			("<="),
+	less					("<"),
+	lessOrEqual				("<="),
 	
 	//   Not
 	
-	NOT_MATCHES				("!matches"),
-	NOT_EQUAL				("!="), 
+	notMatches				("!matches"),
+	notEqual				("!="), 
 
-	NOT_GREATER 			("!>"), 
-	NOT_GREATER_OR_EQUAL	("!>="),
+	notGreater 				("!>"), 
+	notGreaterOrEqual		("!>="),
 	
-	NOT_LESS				("!<"),
-	NOT_LESS_OR_EQUAL		("!<=");
-	
-	
+	notLess					("!<"),
+	notLessOrEqual			("!<=");
 	
 	
 	private String real;

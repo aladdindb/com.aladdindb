@@ -22,7 +22,7 @@ public final class GetByIdReqTransformer  extends ReqTransformer< GetByIdReq >  
     //****************************************************************
 
     public GetByIdReqTransformer() {
-		super( Method.GET_BY_ID.reqTagName() );
+		super( Method.getById.store() );
 	}
     
     //****************************************************************
