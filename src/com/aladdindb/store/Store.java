@@ -59,16 +59,20 @@ public class Store < UDM extends DataModel < UDM > > {
     
     public void search( Finder		< UDM, ? extends DataModel < ? > > 	finder, 
     					Sorter		< UDM, ? extends DataModel < ? > > 	sorter, 
-    					Consumer 	< Unit < UDM > > 				unitConsumer ) {
+    					Consumer 	< Unit < UDM > > 					unitConsumer ) {
+    	
     	this.search( finder, sorter ).forEach( unitId -> {
-    		this.get( unitId, unitConsumer );
+    		this.getUnitById( unitId, unitConsumer );
     	});
+    	
     }
     
-    public List < String > search( Finder< UDM, ? extends DataModel < ? > > finder, Sorter< UDM, ? extends DataModel < ? > > sorter ) {
+    public List < String > search( 	Finder< UDM, ? extends DataModel < ? > > finder, 
+    								Sorter< UDM, ? extends DataModel < ? > > sorter ) {
+    	
     	var rv = new ArrayList< String >();
 
-    	sorter.setUnits( this );
+    	sorter.setStore( this );
     	
     	this.forEachUnit( unit -> {
        		if( finder.prove( unit ) ) rv.add( unit.id.get() ); 
@@ -77,7 +81,8 @@ public class Store < UDM extends DataModel < UDM > > {
     	return sorter.sort(rv);
     }
     
-    public void search( Finder< UDM, ? extends DataModel<?> > finder, Consumer < Unit < UDM > > unitConsumer ) {
+    public void search( Finder		< UDM, ? extends DataModel < ? > > 	finder, 
+    					Consumer 	< Unit < UDM > > 					unitConsumer ) {
     	this.forEachUnit( unit -> {
        		if( finder.prove( unit ) ) unitConsumer.accept( unit ); 
     	});
@@ -97,15 +102,15 @@ public class Store < UDM extends DataModel < UDM > > {
     //					Units Operations
     //**********************************************************
     
-    public void add( String... lables ) {
+    public void addUnits( String... lables ) {
     	for( var label : lables ) {
-    		this.add( label );
+    		this.addUnit( label );
     	}
     }
 
-    public void add( UDM... datas ) {
+    public void addUnits( UDM... datas ) {
     	for( var unitData : datas ) {
-    		this.add( unitData );
+    		this.addUnit( unitData );
     	}
     }
     
@@ -115,15 +120,15 @@ public class Store < UDM extends DataModel < UDM > > {
      * @param dbUnit
      * @return
      */
-    public String add( String label ) {
-    	return this.add( null, label );
+    public String addUnit( String label ) {
+    	return this.addUnit( null, label );
     }
     
-    public String add( UDM data ) {
-    	return this.add(data, null);
+    public String addUnit( UDM data ) {
+    	return this.addUnit(data, null);
     }
     
-    public String add( UDM data, String label ) {
+    public String addUnit( UDM data, String label ) {
     	
     	Var<String> newUnitIdVar = new Var<>();
     	
@@ -145,13 +150,13 @@ public class Store < UDM extends DataModel < UDM > > {
     	return newUnitIdVar.get();
     }
     
-    public void get( String unitID, Consumer < Unit < UDM > > unitConsumer ) {
-		getUnitNode( unitID, unitNode -> {
+    public void getUnitById( String unitId, Consumer < Unit < UDM > > unitConsumer ) {
+		getUnitNodeById( unitId, unitNode -> {
             unitTransformer.toModel( unitNode, unitConsumer :: accept );
 		});
     } 
 
-    public boolean update( Unit < UDM > unit ) {
+    public boolean updateUnit( Unit < UDM > unit ) {
 		Var<Boolean> rv = new Var<Boolean>(false);
     	unit.meta.timeStamp.modifiedOn.set( ZonedDateTime.now() );
     	unit.incVersion();
@@ -163,10 +168,10 @@ public class Store < UDM extends DataModel < UDM > > {
 		return rv.get();
     }
 
-    public boolean remove( String unitID  ) {
+    public boolean removeUnit( String unitId  ) {
     	var rv = new Var < Boolean > ( false );
 		try {
-			removeUnitFile( unitID );
+			removeUnitFileById( unitId );
 			rv.set(true);
 		} catch ( IOException e ) {
 //            Logger.getLogger( Units.class.getName() ).log( Level.SEVERE, null, e );
@@ -194,8 +199,8 @@ public class Store < UDM extends DataModel < UDM > > {
         return unitFile != null ?  unitFile.saveUnitNode ( unitModelNode ) : false;
     }
 
-    public void getUnitNode( String unitID, Consumer< SnPoint > consumer ) {
-    	UnitFile.get ( this.storePath, unitID, unitFile -> {
+    public void getUnitNodeById( String unitId, Consumer< SnPoint > consumer ) {
+    	UnitFile.get ( this.storePath, unitId, unitFile -> {
     		unitFile.getUnitNode ( consumer );
     	} );
     }
@@ -211,9 +216,9 @@ public class Store < UDM extends DataModel < UDM > > {
 		}
     }
  
-    public void forEachUnitNodeStructureChange( Consumer < SnPoint >  consumer ) {
+    public void changeStructureForEachUnitNode( Consumer < SnPoint >  unitNodeConsumer ) {
 		forEachUnitNode( unitNode -> {
-			consumer.accept(unitNode );
+			unitNodeConsumer.accept(unitNode );
 			updateUnitNode( unitNode );
 		});
     }
@@ -222,8 +227,8 @@ public class Store < UDM extends DataModel < UDM > > {
     //					UnitFile Operations
     //**********************************************************
     
-    public void removeUnitFile( String unitID ) throws IOException {
-        var unitFile = UnitFile.remove ( this.storePath, unitID );
+    public void removeUnitFileById( String unitId ) throws IOException {
+        var unitFile = UnitFile.remove ( this.storePath, unitId );
     }
 
     
@@ -231,8 +236,8 @@ public class Store < UDM extends DataModel < UDM > > {
     //					Label Map Operations
     //**********************************************************
 
-    public void createIdLabelMap( Consumer < Map < String, String > > consumer ) {
-    	consumer.accept( createIdLabelMap() );
+    public void createIdLabelMap( Consumer < Map < String, String > > idLabelMapConsumer ) {
+    	idLabelMapConsumer.accept( createIdLabelMap() );
     }
     
     public Map< String, String > createIdLabelMap() {

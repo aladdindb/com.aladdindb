@@ -52,7 +52,7 @@ public class GetAllRespProcess < UDM extends DataModel < UDM > > extends RespPro
 		
 		genie.unitsIdBlockNaviMap.put( cmdSesionID,  navi );
 		
-		resp.methodSessionID	.set( cmdSesionID );
+		resp.methodSessionId	.set( cmdSesionID );
 		
 		resp.unitsIdBlock	.set( navi.right());
 		

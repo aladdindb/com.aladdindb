@@ -38,14 +38,14 @@ public abstract  class DefaultSorterTransformer <
 	@Override
 	public SORTER_MODEL toModel( SnPoint src, SORTER_MODEL target ) {
 		var srcAtr = new SnAttributeAccess(src);
-		srcAtr.asStr.get( ATR.sortOrder	,target.sortOrder );
+		srcAtr.asStr.get( ATR.sortOrder	,target.sortOrderVar );
 		return target;
 	}
 
 	@Override
 	public SnPoint toNode( SORTER_MODEL src, SnPoint target ) {
 		var srcAtr = new SnAttributeAccess(target);
-		srcAtr.asStr.set( ATR.sortOrder	,src.sortOrder 	);
+		srcAtr.asStr.set( ATR.sortOrder	,src.sortOrderVar 	);
 		return target;
 	}
 

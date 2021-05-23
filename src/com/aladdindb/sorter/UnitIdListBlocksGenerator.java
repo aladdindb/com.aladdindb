@@ -72,14 +72,15 @@ public class UnitIdListBlocksGenerator < UDM extends DataModel< UDM >, VT >  {
 			
 			block.set( new ArrayList< String >() );
 
-			sorter.units.get( units -> {
-				units.get( sortedUnitIdList.get( i.inc()	), a :: set  );
+			sorter.storeVar.get( store -> {
+				
+				store.getUnitById( sortedUnitIdList.get( i.inc()	), a :: set  );
 				
 				a.get( unit -> { block.get().add( unit.id.get() ); });
 				
 				while( i.inc() < sortedUnitIdList.size() ) {
 					
-					units.get( sortedUnitIdList.get( i.get() ), x :: set  );
+					store.getUnitById( sortedUnitIdList.get( i.get() ), x :: set  );
 					
 					if( this.compare( a.get(), x.get() ) != 0 ) {
 						a		.set( x );

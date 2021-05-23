@@ -77,8 +77,8 @@ public  class SorterList < UDM extends DataModel < UDM > > implements Sorter< UD
 	}
 	
 	@Override
-	public void setUnits( Store<UDM> units ) {
-		this.sorters.forEach( sorter -> sorter.setUnits(units) );
+	public void setStore( Store<UDM> units ) {
+		this.sorters.forEach( sorter -> sorter.setStore(units) );
 	}
 	
     //****************************************************************

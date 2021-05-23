@@ -7,7 +7,7 @@ import com.aladdindb.structure.types.SnAttributeAccess;
 
 public class BlockNaviRespTransformer extends Transformer< BlockNavResp > {
 	
-    private enum ATR { methodSesionID, hasLeft, hasRight, unitsIdBlock };
+    private enum ATR { methodSesionId, hasLeft, hasRight, unitsIdBlock };
 	
 	
 	public BlockNaviRespTransformer() {
@@ -24,7 +24,7 @@ public class BlockNaviRespTransformer extends Transformer< BlockNavResp > {
 	public BlockNavResp toModel(SnPoint src, BlockNavResp target) {
     	var srcAtr = new SnAttributeAccess( src );
 
-    	srcAtr.asStr	.get( ATR.methodSesionID	,target.methodSessionID 	);
+    	srcAtr.asStr	.get( ATR.methodSesionId	,target.methodSessionId 	);
     	
     	srcAtr.asBool	.get( ATR.hasLeft			,target.hasLeft				);
     	srcAtr.asBool	.get( ATR.hasRight			,target.hasRight			);
@@ -38,7 +38,7 @@ public class BlockNaviRespTransformer extends Transformer< BlockNavResp > {
 	public SnPoint toNode( BlockNavResp src, SnPoint target ) {
     	var targetAtr = new SnAttributeAccess( target );
 
-    	targetAtr.asStr	.set( ATR.methodSesionID  	,src.methodSessionID	);
+    	targetAtr.asStr	.set( ATR.methodSesionId  	,src.methodSessionId	);
     	
     	targetAtr.asBool.set( ATR.hasLeft  			,src.hasLeft		);
     	targetAtr.asBool.set( ATR.hasRight  		,src.hasRight		);

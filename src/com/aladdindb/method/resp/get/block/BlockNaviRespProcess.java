@@ -49,7 +49,7 @@ public class BlockNaviRespProcess < UDM extends DataModel < UDM > > extends Resp
 				case right	:resp.unitsIdBlock.set( nav.right())	;break;
 			}
 		
-			resp.methodSessionID	.set( cmdSessionID );
+			resp.methodSessionId	.set( cmdSessionID );
 			
 			resp.hasLeft		.set( nav.hasLeft() );
 			resp.hasRight		.set( nav.hasRight());
@@ -57,7 +57,7 @@ public class BlockNaviRespProcess < UDM extends DataModel < UDM > > extends Resp
 			resp.unitsIdBlock.set( "" );
 			resp.hasLeft.set( false );
 			resp.hasRight.set( false );
-			resp.methodSessionID.set("");
+			resp.methodSessionId.set("");
 		}
 		
 		respParser.toNode( resp, respNode -> {

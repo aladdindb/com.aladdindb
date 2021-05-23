@@ -16,7 +16,7 @@ public interface Sorter <
 	public List	< String > 				sort				( List<String> unitIdList );
 	public List	< List < String > > 	sortBlockWise		( List<String> unitIdList );
 	
-	public void 						setUnits			( Store< UDM > units );
+	public void 						setStore			( Store< UDM > store );
 	
 	public Transformer < SORTER_MODEL > newTransformer		(); 
 	

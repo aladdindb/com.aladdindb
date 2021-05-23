@@ -26,9 +26,8 @@ public abstract class DefaultSorter <
 > implements Sorter < UDM, SORTER_MODEL > {
 
 	
-	public final Var 						< String > 			sortOrder 	= new Var<>();
-	
-	public final Var						< Store< UDM > > 	units 		= new Var<>();
+	public final Var 						< String > 			sortOrderVar 	= new Var<>();
+	public final Var						< Store< UDM > > 	storeVar 		= new Var<>();
 	
 	public final Comparator					< VT > 				comparator;
 	public final UnitIdListBlocksGenerator	< UDM, VT>  		blockWise;
@@ -39,7 +38,7 @@ public abstract class DefaultSorter <
 	
 	public DefaultSorter( SortOrder sortOrder ) {
 		
-		this.sortOrder	.set( sortOrder.name()	);
+		this.sortOrderVar	.set( sortOrder.name()	);
 		this.comparator 	= this.newComparator();
 		this.blockWise 		= new UnitIdListBlocksGenerator<>( this );
 	}
@@ -50,7 +49,7 @@ public abstract class DefaultSorter <
 	
 	@Override
 	public void fill( SORTER_MODEL model) {
-		this.sortOrder	.set( model.sortOrder 	);
+		this.sortOrderVar	.set( model.sortOrderVar 	);
 	}
 
     //****************************************************************
@@ -60,18 +59,25 @@ public abstract class DefaultSorter <
 	public List<String> sort( List<String> unitIdArray ) {
 		
 		Map< String, VT > map = new HashMap<>();
-		this.units.get( units -> {
-			unitIdArray.forEach( unitID -> {
-				units.get( unitID, unit -> {
+		this.storeVar.get( store -> {
+			unitIdArray.forEach( unitId -> { 
+				store.getUnitById( unitId, unit -> {
 					var fieldVar = this.getField( unit );
-					fieldVar.get( value -> map.put( unitID, value ) );
+					fieldVar.get( value -> map.put( unitId, value ) );
 				});
 			});
 		});
 
 		var rv 	= new ArrayList<String>();
 		
-		map.entrySet().stream().sorted( Map.Entry.comparingByValue( comparator ) ).forEach( entry -> {
+		
+		var orderType = switch ( SortOrder.valueOf( sortOrderVar.get() ) ) {
+//			case ASCENDING  -> comparator;
+			case DESCENDING -> comparator.reversed();
+			default 		-> comparator;
+		};
+		
+		map.entrySet().stream().sorted( Map.Entry.comparingByValue( orderType ) ).forEach( entry -> {
 			rv.add( entry.getKey() );
 		});
 		
@@ -80,8 +86,8 @@ public abstract class DefaultSorter <
 	
 	
 	@Override
-	public void setUnits(Store<UDM> units) {
-		this.units.set(units);
+	public void setStore( Store<UDM> store ) {
+		this.storeVar.set(store);
 	}
 	
 	@Override
@@ -95,7 +101,7 @@ public abstract class DefaultSorter <
 	
 	public abstract Comparator<VT> newComparator();
 	
-	public abstract Var< VT > getField( Unit<UDM> model );
+	public abstract Var< VT > getField( Unit<UDM> unit );
 
 	
 }

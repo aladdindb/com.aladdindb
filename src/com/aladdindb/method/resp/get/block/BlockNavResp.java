@@ -7,7 +7,7 @@ import com.aladdindb.util.Var;
 public class BlockNavResp  implements DataModel< BlockNavResp  > {
 
 	
-	public final Var<String> 	methodSessionID 	= new Var<>();
+	public final Var<String> 	methodSessionId 	= new Var<>();
 	public final Var<Boolean> 	hasLeft 			= new Var<>();
 	public final Var<Boolean> 	hasRight 			= new Var<>();
 
@@ -15,7 +15,7 @@ public class BlockNavResp  implements DataModel< BlockNavResp  > {
 	
 	@Override
 	public void fill( BlockNavResp model ) {
-		this.methodSessionID	.set( model.methodSessionID );
+		this.methodSessionId	.set( model.methodSessionId );
 		
 		this.hasLeft			.set( model.hasLeft );
 		this.hasRight			.set( model.hasRight );

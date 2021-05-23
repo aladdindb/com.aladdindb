@@ -16,8 +16,8 @@ import com.aladdindb.util.Util;
 public class SearchRespProcess <
 
 	UDM 			extends DataModel 	< UDM >, 
-	FINDER_MODEL 	extends Finder	< UDM, FINDER_MODEL >,
-	SORTER_MODEL	extends Sorter	< UDM, SORTER_MODEL >
+	FINDER_MODEL 	extends Finder		< UDM, FINDER_MODEL >,
+	SORTER_MODEL	extends Sorter		< UDM, SORTER_MODEL >
 
 > extends RespProcess< UDM > { 
 
@@ -60,13 +60,13 @@ public class SearchRespProcess <
 			unit.id.get( unitIdBlock::addUnitId );
 		});
 		
-		String cmdSesionID = Util.createAlphaNumericInclUpperCaseHashCode( 20 );
+		String methodSessionId = Util.createAlphaNumericInclUpperCaseHashCode( 20 );
 		
 		var navi = unitIdBlock.newUnitIdBlockNavi();
 		
-		genie.unitsIdBlockNaviMap.put( cmdSesionID,  navi );
+		genie.unitsIdBlockNaviMap.put( methodSessionId,  navi );
 		
-		resp.methodSessionID	.set( cmdSesionID );
+		resp.methodSessionId	.set( methodSessionId );
 		
 		resp.unitsIdBlock		.set( navi.right());
 		

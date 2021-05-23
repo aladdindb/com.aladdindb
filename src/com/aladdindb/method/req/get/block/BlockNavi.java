@@ -49,7 +49,7 @@ public class BlockNavi <
 	@Override
 	public BlockNavResp right() {
 		if( currentIdBlock != null ) {
-			var reqProcess = new BlockNaviReqProcess < UDM > ( currentIdBlock.methodSessionID.get(), LineNavigator.DIRECTION.right, this.magicLamp );
+			var reqProcess = new BlockNaviReqProcess < UDM > ( currentIdBlock.methodSessionId.get(), LineNavigator.DIRECTION.right, this.magicLamp );
 			reqProcess.respConsumer.set( this :: setCurrentIdBlock );
 	    	reqProcess.run();
 		}
@@ -59,7 +59,7 @@ public class BlockNavi <
 	@Override
 	public BlockNavResp left() {
 		if( currentIdBlock != null ) {
-			var reqProcess = new BlockNaviReqProcess<UDM>( currentIdBlock.methodSessionID.get(), LineNavigator.DIRECTION.left, this.magicLamp );
+			var reqProcess = new BlockNaviReqProcess<UDM>( currentIdBlock.methodSessionId.get(), LineNavigator.DIRECTION.left, this.magicLamp );
 			reqProcess.respConsumer.set( this :: setCurrentIdBlock );
 	    	reqProcess.run();
 		}
