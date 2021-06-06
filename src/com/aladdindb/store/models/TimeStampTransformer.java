@@ -10,7 +10,7 @@ public class TimeStampTransformer extends Transformer< TimeStamp > {
 	private enum ATR { generatedOn, modifiedOn };
 	
 	public TimeStampTransformer() {
-		super("timestamp");
+		super("TimeStamp");
 	}
 	
 	@Override
@@ -23,7 +23,7 @@ public class TimeStampTransformer extends Transformer< TimeStamp > {
     	var srcAtr = new SnAttributeAccess( src );
     	
     	srcAtr.asXlrZonedDateTime.get( ATR.generatedOn	, target.generatedOn 	);
-    	srcAtr.asXlrZonedDateTime.get( ATR.modifiedOn	, target.modifiedOn	);
+    	srcAtr.asXlrZonedDateTime.get( ATR.modifiedOn	, target.modifiedOn		);
     	
 		return target;
 	}
@@ -32,8 +32,8 @@ public class TimeStampTransformer extends Transformer< TimeStamp > {
 	public SnPoint toNode( TimeStamp src, SnPoint target ) {
     	var targetAtr = new SnAttributeAccess( target );
     	
-    	targetAtr.asXlrZonedDateTime.set( ATR.generatedOn	, src.generatedOn );
-    	targetAtr.asXlrZonedDateTime.set( ATR.modifiedOn	, src.modifiedOn );
+    	targetAtr.asXlrZonedDateTime.set( ATR.generatedOn	, src.generatedOn 	);
+    	targetAtr.asXlrZonedDateTime.set( ATR.modifiedOn	, src.modifiedOn 	);
 
 		return target;
 	}

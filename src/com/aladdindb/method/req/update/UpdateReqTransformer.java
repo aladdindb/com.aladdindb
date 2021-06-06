@@ -4,7 +4,6 @@ import com.aladdindb.method.Method;
 import com.aladdindb.method.req.ReqTransformer;
 import com.aladdindb.store.models.UnitTransformer;
 import com.aladdindb.structure.DataModel;
-import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 
 /**
@@ -22,9 +21,9 @@ public final class UpdateReqTransformer < UDM extends DataModel< UDM > > extends
     //
     //****************************************************************
 
-    public UpdateReqTransformer( Transformer< UDM > unitTransformer ) {
+    public UpdateReqTransformer( Class<UDM> udmClass ) {
 		super( Method.update.store() );
-		this.unitTransformer = new UnitTransformer<UDM>(unitTransformer);
+		this.unitTransformer = new UnitTransformer<UDM>(udmClass);
 	}
     
     //****************************************************************

@@ -7,16 +7,16 @@ import com.aladdindb.util.Var;
  *
  * @author Macit Kandemir
  */
-public class LabelModel extends Var< String > implements DataModel < LabelModel > {
+public class UnitLabel extends Var< String > implements DataModel < UnitLabel > {
     
-    public LabelModel() {
+    public UnitLabel() {
     }
     
-    public LabelModel( String label ) {
+    public UnitLabel( String label ) {
     	this.set( label );
     }
     
-    public void fill( LabelModel model ) {
+    public void fill( UnitLabel model ) {
     	this.set( model );
     }
     

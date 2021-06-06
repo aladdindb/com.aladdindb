@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.function.Consumer;
 
@@ -17,7 +18,7 @@ public class XTransformer < UDM extends DataModel< UDM > >  extends Transformer 
 	private Class< UDM > udmClass;
 	
 	
-	private enum XType { STRING, INT, DOUBLE, FLOAT, BYTE, BOOLEAN, LOCAL_DATE }
+	private enum XType { STRING, INT, DOUBLE, FLOAT, BYTE, BOOLEAN, LOCAL_DATE, ZONED_DATE_TIME }
 	
 	
 	public XTransformer( String key, Class< UDM > udmClass ) {
@@ -51,6 +52,8 @@ public class XTransformer < UDM extends DataModel< UDM > >  extends Transformer 
 							case BYTE 		: this.< Byte		> set	( ta, field, src, target ) ;break;
 							case BOOLEAN 	: this.< Boolean	> set	( ta, field, src, target ) ;break;
 							case LOCAL_DATE : this.< LocalDate	> set	( ta, field, src, target ) ;break;
+							
+							case ZONED_DATE_TIME : this.< ZonedDateTime	> set	( ta, field, src, target ) ;break;
 						}
 					});break;
 					
@@ -96,6 +99,8 @@ public class XTransformer < UDM extends DataModel< UDM > >  extends Transformer 
 							case BYTE 		: this.< Byte		> set	( ta, field, src, target ) ;break;
 							case BOOLEAN 	: this.< Boolean	> set	( ta, field, src, target ) ;break;
 							case LOCAL_DATE : this.< LocalDate	> set	( ta, field, src, target ) ;break;
+							
+							case ZONED_DATE_TIME : this.< ZonedDateTime	> set	( ta, field, src, target ) ;break;
 						}
 					});break;
 					
@@ -188,6 +193,10 @@ public class XTransformer < UDM extends DataModel< UDM > >  extends Transformer 
 					target.attributes.set( field.getName(), ( ( LocalDate ) realValue ).format( DateTimeFormatter.ISO_LOCAL_DATE ) );
 					break;
 					
+				case ZONED_DATE_TIME:
+					target.attributes.set( field.getName(), ( ( ZonedDateTime ) realValue ).format( DateTimeFormatter.ISO_ZONED_DATE_TIME ) );
+					break;
+
 				default :target.attributes.set( field.getName(), realValue.toString() );
 			}
 			
@@ -207,6 +216,8 @@ public class XTransformer < UDM extends DataModel< UDM > >  extends Transformer 
 					case BYTE 		: ((Var< Byte		>)realVar).set( Byte		.parseByte		( realValue ) ) ;break;
 					case BOOLEAN 	: ((Var< Boolean	>)realVar).set( Boolean		.parseBoolean	( realValue ) ) ;break;
 					case LOCAL_DATE : ((Var< LocalDate	>)realVar).set( LocalDate	.parse			( realValue, DateTimeFormatter.ISO_LOCAL_DATE ) ) ;break;
+					
+					case ZONED_DATE_TIME : ((Var< ZonedDateTime	>)realVar).set( ZonedDateTime	.parse		( realValue, DateTimeFormatter.ISO_ZONED_DATE_TIME ) ) ;break;
 				}
 			}
 		}
@@ -276,6 +287,7 @@ public class XTransformer < UDM extends DataModel< UDM > >  extends Transformer 
     	        		case "java.lang.Byte" 		-> XType.BYTE;
     	        		case "java.lang.Boolean" 	-> XType.BOOLEAN;
     	        		case "java.time.LocalDate" 	-> XType.LOCAL_DATE;
+    	        		case "java.time.ZonedDateTime" 	-> XType.ZONED_DATE_TIME;
     	        		
     	        		default -> null;
     	        	};

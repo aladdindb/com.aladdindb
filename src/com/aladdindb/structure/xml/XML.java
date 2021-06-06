@@ -90,17 +90,17 @@ public class XML {
     }
 
     public static final < UDM extends DataModel <UDM> > void toString( UDM src, Consumer<String> consumer ) {
-    	var rv = XML.toString(src);
+    	var rv = XML.<UDM>toString(src);
     	if( rv != null && !rv.trim().isEmpty() )consumer.accept(rv);
     }
     
     public static final < UDM extends DataModel <UDM> > String toString( UDM src ) {
-    	var node = XML.toNode(src);
+    	var node = XML.<UDM>toNode(src);
     	return XML.toString(node);
     }
     
     public static final < UDM extends DataModel <UDM> > void toNode( UDM src, Consumer<SnPoint> consumer ) {
-    	var rv = toNode( src );
+    	var rv = XML.<UDM>toNode( src );
     	if( rv != null )consumer.accept(rv);
     }
     
@@ -116,7 +116,7 @@ public class XML {
     
     public static final < UDM extends DataModel <UDM > > UDM toModel( Path path, Class<UDM> clazz ) {
 		var t = new XTransformer< UDM >( clazz.getSimpleName(), clazz );
-		var node = XML.toNode( path);
+		var node = XML.<UDM>toNode( path);
 		return  node != null ? t.toModel(node) : null;
     }
 

@@ -8,11 +8,11 @@ import com.aladdindb.structure.sn.props.SnValueType;
  *
  * @author Macit Kandemir
  */
-public class LabelParser extends Transformer < LabelModel > {
+public class LabelParser extends Transformer < UnitLabel > {
     
     
 	public LabelParser() {
-		super("label");
+		super("UnitLabel");
 	}	
 	
     public LabelParser( String key ) {
@@ -24,8 +24,8 @@ public class LabelParser extends Transformer < LabelModel > {
     //****************************************************************
 
     @Override
-    public LabelModel newModel() {
-        return new LabelModel();
+    public UnitLabel newModel() {
+        return new UnitLabel();
     }
     
     //****************************************************************
@@ -33,7 +33,7 @@ public class LabelParser extends Transformer < LabelModel > {
     //****************************************************************
 
     @Override
-    public LabelModel toModel( SnPoint src, LabelModel target ) {
+    public UnitLabel toModel( SnPoint src, UnitLabel target ) {
         
     	src.value.get( target :: set );
         
@@ -42,7 +42,7 @@ public class LabelParser extends Transformer < LabelModel > {
     
     
     @Override
-    public SnPoint toNode( LabelModel src, SnPoint target ) {
+    public SnPoint toNode( UnitLabel src, SnPoint target ) {
         
         src.get( target.value :: set );
         

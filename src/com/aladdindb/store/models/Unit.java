@@ -13,6 +13,7 @@ public final class Unit < UDM extends DataModel < UDM > > implements DataModel <
     public final Var < Float > 	version = new Var<>( 1.0f );
 
 	public final Meta			meta = new Meta();
+	
 	public final Var < UDM > 	data = new Var< UDM >();
 	
     public Unit() {

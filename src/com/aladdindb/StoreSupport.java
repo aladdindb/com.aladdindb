@@ -9,7 +9,6 @@ import com.aladdindb.finder.logical.LogicalOrFinders;
 import com.aladdindb.sorter.Sorter;
 import com.aladdindb.sorter.SorterList;
 import com.aladdindb.structure.DataModel;
-import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 
 public interface StoreSupport < UDM extends DataModel< UDM > > {
@@ -40,11 +39,11 @@ public interface StoreSupport < UDM extends DataModel< UDM > > {
     //						 Transformer 
     //****************************************************************
 	
-	public Transformer < UDM > 	newDataTransformer( );
+	public Class< UDM >	udmClass( );
 	
-	default void newDataTransformer( Consumer< Transformer < UDM > > transformerConsumer ) {
-		var rv = newDataTransformer();
-		if( rv != null )transformerConsumer.accept( rv );
+	default void udmClass( Consumer< Class < UDM > > udmClassConsumer ) {
+		var rv = udmClass(); 
+		if( rv != null )udmClassConsumer.accept( rv );
 	}
 
 	//****************************************************************

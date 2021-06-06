@@ -22,7 +22,7 @@ public class GetByIdReqProcess < UDM extends DataModel< UDM > > extends ReqProce
 		
 		this.req		.set ( req );
 		this.reqTransformer	.set ( new GetByIdReqTransformer());
-		this.respTransformer	.set ( new GetByIdRespTransformer < UDM > ( unitsChanel.support.newDataTransformer() ) );
+		this.respTransformer	.set ( new GetByIdRespTransformer < UDM > ( unitsChanel.support.udmClass() ) );
 	}
 
 	

@@ -10,7 +10,7 @@ public class MetaTransformer extends Transformer<Meta> {
 	private final TimeStampTransformer 	timeStamp 	= new TimeStampTransformer();
 	
 	public MetaTransformer() {
-		super("meta");
+		super("Meta");
 	}	
 	
 	@Override

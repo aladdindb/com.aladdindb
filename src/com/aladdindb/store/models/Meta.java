@@ -1,6 +1,6 @@
 package com.aladdindb.store.models;
 
-import com.aladdindb.models.text.LabelModel;
+import com.aladdindb.models.text.UnitLabel;
 import com.aladdindb.structure.DataModel;
 
 /**
@@ -10,7 +10,7 @@ import com.aladdindb.structure.DataModel;
 public class Meta implements DataModel< Meta > { 
     
 	
-	public final LabelModel label 		= new LabelModel();
+	public final UnitLabel label 		= new UnitLabel();
 	public final TimeStamp 	timeStamp	= new TimeStamp();
 
 	

@@ -23,7 +23,7 @@ public class UpdateReqProcess < UDM extends DataModel< UDM > > extends ReqProces
 		
 		this.req		.set ( req );
 		this.respTransformer	.set ( new UpdateRespTransformer() );
-		this.reqTransformer	.set ( new UpdateReqTransformer< UDM > ( magicLamp.support.newDataTransformer() ) );
+		this.reqTransformer	.set ( new UpdateReqTransformer< UDM > ( magicLamp.support.udmClass() ) );
 	}
 
 	

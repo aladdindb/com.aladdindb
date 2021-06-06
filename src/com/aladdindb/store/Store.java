@@ -15,7 +15,6 @@ import com.aladdindb.sorter.Sorter;
 import com.aladdindb.store.models.Unit;
 import com.aladdindb.store.models.UnitTransformer;
 import com.aladdindb.structure.DataModel;
-import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.util.Var;
 
@@ -40,9 +39,9 @@ public class Store < UDM extends DataModel < UDM > > {
     	this( storePath, null );
     }
     
-    public Store( Path storePath, Transformer< UDM > dataTransformer ) {
+    public Store( Path storePath, Class< UDM > udmClass ) {
     	this.storePath 			= storePath;
-        this.unitTransformer 	= new UnitTransformer< UDM >(dataTransformer);
+        this.unitTransformer 	= new UnitTransformer< UDM >( udmClass);
         if( !Files.exists( storePath ) ) {
         	try {
 				Files.createDirectories( storePath );

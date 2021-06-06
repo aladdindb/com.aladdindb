@@ -2,8 +2,10 @@ package com.aladdindb.store.models;
 
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
+import com.aladdindb.structure.XTransformer;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.structure.types.SnAttributeAccess;
+import com.aladdindb.structure.xml.XML;
 
 /**
  *
@@ -17,11 +19,11 @@ public final class UnitTransformer < UDM extends DataModel < UDM > > extends Tra
 	
     private final MetaTransformer meta = new MetaTransformer();
     
-    private final Transformer< UDM > dataTransformer;
+    private final Class< UDM > udmClass;
     
-	public UnitTransformer( Transformer< UDM > dataTransformer ) {
-		super("unit");
-		this.dataTransformer = dataTransformer;
+	public UnitTransformer( Class< UDM > udmClass ) {
+		super("Unit");
+		this.udmClass = udmClass;
 	}
     
 	@Override
@@ -41,9 +43,15 @@ public final class UnitTransformer < UDM extends DataModel < UDM > > extends Tra
     	srcAtr.asStr	.get( ATR.id		, target.id     	);
     	srcAtr.asFloat	.get( ATR.version	, target.version );
         
-        this.meta				.toModelFromParent( src	, target.meta );
-        
-        if( this.dataTransformer != null) this.dataTransformer	.toModelFromParent( src	, target.data );
+        this.meta.toModelFromParent( src	, target.meta );
+
+        if( this.udmClass != null ) {
+            var dataNode = src.children.get( this.udmClass.getSimpleName() );
+    		var t = new XTransformer< UDM >( this.udmClass.getSimpleName(), this.udmClass );
+    		t.toModel(dataNode, dataModel-> {
+    			target.data.set(dataModel);
+    		});
+        }
         
         return target;
     }
@@ -56,9 +64,16 @@ public final class UnitTransformer < UDM extends DataModel < UDM > > extends Tra
     	targetAtr.asStr		.set( ATR.id      	, src.id 		); 
     	targetAtr.asFloat	.set( ATR.version   , src.version	);
         
-        this.meta				.toParentNode( src.meta, target );
+        this.meta.toParentNode( src.meta, target );
         
-        if( this.dataTransformer != null) this.dataTransformer	.toParentNode( src.data, target );
+        if( this.udmClass != null ) {
+    		var t = new XTransformer< UDM >( this.udmClass.getSimpleName(), this.udmClass );
+    		src.data.get( dataModel -> {
+        		t.toNode( dataModel, dataNode -> {
+        			target.children.add(dataNode);
+        		});
+    		});
+        }
 
         return target; 
     }
