@@ -35,7 +35,7 @@ public class UnitFile {
     }
     
     public SnPoint getUnitNode() {
-    	return XML.load ( this.unitPath );
+    	return XML.toNode ( this.unitPath );
     }
     
 	public  boolean removeUnitFile() {
@@ -80,7 +80,7 @@ public class UnitFile {
 	}
 	
 	public static final SnPoint getUnitNode( Path unitPath ) {
-		return XML.load ( unitPath );
+		return XML.toNode ( unitPath );
 	}
 	
 	public static final UnitFile remove( Path storePath, String unitId ) {

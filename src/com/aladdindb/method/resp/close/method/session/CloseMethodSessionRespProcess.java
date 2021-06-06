@@ -44,7 +44,7 @@ public class CloseMethodSessionRespProcess < UDM extends DataModel < UDM > > ext
 		
 		respTransformer.toNode( resp, respNode -> {
 			this.genie.respConsumer.get( respConsumer -> {
-				XML.parse( respNode, respConsumer );
+				XML.toString( respNode, respConsumer );
 			});
 		});
 	}

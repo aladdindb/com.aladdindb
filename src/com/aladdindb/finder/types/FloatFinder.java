@@ -1,9 +1,11 @@
 package com.aladdindb.finder.types;
 
-import java.text.NumberFormat;
+import java.util.function.Function;
 
 import com.aladdindb.finder.DefaultFinder;
+import com.aladdindb.finder.DefaultFinderTransformer;
 import com.aladdindb.finder.OP;
+import com.aladdindb.store.models.Unit;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.util.Var;
 
@@ -15,20 +17,28 @@ import com.aladdindb.util.Var;
  * @param <UDM>		Unit Daten Model Typ, der zu filternden Daten.
  * @param <MODEL>	Der reale Filter Typ.
  */
-public abstract class FloatFinder <
-
-	UDM 	extends DataModel 	< UDM >, 
-	MODEL	extends FloatFinder	< UDM, MODEL >
-
-> extends DefaultFinder < UDM, MODEL, Float > {
+public class FloatFinder < UDM 	extends DataModel 	< UDM > > extends DefaultFinder < UDM, FloatFinder< UDM >, Float > {
 
 	
     //****************************************************************
     //						Constructor 
     //****************************************************************
 
-	public FloatFinder( String operator, String pattern ) {
-		super( operator, pattern );
+	private String name;
+	
+	public FloatFinder( String operator, String pattern, String name, Function < Unit < UDM >, Var< Float > > unitFieldGetter ) {
+		super( operator, pattern, unitFieldGetter );
+		this.name = name;
+	}
+
+	@Override
+	public  DefaultFinderTransformer< UDM, FloatFinder< UDM >, Float > newTransformer() {
+		return new DefaultFinderTransformer<>( this.name ) {
+			@Override 
+			public FloatFinder< UDM > newModel() {
+				return new FloatFinder<>( null, null, null, null );
+			}
+		};
 	}
 
     //****************************************************************

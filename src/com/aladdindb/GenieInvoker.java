@@ -133,7 +133,7 @@ public class GenieInvoker {
         }
         
         private void getGenie( String reqStr, Consumer < Genie<?> > genieConsumer ) {
-			XML.parse( reqStr, reqNode -> {
+			XML.toNode( reqStr, reqNode -> {
 				new ReqNode(reqNode).getStoreId( storeId -> {
 					this.invoker.getGenie( storeId, genie -> {
 						genie.reqNode.set( reqNode );

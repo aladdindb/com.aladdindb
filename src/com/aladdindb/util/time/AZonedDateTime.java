@@ -28,6 +28,18 @@ public class AZonedDateTime {
 //		return timeStamp.format( XLR_ZONED_DATE_TIME );
 //	}
 	
+	public static String toRfc1123Str() {
+		return DateTimeFormatter.RFC_1123_DATE_TIME.format( ZonedDateTime.now());
+	}
+	
+	public static ZonedDateTime fromRfc1123Str( String isoDateTimeStr ) {
+		return ZonedDateTime.parse( isoDateTimeStr, DateTimeFormatter.RFC_1123_DATE_TIME  );
+	}
+
+	public static String toRfc1123Str( ZonedDateTime dateTime ) {
+		return DateTimeFormatter.RFC_1123_DATE_TIME.format( dateTime );
+	}
+	
 	//*********************************************************************
 	
 	public static String toIsoStr() {

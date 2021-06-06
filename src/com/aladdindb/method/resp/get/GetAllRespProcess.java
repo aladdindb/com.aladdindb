@@ -61,7 +61,7 @@ public class GetAllRespProcess < UDM extends DataModel < UDM > > extends RespPro
 		
 		respTransformer.toNode( resp, respNode -> {
 			this.genie.respConsumer.get( respConsumer -> {
-				XML.parse( respNode, respConsumer );
+				XML.toString( respNode, respConsumer );
 			});
 		});
 	}

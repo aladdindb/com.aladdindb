@@ -37,7 +37,7 @@ public class UpdateRespProcess < UGM extends DataModel < UGM > > extends RespPro
 	private void resp( String unitID ) {
 		var resp = new UpdateResp( unitID );
 		new UpdateRespTransformer().toNode( resp, respNode -> {
-			XML.parse( respNode, this.genie.respConsumer );
+			XML.toString( respNode, this.genie.respConsumer );
 		});
 	}
 	

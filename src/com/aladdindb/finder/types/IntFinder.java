@@ -1,7 +1,11 @@
 package com.aladdindb.finder.types;
 
+import java.util.function.Function;
+
 import com.aladdindb.finder.DefaultFinder;
+import com.aladdindb.finder.DefaultFinderTransformer;
 import com.aladdindb.finder.OP;
+import com.aladdindb.store.models.Unit;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.util.Var;
 
@@ -13,20 +17,28 @@ import com.aladdindb.util.Var;
  * @param <UDM>		Unit Daten Model Typ, der zu filternden Daten.
  * @param <MODEL>	Der reale Filter Typ.
  */
-public abstract class IntFinder < 
-
-	UDM 	extends DataModel 	< UDM >, 
-	MODEL	extends IntFinder	< UDM, MODEL >
-
-> extends DefaultFinder < UDM, MODEL, Integer  > {
+public class IntFinder < UDM extends DataModel < UDM > > extends DefaultFinder < UDM, IntFinder < UDM >, Integer  > {
 
 	
     //****************************************************************
     //						Constructor 
     //****************************************************************
 
-	public IntFinder( String operator, String pattern ) {
-		super( operator, pattern );
+	private String name;
+	
+	public IntFinder( String operator, String pattern, String name, Function < Unit < UDM >, Var< Integer > > unitFieldGetter ) {
+		super( operator, pattern, unitFieldGetter );
+		this.name = name;
+	}
+
+	@Override
+	public  DefaultFinderTransformer< UDM, IntFinder< UDM >, Integer > newTransformer() {
+		return new DefaultFinderTransformer<>( this.name ) {
+			@Override 
+			public IntFinder< UDM > newModel() {
+				return new IntFinder<>( null, null, null, null );
+			}
+		};
 	}
 
     //****************************************************************

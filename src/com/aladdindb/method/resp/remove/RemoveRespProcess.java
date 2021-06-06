@@ -45,7 +45,7 @@ public class RemoveRespProcess < UDM extends DataModel < UDM > > extends RespPro
 		
 		respParser.toNode( resp, respNode -> {
 			this.genie.respConsumer.get( respConsumer -> {
-				XML.parse( respNode, respConsumer );
+				XML.toString( respNode, respConsumer );
 			});
 		});
 	}

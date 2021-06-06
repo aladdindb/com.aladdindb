@@ -75,7 +75,7 @@ public class SearchRespProcess <
 		
 		respTransformer.toNode( resp, respNode -> {
 			this.genie.respConsumer.get( respConsumer -> {
-				XML.parse( respNode, respConsumer );
+				XML.toString( respNode, respConsumer );
 			});
 		});
 	}

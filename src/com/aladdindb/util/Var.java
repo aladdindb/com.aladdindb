@@ -14,13 +14,21 @@ public class Var < T > {
 
     private T value;
     
-    public Var ( T value ) {
-        this.value = value;
-    }
-
+    private final Object parent;
+    
     public Var () {
+    	this( null, null );
     }
     
+    public Var ( T value ) {
+    	this( value, null );
+    }
+
+    public Var ( T value, Object parent ) {
+        this.value = value;
+        this.parent = parent;
+    }
+
     public void get ( Var < Consumer < T > > var )  {
     	var.get( this :: get );
     }
@@ -44,6 +52,10 @@ public class Var < T > {
     
     public boolean exist() {
     	return get() != null;
+    }
+    
+    public String getType() {
+    	return this.parent.getClass().getName();
     }
     
 }

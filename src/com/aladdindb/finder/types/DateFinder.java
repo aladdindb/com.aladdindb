@@ -2,9 +2,12 @@ package com.aladdindb.finder.types;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.function.Function;
 
 import com.aladdindb.finder.DefaultFinder;
+import com.aladdindb.finder.DefaultFinderTransformer;
 import com.aladdindb.finder.OP;
+import com.aladdindb.store.models.Unit;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.util.Var;
 
@@ -14,20 +17,32 @@ import com.aladdindb.util.Var;
  * @author Macit Kandemir
  *
  */
-public abstract class DateFinder < 
-
-	UDM 			extends DataModel 	< UDM >, 
-	FINDER_MODEL	extends DateFinder	< UDM, FINDER_MODEL >
-
-> extends DefaultFinder < UDM, FINDER_MODEL, LocalDate > {
+public class DateFinder < UDM extends DataModel < UDM > > extends DefaultFinder < UDM, DateFinder< UDM >, LocalDate > {
 
 	
     //****************************************************************
     //						Constructor 
     //****************************************************************
 
-	public DateFinder( String operator, String pattern ) {
-		super( operator, pattern );
+	private String name;
+	
+	public DateFinder( Function < Unit < UDM >, Var< LocalDate > > unitFieldGetter ) {
+		this( null, null, null, unitFieldGetter );
+	}
+	
+	public DateFinder( String operator, String pattern, String name, Function < Unit < UDM >, Var< LocalDate > > unitFieldGetter ) {
+		super( operator, pattern, unitFieldGetter );
+		this.name = name;
+	}
+
+	@Override
+	public  DefaultFinderTransformer< UDM, DateFinder< UDM >, LocalDate > newTransformer() {
+		return new DefaultFinderTransformer<>( this.name ) {
+			@Override 
+			public DateFinder< UDM > newModel() {
+				return new DateFinder<>( null, null, null, null );
+			}
+		};
 	}
 
     //****************************************************************

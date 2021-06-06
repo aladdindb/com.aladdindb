@@ -9,6 +9,9 @@ public class ListModel <
 > extends ArrayList< LIST_ITEM_TYPE > implements DataModel< ListModel < LIST_ITEM_TYPE > > {
 
 	
+	public ListModel() {
+	}
+	
 	@Override
 	public void fill( ListModel<LIST_ITEM_TYPE> model) {
 		model.forEach( this :: add );

@@ -62,7 +62,7 @@ public class BlockNaviRespProcess < UDM extends DataModel < UDM > > extends Resp
 		
 		respParser.toNode( resp, respNode -> {
 			this.genie.respConsumer.get( respConsumer -> {
-				XML.parse( respNode, respConsumer );
+				XML.toString( respNode, respConsumer );
 			});
 		});
 	}

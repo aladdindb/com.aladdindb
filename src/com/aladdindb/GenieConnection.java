@@ -66,10 +66,10 @@ public class GenieConnection {
 	}
 	
 	public void sendReq( SnPoint reqNode,  Consumer < SnPoint > respNodeConsumer ) {
-		XML.parse( reqNode, reqStr -> {
+		XML.toString( reqNode, reqStr -> {
 			this.sendReq( reqStr, respStr -> {
 //				System.out.println("\n"+ respStr+ "\n" );
-				XML.parse( respStr, respNodeConsumer);
+				XML.toNode( respStr, respNodeConsumer);
 			});
 		});
 	}

@@ -1,6 +1,7 @@
 package com.aladdindb.finder;
 
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import com.aladdindb.store.models.Unit;
 import com.aladdindb.structure.DataModel;
@@ -24,14 +25,18 @@ public abstract class DefaultFinder <
 	public final Var < String 	> operator 	= new Var<>();
 	public final Var < String	> pattern 	= new Var<>();
 	
+	public final Function < Unit < UDM >, Var< VT > > unitFieldGetter;
+	
+	
     //****************************************************************
     //					Constructors  
     //****************************************************************
 	
-	public DefaultFinder( String operator, String pattern ) {
+	public DefaultFinder( String operator, String pattern, Function < Unit < UDM >, Var< VT > > unitFieldGetter ) {
 		var op = createOp( operator );
 		this.operator	.set( op != null ? op.name() : null );
 		this.pattern	.set( pattern	);
+		this.unitFieldGetter = unitFieldGetter;
 	}
 	
     //****************************************************************
@@ -65,13 +70,13 @@ public abstract class DefaultFinder <
 	
 	
 	public void getFieldValue ( Unit<UDM> model, Consumer< VT > consumer ) {
-		var field = this.getField(model);
+		var field = this.unitFieldGetter.apply(model);
 		if( field != null) {
 			field.get( consumer );
 		}
 	}
 	
-	public abstract Var< VT > getField( Unit<UDM> model );
+//	public abstract Var< VT > getField( Unit<UDM> model );
 
 
     //****************************************************************
