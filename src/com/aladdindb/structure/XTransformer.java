@@ -1,6 +1,7 @@
 package com.aladdindb.structure;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
@@ -27,17 +28,19 @@ public class XTransformer < UDM extends DataModel< UDM > >  extends Transformer 
 	@Override
 	public UDM newModel() {
 		try {
-			return this.udmClass.newInstance();
-		} catch ( InstantiationException | IllegalAccessException e) {
+			return this.udmClass.getDeclaredConstructor().newInstance();
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+				| NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
+			return null;
 		}
-		return null;
 	}
 	
 	@Override
 	public UDM toModel( SnPoint src, UDM target ) {
 		for( var field :target.getClass().getFields() ) {
 			switch( field.getType().getSimpleName() ) {
+			
 				case "Var":
 					this.getType( field.getGenericType(), ta -> {
 						switch( ta ) {
@@ -50,6 +53,24 @@ public class XTransformer < UDM extends DataModel< UDM > >  extends Transformer 
 							case LOCAL_DATE : this.< LocalDate	> set	( ta, field, src, target ) ;break;
 						}
 					});break;
+					
+				case "ListModel":
+					this.getGenericParamType( field.getGenericType(), clazz -> {
+						
+						this.newTransformer( clazz, itemTransformer -> {
+							
+							var list 		= this.getListModel( field, target);
+							var listNode 	= src.children.snBottom.get();
+							
+							if( listNode != null ) {
+								listNode.children.forEach( childNode -> {
+									var dataModel = itemTransformer.toModel(childNode);
+									list.add( dataModel );
+								});
+							}
+						});
+					});
+					break;
 					
 				default :
 					this.toModel( field, src, newModel -> {
@@ -78,6 +99,23 @@ public class XTransformer < UDM extends DataModel< UDM > >  extends Transformer 
 						}
 					});break;
 					
+				case "ListModel":
+					this.getGenericParamType( field.getGenericType(), clazz -> {
+						this.newTransformer( clazz, itemTrans -> {
+							var listNode = new SnPoint(clazz.getSimpleName()+"List" );
+							var list = this.getListModel( field, src );
+							
+							if( list != null ) {
+								list.forEach( o -> {
+									var childNode = itemTrans.toNode((DataModel)o);
+									listNode.children.add(childNode);
+								});
+								target.children.add( listNode);
+							}
+						});
+					});
+					break;
+					
 				default :
 					this.toNode( field, src, target.children :: add );
 			}
@@ -96,7 +134,7 @@ public class XTransformer < UDM extends DataModel< UDM > >  extends Transformer 
 	
 	private DataModel toModel( Field field, SnPoint src ) {
 		var type 		= field.getType(); 
-		var transformer = newTransformer(field);
+		var transformer = newTransformer(field.getType());
 		var node 		= src.children.get( type.getSimpleName() );
 		return node != null ? transformer.toModel( node ) : null;
 	}
@@ -111,7 +149,7 @@ public class XTransformer < UDM extends DataModel< UDM > >  extends Transformer 
 	}
 	
 	private SnPoint toNode( Field field, UDM src ) {
-		var transformer = newTransformer(field);
+		var transformer = newTransformer(field.getType());
 		var srcModel 	= getModel(field, src);
 		return srcModel != null ? transformer.toNode( srcModel ) : null;
 	}
@@ -120,8 +158,11 @@ public class XTransformer < UDM extends DataModel< UDM > >  extends Transformer 
 	//
 	//**********************************************************
 	
-	private Transformer newTransformer( Field field ) {
-		var type = field.getType();
+	private void newTransformer( Class<?> type, Consumer< Transformer > consumer ) {
+		consumer.accept( newTransformer(type) );
+	}
+	
+	private Transformer newTransformer( Class<?> type ) {
 		return new XTransformer( type.getSimpleName(), type );
 	}
 	
@@ -184,11 +225,33 @@ public class XTransformer < UDM extends DataModel< UDM > >  extends Transformer 
 		return null;
 	}
 
+	private ListModel getListModel( Field field, UDM model ) {
+		try {
+			return (ListModel)field.get( model );
+		} catch (IllegalArgumentException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	//**********************************************************
 	//
 	//**********************************************************
+	private void getGenericParamType( Type type, Consumer< Class<?>  > consumer ) {
+    	if ( type instanceof ParameterizedType ) {
+	        ParameterizedType pt = (ParameterizedType) type;
+	        var types = pt.getActualTypeArguments();
+	        if( types.length > 0 ) {
+				try {
+		        	consumer.accept(Class.forName( types[0].getTypeName() ));
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				}
+	        }
+	    }
+	}
 
+	
 	private void getType( Type type, Consumer< XType  > consumer ) {
 		
 	    if ( type instanceof ParameterizedType ) {
