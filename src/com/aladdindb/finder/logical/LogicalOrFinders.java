@@ -75,5 +75,4 @@ public class LogicalOrFinders < UDM extends DataModel< UDM > >
 		return new LogicalOrFindersTransformer< UDM >( this.support ); 
 	}
 	
-	
 }

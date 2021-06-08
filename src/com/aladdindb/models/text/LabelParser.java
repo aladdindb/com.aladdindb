@@ -25,7 +25,7 @@ public class LabelParser extends Transformer < UnitLabel > {
 
     @Override
     public UnitLabel newModel() {
-        return new UnitLabel();
+        return new UnitLabel( null );
     }
     
     //****************************************************************

@@ -24,17 +24,13 @@ public  class DoubleFinder < UDM extends DataModel < UDM > > extends DefaultFind
     //						Constructor 
     //****************************************************************
 
-	private String name;
-	
-	
-	public DoubleFinder( String operator, String pattern, String name, Function < Unit < UDM >, Var< Double > > unitFieldGetter ) {
-		super( operator, pattern, unitFieldGetter );
-		this.name = name;
+	public DoubleFinder( String operator, String pattern, Class<UDM> udmClass, Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
+		super( operator, pattern, udmClass, unitFieldGetter );
 	}
 
 	@Override
 	public  DefaultFinderTransformer< UDM, DoubleFinder< UDM >, Double > newTransformer() {
-		return new DefaultFinderTransformer<>( this.name ) {
+		return new DefaultFinderTransformer<>( null) {
 			@Override 
 			public DoubleFinder< UDM > newModel() {
 				return new DoubleFinder<>( null, null, null, null );

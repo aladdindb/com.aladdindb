@@ -96,8 +96,8 @@ public class UnitIdListBlocksGenerator < UDM extends DataModel< UDM >, VT >  {
 	}
 	
 	private int compare( Unit <UDM> a, Unit <UDM> b ) {
-		var f1 = a != null ? sorter.getField( a ) : null ;
-		var f2 = b != null ? sorter.getField( b ) : null ;
+		var f1 = a != null ? sorter.fieldGetter.apply(a) : null ;
+		var f2 = b != null ? sorter.fieldGetter.apply(b) : null ;
 		return sorter.comparator.compare( f1 != null ? f1.get(): null, f2 != null ? f2.get() : null );
 	}
 	

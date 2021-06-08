@@ -99,5 +99,4 @@ public  class SorterList < UDM extends DataModel < UDM > > implements Sorter< UD
 	public Transformer< SorterList < UDM > > newTransformer() {
 		return new SorterListTransformer< UDM >( this.support ); 
 	}
-	
 }

@@ -15,7 +15,7 @@ public class MetaTransformer extends Transformer<Meta> {
 	
 	@Override
 	public Meta newModel() {
-		return new Meta();
+		return new Meta( null );
 	}
 
 	@Override

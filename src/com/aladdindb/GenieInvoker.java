@@ -151,7 +151,7 @@ public class GenieInvoker {
     }
     
     public void putGenie( Genie< ? extends DataModel< ? > > genie ) {
-    	this.otherSide.put( genie.support.getStoreId(), genie );
+    	this.otherSide.put( genie.support.storeId, genie );
     }
     
     

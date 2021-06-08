@@ -2,10 +2,14 @@ package com.aladdindb.sorter.types;
 
 import java.time.LocalDate;
 import java.util.Comparator;
+import java.util.function.Function;
 
 import com.aladdindb.sorter.DefaultSorter;
+import com.aladdindb.sorter.DefaultSorterTransformer;
 import com.aladdindb.sorter.SortOrder;
+import com.aladdindb.store.models.Unit;
 import com.aladdindb.structure.DataModel;
+import com.aladdindb.util.Var;
 
 
 /**
@@ -13,16 +17,19 @@ import com.aladdindb.structure.DataModel;
  * @author Macit Kandemir
  *
  */
-public abstract class LocalDateSorter  <
-
-	UDM 			extends DataModel		< UDM >, 
-	SORTER_MODEL	extends DefaultSorter	< UDM, SORTER_MODEL, LocalDate >
-
-> extends DefaultSorter < UDM, SORTER_MODEL, LocalDate > {
+public class LocalDateSorter < UDM	extends DataModel < UDM > > extends DefaultSorter < UDM, LocalDateSorter < UDM >, LocalDate > {
 
 	
-	public LocalDateSorter( SortOrder sortOrder ) {
-		super( sortOrder ); 
+    //****************************************************************
+    //						Constructor 
+    //****************************************************************
+	
+	public LocalDateSorter( Class<UDM> udmClass,  Function < Unit < UDM >, Var< LocalDate > > unitFieldGetter  ) {
+		this( SortOrder.ASCENDING, udmClass, unitFieldGetter );
+	}
+
+	public LocalDateSorter( SortOrder sortOrder, Class<UDM> udmClass,  Function < Unit < UDM >, Var< LocalDate > > unitFieldGetter  ) {
+		super( sortOrder, udmClass, unitFieldGetter );
 	}
 	
 	public Comparator <LocalDate> newComparator() {
@@ -32,6 +39,16 @@ public abstract class LocalDateSorter  <
 				return (o1 != null && o2 != null) ? o1.compareTo(o2) : 0;
 			}
  		};
+	}
+	
+	@Override 
+	public DefaultSorterTransformer < UDM,  LocalDateSorter < UDM >, LocalDate > newTransformer() {  
+		return new DefaultSorterTransformer<>() { 
+			@Override 
+			public LocalDateSorter < UDM > newModel() { 
+				return new LocalDateSorter<>( SortOrder.ASCENDING,	LocalDateSorter.this.udmClass, LocalDateSorter.this.fieldGetter );
+			}
+		};
 	}
 	
 	

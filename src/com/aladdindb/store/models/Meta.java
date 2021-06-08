@@ -1,18 +1,22 @@
 package com.aladdindb.store.models;
 
 import com.aladdindb.models.text.UnitLabel;
-import com.aladdindb.structure.DataModel;
+import com.aladdindb.structure.DefaultDataModel;
+import com.aladdindb.util.Parent;
 
 /**
  *
  * @author Macit Kandemir
  */
-public class Meta implements DataModel< Meta > { 
+public class Meta extends  DefaultDataModel< Meta > { 
     
 	
-	public final UnitLabel label 		= new UnitLabel();
-	public final TimeStamp 	timeStamp	= new TimeStamp();
+	public final UnitLabel 	label 		= new UnitLabel( this );
+	public final TimeStamp 	timeStamp	= new TimeStamp( this );
 
+	public Meta( Parent parent ) {
+		super( parent );
+	}
 	
 	@Override
 	public void fill( Meta  model ) {

@@ -28,5 +28,4 @@ public class ServerModel implements DataModel < ServerModel > {
 		
 	}
     
-    
 }

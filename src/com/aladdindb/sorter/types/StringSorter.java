@@ -1,10 +1,14 @@
 package com.aladdindb.sorter.types;
 
 import java.util.Comparator;
+import java.util.function.Function;
 
 import com.aladdindb.sorter.DefaultSorter;
+import com.aladdindb.sorter.DefaultSorterTransformer;
 import com.aladdindb.sorter.SortOrder;
+import com.aladdindb.store.models.Unit;
 import com.aladdindb.structure.DataModel;
+import com.aladdindb.util.Var;
 
 
 /**
@@ -12,16 +16,19 @@ import com.aladdindb.structure.DataModel;
  * @author Macit Kandemir
  *
  */
-public abstract class StringSorter  <
-
-	UDM 			extends DataModel			< UDM >, 
-	SORTER_MODEL	extends DefaultSorter	< UDM, SORTER_MODEL, String >
-
-> extends DefaultSorter< UDM, SORTER_MODEL, String > {
+public class StringSorter < UDM	extends DataModel < UDM > > extends DefaultSorter < UDM, StringSorter < UDM >, String > {
 
 	
-	public StringSorter( SortOrder sortOrder ) {
-		super( sortOrder );
+    //****************************************************************
+    //						Constructor 
+    //****************************************************************
+	
+	public StringSorter( Class<UDM> udmClass,  Function < Unit < UDM >, Var< String > > unitFieldGetter  ) {
+		this( SortOrder.ASCENDING, udmClass, unitFieldGetter );
+	}
+
+	public StringSorter( SortOrder sortOrder, Class<UDM> udmClass,  Function < Unit < UDM >, Var< String > > unitFieldGetter  ) {
+		super( sortOrder, udmClass, unitFieldGetter );
 	}
 	
 	public Comparator < String > newComparator() {
@@ -33,5 +40,15 @@ public abstract class StringSorter  <
  		};
 	}
 	 
+	@Override 
+	public DefaultSorterTransformer < UDM,  StringSorter < UDM >, String > newTransformer() {  
+		return new DefaultSorterTransformer<>() {
+			@Override 
+			public StringSorter < UDM > newModel() { 
+				return new StringSorter<>( SortOrder.ASCENDING,	StringSorter.this.udmClass, StringSorter.this.fieldGetter );
+			}
+		};
+	}
+	
 	
 }

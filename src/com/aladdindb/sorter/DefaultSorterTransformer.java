@@ -20,15 +20,15 @@ public abstract  class DefaultSorterTransformer <
 > extends Transformer< SORTER_MODEL > {
 	
 	
-	public enum ATR { sortOrder }
+	public enum ATR { sortOrder, field }
 
 	
     //****************************************************************
     //						Constructor 
     //****************************************************************
 
-	public DefaultSorterTransformer( String tagKey ) {
-		super( tagKey );
+	public DefaultSorterTransformer() {
+		super( "Sorter" );
 	}
 	
     //****************************************************************
@@ -39,6 +39,7 @@ public abstract  class DefaultSorterTransformer <
 	public SORTER_MODEL toModel( SnPoint src, SORTER_MODEL target ) {
 		var srcAtr = new SnAttributeAccess(src);
 		srcAtr.asStr.get( ATR.sortOrder	,target.sortOrderVar );
+		srcAtr.asStr.get( ATR.field		,target.field );
 		return target;
 	}
 
@@ -46,6 +47,7 @@ public abstract  class DefaultSorterTransformer <
 	public SnPoint toNode( SORTER_MODEL src, SnPoint target ) {
 		var srcAtr = new SnAttributeAccess(target);
 		srcAtr.asStr.set( ATR.sortOrder	,src.sortOrderVar 	);
+		srcAtr.asStr.set( ATR.field		,src.field 		);
 		return target;
 	}
 

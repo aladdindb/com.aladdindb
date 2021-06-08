@@ -24,16 +24,13 @@ public class IntFinder < UDM extends DataModel < UDM > > extends DefaultFinder <
     //						Constructor 
     //****************************************************************
 
-	private String name;
-	
-	public IntFinder( String operator, String pattern, String name, Function < Unit < UDM >, Var< Integer > > unitFieldGetter ) {
-		super( operator, pattern, unitFieldGetter );
-		this.name = name;
+	public IntFinder( String operator, String pattern, Class<UDM> udmClass, Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
+		super( operator, pattern, udmClass, unitFieldGetter );
 	}
 
 	@Override
 	public  DefaultFinderTransformer< UDM, IntFinder< UDM >, Integer > newTransformer() {
-		return new DefaultFinderTransformer<>( this.name ) {
+		return new DefaultFinderTransformer<>( null ) {
 			@Override 
 			public IntFinder< UDM > newModel() {
 				return new IntFinder<>( null, null, null, null );

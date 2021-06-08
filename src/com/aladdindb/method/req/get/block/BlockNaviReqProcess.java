@@ -19,7 +19,7 @@ public class BlockNaviReqProcess < UDM extends DataModel< UDM > > extends ReqPro
 		
 		this.magicLamp.set ( magicLamp);
 
-		var req = new BlockNaviReq( magicLamp.support.getStoreId(), cmdSessionID, direction );
+		var req = new BlockNaviReq( magicLamp.support.storeId, cmdSessionID, direction );
 		
 		this.req				.set ( req );
 		this.reqTransformer		.set ( new BlockNaviReqTransformer() );

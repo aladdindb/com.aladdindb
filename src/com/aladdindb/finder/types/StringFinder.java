@@ -22,24 +22,21 @@ public class StringFinder < UDM extends DataModel < UDM > > extends DefaultFinde
     //						Constructor 
     //****************************************************************
 
-	private String name;
-	
-	public StringFinder( Function < Unit < UDM >, Var< String > > unitFieldGetter ) {
-		this( null, null, null, unitFieldGetter );
+	public StringFinder( Class<UDM> udmClass,  Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
+		this( null, null, udmClass, unitFieldGetter );
 	}
 	
-	public StringFinder( String operator, String pattern, String name, Function < Unit < UDM >, Var< String > > unitFieldGetter ) {
-		super( operator, pattern, unitFieldGetter );
-		this.name = name;
+	public StringFinder( String operator, String pattern, Class<UDM> udmClass, Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
+		super( operator, pattern, udmClass, unitFieldGetter );
+		this.field.set( getField() );
 	}
 
 	@Override
 	public  DefaultFinderTransformer< UDM, StringFinder< UDM >, String > newTransformer() {
-		return new DefaultFinderTransformer<>( name ) {
-			 
+		return new DefaultFinderTransformer<>( null ) {
 			@Override 
 			public StringFinder< UDM > newModel() {
-				return new StringFinder<>( null, null, null, null );
+				return new StringFinder<>( 	StringFinder.this.udmClass, StringFinder.this.fieldGetter );
 			}
 		};
 	}
@@ -71,7 +68,7 @@ public class StringFinder < UDM extends DataModel < UDM > > extends DefaultFinde
 					case notEqual 				-> !fieldValue.equals				( pattern );
 					
 					case notGreater 			-> !(fieldValue.compareToIgnoreCase	( pattern ) > 	0);
-					case notGreaterOrEqual 	-> !(fieldValue.compareToIgnoreCase	( pattern ) >= 	0);
+					case notGreaterOrEqual 		-> !(fieldValue.compareToIgnoreCase	( pattern ) >= 	0);
 					
 					case notLess 				-> !(fieldValue.compareToIgnoreCase	( pattern ) <	0);
 					case notLessOrEqual 		-> !(fieldValue.compareToIgnoreCase	( pattern ) <=	0);

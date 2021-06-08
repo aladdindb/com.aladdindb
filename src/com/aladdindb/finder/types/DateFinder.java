@@ -24,20 +24,17 @@ public class DateFinder < UDM extends DataModel < UDM > > extends DefaultFinder 
     //						Constructor 
     //****************************************************************
 
-	private String name;
-	
-	public DateFinder( Function < Unit < UDM >, Var< LocalDate > > unitFieldGetter ) {
-		this( null, null, null, unitFieldGetter );
+	public DateFinder( Class<UDM> udmClass,Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
+		this( null, null, udmClass, unitFieldGetter );
 	}
 	
-	public DateFinder( String operator, String pattern, String name, Function < Unit < UDM >, Var< LocalDate > > unitFieldGetter ) {
-		super( operator, pattern, unitFieldGetter );
-		this.name = name;
+	public DateFinder( String operator, String pattern, Class<UDM> udmClass, Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
+		super( operator, pattern, udmClass, unitFieldGetter );
 	}
 
 	@Override
 	public  DefaultFinderTransformer< UDM, DateFinder< UDM >, LocalDate > newTransformer() {
-		return new DefaultFinderTransformer<>( this.name ) {
+		return new DefaultFinderTransformer<>( null ) {
 			@Override 
 			public DateFinder< UDM > newModel() {
 				return new DateFinder<>( null, null, null, null );

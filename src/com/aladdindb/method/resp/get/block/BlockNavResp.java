@@ -23,5 +23,4 @@ public class BlockNavResp  implements DataModel< BlockNavResp  > {
 		this.unitsIdBlock		.set( model.unitsIdBlock );
 	}
 	
-
 }

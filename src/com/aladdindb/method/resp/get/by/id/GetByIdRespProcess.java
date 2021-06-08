@@ -36,7 +36,7 @@ public class GetByIdRespProcess < UDM extends DataModel < UDM > > extends RespPr
 	
 	private void resp( Unit< UDM > unit ) {
 		
-		var respParser 	= new GetByIdRespTransformer < UDM >( genie.support.udmClass() );
+		var respParser 	= new GetByIdRespTransformer < UDM >( genie.support.udmClass );
 		var resp 		= new GetByIdResp<>(unit);
 		
 		respParser.toNode( resp, respNode -> {

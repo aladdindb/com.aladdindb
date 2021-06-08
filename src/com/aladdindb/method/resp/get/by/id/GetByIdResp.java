@@ -22,5 +22,5 @@ public class GetByIdResp < UDM extends DataModel < UDM > > implements DataModel<
 	public void fill( GetByIdResp< UDM > model ) {
 		this.unit.set( model.unit );
 	}
-
+	
 }

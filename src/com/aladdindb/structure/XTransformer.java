@@ -287,6 +287,7 @@ public class XTransformer < UDM extends DataModel< UDM > >  extends Transformer 
     	        		case "java.lang.Byte" 		-> XType.BYTE;
     	        		case "java.lang.Boolean" 	-> XType.BOOLEAN;
     	        		case "java.time.LocalDate" 	-> XType.LOCAL_DATE;
+    	        		
     	        		case "java.time.ZonedDateTime" 	-> XType.ZONED_DATE_TIME;
     	        		
     	        		default -> null;

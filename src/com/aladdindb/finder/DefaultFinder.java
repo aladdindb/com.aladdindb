@@ -1,5 +1,6 @@
 package com.aladdindb.finder;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -24,19 +25,42 @@ public abstract class DefaultFinder <
 	
 	public final Var < String 	> operator 	= new Var<>();
 	public final Var < String	> pattern 	= new Var<>();
+	public final Var < String	> field 	= new Var<>();
 	
-	public final Function < Unit < UDM >, Var< VT > > unitFieldGetter;
+	public final Function < Unit < UDM >, Var< ? > > fieldGetter;
 	
+	public final Class<UDM> udmClass;
 	
     //****************************************************************
     //					Constructors  
     //****************************************************************
 	
-	public DefaultFinder( String operator, String pattern, Function < Unit < UDM >, Var< VT > > unitFieldGetter ) {
+	public DefaultFinder( String operator, String pattern, Class<UDM> udmClass, Function < Unit < UDM >, Var< ? > > fieldGetter ) {
 		var op = createOp( operator );
+		
 		this.operator	.set( op != null ? op.name() : null );
 		this.pattern	.set( pattern	);
-		this.unitFieldGetter = unitFieldGetter;
+		
+		this.udmClass 		= udmClass;
+		this.fieldGetter	= fieldGetter;
+	}
+	
+	public String getField() {
+		if( this.fieldGetter != null ) {
+			var field = this.fieldGetter.apply( new Unit<>( newDataObject()) );
+			if( field != null) return field.key();
+		}
+		return null;
+	}
+	
+	public UDM newDataObject() {
+		try {
+			return this.udmClass.getDeclaredConstructor().newInstance();
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+				| NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
     //****************************************************************
@@ -68,17 +92,13 @@ public abstract class DefaultFinder <
     //					
     //****************************************************************
 	
-	
 	public void getFieldValue ( Unit<UDM> model, Consumer< VT > consumer ) {
-		var field = this.unitFieldGetter.apply(model);
+		var field = this.fieldGetter.apply(model);
 		if( field != null) {
-			field.get( consumer );
+			((Var<VT>)field).get( consumer );
 		}
 	}
 	
-//	public abstract Var< VT > getField( Unit<UDM> model );
-
-
     //****************************************************************
     //
     //****************************************************************
@@ -106,5 +126,6 @@ public abstract class DefaultFinder <
 					:op.equals( OP.notLessOrEqual		.real()	) ? OP.notLessOrEqual 		: OP.matches;
 		} else return null; 
 	}
+	
 }
 

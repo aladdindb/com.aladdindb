@@ -18,7 +18,7 @@ public class GetAllReqProcess < UDM extends DataModel< UDM > > extends ReqProces
 		
 		this.magicLamp.set ( magicLamp);
 
-		var req = new GetAllReq( magicLamp.support.getStoreId(), blockSize );
+		var req = new GetAllReq( magicLamp.support.storeId, blockSize );
 		
 		this.req				.set ( req );
 		this.reqTransformer		.set ( new GetAllReqTransformer() );

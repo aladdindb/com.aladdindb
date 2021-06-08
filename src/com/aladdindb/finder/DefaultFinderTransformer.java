@@ -13,14 +13,14 @@ import com.aladdindb.structure.types.SnAttributeAccess;
  */
 public abstract class DefaultFinderTransformer <
 
-	UDM 			extends DataModel			< UDM >,
+	UDM 			extends DataModel		< UDM >,
 	FINDER_MODEL	extends DefaultFinder	< UDM, FINDER_MODEL, VT >,
 	VT
 
 > extends Transformer< FINDER_MODEL > {
 	
 	
-	public enum ATR { operator, pattern }
+	public enum ATR { operator, pattern, field }
 
 	
     //****************************************************************
@@ -28,7 +28,7 @@ public abstract class DefaultFinderTransformer <
     //****************************************************************
 
 	public DefaultFinderTransformer( String tagKey ) {
-		super( tagKey );
+		super( "Finder" );
 	}
 	
     //****************************************************************
@@ -40,6 +40,7 @@ public abstract class DefaultFinderTransformer <
 		var srcAtr = new SnAttributeAccess(src);
 		srcAtr.asStr.get( ATR.operator	,target.operator );
 		srcAtr.asStr.get( ATR.pattern	,target.pattern );
+		srcAtr.asStr.get( ATR.field		,target.field );
 		return target;
 	}
 
@@ -48,6 +49,7 @@ public abstract class DefaultFinderTransformer <
 		var srcAtr = new SnAttributeAccess(target);
 		srcAtr.asStr.set( ATR.operator	,src.operator 	);
 		srcAtr.asStr.set( ATR.pattern	,src.pattern 	);
+		srcAtr.asStr.set( ATR.field		,src.field 		);
 		return target;
 	}
 

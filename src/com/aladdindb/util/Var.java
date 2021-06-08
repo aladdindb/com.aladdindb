@@ -2,19 +2,17 @@ package com.aladdindb.util;
 
 import java.util.function.Consumer;
 
-import com.aladdindb.util.Var;
-
 /**
  *
  * @author Macit Kandemir
  * @param <T>
  */
 
-public class Var < T > {
+public class Var < T > implements Parent {
 
     private T value;
     
-    private final Object parent;
+    private final Parent parent;
     
     public Var () {
     	this( null, null );
@@ -24,7 +22,7 @@ public class Var < T > {
     	this( value, null );
     }
 
-    public Var ( T value, Object parent ) {
+    public Var ( T value, Parent parent ) {
         this.value = value;
         this.parent = parent;
     }
@@ -57,5 +55,27 @@ public class Var < T > {
     public String getType() {
     	return this.parent.getClass().getName();
     }
+    
+	@Override
+	public String key() {
+		if( this.parent != null ) {
+	    	Class<?> clazz = this.parent.getClass();
+	    	for( var field : clazz.getFields()) {
+	    		try {
+	    			Object o = field.get( parent );
+	    	    	if( o == this ) {
+	   	    			return parent.key()+"."+field.getName() ; 
+	    	    	}
+	    		} catch (IllegalArgumentException | IllegalAccessException e) {
+	    			e.printStackTrace();
+	    		}
+	    	}
+		}
+    	return null;
+	}
+	
+	public Parent getParent() {
+		return parent;
+	}
     
 }

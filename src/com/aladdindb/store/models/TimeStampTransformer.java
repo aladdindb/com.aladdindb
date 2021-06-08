@@ -15,7 +15,7 @@ public class TimeStampTransformer extends Transformer< TimeStamp > {
 	
 	@Override
 	public TimeStamp newModel() {
-		return new TimeStamp();
+		return new TimeStamp( null );
 	}
 
 	@Override
