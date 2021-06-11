@@ -18,16 +18,26 @@ public class FinderSupport < UDM extends DataModel< UDM > > {
 	
 	public final Class < UDM > 	udmClass;
 	
-	public final DataObjectAnalyzer< UDM > analyzer;;
+	public final UnitAnalyzer< UDM > analyzer;;
 
+	private final Function< Unit< UDM >, Var<?> >[] functions;
 	
-	public FinderSupport( Class < UDM > udmClass ) {
+	public FinderSupport( Class < UDM > udmClass, Function< Unit< UDM >, Var<?> >... functions ) {
 		this.udmClass 		= udmClass;
-		this.analyzer 		= new DataObjectAnalyzer<>(udmClass);
+		this.functions 		= functions;
+		this.analyzer 		= new UnitAnalyzer<>(udmClass);
 	}
 
-	public Finder<UDM, ?> newFinder(  Function< Unit< UDM >, Var<?> > function ) {
-		var varType = this.analyzer.getVarType( function);
+	public Finder<UDM, ?> newFinder( String fieldId ) {
+		if( this.functions != null ) {
+			var function =  this.analyzer.getEquals( fieldId,  this.functions );
+			return function != null ? newFinder( function ) : null;
+		}
+		return null;
+	}
+	
+	public Finder < UDM, ? > newFinder(  Function< Unit< UDM >, Var < ? > > function ) {
+		var varType = this.analyzer.getVarType( function); 
 		
 		if( varType != null ) {
 			return switch( varType ) {
@@ -41,6 +51,7 @@ public class FinderSupport < UDM extends DataModel< UDM > > {
 		}
 		return null;
 	}
+	
 	
     //****************************************************************
     //						 Finder 
@@ -56,9 +67,9 @@ public class FinderSupport < UDM extends DataModel< UDM > > {
 		return finder != null ? ( Finder< UDM, ? extends DataModel < ? > >) finder.newTransformer().toModel( finderNode ) : null;
 	}
 	
-	public Finder< UDM, ? > newFinder( String finderType ) {
-		return 	finderType.equals( MethodField.LOGICAL_AND	.asFinderList() ) ? new LogicalAndFinders	< UDM >( this ) : 
-				finderType.equals( MethodField.LOGICAL_OR	.asFinderList() ) ? new LogicalOrFinders	< UDM >( this ) : null; 
+	public Finder< UDM, ? > newFinderByType( String finderType ) {
+		return 	finderType.equals( Finder.LOCGICAL_AND 	) ? new LogicalAndFinders	< UDM >( this ) : 
+				finderType.equals( Finder.LOCGICAL_OR 	) ? new LogicalOrFinders	< UDM >( this ) : null; 
 	}
 	
     //****************************************************************

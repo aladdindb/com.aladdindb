@@ -34,7 +34,7 @@ public class DateFinder < UDM extends DataModel < UDM > > extends DefaultFinder 
 
 	@Override
 	public  DefaultFinderTransformer< UDM, DateFinder< UDM >, LocalDate > newTransformer() {
-		return new DefaultFinderTransformer<>( null ) {
+		return new DefaultFinderTransformer<>() {
 			@Override 
 			public DateFinder< UDM > newModel() {
 				return new DateFinder<>( null, null, null, null );

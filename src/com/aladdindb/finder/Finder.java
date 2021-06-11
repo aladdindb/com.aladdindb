@@ -11,6 +11,10 @@ public interface Finder <
 
 > extends DataModel < FINDER_MODEL > {
 	
+	public static final String NAME 		= "Finder";
+	public static final String LOCGICAL_AND = NAME+".logicalAnd";
+	public static final String LOCGICAL_OR 	= NAME+".logicalOr";
+	
 	public boolean prove( Unit< UDM > udm );
 	
 	public Transformer < FINDER_MODEL > newTransformer();

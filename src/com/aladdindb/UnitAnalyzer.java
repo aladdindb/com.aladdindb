@@ -11,26 +11,44 @@ import com.aladdindb.store.models.Unit;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.util.Var;
 
-public class DataObjectAnalyzer< UDM extends DataModel< UDM > > {
+public class UnitAnalyzer< UDM extends DataModel< UDM > > {
 	
 	
 	public enum VarType { STRING, INT, DOUBLE, FLOAT, BYTE, BOOLEAN, LOCAL_DATE, ZONED_DATE_TIME }
 	
 	
-	private final Class < UDM > udmClass;
-	private final UDM 			emptyDataObject;
-
-	public DataObjectAnalyzer( Class < UDM > udmClass ) {
+	public final Class < UDM > 	udmClass;
+	public final UDM 			emptyDataObject;
+	public final Unit< UDM > 	emptyUnit;
+	
+	public UnitAnalyzer( Class < UDM > udmClass ) {
 		this.udmClass 			= udmClass;
 		this.emptyDataObject 	= this.newDataObject();
+		this.emptyUnit = new Unit<>(emptyDataObject );
 	}
 	
+	public Function< Unit< UDM >, Var<?> > getEquals( String fieldId, Function< Unit< UDM >, Var<?> >... functions   ) {
+		for( var function : functions ) {
+			return equalsField( fieldId, function ) ? function : null;
+		}
+		return null;
+	}
+	
+	public boolean equalsField( String fieldId, Function< Unit< UDM >, Var<?> > function   ) {
+		var varObject = this.getVar( function );
+		return varObject != null ? varObject.key().equals( fieldId ) : false; 
+	}
 
 	public VarType getVarType( Function< Unit< UDM >, Var< ? > > function ) {
+		var field = this.getFieldType( function );
+		return field != null ? this.getType( field.getGenericType() ) : null;
+	}
+	
+	public Field getFieldType( Function< Unit< UDM >, Var< ? > > function ) {
 		var varObject = this.getVar( function );
 		if( varObject != null ) {
 			var field = getFieldType( varObject );
-			return field != null ? this.getType( field.getGenericType() ) : null;
+			if( field != null )return field;
 		}
 		return null;
 	}
@@ -91,7 +109,7 @@ public class DataObjectAnalyzer< UDM extends DataModel< UDM > > {
 	//**********************************************************
 	
 	public Var< ? >  getVar( Function< Unit< UDM >, Var< ? > > function ) {
-		return function.apply( new Unit<>( this.emptyDataObject ) );
+		return function.apply( this.emptyUnit );
 	}
 
 	public UDM newDataObject() {

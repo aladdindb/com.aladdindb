@@ -12,12 +12,12 @@ public class SorterSupport < UDM extends DataModel< UDM > > {
 	
 	public final Class < UDM > 	udmClass;
 	
-	public final DataObjectAnalyzer< UDM > analyzer;;
+	public final UnitAnalyzer< UDM > analyzer;;
 
 	
 	public SorterSupport(  Class < UDM > udmClass ) {
 		this.udmClass 		= udmClass;
-		this.analyzer 		= new DataObjectAnalyzer<>(udmClass);
+		this.analyzer 		= new UnitAnalyzer<>(udmClass);
 	}
 
     //****************************************************************
@@ -35,7 +35,7 @@ public class SorterSupport < UDM extends DataModel< UDM > > {
 	}
 	
 	public Sorter< UDM, ? > newSorter( String sorterType ) { 
-		return 	sorterType.equals( MethodField.LIST.asSorterList() ) ? new SorterList< UDM >( this ) : null; 
+		return 	sorterType.equals( Sorter.LIST ) ? new SorterList< UDM >( this ) : null; 
 	}
 	
 	//**********************************************************

@@ -30,7 +30,7 @@ public  class DoubleFinder < UDM extends DataModel < UDM > > extends DefaultFind
 
 	@Override
 	public  DefaultFinderTransformer< UDM, DoubleFinder< UDM >, Double > newTransformer() {
-		return new DefaultFinderTransformer<>( null) {
+		return new DefaultFinderTransformer<>() {
 			@Override 
 			public DoubleFinder< UDM > newModel() {
 				return new DoubleFinder<>( null, null, null, null );

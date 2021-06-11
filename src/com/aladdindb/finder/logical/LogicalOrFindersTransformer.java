@@ -1,7 +1,6 @@
 package com.aladdindb.finder.logical;
 
 import com.aladdindb.FinderSupport;
-import com.aladdindb.MethodField;
 import com.aladdindb.finder.Finder;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
@@ -20,7 +19,7 @@ public class LogicalOrFindersTransformer < UDM extends DataModel< UDM > > extend
 	
 	public LogicalOrFindersTransformer( FinderSupport< UDM > support ) { 
 		
-		super( MethodField.LOGICAL_OR.asFinderList() );
+		super( Finder.LOCGICAL_OR );
 		
 		this.support = support;
 	}

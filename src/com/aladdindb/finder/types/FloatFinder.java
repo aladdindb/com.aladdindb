@@ -33,7 +33,7 @@ public class FloatFinder < UDM 	extends DataModel 	< UDM > > extends DefaultFind
 
 	@Override
 	public  DefaultFinderTransformer< UDM, FloatFinder< UDM >, Float > newTransformer() {
-		return new DefaultFinderTransformer<>( null ) {
+		return new DefaultFinderTransformer<>() {
 			@Override 
 			public FloatFinder< UDM > newModel() {
 				return new FloatFinder<>( null, null, null, null );

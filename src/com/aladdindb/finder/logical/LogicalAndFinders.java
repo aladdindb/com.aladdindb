@@ -17,7 +17,7 @@ public class LogicalAndFinders < UDM extends DataModel< UDM > > implements Finde
     //****************************************************************
 
 	
-	private final  FinderSupport< UDM > support;
+	private final  FinderSupport< UDM > finderSupport;
 	
 	
 	public final List < Finder< UDM, ? extends DataModel< ? > > >  finderList = new ArrayList<>();
@@ -28,7 +28,7 @@ public class LogicalAndFinders < UDM extends DataModel< UDM > > implements Finde
     //****************************************************************
 	
 	public LogicalAndFinders( FinderSupport< UDM > finderSupport ) {
-		this.support = finderSupport;
+		this.finderSupport = finderSupport;
 	}
 
 	public void addFinder( Finder < UDM,  ? extends DataModel< ? > >... finders ) {
@@ -72,7 +72,7 @@ public class LogicalAndFinders < UDM extends DataModel< UDM > > implements Finde
 	
 	@Override
 	public Transformer< LogicalAndFinders < UDM > > newTransformer() {
-		return new LogicalAndFindersTransformer< UDM >( this.support ); 
+		return new LogicalAndFindersTransformer< UDM >( this.finderSupport ); 
 	}
 	
 }

@@ -30,7 +30,7 @@ public class IntFinder < UDM extends DataModel < UDM > > extends DefaultFinder <
 
 	@Override
 	public  DefaultFinderTransformer< UDM, IntFinder< UDM >, Integer > newTransformer() {
-		return new DefaultFinderTransformer<>( null ) {
+		return new DefaultFinderTransformer<>() {
 			@Override 
 			public IntFinder< UDM > newModel() {
 				return new IntFinder<>( null, null, null, null );

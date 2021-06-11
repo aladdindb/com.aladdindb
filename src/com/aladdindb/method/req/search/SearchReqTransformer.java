@@ -54,13 +54,13 @@ public final class SearchReqTransformer <
     	
     	src.children.forEach( node -> {
     		node.key.get( key -> {
-    			var type = key.split(":");
+    			var type = key.split(".");
     			switch( type[0] ) {
-    				case "Finder": 
+    				case Finder.NAME: 
     		    		this.finderSupport.newFinder( node, finderModel -> {
     		    			target.finder.set( (FINDER_MODEL) finderModel );
     		    		});break;
-    				case "Sorter": 
+    				case Sorter.NAME: 
     		    		this.sorterSupport.newSorter( node, sorterModel -> {
     		    			target.sorter.set( (SORTER_MODEL) sorterModel );
     		    		});break;

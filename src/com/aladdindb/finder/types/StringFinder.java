@@ -33,7 +33,7 @@ public class StringFinder < UDM extends DataModel < UDM > > extends DefaultFinde
 
 	@Override
 	public  DefaultFinderTransformer< UDM, StringFinder< UDM >, String > newTransformer() {
-		return new DefaultFinderTransformer<>( null ) {
+		return new DefaultFinderTransformer<>() {
 			@Override 
 			public StringFinder< UDM > newModel() {
 				return new StringFinder<>( 	StringFinder.this.udmClass, StringFinder.this.fieldGetter );

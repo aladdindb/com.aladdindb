@@ -13,6 +13,9 @@ public interface Sorter <
 
 > extends DataModel < SORTER_MODEL > {
 	
+	public static final String NAME 	= "Sorter";
+	public static final String LIST 	= NAME+".list";
+	
 	public List	< String > 				sort				( List<String> unitIdList );
 	public List	< List < String > > 	sortBlockWise		( List<String> unitIdList );
 	

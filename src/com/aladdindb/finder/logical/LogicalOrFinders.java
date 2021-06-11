@@ -18,7 +18,7 @@ public class LogicalOrFinders < UDM extends DataModel< UDM > >
     //						Class-Attributes 
     //****************************************************************
 
-	private final  FinderSupport< UDM > support;
+	private final  FinderSupport< UDM > finderSupport;
 	
 	
 	public final List < Finder< UDM, ? extends DataModel< ? > > >  finderList = new ArrayList<>();
@@ -28,8 +28,8 @@ public class LogicalOrFinders < UDM extends DataModel< UDM > >
     //						Constructor 
     //****************************************************************
 	
-	public LogicalOrFinders( FinderSupport< UDM > support ) {
-		this.support = support;
+	public LogicalOrFinders( FinderSupport< UDM > finderSupport ) {
+		this.finderSupport = finderSupport;
 	} 
 
 	public void addFinder( Finder < UDM,  ? extends DataModel< ? > >... finders ) {
@@ -72,7 +72,7 @@ public class LogicalOrFinders < UDM extends DataModel< UDM > >
 	
 	@Override
 	public Transformer< LogicalOrFinders < UDM > > newTransformer() {
-		return new LogicalOrFindersTransformer< UDM >( this.support ); 
+		return new LogicalOrFindersTransformer< UDM >( this.finderSupport ); 
 	}
 	
 }

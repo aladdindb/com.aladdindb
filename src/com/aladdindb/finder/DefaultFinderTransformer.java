@@ -27,8 +27,8 @@ public abstract class DefaultFinderTransformer <
     //						Constructor 
     //****************************************************************
 
-	public DefaultFinderTransformer( String tagKey ) {
-		super( "Finder" );
+	public DefaultFinderTransformer() {
+		super( Finder.NAME );
 	}
 	
     //****************************************************************
