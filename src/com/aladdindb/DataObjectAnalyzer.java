@@ -90,8 +90,6 @@ public class DataObjectAnalyzer< UDM extends DataModel< UDM > > {
 	//
 	//**********************************************************
 	
-	
-	
 	public Var< ? >  getVar( Function< Unit< UDM >, Var< ? > > function ) {
 		return function.apply( new Unit<>( this.emptyDataObject ) );
 	}

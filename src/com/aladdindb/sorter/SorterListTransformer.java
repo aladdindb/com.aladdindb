@@ -1,7 +1,7 @@
 package com.aladdindb.sorter;
 
-import com.aladdindb.StoreSupport;
 import com.aladdindb.MethodField;
+import com.aladdindb.SorterSupport;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;
@@ -10,14 +10,14 @@ import com.aladdindb.structure.sn.SnPoint;
 public class SorterListTransformer < UDM extends DataModel< UDM > > extends Transformer< SorterList < UDM > > {
 
 	
-	private final  StoreSupport< UDM > support; 
+	private final  SorterSupport< UDM > support; 
 	
 	
     //****************************************************************
     //						Constructor 
     //****************************************************************
 	
-	public SorterListTransformer( StoreSupport < UDM > support ) { 
+	public SorterListTransformer( SorterSupport < UDM > support ) { 
 		
 		super( MethodField.LIST.asSorterList() );
 		

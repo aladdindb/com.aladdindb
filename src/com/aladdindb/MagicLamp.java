@@ -24,19 +24,19 @@ import com.aladdindb.structure.DataModel;
 public class MagicLamp < UDM extends DataModel < UDM > > {
 
 	
+	public final String 		storeId;
+	public final Class < UDM > 	udmClass;
+	
     public final  GenieConnection genieConnection;
 
-    public final StoreSupport < UDM > support;
-    
     //************************************************************
     //					
     //************************************************************
 
-    public MagicLamp( StoreSupport< UDM > support, GenieConnection genieConnection ) {
-    	
-    	this.support 				= support;
-		this.genieConnection 		= genieConnection;
-		
+    public MagicLamp( String storeId, GenieConnection genieConnection, Class<UDM> udmClass ) {
+		this.storeId 			= storeId;
+		this.genieConnection 	= genieConnection;
+		this.udmClass 			= udmClass;
     }
     
     //************************************************************
@@ -65,7 +65,7 @@ public class MagicLamp < UDM extends DataModel < UDM > > {
     					Finder 		< UDM, ? extends Finder < UDM, ? > >  	finder, 
     					Sorter 		< UDM, ? extends Sorter < UDM, ? > >  	sorter, 
     					Consumer 	< BlockNavResp > 						respConsumer ) {
-    	var reqProcess = new SearchReqProcess( blockSize, finder, sorter, this );
+    	var reqProcess = new SearchReqProcess( this.storeId, blockSize, finder, sorter, new FinderSupport< UDM >( udmClass ), new SorterSupport<>(udmClass) );
     	reqProcess.respConsumer.set( respConsumer );
     	reqProcess.run();
     }

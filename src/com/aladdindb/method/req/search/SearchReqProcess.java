@@ -1,6 +1,7 @@
 package com.aladdindb.method.req.search;
 
-import com.aladdindb.MagicLamp;
+import com.aladdindb.FinderSupport;
+import com.aladdindb.SorterSupport;
 import com.aladdindb.finder.Finder;
 import com.aladdindb.method.req.ReqProcess;
 import com.aladdindb.method.resp.get.block.BlockNavResp;
@@ -23,14 +24,14 @@ public class SearchReqProcess <
     //						Constructors
     //****************************************************************
 
-	public SearchReqProcess( int blockSize, FINDER_MODEL finder, SORTER_MODEL sorter,  MagicLamp < UDM > magicLamp ) {
+	public SearchReqProcess( String storeId, int blockSize, FINDER_MODEL finder, SORTER_MODEL sorter,  FinderSupport < UDM > magicLamp, SorterSupport< UDM > sorterSupport ) {
 		
-		this.magicLamp.set ( magicLamp);
+//		this.magicLamp.set ( magicLamp);
 
-		var req = new SearchReq < UDM, FINDER_MODEL, SORTER_MODEL >( magicLamp.support.storeId, blockSize, finder, sorter );
+		var req = new SearchReq < UDM, FINDER_MODEL, SORTER_MODEL >( storeId, blockSize, finder, sorter );
 		
 		this.req				.set ( req );
-		this.reqTransformer		.set ( new SearchReqTransformer	< UDM, FINDER_MODEL, SORTER_MODEL >( magicLamp.support ) ); 
+		this.reqTransformer		.set ( new SearchReqTransformer	< UDM, FINDER_MODEL, SORTER_MODEL >( magicLamp, sorterSupport ) ); 
 		this.respTransformer	.set ( new BlockNaviRespTransformer() );
 	}
 

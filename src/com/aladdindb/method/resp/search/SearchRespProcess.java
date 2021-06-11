@@ -1,6 +1,8 @@
 package com.aladdindb.method.resp.search;
 
+import com.aladdindb.FinderSupport;
 import com.aladdindb.Genie;
+import com.aladdindb.SorterSupport;
 import com.aladdindb.finder.Finder;
 import com.aladdindb.method.req.search.SearchReqTransformer;
 import com.aladdindb.method.resp.RespProcess;
@@ -21,9 +23,13 @@ public class SearchRespProcess <
 
 > extends RespProcess< UDM > { 
 
-
-	public SearchRespProcess( Genie < UDM > genie ) {
+		private final FinderSupport< UDM > finderSupport; 
+		private final SorterSupport< UDM > sorterSupport;
+		
+	public SearchRespProcess( Genie<UDM> genie, FinderSupport< UDM > finderSupport, SorterSupport< UDM > sorterSupport ) {
 		super( genie );
+		this.finderSupport = finderSupport;
+		this.sorterSupport = sorterSupport;
 	}
 	
     //************************************************************
@@ -33,7 +39,7 @@ public class SearchRespProcess <
 	@Override
 	public void run() {
 		genie.reqNode.get( reqNode -> {
-			var transformer = new SearchReqTransformer< UDM, FINDER_MODEL, SORTER_MODEL >( genie.support );
+			var transformer = new SearchReqTransformer< UDM, FINDER_MODEL, SORTER_MODEL >( this.finderSupport, this.sorterSupport );
 			transformer.toModel( reqNode, req -> {
 				
 				var blockSize 	= req.blockSize	.get();

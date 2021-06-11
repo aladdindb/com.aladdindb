@@ -3,7 +3,7 @@ package com.aladdindb.finder.logical;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.aladdindb.StoreSupport;
+import com.aladdindb.FinderSupport;
 import com.aladdindb.finder.Finder;
 import com.aladdindb.store.models.Unit;
 import com.aladdindb.structure.DataModel;
@@ -17,7 +17,7 @@ public class LogicalAndFinders < UDM extends DataModel< UDM > > implements Finde
     //****************************************************************
 
 	
-	private final  StoreSupport< UDM > support;
+	private final  FinderSupport< UDM > support;
 	
 	
 	public final List < Finder< UDM, ? extends DataModel< ? > > >  finderList = new ArrayList<>();
@@ -27,7 +27,7 @@ public class LogicalAndFinders < UDM extends DataModel< UDM > > implements Finde
     //						Constructor 
     //****************************************************************
 	
-	public LogicalAndFinders( StoreSupport< UDM > finderSupport ) {
+	public LogicalAndFinders( FinderSupport< UDM > finderSupport ) {
 		this.support = finderSupport;
 	}
 

@@ -3,7 +3,6 @@ package com.aladdindb.method.req.add;
 import com.aladdindb.method.Method;
 import com.aladdindb.method.req.ReqTransformer;
 import com.aladdindb.structure.DataModel;
-import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.XTransformer;
 import com.aladdindb.structure.sn.SnPoint;
 
@@ -22,9 +21,9 @@ public final class AddReqTransformer < UDM extends DataModel< UDM > > extends Re
     //
     //****************************************************************
 
-    public AddReqTransformer( Class< UDM > dataTransformer ) {
+    public AddReqTransformer( Class< UDM > udmClass ) {
 		super( Method.add.store() );
-		this.udmClass = dataTransformer;
+		this.udmClass = udmClass;
 	}
     
     //****************************************************************

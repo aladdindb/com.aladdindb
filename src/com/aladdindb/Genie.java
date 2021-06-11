@@ -23,7 +23,10 @@ import com.aladdindb.util.Var;
 
 public class Genie < UDM extends DataModel < UDM > > implements Runnable { 
 
-
+	public final String 		storeId;
+	public final Path 			storePath;
+	public final Class < UDM > 	udmClass;
+	
 	public final HashMap< String, UnitIdBlockNavi > unitsIdBlockNaviMap = new HashMap<>();
 	
 	public final Store	< UDM > 					store;
@@ -31,13 +34,24 @@ public class Genie < UDM extends DataModel < UDM > > implements Runnable {
 	public final Var 	< SnPoint > 				reqNode 		= new Var<>();
 	public final Var 	< Consumer < String > > 	respConsumer 	= new Var<>();
 	
-	public final StoreSupport< UDM > support;
+	private final FinderSupport< UDM > finderSupport; 
+	private final SorterSupport< UDM > sorterSupport; 	
 	
 	
-	public Genie( Path storePath, StoreSupport< UDM > support )  {
+	public Genie( String storeId, Path storePath, FinderSupport< UDM > finderSupport, SorterSupport< UDM > sorterSupport, Class < UDM > udmClass   )  {
 		System.out.println( "Store-Path :"+storePath );
-		this.support 	= support;
-		this.store		= new Store	< UDM > ( storePath, this.support.udmClass );
+//		this.support 	= support;
+		this.store		= new Store	< UDM > ( storePath, udmClass );
+		
+		this.storeId 		= storeId;
+		this.storePath		= storePath;
+//		this.storeOrigin 	= storeOrigin;
+		
+		this.finderSupport = finderSupport;
+		this.sorterSupport = sorterSupport;
+		
+		this.udmClass 		= udmClass;
+	
 	}
     
 	
@@ -55,7 +69,7 @@ public class Genie < UDM extends DataModel < UDM > > implements Runnable {
 		
 		return 	  reqCmd.equals( Method.add				.store() ) ? new AddRespProcess 		< UDM > ( this )
 				: reqCmd.equals( Method.getById			.store() ) ? new GetByIdRespProcess 	< UDM > ( this )
-				: reqCmd.equals( Method.search			.store() ) ? new SearchRespProcess 		<     > ( this ) 
+				: reqCmd.equals( Method.search			.store() ) ? new SearchRespProcess 		<  	  > ( this, this.finderSupport, this.sorterSupport ) 
 				: reqCmd.equals( Method.getAll			.store() ) ? new GetAllRespProcess 		< UDM > ( this ) 
 				: reqCmd.equals( Method.getBlock		.store() ) ? new BlockNaviRespProcess 	< UDM > ( this ) 
 				: reqCmd.equals( Method.update			.store() ) ? new UpdateRespProcess 		< UDM > ( this ) 
