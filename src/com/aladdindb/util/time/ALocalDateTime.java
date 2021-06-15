@@ -10,28 +10,16 @@ import java.time.format.DateTimeFormatter;
 public class ALocalDateTime {
 	
 
-//	private final DateTimeFormatter fileNameFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");    	
-	
-	
-	//*********************************************************************
-	
-//	public String timeStampAsFileName() {
-//		return LocalDateTime.now().format( fileNameFormatter );
-//	}
-//
-//	public LocalDateTime parseTimeStampAsFileName( String timeStampAsFileName ) {
-//		return LocalDateTime.parse( timeStampAsFileName, fileNameFormatter );
-//	}
-    
-	//*********************************************************************
-
-	public static String toIsoStr() {
+	public static String toISO() {
 		return DateTimeFormatter.ISO_LOCAL_DATE_TIME.format( LocalDateTime.now());
 	}
 	
-	public static LocalDateTime fromIsoStr( String isoDateTime ) {
-		return LocalDateTime.parse( isoDateTime, DateTimeFormatter.ISO_LOCAL_DATE_TIME  );
+	public static String toISO( LocalDateTime dateTime ) {
+		return DateTimeFormatter.ISO_LOCAL_DATE_TIME.format( dateTime );
+	}
+	
+	public static LocalDateTime fromISO( String dateTime ) {
+		return LocalDateTime.parse( dateTime, DateTimeFormatter.ISO_LOCAL_DATE_TIME  );
 	}
 
-	//*********************************************************************
 }

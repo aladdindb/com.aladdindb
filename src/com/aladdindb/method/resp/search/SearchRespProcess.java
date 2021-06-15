@@ -1,11 +1,8 @@
 package com.aladdindb.method.resp.search;
 
 import com.aladdindb.Genie;
-import com.aladdindb.finder.DefaultFinderTransformer;
 import com.aladdindb.finder.Finder;
 import com.aladdindb.finder.FinderSupport;
-import com.aladdindb.finder.logical.LogicalAndFinders;
-import com.aladdindb.finder.logical.LogicalAndFindersTransformer;
 import com.aladdindb.method.req.search.SearchReqTransformer;
 import com.aladdindb.method.resp.RespProcess;
 import com.aladdindb.method.resp.get.block.BlockNavResp;
@@ -65,11 +62,6 @@ public class SearchRespProcess <
 
 		var unitIdBlock			= new UnitIdBlock( blockSize );
 
-//		var t = new LogicalAndFindersTransformer<>( this.finderSupport );
-//		var node = t.toNode( (LogicalAndFinders) finder);
-//		System.out.println( XML.toString( node ) );
-		
-		
 		this.genie.store.search( finder, sorter, unit -> {
 			unit.id.get( unitIdBlock::addUnitId );
 		});

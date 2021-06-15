@@ -17,19 +17,20 @@ import com.aladdindb.util.Var;
  * @author Macit Kandemir
  *
  */
-public class LocalDateSorter < UDM	extends DataModel < UDM > > extends DefaultSorter < UDM, LocalDateSorter < UDM >, LocalDate > {
+public class DateSorter < UDM	extends DataModel < UDM > > extends DefaultSorter < UDM, DateSorter < UDM >, LocalDate > {
 
 	
     //****************************************************************
     //						Constructor 
     //****************************************************************
 	
-	public LocalDateSorter( Class<UDM> udmClass,  Function < Unit < UDM >, Var< ? > > unitFieldGetter  ) {
+	public DateSorter( Class<UDM> udmClass,  Function < Unit < UDM >, Var< ? > > unitFieldGetter  ) {
 		this( SortOrder.ASCENDING, udmClass, unitFieldGetter );
 	}
 
-	public LocalDateSorter( SortOrder sortOrder, Class<UDM> udmClass,  Function < Unit < UDM >, Var< ? > > unitFieldGetter  ) {
+	public DateSorter( SortOrder sortOrder, Class<UDM> udmClass,  Function < Unit < UDM >, Var< ? > > unitFieldGetter  ) {
 		super( sortOrder, udmClass, unitFieldGetter );
+		this.fieldId.set( getField() );
 	}
 	
 	public Comparator <LocalDate> newComparator() {
@@ -42,11 +43,11 @@ public class LocalDateSorter < UDM	extends DataModel < UDM > > extends DefaultSo
 	}
 	
 	@Override 
-	public DefaultSorterTransformer < UDM,  LocalDateSorter < UDM >, LocalDate > newTransformer() {  
+	public DefaultSorterTransformer < UDM,  DateSorter < UDM >, LocalDate > newTransformer() {  
 		return new DefaultSorterTransformer<>() { 
 			@Override 
-			public LocalDateSorter < UDM > newModel() { 
-				return new LocalDateSorter<>( SortOrder.ASCENDING,	LocalDateSorter.this.udmClass, LocalDateSorter.this.fieldGetter );
+			public DateSorter < UDM > newModel() { 
+				return new DateSorter<>( SortOrder.ASCENDING,	DateSorter.this.udmClass, DateSorter.this.fieldGetter );
 			}
 		};
 	}

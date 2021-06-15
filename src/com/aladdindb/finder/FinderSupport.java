@@ -8,8 +8,14 @@ import java.util.function.Function;
 import com.aladdindb.UnitAnalyzer;
 import com.aladdindb.finder.logical.LogicalAndFinders;
 import com.aladdindb.finder.logical.LogicalOrFinders;
+import com.aladdindb.finder.types.BooleanFinder;
+import com.aladdindb.finder.types.ByteFinder;
 import com.aladdindb.finder.types.DateFinder;
+import com.aladdindb.finder.types.DoubleFinder;
+import com.aladdindb.finder.types.FloatFinder;
+import com.aladdindb.finder.types.IntFinder;
 import com.aladdindb.finder.types.StringFinder;
+import com.aladdindb.finder.types.ZonedDateTimeFinder;
 import com.aladdindb.store.models.Unit;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.sn.SnPoint;
@@ -18,13 +24,15 @@ import com.aladdindb.util.Var;
 public class FinderSupport < UDM extends DataModel< UDM > > {
 	
 	
-	public final Class < UDM > 	udmClass;
+	public final Class 			< UDM > udmClass;
+	public final UnitAnalyzer	< UDM > analyzer;
 	
-	public final UnitAnalyzer< UDM > analyzer;
-	
-
 	private final Function< Unit< UDM >, Var<?> >[] functions;
 	
+	
+    //****************************************************************
+    //						  Constructor
+    //****************************************************************
 	
 	public FinderSupport( Class < UDM > udmClass, Function< Unit< UDM >, Var<?> >... functions ) {
 		this.udmClass 		= udmClass;
@@ -32,6 +40,10 @@ public class FinderSupport < UDM extends DataModel< UDM > > {
 		this.analyzer 		= new UnitAnalyzer<>(udmClass);
 	}
 
+    //****************************************************************
+    //						  Sorter 
+    //****************************************************************
+	
 	public Finder<UDM, ?> newFinder( String fieldId ) {
 		if( this.functions != null ) {
 			var function =  this.analyzer.getEquals( fieldId,  this.functions );
@@ -56,7 +68,15 @@ public class FinderSupport < UDM extends DataModel< UDM > > {
 			return switch( varType ) {
 				
 				case STRING 		->  new StringFinder 	< UDM > ( operator, pattern, this.udmClass ,  function );
+				case INT 			->  new IntFinder 		< UDM > ( operator, pattern, this.udmClass ,  function );
+				case DOUBLE 		->  new DoubleFinder 	< UDM > ( operator, pattern, this.udmClass ,  function );
+				case FLOAT 			->  new FloatFinder 	< UDM > ( operator, pattern, this.udmClass ,  function );
+				case BYTE 			->  new ByteFinder 		< UDM > ( operator, pattern, this.udmClass ,  function );
+				case BOOLEAN 		->  new BooleanFinder 	< UDM > ( operator, pattern, this.udmClass ,  function );
 				case LOCAL_DATE 	->  new DateFinder 		< UDM > ( operator, pattern, this.udmClass ,  function );
+				
+				case ZONED_DATE_TIME  ->  new ZonedDateTimeFinder < UDM > ( operator, pattern, this.udmClass ,  function );
+				
 				
 				default -> null;
 				
@@ -65,9 +85,8 @@ public class FinderSupport < UDM extends DataModel< UDM > > {
 		return null;
 	}
 	
-	
     //****************************************************************
-    //						 Finder 
+    //						 Finder by Node
     //****************************************************************
 	
 	public void newFinder( SnPoint finderNode, Consumer < Finder < UDM, ? extends DataModel<?> > > finderConsumer ) {
@@ -92,6 +111,10 @@ public class FinderSupport < UDM extends DataModel< UDM > > {
 		}
 		return null;
 	}
+	
+    //****************************************************************
+    //						 Finder by Type
+    //****************************************************************
 	
 	public Finder< UDM, ? > newFinderByType( String finderType ) {
 		return 	finderType.equals( Finder.LOCGICAL_AND 	) ? new LogicalAndFinders	< UDM >( this ) : 

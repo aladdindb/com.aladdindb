@@ -19,16 +19,12 @@ public class SnZonedDateTimeParser extends SnAttributeParser < ZonedDateTime > {
     @Override
     public ZonedDateTime get( String key ) {
         var value = node.attributes.getValue( key );
-//        new XlrZonedDateTime().parseStr( value );
-//        return value != null && !value.trim().isEmpty() ? new XlrZonedDateTime().parseStr( value ) : null  ;
-//        new XlrZonedDateTime().parseIsoDateTimeStr( value );
-        return value != null && !value.trim().isEmpty() ? AZonedDateTime.fromIsoStr( value ) : null  ;
+        return value != null && !value.trim().isEmpty() ? AZonedDateTime.fromISO( value ) : null  ;
     }
     
     @Override
     public void set( String key, ZonedDateTime value ) {
-//        node.attributes.set( key, new XlrZonedDateTime().toStr( value ) );
-        node.attributes.set( key, AZonedDateTime.toIsoStr( value ) );
+        node.attributes.set( key, AZonedDateTime.toISO( value ) );
     }
     
     

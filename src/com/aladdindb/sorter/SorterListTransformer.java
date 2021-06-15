@@ -44,9 +44,9 @@ public class SorterListTransformer < UDM extends DataModel< UDM > > extends Tran
 	@Override
 	public SnPoint toNode( SorterList < UDM > src, SnPoint target ) {
 
-		var sorterArray = src.sorters.toArray( new Sorter[ src.sorters.size() ] );
+		var array = src.sorters.toArray( new Sorter[ src.sorters.size() ] );
 //		 
-		for( var sorter : sorterArray ) {
+		for( var sorter : array ) {
 			sorter.newTransformer().toNode( sorter, sorterNode -> target.children.add((SnPoint) sorterNode ) );
 		}
 //		

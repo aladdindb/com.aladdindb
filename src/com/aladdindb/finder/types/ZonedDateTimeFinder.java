@@ -1,7 +1,6 @@
 package com.aladdindb.finder.types;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.ZonedDateTime;
 import java.util.function.Function;
 
 import com.aladdindb.finder.DefaultFinder;
@@ -10,7 +9,7 @@ import com.aladdindb.finder.OP;
 import com.aladdindb.store.models.Unit;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.util.Var;
-import com.aladdindb.util.time.ALocalDate;
+import com.aladdindb.util.time.AZonedDateTime;
 
 
 /**
@@ -18,27 +17,27 @@ import com.aladdindb.util.time.ALocalDate;
  * @author Macit Kandemir
  *
  */
-public class DateFinder < UDM extends DataModel < UDM > > extends DefaultFinder < UDM, DateFinder< UDM >, LocalDate > {
+public class ZonedDateTimeFinder < UDM extends DataModel < UDM > > extends DefaultFinder < UDM, ZonedDateTimeFinder< UDM >, ZonedDateTime > {
 
 	
     //****************************************************************
     //						Constructor 
     //****************************************************************
 
-	public DateFinder( Class<UDM> udmClass,Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
+	public ZonedDateTimeFinder( Class<UDM> udmClass,Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
 		this( null, null, udmClass, unitFieldGetter );
 	}
 	
-	public DateFinder( String operator, String pattern, Class<UDM> udmClass, Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
+	public ZonedDateTimeFinder( String operator, String pattern, Class<UDM> udmClass, Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
 		super( operator, pattern, udmClass, unitFieldGetter );
 	}
 
 	@Override
-	public  DefaultFinderTransformer< UDM, DateFinder< UDM >, LocalDate > newTransformer() {
+	public  DefaultFinderTransformer< UDM, ZonedDateTimeFinder< UDM >, ZonedDateTime > newTransformer() {
 		return new DefaultFinderTransformer<>() {
 			@Override 
-			public DateFinder< UDM > newModel() {
-				return new DateFinder<>( null, null, null, null );
+			public ZonedDateTimeFinder< UDM > newModel() {
+				return new ZonedDateTimeFinder<>( null, null, null, null );
 			}
 		};
 	}
@@ -48,34 +47,34 @@ public class DateFinder < UDM extends DataModel < UDM > > extends DefaultFinder 
     //****************************************************************
 	
 	@Override
-	public boolean provePattern( LocalDate value) {
+	public boolean provePattern( ZonedDateTime value) {
 		
 		var rv = new Var<Boolean>(false);
 		
 		this.operator.get( operator -> {
 			this.pattern.get( patternStr -> {
 				
-				var date = ALocalDate.fromISO( patternStr );
+				var dateTime = AZonedDateTime.fromISO( patternStr );
 				
 				rv.set(	switch( OP.valueOf ( operator ) ) {
 					//--------------------------------
-					case equal 						-> value.isEqual 	( date );
+					case equal 						-> value.isEqual 	( dateTime );
 					
-					case greater 					-> value.isAfter 	( date );
-					case greaterOrEqual 			-> value.isAfter 	( date) || value.isEqual( date );
+					case greater 					-> value.isAfter 	( dateTime );
+					case greaterOrEqual 			-> value.isAfter 	( dateTime) || value.isEqual( dateTime );
 					
-					case less 						-> value.isBefore	( date );
-					case lessOrEqual 				-> value.isBefore 	( date) || value.isEqual( date );
+					case less 						-> value.isBefore	( dateTime );
+					case lessOrEqual 				-> value.isBefore 	( dateTime) || value.isEqual( dateTime );
 					//--------------------------------
 					//				not
 					//--------------------------------
-					case notEqual 					-> !value.isEqual 	( date );
+					case notEqual 					-> !value.isEqual 	( dateTime );
 					
-					case notGreater 				-> !value.isAfter 	( date );
-					case notGreaterOrEqual 			-> !(value.isAfter 	( date) || value.isEqual( date ));
+					case notGreater 				-> !value.isAfter 	( dateTime );
+					case notGreaterOrEqual 			-> !(value.isAfter 	( dateTime) || value.isEqual( dateTime ));
 					
-					case notLess 					-> !value.isBefore	( date );
-					case notLessOrEqual 			-> !(value.isBefore ( date) || value.isEqual( date ));
+					case notLess 					-> !value.isBefore	( dateTime );
+					case notLessOrEqual 			-> !(value.isBefore ( dateTime) || value.isEqual( dateTime ));
 					//--------------------------------
 					default -> false;
 				});

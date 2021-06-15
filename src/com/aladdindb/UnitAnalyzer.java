@@ -29,14 +29,15 @@ public class UnitAnalyzer< UDM extends DataModel< UDM > > {
 	
 	public Function< Unit< UDM >, Var<?> > getEquals( String fieldId, Function< Unit< UDM >, Var<?> >... functions   ) {
 		for( var function : functions ) {
-			return equalsField( fieldId, function ) ? function : null;
+			if( equalsField( fieldId, function ) ) return function;
 		}
 		return null;
 	}
 	
 	public boolean equalsField( String fieldId, Function< Unit< UDM >, Var<?> > function   ) {
 		var varObject = this.getVar( function );
-		return varObject != null ? varObject.key().equals( fieldId ) : false; 
+		String key = varObject.key();
+		return varObject != null ? key.equals( fieldId ) : false; 
 	}
 
 	public VarType getVarType( Function< Unit< UDM >, Var< ? > > function ) {
@@ -93,6 +94,7 @@ public class UnitAnalyzer< UDM extends DataModel< UDM > > {
     	        		case "java.lang.Byte" 			-> VarType.BYTE;
     	        		case "java.lang.Boolean" 		-> VarType.BOOLEAN;
     	        		case "java.time.LocalDate" 		-> VarType.LOCAL_DATE;
+    	        		
     	        		case "java.time.ZonedDateTime" 	-> VarType.ZONED_DATE_TIME;
     	        		
     	        		default -> null;
