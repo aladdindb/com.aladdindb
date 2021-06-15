@@ -30,12 +30,12 @@ public abstract class DefaultSorter <
 	
 	public final Var < String > 		sortOrderVar 	= new Var<>();
 	public final Var < Store< UDM > > 	storeVar 		= new Var<>();
-	public final Var < String> 			field 			= new Var<>();
+	public final Var < String> 			fieldId 		= new Var<>();
 
 	public final Comparator					< VT > 				comparator;
 	public final UnitIdListBlocksGenerator	< UDM, VT>  		blockWise;
 	
-	public final Function < Unit < UDM >, Var< VT > > fieldGetter;
+	public final Function < Unit < UDM >, Var< ? > > fieldGetter;
 	
 	public final Class<UDM> udmClass;
 	
@@ -43,7 +43,7 @@ public abstract class DefaultSorter <
     //						Constractor 
     //****************************************************************
 	
-	public DefaultSorter( SortOrder sortOrder, Class<UDM> udmClass, Function < Unit < UDM >, Var< VT > > fieldGetter ) {
+	public DefaultSorter( SortOrder sortOrder, Class<UDM> udmClass, Function < Unit < UDM >, Var< ? > > fieldGetter ) {
 		
 		this.sortOrderVar	.set( sortOrder.name()	);
 		this.comparator 	= this.newComparator();
@@ -92,7 +92,7 @@ public abstract class DefaultSorter <
 				store.getUnitById( unitId, unit -> {
 					var field = this.fieldGetter.apply( unit );
 					if( field != null) {
-						field.get( value -> map.put( unitId, value ) );
+						field.get( value -> map.put( unitId, (VT)value ) );
 					}
 				});
 			});
@@ -102,7 +102,6 @@ public abstract class DefaultSorter <
 		
 		
 		var orderType = switch ( SortOrder.valueOf( sortOrderVar.get() ) ) {
-//			case ASCENDING  -> comparator;
 			case DESCENDING -> comparator.reversed();
 			default 		-> comparator;
 		};

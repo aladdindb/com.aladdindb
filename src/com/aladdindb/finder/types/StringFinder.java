@@ -28,14 +28,14 @@ public class StringFinder < UDM extends DataModel < UDM > > extends DefaultFinde
 	
 	public StringFinder( String operator, String pattern, Class<UDM> udmClass, Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
 		super( operator, pattern, udmClass, unitFieldGetter );
-		this.field.set( getField() );
+		this.fieldId.set( getField() );
 	}
 
 	@Override
 	public  DefaultFinderTransformer< UDM, StringFinder< UDM >, String > newTransformer() {
 		return new DefaultFinderTransformer<>() {
 			@Override 
-			public StringFinder< UDM > newModel() {
+			public StringFinder< UDM > newModel() { 
 				return new StringFinder<>( 	StringFinder.this.udmClass, StringFinder.this.fieldGetter );
 			}
 		};

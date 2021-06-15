@@ -3,6 +3,7 @@ package com.aladdindb;
 import java.util.function.Consumer;
 
 import com.aladdindb.finder.Finder;
+import com.aladdindb.finder.FinderSupport;
 import com.aladdindb.method.req.add.AddReqProcess;
 import com.aladdindb.method.req.close.method.session.CloseMethodSessionReqProcess;
 import com.aladdindb.method.req.get.all.GetAllReqProcess;
@@ -17,6 +18,7 @@ import com.aladdindb.method.resp.get.by.id.GetByIdResp;
 import com.aladdindb.method.resp.remove.RemoveResp;
 import com.aladdindb.method.resp.update.UpdateResp;
 import com.aladdindb.sorter.Sorter;
+import com.aladdindb.sorter.SorterSupport;
 import com.aladdindb.store.models.Unit;
 import com.aladdindb.structure.DataModel;
 
@@ -26,17 +28,24 @@ public class MagicLamp < UDM extends DataModel < UDM > > {
 	
 	public final String 		storeId;
 	public final Class < UDM > 	udmClass;
+
+	public final FinderSupport< UDM > finderSupport; 
+	public final SorterSupport< UDM > sorterSupport; 	
 	
     public final  GenieConnection genieConnection;
-
+    
     //************************************************************
     //					
     //************************************************************
 
-    public MagicLamp( String storeId, GenieConnection genieConnection, Class<UDM> udmClass ) {
+    public MagicLamp( String storeId, GenieConnection genieConnection, Class<UDM> udmClass, FinderSupport< UDM > finderSupport, SorterSupport< UDM > sorterSupport ) {
 		this.storeId 			= storeId;
 		this.genieConnection 	= genieConnection;
 		this.udmClass 			= udmClass;
+		
+		this.finderSupport = finderSupport;
+		this.sorterSupport = sorterSupport;
+		
     }
     
     //************************************************************
@@ -65,7 +74,9 @@ public class MagicLamp < UDM extends DataModel < UDM > > {
     					Finder 		< UDM, ? extends Finder < UDM, ? > >  	finder, 
     					Sorter 		< UDM, ? extends Sorter < UDM, ? > >  	sorter, 
     					Consumer 	< BlockNavResp > 						respConsumer ) {
-    	var reqProcess = new SearchReqProcess( this.storeId, blockSize, finder, sorter, new FinderSupport< UDM >( udmClass ), new SorterSupport<>(udmClass) );
+    	
+    	var reqProcess = new SearchReqProcess( blockSize, finder, sorter, this );
+    	
     	reqProcess.respConsumer.set( respConsumer );
     	reqProcess.run();
     }

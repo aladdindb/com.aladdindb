@@ -47,7 +47,7 @@ public final class AddReqTransformer < UDM extends DataModel< UDM > > extends Re
         
         if( this.udmClass != null ) {
             var dataNode = src.children.get( this.udmClass.getSimpleName() );
-    		var t = new XTransformer< UDM >( this.udmClass.getSimpleName(), this.udmClass );
+    		var t = new XTransformer< UDM >( this.udmClass );
     		t.toModel(dataNode, dataModel-> {
     			target.unitData.set(dataModel);
     		});
@@ -63,7 +63,7 @@ public final class AddReqTransformer < UDM extends DataModel< UDM > > extends Re
 //        dataTransformer.toParentNode( src.unitData ,target );
 
         if( this.udmClass != null ) {
-  		var t = new XTransformer< UDM >( this.udmClass.getSimpleName(), this.udmClass );
+  		var t = new XTransformer< UDM >( this.udmClass );
   		src.unitData.get( dataModel -> {
       		t.toNode( dataModel, dataNode -> {
       			target.children.add(dataNode);

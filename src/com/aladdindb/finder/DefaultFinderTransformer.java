@@ -20,7 +20,7 @@ public abstract class DefaultFinderTransformer <
 > extends Transformer< FINDER_MODEL > {
 	
 	
-	public enum ATR { operator, pattern, field }
+	public enum ATR { operator, pattern, fieldId }
 
 	
     //****************************************************************
@@ -40,7 +40,7 @@ public abstract class DefaultFinderTransformer <
 		var srcAtr = new SnAttributeAccess(src);
 		srcAtr.asStr.get( ATR.operator	,target.operator );
 		srcAtr.asStr.get( ATR.pattern	,target.pattern );
-		srcAtr.asStr.get( ATR.field		,target.field );
+		srcAtr.asStr.get( ATR.fieldId	,target.fieldId );
 		return target;
 	}
 
@@ -49,7 +49,7 @@ public abstract class DefaultFinderTransformer <
 		var srcAtr = new SnAttributeAccess(target);
 		srcAtr.asStr.set( ATR.operator	,src.operator 	);
 		srcAtr.asStr.set( ATR.pattern	,src.pattern 	);
-		srcAtr.asStr.set( ATR.field		,src.field 		);
+		srcAtr.asStr.set( ATR.fieldId	,src.fieldId 		);
 		return target;
 	}
 
@@ -57,4 +57,21 @@ public abstract class DefaultFinderTransformer <
     //
     //****************************************************************
 	
+	public static final FinderAtr newFinderAtr( SnPoint src ) {
+		var rv = new FinderAtr();
+		
+		var srcAtr = new SnAttributeAccess(src);
+		
+		srcAtr.asStr.get( ATR.operator	,str -> rv.operator = str );
+		srcAtr.asStr.get( ATR.pattern	,str -> rv.pattern 	= str );
+		srcAtr.asStr.get( ATR.fieldId	,str -> rv.fieldId 	= str );
+		
+		return rv;
+	}
+	
+	public static class FinderAtr {
+		public String operator;
+		public String pattern;
+		public String fieldId;
+	}
 }

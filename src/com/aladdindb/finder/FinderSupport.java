@@ -1,9 +1,11 @@
-package com.aladdindb;
+package com.aladdindb.finder;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import com.aladdindb.finder.Finder;
+import com.aladdindb.UnitAnalyzer;
 import com.aladdindb.finder.logical.LogicalAndFinders;
 import com.aladdindb.finder.logical.LogicalOrFinders;
 import com.aladdindb.finder.types.DateFinder;
@@ -18,9 +20,11 @@ public class FinderSupport < UDM extends DataModel< UDM > > {
 	
 	public final Class < UDM > 	udmClass;
 	
-	public final UnitAnalyzer< UDM > analyzer;;
+	public final UnitAnalyzer< UDM > analyzer;
+	
 
 	private final Function< Unit< UDM >, Var<?> >[] functions;
+	
 	
 	public FinderSupport( Class < UDM > udmClass, Function< Unit< UDM >, Var<?> >... functions ) {
 		this.udmClass 		= udmClass;
@@ -37,13 +41,22 @@ public class FinderSupport < UDM extends DataModel< UDM > > {
 	}
 	
 	public Finder < UDM, ? > newFinder(  Function< Unit< UDM >, Var < ? > > function ) {
+		return this.newFinder( null, null, function );
+	}
+
+	public Finder < UDM, ? > newDateFinder( String operator, LocalDate date,  Function< Unit< UDM >, Var < ? > > function ) {
+		var pattern = date.format( DateTimeFormatter.ISO_LOCAL_DATE );
+		return this.newFinder( operator, pattern, function );
+	}
+	
+	public Finder < UDM, ? > newFinder( String operator, String pattern, Function< Unit< UDM >, Var < ? > > function ) {
 		var varType = this.analyzer.getVarType( function); 
 		
 		if( varType != null ) {
 			return switch( varType ) {
 				
-				case STRING 		->  new StringFinder 	< UDM > ( this.udmClass ,  function );
-				case LOCAL_DATE 	->  new DateFinder 		< UDM > ( this.udmClass ,  function );
+				case STRING 		->  new StringFinder 	< UDM > ( operator, pattern, this.udmClass ,  function );
+				case LOCAL_DATE 	->  new DateFinder 		< UDM > ( operator, pattern, this.udmClass ,  function );
 				
 				default -> null;
 				
@@ -63,8 +76,21 @@ public class FinderSupport < UDM extends DataModel< UDM > > {
 	}
 	
 	public Finder< UDM, ? extends DataModel < ? > > newFinder( SnPoint finderNode ) {
-		var finder = this.newFinder( finderNode.key.get() );
-		return finder != null ? ( Finder< UDM, ? extends DataModel < ? > >) finder.newTransformer().toModel( finderNode ) : null;
+		var finder = this.newFinderByType( finderNode.key.get() );
+		if( finder != null ) {
+			return ( Finder< UDM, ? extends DataModel < ? > >) finder.newTransformer().toModel( finderNode ); 
+		} else {
+			var atr = DefaultFinderTransformer.newFinderAtr(finderNode);
+			
+			if( atr.fieldId != null && !atr.fieldId.isEmpty() ) {
+				var function =  this.analyzer.getEquals( atr.fieldId, this.functions );
+				if(function != null) {
+					OP.valueOf(atr.operator);
+					return newFinder( OP.valueOf(atr.operator).real(), atr.pattern, function );
+				}
+			}
+		}
+		return null;
 	}
 	
 	public Finder< UDM, ? > newFinderByType( String finderType ) {
@@ -113,5 +139,6 @@ public class FinderSupport < UDM extends DataModel< UDM > > {
     //****************************************************************
     //						      
 	//****************************************************************
+	
 	
 }

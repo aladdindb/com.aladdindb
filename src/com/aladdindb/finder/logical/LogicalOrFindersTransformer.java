@@ -1,7 +1,7 @@
 package com.aladdindb.finder.logical;
 
-import com.aladdindb.FinderSupport;
 import com.aladdindb.finder.Finder;
+import com.aladdindb.finder.FinderSupport;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;

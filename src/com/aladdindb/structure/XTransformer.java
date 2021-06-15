@@ -1,5 +1,6 @@
 package com.aladdindb.structure;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
@@ -10,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.function.Consumer;
 
 import com.aladdindb.structure.sn.SnPoint;
+import com.aladdindb.util.Parent;
 import com.aladdindb.util.Var;
 
 public class XTransformer < UDM extends DataModel< UDM > >  extends Transformer < UDM > {
@@ -21,15 +23,20 @@ public class XTransformer < UDM extends DataModel< UDM > >  extends Transformer 
 	private enum XType { STRING, INT, DOUBLE, FLOAT, BYTE, BOOLEAN, LOCAL_DATE, ZONED_DATE_TIME }
 	
 	
-	public XTransformer( String key, Class< UDM > udmClass ) {
-		super( key );
+	public XTransformer( Class< UDM > udmClass ) {
+		super( udmClass.getSimpleName() );
 		this.udmClass = udmClass;
 	}
 	
 	@Override
 	public UDM newModel() {
 		try {
-			return this.udmClass.getDeclaredConstructor().newInstance();
+			Constructor<?>[] pc = this.udmClass.getDeclaredConstructors();
+			var count = pc[0].getParameterCount();
+			
+			return 	count == 0 ?  this.udmClass.getConstructor().newInstance(): 
+					count == 1 ?  this.udmClass.getConstructor( Parent.class ).newInstance((Parent)null ) : null;
+			
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
@@ -168,7 +175,7 @@ public class XTransformer < UDM extends DataModel< UDM > >  extends Transformer 
 	}
 	
 	private Transformer newTransformer( Class<?> type ) {
-		return new XTransformer( type.getSimpleName(), type );
+		return new XTransformer( type );
 	}
 	
 	//**********************************************************

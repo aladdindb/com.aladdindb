@@ -23,12 +23,13 @@ public class StringSorter < UDM	extends DataModel < UDM > > extends DefaultSorte
     //						Constructor 
     //****************************************************************
 	
-	public StringSorter( Class<UDM> udmClass,  Function < Unit < UDM >, Var< String > > unitFieldGetter  ) {
+	public StringSorter( Class<UDM> udmClass,  Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
 		this( SortOrder.ASCENDING, udmClass, unitFieldGetter );
 	}
 
-	public StringSorter( SortOrder sortOrder, Class<UDM> udmClass,  Function < Unit < UDM >, Var< String > > unitFieldGetter  ) {
+	public StringSorter( SortOrder sortOrder, Class<UDM> udmClass,  Function < Unit < UDM >, Var< ? > > unitFieldGetter  ) {
 		super( sortOrder, udmClass, unitFieldGetter );
+		this.fieldId.set( getField() );
 	}
 	
 	public Comparator < String > newComparator() {

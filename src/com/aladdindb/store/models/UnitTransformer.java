@@ -47,7 +47,7 @@ public final class UnitTransformer < UDM extends DataModel < UDM > > extends Tra
 
         if( this.udmClass != null ) {
             var dataNode = src.children.get( this.udmClass.getSimpleName() );
-    		var t = new XTransformer< UDM >( this.udmClass.getSimpleName(), this.udmClass );
+    		var t = new XTransformer< UDM >( this.udmClass );
     		t.toModel(dataNode, dataModel-> {
     			target.data.set(dataModel);
     		});
@@ -67,7 +67,7 @@ public final class UnitTransformer < UDM extends DataModel < UDM > > extends Tra
         this.meta.toParentNode( src.meta, target );
         
         if( this.udmClass != null ) {
-    		var t = new XTransformer< UDM >( this.udmClass.getSimpleName(), this.udmClass );
+    		var t = new XTransformer< UDM >( this.udmClass );
     		src.data.get( dataModel -> {
         		t.toNode( dataModel, dataNode -> {
         			target.children.add(dataNode);

@@ -3,7 +3,6 @@ package com.aladdindb.sorter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.aladdindb.SorterSupport;
 import com.aladdindb.store.Store;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;

@@ -22,12 +22,12 @@ public abstract class ReqProcess <
     //						Class Attributes
     //****************************************************************
 		
-	public final Var < REQ_MODEL 					> req 					= new Var<>(); 
+	public final Var < REQ_MODEL 					> req 				= new Var<>(); 
 	
-	public final Var < MagicLamp		< UDM 		> 	> magicLamp 		= new Var<>();
+	public final Var < MagicLamp	< UDM 		> 	> magicLamp 		= new Var<>();
 	public final Var < Transformer 	< REQ_MODEL > 	> reqTransformer 	= new Var<>();
 	public final Var < Transformer 	< RESP 		> 	> respTransformer 	= new Var<>();
-	public final Var < Consumer 		< RESP 		> 	> respConsumer 		= new Var<>();
+	public final Var < Consumer 	< RESP 		> 	> respConsumer 		= new Var<>();
 	
 	
     //****************************************************************

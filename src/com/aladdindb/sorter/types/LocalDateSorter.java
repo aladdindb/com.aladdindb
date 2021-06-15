@@ -24,11 +24,11 @@ public class LocalDateSorter < UDM	extends DataModel < UDM > > extends DefaultSo
     //						Constructor 
     //****************************************************************
 	
-	public LocalDateSorter( Class<UDM> udmClass,  Function < Unit < UDM >, Var< LocalDate > > unitFieldGetter  ) {
+	public LocalDateSorter( Class<UDM> udmClass,  Function < Unit < UDM >, Var< ? > > unitFieldGetter  ) {
 		this( SortOrder.ASCENDING, udmClass, unitFieldGetter );
 	}
 
-	public LocalDateSorter( SortOrder sortOrder, Class<UDM> udmClass,  Function < Unit < UDM >, Var< LocalDate > > unitFieldGetter  ) {
+	public LocalDateSorter( SortOrder sortOrder, Class<UDM> udmClass,  Function < Unit < UDM >, Var< ? > > unitFieldGetter  ) {
 		super( sortOrder, udmClass, unitFieldGetter );
 	}
 	

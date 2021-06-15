@@ -3,7 +3,9 @@ package com.aladdindb;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
+import com.aladdindb.finder.FinderSupport;
 import com.aladdindb.method.Method;
 import com.aladdindb.method.resp.RespProcess;
 import com.aladdindb.method.resp.add.AddRespProcess;
@@ -14,8 +16,10 @@ import com.aladdindb.method.resp.get.by.id.GetByIdRespProcess;
 import com.aladdindb.method.resp.remove.RemoveRespProcess;
 import com.aladdindb.method.resp.search.SearchRespProcess;
 import com.aladdindb.method.resp.update.UpdateRespProcess;
+import com.aladdindb.sorter.SorterSupport;
 import com.aladdindb.store.Store;
 import com.aladdindb.store.UnitIdBlockNavi;
+import com.aladdindb.store.models.Unit;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.util.Var;
@@ -40,12 +44,11 @@ public class Genie < UDM extends DataModel < UDM > > implements Runnable {
 	
 	public Genie( String storeId, Path storePath, FinderSupport< UDM > finderSupport, SorterSupport< UDM > sorterSupport, Class < UDM > udmClass   )  {
 		System.out.println( "Store-Path :"+storePath );
-//		this.support 	= support;
+		
 		this.store		= new Store	< UDM > ( storePath, udmClass );
 		
 		this.storeId 		= storeId;
 		this.storePath		= storePath;
-//		this.storeOrigin 	= storeOrigin;
 		
 		this.finderSupport = finderSupport;
 		this.sorterSupport = sorterSupport;
@@ -80,4 +83,10 @@ public class Genie < UDM extends DataModel < UDM > > implements Runnable {
 				: null;
 	}
     
+	public static < UDM extends DataModel< UDM > > Genie< UDM > newGenie( String storeId, Path storePath, Class < UDM > udmClass,  Function< Unit< UDM >, Var<?> >... functions ) {
+		var fs = new FinderSupport<>( udmClass, functions );
+		var ss = new SorterSupport<>( udmClass, functions );
+		
+		return new Genie<>(storeId, storePath, fs, ss, udmClass );
+	}
 }

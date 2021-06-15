@@ -105,7 +105,7 @@ public class XML {
     }
     
     public static final < UDM extends DataModel <UDM> > SnPoint toNode( UDM src ) {
-		var t = new XTransformer< UDM >( src.getClass().getSimpleName(), (Class<UDM>)src.getClass() );
+		var t = new XTransformer< UDM >( (Class<UDM>)src.getClass() );
 		return t.toNode(src);
     }
 
@@ -115,7 +115,7 @@ public class XML {
     }
     
     public static final < UDM extends DataModel <UDM > > UDM toModel( Path path, Class<UDM> clazz ) {
-		var t = new XTransformer< UDM >( clazz.getSimpleName(), clazz );
+		var t = new XTransformer< UDM >( clazz );
 		var node = XML.<UDM>toNode( path);
 		return  node != null ? t.toModel(node) : null;
     }

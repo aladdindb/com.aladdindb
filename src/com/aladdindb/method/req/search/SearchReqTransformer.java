@@ -1,11 +1,11 @@
 package com.aladdindb.method.req.search;
 
-import com.aladdindb.FinderSupport;
-import com.aladdindb.SorterSupport;
 import com.aladdindb.finder.Finder;
+import com.aladdindb.finder.FinderSupport;
 import com.aladdindb.method.Method;
 import com.aladdindb.method.req.ReqTransformer;
 import com.aladdindb.sorter.Sorter;
+import com.aladdindb.sorter.SorterSupport;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.structure.types.SnAttributeAccess;
@@ -27,9 +27,9 @@ public final class SearchReqTransformer <
     private enum ATR { blockSize };
     
     private final FinderSupport< UDM > finderSupport;
-    private final SorterSupport< UDM > sorterSupport; 
+    private final SorterSupport< UDM > sorterSupport;
     
-	public SearchReqTransformer( FinderSupport< UDM > finderSupport, SorterSupport< UDM > sorterSupport ) {
+	public SearchReqTransformer( Class<UDM> udmClass, FinderSupport< UDM > finderSupport, SorterSupport< UDM > sorterSupport ) {
 		super( Method.search.store() );
 		
 		this.finderSupport 	= finderSupport;
@@ -54,7 +54,7 @@ public final class SearchReqTransformer <
     	
     	src.children.forEach( node -> {
     		node.key.get( key -> {
-    			var type = key.split(".");
+    			var type = key.split("\\.");
     			switch( type[0] ) {
     				case Finder.NAME: 
     		    		this.finderSupport.newFinder( node, finderModel -> {

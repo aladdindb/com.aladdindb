@@ -25,7 +25,7 @@ public abstract class DefaultFinder <
 	
 	public final Var < String 	> operator 	= new Var<>();
 	public final Var < String	> pattern 	= new Var<>();
-	public final Var < String	> field 	= new Var<>();
+	public final Var < String	> fieldId 	= new Var<>();
 	
 	public final Function < Unit < UDM >, Var< ? > > fieldGetter;
 	
@@ -126,6 +126,6 @@ public abstract class DefaultFinder <
 					:op.equals( OP.notLessOrEqual		.real()	) ? OP.notLessOrEqual 		: OP.matches;
 		} else return null; 
 	}
-	
+
 }
 

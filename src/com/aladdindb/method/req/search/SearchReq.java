@@ -9,7 +9,7 @@ import com.aladdindb.util.Var;
 
 public class SearchReq <
 
-	UDM 			extends DataModel		< UDM >,
+	UDM 			extends DataModel	< UDM >,
 	FINDER_MODEL 	extends Finder		< UDM, FINDER_MODEL >,
 	SORTER_MODEL 	extends Sorter		< UDM, SORTER_MODEL >
 

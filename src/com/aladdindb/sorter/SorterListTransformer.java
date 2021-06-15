@@ -1,6 +1,5 @@
 package com.aladdindb.sorter;
 
-import com.aladdindb.SorterSupport;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
 import com.aladdindb.structure.sn.SnPoint;

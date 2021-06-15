@@ -3,8 +3,8 @@ package com.aladdindb.finder.logical;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.aladdindb.FinderSupport;
 import com.aladdindb.finder.Finder;
+import com.aladdindb.finder.FinderSupport;
 import com.aladdindb.store.models.Unit;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.Transformer;
