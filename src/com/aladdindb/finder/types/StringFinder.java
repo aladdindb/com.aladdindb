@@ -23,11 +23,11 @@ public class StringFinder < UDM extends DataModel < UDM > > extends DefaultFinde
     //****************************************************************
 
 	public StringFinder( Class<UDM> udmClass,  Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
-		this( null, null, udmClass, unitFieldGetter );
+		this( udmClass, null, null, unitFieldGetter );
 	}
 	
-	public StringFinder( String operator, String pattern, Class<UDM> udmClass, Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
-		super( operator, pattern, udmClass, unitFieldGetter );
+	public StringFinder( Class<UDM> udmClass, String operator, String pattern, Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
+		super( udmClass, operator, pattern, unitFieldGetter );
 		this.fieldId.set( getField() );
 	}
 
@@ -47,7 +47,7 @@ public class StringFinder < UDM extends DataModel < UDM > > extends DefaultFinde
 	
 	@Override
 	public boolean provePattern( String fieldValue) {
-		var rv = new Var<Boolean>(false);
+		var rv = new Var<Boolean>( null,false );
 		this.operator.get( operator -> {
 			this.pattern.get( pattern -> {
 				

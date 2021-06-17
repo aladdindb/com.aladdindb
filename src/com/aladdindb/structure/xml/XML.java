@@ -27,7 +27,7 @@ public class XML {
 	 * @return
 	 */
     public static boolean save( Path path, SnPoint node ) {
-        Var < Boolean > rv = new Var<>( false );
+        Var < Boolean > rv = new Var<>( null, false );
         toString( node, str -> {
             try {
                 Files.write( path, str.getBytes() );

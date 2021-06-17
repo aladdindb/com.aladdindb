@@ -29,7 +29,7 @@ public class LoginParser extends Transformer < LoginModel > {
 
     @Override
     public LoginModel newModel() {
-        return new LoginModel();
+        return new LoginModel( null );
     }
     
     //****************************************************************

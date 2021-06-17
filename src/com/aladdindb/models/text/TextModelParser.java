@@ -25,7 +25,7 @@ public class TextModelParser extends Transformer < TextModel > {
 
     @Override
     public TextModel newModel() {
-        return new TextModel();
+        return new TextModel( null );
     }
     
     //****************************************************************

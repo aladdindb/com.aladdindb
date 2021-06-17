@@ -35,7 +35,7 @@ public abstract class DefaultSorter <
 	public final Comparator					< VT > 				comparator;
 	public final UnitIdListBlocksGenerator	< UDM, VT>  		blockWise;
 	
-	public final Function < Unit < UDM >, Var< ? > > fieldGetter;
+	public final Function < Unit < UDM >, Var< ? > > 			fieldGetter;
 	
 	public final Class<UDM> udmClass;
 	
@@ -43,7 +43,7 @@ public abstract class DefaultSorter <
     //						Constractor 
     //****************************************************************
 	
-	public DefaultSorter( SortOrder sortOrder, Class<UDM> udmClass, Function < Unit < UDM >, Var< ? > > fieldGetter ) {
+	public DefaultSorter( Class<UDM> udmClass, SortOrder sortOrder, Function < Unit < UDM >, Var< ? > > fieldGetter ) {
 		
 		this.sortOrderVar	.set( sortOrder.name()	);
 		this.comparator 	= this.newComparator();

@@ -25,12 +25,13 @@ public class DateFinder < UDM extends DataModel < UDM > > extends DefaultFinder 
     //						Constructor 
     //****************************************************************
 
-	public DateFinder( Class<UDM> udmClass,Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
-		this( null, null, udmClass, unitFieldGetter );
+	public DateFinder( Class<UDM> udmClass, Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
+		this( udmClass, null, null, unitFieldGetter );
 	}
 	
-	public DateFinder( String operator, String pattern, Class<UDM> udmClass, Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
-		super( operator, pattern, udmClass, unitFieldGetter );
+	public DateFinder( Class<UDM> udmClass, String operator, String pattern, Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
+		super( udmClass, operator, pattern, unitFieldGetter );
+		this.fieldId.set( getField() );
 	}
 
 	@Override
@@ -50,7 +51,7 @@ public class DateFinder < UDM extends DataModel < UDM > > extends DefaultFinder 
 	@Override
 	public boolean provePattern( LocalDate value) {
 		
-		var rv = new Var<Boolean>(false);
+		var rv = new Var<Boolean>( null,false );
 		
 		this.operator.get( operator -> {
 			this.pattern.get( patternStr -> {

@@ -39,13 +39,13 @@ public class XmlLineProp {
     public final Var < String   > tagName       = new Var<>();
     public final Var < String   > value         = new Var<>();
 
-    public final Var< List < KeyValue > > params = new Var<>( new ArrayList<>() );
+    public final Var< List < KeyValue > > params = new Var<>( null, new ArrayList<>() );
 
     
     
     public SnPoint createNode() {
         
-        Var < SnPoint > rv = new Var<>( new SnPoint( tagName.get() ));
+        Var < SnPoint > rv = new Var<>( null, new SnPoint( tagName.get() ));
         
         rv.get( newNode -> {
 

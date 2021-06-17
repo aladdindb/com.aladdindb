@@ -24,8 +24,9 @@ public  class DoubleFinder < UDM extends DataModel < UDM > > extends DefaultFind
     //						Constructor 
     //****************************************************************
 
-	public DoubleFinder( String operator, String pattern, Class<UDM> udmClass, Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
-		super( operator, pattern, udmClass, unitFieldGetter );
+	public DoubleFinder( Class<UDM> udmClass, String operator, String pattern, Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
+		super( udmClass, operator, pattern, unitFieldGetter );
+		this.fieldId.set( getField() );
 	}
 
 	@Override
@@ -45,7 +46,7 @@ public  class DoubleFinder < UDM extends DataModel < UDM > > extends DefaultFind
 	@Override
 	public boolean provePattern( Double value) {
 		
-		var rv = new Var<Boolean>(false);
+		var rv = new Var<Boolean>( null,false );
 		
 		this.operator.get( operator -> {
 			this.pattern.get( patternStr -> {

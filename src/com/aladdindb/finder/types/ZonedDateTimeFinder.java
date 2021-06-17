@@ -25,11 +25,12 @@ public class ZonedDateTimeFinder < UDM extends DataModel < UDM > > extends Defau
     //****************************************************************
 
 	public ZonedDateTimeFinder( Class<UDM> udmClass,Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
-		this( null, null, udmClass, unitFieldGetter );
+		this( udmClass, null, null, unitFieldGetter );
 	}
 	
-	public ZonedDateTimeFinder( String operator, String pattern, Class<UDM> udmClass, Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
-		super( operator, pattern, udmClass, unitFieldGetter );
+	public ZonedDateTimeFinder( Class<UDM> udmClass, String operator, String pattern, Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
+		super( udmClass, operator, pattern, unitFieldGetter );
+		this.fieldId.set( getField() );
 	}
 
 	@Override
@@ -49,7 +50,7 @@ public class ZonedDateTimeFinder < UDM extends DataModel < UDM > > extends Defau
 	@Override
 	public boolean provePattern( ZonedDateTime value) {
 		
-		var rv = new Var<Boolean>(false);
+		var rv = new Var<Boolean>( null, false );
 		
 		this.operator.get( operator -> {
 			this.pattern.get( patternStr -> {

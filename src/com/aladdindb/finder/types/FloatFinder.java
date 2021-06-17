@@ -24,11 +24,12 @@ public class FloatFinder < UDM 	extends DataModel 	< UDM > > extends DefaultFind
     //						Constructor 
     //****************************************************************
 	public FloatFinder( Class<UDM> udmClass, Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
-		super( null, null, udmClass, unitFieldGetter );
+		this( udmClass, null, null, unitFieldGetter );
 	}
 
-	public FloatFinder( String operator, String pattern, Class<UDM> udmClass, Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
-		super( operator, pattern, udmClass, unitFieldGetter );
+	public FloatFinder( Class<UDM> udmClass, String operator, String pattern, Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
+		super( udmClass, operator, pattern, unitFieldGetter );
+		this.fieldId.set( getField() );
 	}
 
 	@Override
@@ -48,7 +49,7 @@ public class FloatFinder < UDM 	extends DataModel 	< UDM > > extends DefaultFind
 	@Override
 	public boolean provePattern( Float value) {
 		
-		var rv = new Var<Boolean>(false);
+		var rv = new Var<Boolean>( null,false );
 		
 		this.operator.get( operator -> {
 			this.pattern.get( patternStr -> {

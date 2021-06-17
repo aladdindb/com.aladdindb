@@ -8,8 +8,8 @@ import com.aladdindb.util.Var;
 
 public class TimeStamp extends DefaultDataModel<TimeStamp> {
 
-	public final Var< ZonedDateTime > generatedOn 	= new Var<>( null, this );
-	public final Var< ZonedDateTime > modifiedOn 	= new Var<>( null, this );
+	public final Var< ZonedDateTime > generatedOn 	= new Var<>( this, null );
+	public final Var< ZonedDateTime > modifiedOn 	= new Var<>( this, null );
 	 
 	public TimeStamp( Parent parent ) {
 		super ( parent );

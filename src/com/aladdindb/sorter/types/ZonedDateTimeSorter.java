@@ -29,7 +29,7 @@ public class ZonedDateTimeSorter < UDM	extends DataModel < UDM > > extends Defau
 	}
 
 	public ZonedDateTimeSorter( SortOrder sortOrder, Class<UDM> udmClass,  Function < Unit < UDM >, Var< ? > > unitFieldGetter  ) {
-		super( sortOrder, udmClass, unitFieldGetter );
+		super( udmClass, sortOrder, unitFieldGetter );
 		this.fieldId.set( getField() );
 	}
 	

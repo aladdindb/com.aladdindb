@@ -28,7 +28,7 @@ public class BooleanSorter < UDM	extends DataModel < UDM > > extends DefaultSort
 	}
 
 	public BooleanSorter( SortOrder sortOrder, Class<UDM> udmClass,  Function < Unit < UDM >, Var< ? > > unitFieldGetter  ) {
-		super( sortOrder, udmClass, unitFieldGetter );
+		super( udmClass, sortOrder, unitFieldGetter );
 		this.fieldId.set( getField() );
 	}
 	

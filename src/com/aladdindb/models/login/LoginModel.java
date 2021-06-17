@@ -1,22 +1,24 @@
 package com.aladdindb.models.login;
 
-import com.aladdindb.structure.DataModel;
+import com.aladdindb.structure.DefaultDataModel;
+import com.aladdindb.util.Parent;
 import com.aladdindb.util.Var;
 
 /**
  *
  * @author Macit Kandemir
  */
-public class LoginModel implements DataModel < LoginModel > {
+public class LoginModel extends DefaultDataModel < LoginModel > {
     
-    public final Var < String > user    = new Var<>();
-    public final Var < String > pwd     = new Var<>();
+    public final Var < String > user    = new Var<>( this );
+    public final Var < String > pwd     = new Var<>( this );
 
-    
-    public LoginModel() {
+    public LoginModel( Parent parent ) {
+    	this( parent, null, null );
     }
     
-    public LoginModel( String user, String pwd ) {
+    public LoginModel( Parent parent, String user, String pwd ) {
+    	super( parent );
         this.user	.set( user	);
         this.pwd	.set( pwd	);
     }

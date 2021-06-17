@@ -11,11 +11,11 @@ import com.aladdindb.util.Var;
 public class UnitLabel extends Var< String > implements DataModel < UnitLabel > {
     
     public UnitLabel( Parent parent ) {
-    	super( null, parent );
+    	super( parent, null );
     }
     
     public UnitLabel( Parent parent, String label ) {
-    	super( label, parent );
+    	super( parent, label );
     }
     
     public void fill( UnitLabel model ) {

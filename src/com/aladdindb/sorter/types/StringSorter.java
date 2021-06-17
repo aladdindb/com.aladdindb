@@ -28,7 +28,7 @@ public class StringSorter < UDM	extends DataModel < UDM > > extends DefaultSorte
 	}
 
 	public StringSorter( SortOrder sortOrder, Class<UDM> udmClass,  Function < Unit < UDM >, Var< ? > > unitFieldGetter  ) {
-		super( sortOrder, udmClass, unitFieldGetter );
+		super( udmClass, sortOrder, unitFieldGetter );
 		this.fieldId.set( getField() );
 	}
 	

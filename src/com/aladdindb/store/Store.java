@@ -156,7 +156,7 @@ public class Store < UDM extends DataModel < UDM > > {
     } 
 
     public boolean updateUnit( Unit < UDM > unit ) {
-		Var<Boolean> rv = new Var<Boolean>(false);
+		Var<Boolean> rv = new Var<Boolean>( null, false);
     	unit.meta.timeStamp.modifiedOn.set( ZonedDateTime.now() );
     	unit.incVersion();
     	unitTransformer.toNode( unit, unitNode -> {
@@ -168,7 +168,7 @@ public class Store < UDM extends DataModel < UDM > > {
     }
 
     public boolean removeUnit( String unitId  ) {
-    	var rv = new Var < Boolean > ( false );
+    	var rv = new Var < Boolean > ( null, false );
 		try {
 			removeUnitFileById( unitId );
 			rv.set(true);

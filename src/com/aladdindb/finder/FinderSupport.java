@@ -1,7 +1,7 @@
 package com.aladdindb.finder;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.ZonedDateTime;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -20,6 +20,8 @@ import com.aladdindb.store.models.Unit;
 import com.aladdindb.structure.DataModel;
 import com.aladdindb.structure.sn.SnPoint;
 import com.aladdindb.util.Var;
+import com.aladdindb.util.time.ALocalDate;
+import com.aladdindb.util.time.AZonedDateTime;
 
 public class FinderSupport < UDM extends DataModel< UDM > > {
 	
@@ -41,41 +43,68 @@ public class FinderSupport < UDM extends DataModel< UDM > > {
 	}
 
     //****************************************************************
-    //						  Sorter 
+    //						  Finder 
+    //****************************************************************
+	
+	public Finder < UDM, ? > newFinderByUnit(  Function< Unit< UDM >, Var < ? > > function ) {
+		return this.newFinderByUnit( null, null, function );
+	}
+	
+	public Finder < UDM, ? > newIntFinder( String operator, Integer value,  Function< Unit< UDM >, Var < ? > > function ) {
+		return this.newFinderByUnit( operator, value.toString(), function );
+	}
+
+	public Finder < UDM, ? > newDoubleFinder( String operator, Double value,  Function< Unit< UDM >, Var < ? > > function ) {
+		return this.newFinderByUnit( operator, value.toString(), function );
+	}
+	
+	public Finder < UDM, ? > newFloatFinder( String operator, Float value,  Function< Unit< UDM >, Var < ? > > function ) {
+		return this.newFinderByUnit( operator, value.toString(), function );
+	}
+
+	public Finder < UDM, ? > newByteFinder( String operator, Byte value,  Function< Unit< UDM >, Var < ? > > function ) {
+		return this.newFinderByUnit( operator, value.toString(), function );
+	}
+
+	public Finder < UDM, ? > newBooleanFinder( String operator, Boolean value,  Function< Unit< UDM >, Var < ? > > function ) {
+		return this.newFinderByUnit( operator, value.toString(), function );
+	}
+
+	public Finder < UDM, ? > newDateFinder( String operator, LocalDate date,  Function< Unit< UDM >, Var < ? > > function ) {
+		return this.newFinderByUnit( operator, ALocalDate.toISO( date ), function );
+	}
+	
+	public Finder < UDM, ? > newZondedDateTimeFinder( String operator, ZonedDateTime dateTime,  Function< Unit< UDM >, Var < ? > > function ) {
+		return this.newFinderByUnit( operator, AZonedDateTime.toISO(dateTime), function );
+	}
+	
+    //****************************************************************
+    //				Finder by function  and fieldId
     //****************************************************************
 	
 	public Finder<UDM, ?> newFinder( String fieldId ) {
 		if( this.functions != null ) {
-			var function =  this.analyzer.getEquals( fieldId,  this.functions );
-			return function != null ? newFinder( function ) : null;
+			var function =  this.analyzer.getEqualsByUnit( fieldId,  this.functions );
+			return function != null ? newFinderByUnit( function ) : null;
 		}
 		return null;
 	}
 	
-	public Finder < UDM, ? > newFinder(  Function< Unit< UDM >, Var < ? > > function ) {
-		return this.newFinder( null, null, function );
-	}
-
-	public Finder < UDM, ? > newDateFinder( String operator, LocalDate date,  Function< Unit< UDM >, Var < ? > > function ) {
-		var pattern = date.format( DateTimeFormatter.ISO_LOCAL_DATE );
-		return this.newFinder( operator, pattern, function );
-	}
-	
-	public Finder < UDM, ? > newFinder( String operator, String pattern, Function< Unit< UDM >, Var < ? > > function ) {
-		var varType = this.analyzer.getVarType( function); 
+	public Finder < UDM, ? > newFinderByUnit( String operator, String pattern, Function< Unit< UDM >, Var < ? > > function ) {
+		var varType = this.analyzer.getVarTypeByUnit( function ); 
 		
 		if( varType != null ) {
 			return switch( varType ) {
 				
-				case STRING 		->  new StringFinder 	< UDM > ( operator, pattern, this.udmClass ,  function );
-				case INT 			->  new IntFinder 		< UDM > ( operator, pattern, this.udmClass ,  function );
-				case DOUBLE 		->  new DoubleFinder 	< UDM > ( operator, pattern, this.udmClass ,  function );
-				case FLOAT 			->  new FloatFinder 	< UDM > ( operator, pattern, this.udmClass ,  function );
-				case BYTE 			->  new ByteFinder 		< UDM > ( operator, pattern, this.udmClass ,  function );
-				case BOOLEAN 		->  new BooleanFinder 	< UDM > ( operator, pattern, this.udmClass ,  function );
-				case LOCAL_DATE 	->  new DateFinder 		< UDM > ( operator, pattern, this.udmClass ,  function );
+				case STRING 		->  new StringFinder 	< UDM > ( this.udmClass, operator, pattern ,  function );
+				case INT 			->  new IntFinder 		< UDM > ( this.udmClass, operator, pattern ,  function );
+				case DOUBLE 		->  new DoubleFinder 	< UDM > ( this.udmClass, operator, pattern ,  function );
+				case FLOAT 			->  new FloatFinder 	< UDM > ( this.udmClass, operator, pattern ,  function );
+				case BYTE 			->  new ByteFinder 		< UDM > ( this.udmClass, operator, pattern ,  function );
+				case BOOLEAN 		->  new BooleanFinder 	< UDM > ( this.udmClass, operator, pattern ,  function );
+				case LOCAL_DATE 	->  new DateFinder 		< UDM > ( this.udmClass, operator, pattern ,  function );
 				
-				case ZONED_DATE_TIME  ->  new ZonedDateTimeFinder < UDM > ( operator, pattern, this.udmClass ,  function );
+				case ZONED_DATE_TIME  ->  new ZonedDateTimeFinder < UDM > ( this.udmClass, operator, pattern ,  function );
 				
 				
 				default -> null;
@@ -102,10 +131,10 @@ public class FinderSupport < UDM extends DataModel< UDM > > {
 			var atr = DefaultFinderTransformer.newFinderAtr(finderNode);
 			
 			if( atr.fieldId != null && !atr.fieldId.isEmpty() ) {
-				var function =  this.analyzer.getEquals( atr.fieldId, this.functions );
+				var function =  this.analyzer.getEqualsByUnit( atr.fieldId, this.functions );
 				if(function != null) {
 					OP.valueOf(atr.operator);
-					return newFinder( OP.valueOf(atr.operator).real(), atr.pattern, function );
+					return newFinderByUnit( OP.valueOf(atr.operator).real(), atr.pattern, function );
 				}
 			}
 		}

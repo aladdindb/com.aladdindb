@@ -18,11 +18,11 @@ public class Var < T > implements Parent {
     	this( null, null );
     }
     
-    public Var ( T value ) {
-    	this( value, null );
+    public Var ( Parent parent  ) {
+    	this( parent, null );
     }
-
-    public Var ( T value, Parent parent ) {
+    
+    public Var ( Parent parent, T value ) {
         this.value = value;
         this.parent = parent;
     }
@@ -50,10 +50,6 @@ public class Var < T > implements Parent {
     
     public boolean exist() {
     	return get() != null;
-    }
-    
-    public String getType() {
-    	return this.parent.getClass().getName();
     }
     
 	@Override

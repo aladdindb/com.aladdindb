@@ -35,7 +35,7 @@ public abstract class DefaultFinder <
     //					Constructors  
     //****************************************************************
 	
-	public DefaultFinder( String operator, String pattern, Class<UDM> udmClass, Function < Unit < UDM >, Var< ? > > fieldGetter ) {
+	public DefaultFinder( Class<UDM> udmClass, String operator, String pattern, Function < Unit < UDM >, Var< ? > > fieldGetter ) {
 		var op = createOp( operator );
 		
 		this.operator	.set( op != null ? op.name() : null );
@@ -47,7 +47,7 @@ public abstract class DefaultFinder <
 	
 	public String getField() {
 		if( this.fieldGetter != null ) {
-			var field = this.fieldGetter.apply( new Unit<>( newDataObject()) );
+			var field = this.fieldGetter.apply( new Unit<>( newDataObject() ) );
 			if( field != null) return field.key();
 		}
 		return null;
@@ -79,7 +79,7 @@ public abstract class DefaultFinder <
 	
 	@Override
 	public boolean prove( Unit<UDM> unit ) {
-		Var<Boolean> rv = new Var<>(false);
+		Var<Boolean> rv = new Var<>( null, false );
 		this.getFieldValue( unit, fieldValue -> {
 			rv.set( provePattern( fieldValue ) );
 		});

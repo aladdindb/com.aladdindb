@@ -29,7 +29,7 @@ public class ServerParser extends Transformer < ServerModel > {
 
     @Override
     public ServerModel newModel() {
-        return new ServerModel();
+        return new ServerModel( null );
     }
     
     //****************************************************************

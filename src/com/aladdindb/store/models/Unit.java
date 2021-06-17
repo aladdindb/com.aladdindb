@@ -10,12 +10,12 @@ import com.aladdindb.util.Var;
  */
 public final class Unit < UDM extends DataModel < UDM > > extends DefaultDataModel < Unit < UDM > > { 
     
-    public final Var < String > id      = new Var<>( null, this );
-    public final Var < Float > 	version = new Var<>( 1.0f, this );
+    public final Var < String > id      = new Var<>( this );
+    public final Var < Float > 	version = new Var<>( this, 1.0f );
 
 	public final Meta			meta = new Meta( this );
 	
-	public final Var < UDM > 	data = new Var< UDM >();
+	public final Var < UDM > 	data = new Var< UDM >( this );
 	
     public Unit() {
     	super( null );

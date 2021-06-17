@@ -19,6 +19,7 @@ import com.aladdindb.method.resp.remove.RemoveResp;
 import com.aladdindb.method.resp.update.UpdateResp;
 import com.aladdindb.sorter.Sorter;
 import com.aladdindb.sorter.SorterSupport;
+import com.aladdindb.store.UnitsNavi;
 import com.aladdindb.store.models.Unit;
 import com.aladdindb.structure.DataModel;
 
@@ -38,7 +39,7 @@ public class MagicLamp < UDM extends DataModel < UDM > > {
     //					
     //************************************************************
 
-    public MagicLamp( String storeId, GenieConnection genieConnection, Class<UDM> udmClass, FinderSupport< UDM > finderSupport, SorterSupport< UDM > sorterSupport ) {
+    public MagicLamp( Class<UDM> udmClass, String storeId, GenieConnection genieConnection, FinderSupport< UDM > finderSupport, SorterSupport< UDM > sorterSupport ) {
 		this.storeId 			= storeId;
 		this.genieConnection 	= genieConnection;
 		this.udmClass 			= udmClass;
@@ -70,6 +71,17 @@ public class MagicLamp < UDM extends DataModel < UDM > > {
     	reqProcess.run();
     }
 
+    public void searchAndGetUnitsNavi( int blockSize, 
+			Finder 		< UDM, ? extends Finder < UDM, ? > >  	finder, 
+			Sorter 		< UDM, ? extends Sorter < UDM, ? > >  	sorter, 
+			Consumer 	< UnitsNavi< UDM> >						unitsNaveConsumer ) {
+    	
+    	this.search(blockSize, finder, sorter, blockNavi-> {
+    		unitsNaveConsumer.accept( new UnitsNavi< UDM >( blockNavi, this ) );
+    	});
+    	
+	}
+    
     public void search( int blockSize, 
     					Finder 		< UDM, ? extends Finder < UDM, ? > >  	finder, 
     					Sorter 		< UDM, ? extends Sorter < UDM, ? > >  	sorter, 

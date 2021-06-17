@@ -42,7 +42,7 @@ public class Genie < UDM extends DataModel < UDM > > implements Runnable {
 	private final SorterSupport< UDM > sorterSupport; 	
 	
 	
-	public Genie( String storeId, Path storePath, FinderSupport< UDM > finderSupport, SorterSupport< UDM > sorterSupport, Class < UDM > udmClass   )  {
+	public Genie( Class < UDM > udmClass, String storeId, Path storePath, FinderSupport< UDM > finderSupport, SorterSupport< UDM > sorterSupport   )  {
 		System.out.println( "Store-Path :"+storePath );
 		
 		this.store			= new Store	< UDM > ( storePath, udmClass );
@@ -83,10 +83,10 @@ public class Genie < UDM extends DataModel < UDM > > implements Runnable {
 				: null;
 	}
     
-	public static < UDM extends DataModel< UDM > > Genie< UDM > newGenie( String storeId, Path storePath, Class < UDM > udmClass,  Function< Unit< UDM >, Var<?> >... functions ) {
+	public static < UDM extends DataModel< UDM > > Genie< UDM > newGenie( Class < UDM > udmClass, String storeId, Path storePath, Function< Unit< UDM >, Var<?> >... functions ) {
 		var fs = new FinderSupport<>( udmClass, functions );
 		var ss = new SorterSupport<>( udmClass, functions );
 		
-		return new Genie<>(storeId, storePath, fs, ss, udmClass );
+		return new Genie<>(udmClass, storeId, storePath, fs, ss );
 	}
 }

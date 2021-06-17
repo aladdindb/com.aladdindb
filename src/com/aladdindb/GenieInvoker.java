@@ -72,7 +72,7 @@ public class GenieInvoker {
                 var in 	= new Scanner		( socket.getInputStream		()  		);
         		var out = new PrintWriter	( socket.getOutputStream	(), true 	); 
             ){
-            	Var<Boolean> loop = new Var<>(true);
+            	Var<Boolean> loop = new Var<>( null, true);
             	
 				System.out.println( "\n ----------------------");
             	System.out.println( "   Start SocketIO" );

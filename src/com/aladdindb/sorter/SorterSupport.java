@@ -44,7 +44,7 @@ public class SorterSupport < UDM extends DataModel< UDM > > {
 	
 	public Sorter<UDM, ?> newSorter( String fieldId ) {
 		if( this.functions != null ) {
-			var function =  this.analyzer.getEquals( fieldId,  this.functions );
+			var function =  this.analyzer.getEqualsByUnit( fieldId,  this.functions );
 			return function != null ? newSorter( function ) : null;
 		}
 		return null;
@@ -55,7 +55,7 @@ public class SorterSupport < UDM extends DataModel< UDM > > {
 	}
 	
 	public Sorter < UDM, ? > newSorter( SortOrder sortOrder,  Function< Unit< UDM >, Var < ? > > function ) {
-		var varType = this.analyzer.getVarType( function); 
+		var varType = this.analyzer.getVarTypeByUnit( function); 
 		
 		if( varType != null ) {
 			return switch( varType ) {
@@ -94,7 +94,7 @@ public class SorterSupport < UDM extends DataModel< UDM > > {
 			var atr = DefaultSorterTransformer.newSorterAtr(sorterNode);
 			
 			if( atr.fieldId != null && !atr.fieldId.isEmpty() ) {
-				var function =  this.analyzer.getEquals( atr.fieldId, this.functions );
+				var function =  this.analyzer.getEqualsByUnit( atr.fieldId, this.functions );
 				if(function != null) {
 					return newSorter( atr.sortOrder, function );
 				}
