@@ -1,5 +1,7 @@
 ## AladdinDB
 
+### The magically passionate relationship ###
+
 Dear friends, 
 
 **AladdinDB** is a completely new, purely **Object-Oriented Database-System for Java** applications. 
