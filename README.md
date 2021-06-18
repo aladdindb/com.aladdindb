@@ -1,6 +1,8 @@
 ## AladdinDB
 
-### The magically passionate relationship
+<hr>
+
+## The magically passionate relationship
 
 Dear friends, 
 
@@ -13,8 +15,9 @@ It is also about to be able to **Juggle Around with Data in a Free and Playful W
 
 I hope that programming database applications with **Aladdin will be a lot more fun**.
 
+<hr>
 
-### Three-dimensional data structures
+## Three-dimensional data structures
 
 Equivalent to **Data-Records** in classic **Relational-Database-Systems**, so-called `Units` in **AladdinDB** form the smallest, separately stored data units. 
 
