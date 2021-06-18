@@ -59,7 +59,11 @@ public final class Unit < UDM extends DataModel < UDM > > extends DefaultDataMod
 	}
 	
 	public static ZonedDateTime dateTime( int year, int month, int day ) {
-		return ZonedDateTime.of( year, month, day, 0, 0, 0, 0,ZoneId.systemDefault() );
+		return dateTime( year, month, day, 0, 0 );
+	}
+	
+	public static ZonedDateTime dateTime( int year, int month, int day, int hour, int min ) {
+		return ZonedDateTime.of( year, month, day, hour, min, 0, 0,ZoneId.systemDefault() );
 	}
 	
 }
