@@ -1,5 +1,5 @@
-## AladdinDB
-
+# AladdinDB
+</br>
 <hr>
 
 ## The magically passionate relationship
@@ -15,6 +15,7 @@ It is also about to be able to **Juggle Around with Data in a Free and Playful W
 
 I hope that programming database applications with **Aladdin will be a lot more fun**.
 
+</br>
 <hr>
 
 ## Three-dimensional data structures
@@ -23,9 +24,10 @@ Equivalent to **Data-Records** in classic **Relational-Database-Systems**, so-ca
 
 In contrast to **Data-Records**, `Units` can map three-dimensional data structures. 
 
-Such structures are described in AladdinDB, purely object-oriented, using data model classes and saved as XML documents.
+Such structures are described in **AladdinDB**, purely **Object-Oriented**, using `DataModel` classes and saved as `XML` documents.
 
 >Here is an example of a `Unit`
+
 ```xml
 
 <Unit version="1.0" id="1560700320d1b71b220">
