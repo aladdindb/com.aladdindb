@@ -4,8 +4,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 import com.aladdindb.UnitAnalyzer;
-import com.aladdindb.finder.Finder;
-import com.aladdindb.finder.logical.LogicalOrFinders;
+import com.aladdindb.UnitAnalyzer.VarType;
 import com.aladdindb.sorter.types.BooleanSorter;
 import com.aladdindb.sorter.types.ByteSorter;
 import com.aladdindb.sorter.types.DateSorter;
@@ -42,41 +41,55 @@ public class SorterSupport < UDM extends DataModel< UDM > > {
     //						  Sorter 
     //****************************************************************
 	
-	public Sorter<UDM, ?> newSorter( String fieldId ) {
-		if( this.functions != null ) {
-			var function =  this.analyzer.getEqualsByUnit( fieldId,  this.functions );
-			return function != null ? newSorter( function ) : null;
-		}
-		return null;
-	}
-	
 	public Sorter < UDM, ? > newSorter(  Function< Unit< UDM >, Var < ? > > function ) {
 		return this.newSorter( SortOrder.ASCENDING,  function );
 	}
-	
-	public Sorter < UDM, ? > newSorter( SortOrder sortOrder,  Function< Unit< UDM >, Var < ? > > function ) {
-		var varType = this.analyzer.getVarTypeByUnit( function); 
-		
-		if( varType != null ) {
-			return switch( varType ) {
-				
-				case STRING 		->  new StringSorter	< UDM >( sortOrder, this.udmClass ,  function );
-				case INT 			->  new IntSorter		< UDM >( sortOrder, this.udmClass ,  function );
-				case DOUBLE 		->  new DoubleSorter	< UDM >( sortOrder, this.udmClass ,  function );
-				case FLOAT 			->  new FloatSorter		< UDM >( sortOrder, this.udmClass ,  function );
-				case BYTE 			->  new ByteSorter		< UDM >( sortOrder, this.udmClass ,  function );
-				case BOOLEAN 		->  new BooleanSorter	< UDM >( sortOrder, this.udmClass ,  function );
-				case LOCAL_DATE 	->  new DateSorter		< UDM >( sortOrder, this.udmClass ,  function );
-				
-				case ZONED_DATE_TIME -> new ZonedDateTimeSorter	< UDM >( sortOrder, this.udmClass ,  function );
-				
-				default -> null;
-				
-			};
-		}
-		return null;
-	}
 
+	public Sorter < UDM, ? > newSorter( Var < ? > varObject ) {
+		return this.newSorter(null, varObject);
+	}
+	
+	public Sorter < UDM, ? > newSorter( SortOrder sortOrder, Var < ? > varObject ) {
+		
+		var varType = this.analyzer.getVarsGenericTypeAsVarType( varObject);
+		
+		return varType != null ? switch( varType ) {
+		
+			case STRING 		->  new StringSorter	< UDM >( this.udmClass ,sortOrder, varObject );
+			case INT 			->  new IntSorter		< UDM >( this.udmClass ,sortOrder, varObject );
+			case DOUBLE 		->  new DoubleSorter	< UDM >( this.udmClass ,sortOrder, varObject );
+			case FLOAT 			->  new FloatSorter		< UDM >( this.udmClass ,sortOrder, varObject );
+			case BYTE 			->  new ByteSorter		< UDM >( this.udmClass ,sortOrder, varObject );
+			case BOOLEAN 		->  new BooleanSorter	< UDM >( this.udmClass ,sortOrder, varObject );
+			case LOCAL_DATE 	->  new DateSorter		< UDM >( this.udmClass ,sortOrder, varObject );
+			
+			case ZONED_DATE_TIME -> new ZonedDateTimeSorter	< UDM >( this.udmClass ,sortOrder,   varObject );
+			
+			default -> null;
+		} : null;
+		
+	}
+	
+	public Sorter < UDM, ? > newSorter( SortOrder sortOrder, Function< Unit< UDM >, Var < ? > > function ) {
+		
+		var varType = this.analyzer.getVarsGenericTypeAsVarType( function);
+		
+		return varType != null ? switch( varType ) {
+		
+			case STRING 		->  new StringSorter	< UDM >( this.udmClass, sortOrder ,  function );
+			case INT 			->  new IntSorter		< UDM >( this.udmClass, sortOrder ,  function );
+			case DOUBLE 		->  new DoubleSorter	< UDM >( this.udmClass, sortOrder ,  function );
+			case FLOAT 			->  new FloatSorter		< UDM >( this.udmClass, sortOrder ,  function );
+			case BYTE 			->  new ByteSorter		< UDM >( this.udmClass, sortOrder ,  function );
+			case BOOLEAN 		->  new BooleanSorter	< UDM >( this.udmClass, sortOrder ,  function );
+			case LOCAL_DATE 	->  new DateSorter		< UDM >( this.udmClass, sortOrder ,  function );
+			
+			case ZONED_DATE_TIME -> new ZonedDateTimeSorter	< UDM >( sortOrder, this.udmClass ,  function );
+			
+			default -> null;
+		} : null;
+	}
+	
     //****************************************************************
     //						  Sorter by Node
     //****************************************************************
@@ -94,7 +107,7 @@ public class SorterSupport < UDM extends DataModel< UDM > > {
 			var atr = DefaultSorterTransformer.newSorterAtr(sorterNode);
 			
 			if( atr.fieldId != null && !atr.fieldId.isEmpty() ) {
-				var function =  this.analyzer.getEqualsByUnit( atr.fieldId, this.functions );
+				var function =  this.analyzer.getFunction( atr.fieldId, this.functions );
 				if(function != null) {
 					return newSorter( atr.sortOrder, function );
 				}

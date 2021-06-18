@@ -24,11 +24,16 @@ public class DateSorter < UDM	extends DataModel < UDM > > extends DefaultSorter 
     //						Constructor 
     //****************************************************************
 	
+	public DateSorter( Class<UDM> udmClass, SortOrder sortOrder, Var< ? > varObject ) {
+		super( udmClass, sortOrder, null );
+		this.fieldId.set( varObject.key() );
+	}
+	
 	public DateSorter( Class<UDM> udmClass,  Function < Unit < UDM >, Var< ? > > unitFieldGetter  ) {
-		this( SortOrder.ASCENDING, udmClass, unitFieldGetter );
+		this( udmClass, SortOrder.ASCENDING, unitFieldGetter );
 	}
 
-	public DateSorter( SortOrder sortOrder, Class<UDM> udmClass,  Function < Unit < UDM >, Var< ? > > unitFieldGetter  ) {
+	public DateSorter( Class<UDM> udmClass, SortOrder sortOrder,  Function < Unit < UDM >, Var< ? > > unitFieldGetter  ) {
 		super( udmClass, sortOrder, unitFieldGetter );
 		this.fieldId.set( getField() );
 	}
@@ -47,7 +52,7 @@ public class DateSorter < UDM	extends DataModel < UDM > > extends DefaultSorter 
 		return new DefaultSorterTransformer<>() { 
 			@Override 
 			public DateSorter < UDM > newModel() { 
-				return new DateSorter<>( SortOrder.ASCENDING,	DateSorter.this.udmClass, DateSorter.this.fieldGetter );
+				return new DateSorter<>( DateSorter.this.udmClass,	SortOrder.ASCENDING, DateSorter.this.fieldGetter );
 			}
 		};
 	}

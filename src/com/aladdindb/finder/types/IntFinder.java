@@ -23,7 +23,12 @@ public class IntFinder < UDM extends DataModel < UDM > > extends DefaultFinder <
     //****************************************************************
     //						Constructor 
     //****************************************************************
-
+	
+	public IntFinder( Class<UDM> udmClass, String operator, String pattern, Var< ? > varObject ) {
+		super( udmClass, operator, pattern, null );
+		this.fieldId.set( varObject.key() );
+	}
+	
 	public IntFinder( Class<UDM> udmClass, String operator, String pattern, Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
 		super( udmClass, operator, pattern, unitFieldGetter );
 		this.fieldId.set( getField() );
@@ -34,7 +39,7 @@ public class IntFinder < UDM extends DataModel < UDM > > extends DefaultFinder <
 		return new DefaultFinderTransformer<>() {
 			@Override 
 			public IntFinder< UDM > newModel() {
-				return new IntFinder<>( null, null, null, null );
+				return new IntFinder<>( null, null, null, (Var)null );
 			}
 		};
 	}
@@ -68,7 +73,7 @@ public class IntFinder < UDM extends DataModel < UDM > > extends DefaultFinder <
 					case notEqual 					->  value != 	operand ;
 					
 					case notGreater 				-> !(value >	operand );
-					case notGreaterOrEqual 		-> !(value >= 	operand );
+					case notGreaterOrEqual 			-> !(value >= 	operand );
 					
 					case notLess 					-> !(value < 	operand );
 					case notLessOrEqual 			-> !(value <= 	operand );

@@ -23,11 +23,16 @@ public class DoubleSorter < UDM	extends DataModel < UDM > > extends DefaultSorte
     //						Constructor 
     //****************************************************************
 	
+	public DoubleSorter( Class<UDM> udmClass, SortOrder sortOrder, Var< ? > varObject ) {
+		super( udmClass, sortOrder, null );
+		this.fieldId.set( varObject.key() );
+	}
+	
 	public DoubleSorter( Class<UDM> udmClass,  Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
-		this( SortOrder.ASCENDING, udmClass, unitFieldGetter );
+		this( udmClass, SortOrder.ASCENDING, unitFieldGetter );
 	}
 
-	public DoubleSorter( SortOrder sortOrder, Class<UDM> udmClass,  Function < Unit < UDM >, Var< ? > > unitFieldGetter  ) {
+	public DoubleSorter( Class<UDM> udmClass, SortOrder sortOrder,  Function < Unit < UDM >, Var< ? > > unitFieldGetter  ) {
 		super( udmClass, sortOrder, unitFieldGetter );
 		this.fieldId.set( getField() );
 	}
@@ -46,7 +51,7 @@ public class DoubleSorter < UDM	extends DataModel < UDM > > extends DefaultSorte
 		return new DefaultSorterTransformer<>() {
 			@Override 
 			public DoubleSorter < UDM > newModel() { 
-				return new DoubleSorter<>( SortOrder.ASCENDING,	DoubleSorter.this.udmClass, DoubleSorter.this.fieldGetter );
+				return new DoubleSorter<>( DoubleSorter.this.udmClass,	SortOrder.ASCENDING, DoubleSorter.this.fieldGetter );
 			}
 		}; 
 	}

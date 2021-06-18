@@ -23,6 +23,12 @@ public class FloatFinder < UDM 	extends DataModel 	< UDM > > extends DefaultFind
     //****************************************************************
     //						Constructor 
     //****************************************************************
+	
+	public FloatFinder( Class<UDM> udmClass, String operator, String pattern, Var< ? > varObject ) {
+		super( udmClass, operator, pattern, null );
+		this.fieldId.set( varObject.key() );
+	}
+	
 	public FloatFinder( Class<UDM> udmClass, Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
 		this( udmClass, null, null, unitFieldGetter );
 	}
@@ -37,7 +43,7 @@ public class FloatFinder < UDM 	extends DataModel 	< UDM > > extends DefaultFind
 		return new DefaultFinderTransformer<>() {
 			@Override 
 			public FloatFinder< UDM > newModel() {
-				return new FloatFinder<>( null, null, null, null );
+				return new FloatFinder<>( null, null, null, (Var)null );
 			}
 		};
 	}

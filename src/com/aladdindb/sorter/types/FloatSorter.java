@@ -22,12 +22,17 @@ public class FloatSorter < UDM	extends DataModel < UDM > > extends DefaultSorter
     //****************************************************************
     //						Constructor 
     //****************************************************************
+
+	public FloatSorter( Class<UDM> udmClass, SortOrder sortOrder, Var< ? > varObject ) {
+		super( udmClass,sortOrder, null );
+		this.fieldId.set( varObject.key() );
+	}
 	
 	public FloatSorter( Class<UDM> udmClass,  Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
-		this( SortOrder.ASCENDING, udmClass, unitFieldGetter );
+		this( udmClass, SortOrder.ASCENDING, unitFieldGetter );
 	}
 
-	public FloatSorter( SortOrder sortOrder, Class<UDM> udmClass,  Function < Unit < UDM >, Var< ? > > unitFieldGetter  ) {
+	public FloatSorter( Class<UDM> udmClass, SortOrder sortOrder,  Function < Unit < UDM >, Var< ? > > unitFieldGetter  ) {
 		super( udmClass, sortOrder, unitFieldGetter );
 		this.fieldId.set( getField() );
 	}
@@ -46,7 +51,7 @@ public class FloatSorter < UDM	extends DataModel < UDM > > extends DefaultSorter
 		return new DefaultSorterTransformer<>() {
 			@Override 
 			public FloatSorter < UDM > newModel() { 
-				return new FloatSorter<>( SortOrder.ASCENDING,	FloatSorter.this.udmClass, FloatSorter.this.fieldGetter );
+				return new FloatSorter<>( FloatSorter.this.udmClass,	SortOrder.ASCENDING, FloatSorter.this.fieldGetter );
 			}
 		}; 
 	}

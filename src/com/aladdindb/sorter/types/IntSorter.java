@@ -23,11 +23,16 @@ public class IntSorter < UDM	extends DataModel < UDM > > extends DefaultSorter <
     //						Constructor 
     //****************************************************************
 	
+	public IntSorter( Class<UDM> udmClass, SortOrder sortOrder, Var< ? > varObject ) {
+		super( udmClass,sortOrder, null );
+		this.fieldId.set( varObject.key() );
+	}
+	
 	public IntSorter( Class<UDM> udmClass,  Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
-		this( SortOrder.ASCENDING, udmClass, unitFieldGetter );
+		this( udmClass, SortOrder.ASCENDING, unitFieldGetter );
 	}
 
-	public IntSorter( SortOrder sortOrder, Class<UDM> udmClass,  Function < Unit < UDM >, Var< ? > > unitFieldGetter  ) {
+	public IntSorter( Class<UDM> udmClass, SortOrder sortOrder,  Function < Unit < UDM >, Var< ? > > unitFieldGetter  ) {
 		super( udmClass, sortOrder, unitFieldGetter );
 		this.fieldId.set( getField() );
 	}
@@ -46,7 +51,7 @@ public class IntSorter < UDM	extends DataModel < UDM > > extends DefaultSorter <
 		return new DefaultSorterTransformer<>() {
 			@Override 
 			public IntSorter < UDM > newModel() { 
-				return new IntSorter<>( SortOrder.ASCENDING,	IntSorter.this.udmClass, IntSorter.this.fieldGetter );
+				return new IntSorter<>( IntSorter.this.udmClass,	SortOrder.ASCENDING, IntSorter.this.fieldGetter );
 			}
 		}; 
 	}

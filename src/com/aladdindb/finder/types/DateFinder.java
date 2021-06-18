@@ -25,6 +25,11 @@ public class DateFinder < UDM extends DataModel < UDM > > extends DefaultFinder 
     //						Constructor 
     //****************************************************************
 
+	public DateFinder( Class<UDM> udmClass, String operator, String pattern, Var< ? > varObject ) {
+		super( udmClass, operator, pattern, null );
+		this.fieldId.set( varObject.key() );
+	}
+	
 	public DateFinder( Class<UDM> udmClass, Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
 		this( udmClass, null, null, unitFieldGetter );
 	}
@@ -39,7 +44,7 @@ public class DateFinder < UDM extends DataModel < UDM > > extends DefaultFinder 
 		return new DefaultFinderTransformer<>() {
 			@Override 
 			public DateFinder< UDM > newModel() {
-				return new DateFinder<>( null, null, null, null );
+				return new DateFinder<>( null, null, null,(Var) null );
 			}
 		};
 	}

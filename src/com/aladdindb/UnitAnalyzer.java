@@ -27,54 +27,45 @@ public class UnitAnalyzer< UDM extends DataModel< UDM > > {
 		this.emptyUnit = new Unit<>(emptyDataObject );
 	}
 	
-	public Function< Unit< UDM >, Var<?> > getEqualsByUnit( String fieldId, Function< Unit< UDM >, Var<?> >... functions   ) {
+	public Function< Unit< UDM >, Var<?> > getFunction( String fieldId, Function< Unit< UDM >, Var<?> >... functions   ) {
 		for( var function : functions ) {
-			if( equalsFieldByUnit( fieldId, function ) ) return function;
+			if( varEqualsFieldId( fieldId, function ) ) return function;
 		}
 		return null;
 	}
 	
-	public boolean equalsFieldByUnit( String fieldId, Function< Unit< UDM >, Var<?> > function   ) {
-		var varObject = this.getVarByUnit( function );
+	public boolean varEqualsFieldId( String fieldId, Function< Unit< UDM >, Var<?> > function   ) {
+		var varObject = this.getVarObject( function );
 		String key = varObject.key();
 		return varObject != null ? key.equals( fieldId ) : false; 
 	}
 
 	//----------------------------------
 
-	public VarType getVarType( Function< UDM , Var< ? > > function ) {
-		var field = this.getFieldType( function );
+	public VarType getVarsGenericTypeAsVarType( Var<?> varObject ) {
+		var field = this.varToField( varObject );
 		return field != null ? this.getType( field.getGenericType() ) : null;
 	}
-
-	public VarType getVarTypeByUnit( Function< Unit< UDM >, Var< ? > > function ) {
-		var field = this.getFieldTypeByUnit( function );
+	
+	public VarType getVarsGenericTypeAsVarType( Function< Unit< UDM >, Var< ? > > function ) {
+		var field = this.varToField( function );
 		return field != null ? this.getType( field.getGenericType() ) : null;
 	}
 	
 	//----------------------------------
 	
-	public Field getFieldType( Function<  UDM , Var< ? > > function ) {
-		var varObject = this.getVar( function );
+	public Field varToField( Function< Unit< UDM >, Var< ? > > function ) {
+		var varObject = this.getVarObject( function );
 		if( varObject != null ) {
-			var field = getFieldType( varObject );
+			var field = varToField( varObject );
 			if( field != null )return field;
 		}
 		return null;
 	}
-	
-	public Field getFieldTypeByUnit( Function< Unit< UDM >, Var< ? > > function ) {
-		var varObject = this.getVarByUnit( function );
-		if( varObject != null ) {
-			var field = getFieldType( varObject );
-			if( field != null )return field;
-		}
-		return null;
-	}
-	
+
 	//----------------------------------
 
-	public Field getFieldType( Var<?> varObject ) {
+	public Field varToField( Var<?> varObject ) {
 		var parent = varObject.getParent();
 		if( parent != null ) {
 	    	Class<?> clazz = parent.getClass();
@@ -129,15 +120,9 @@ public class UnitAnalyzer< UDM extends DataModel< UDM > > {
 	//
 	//**********************************************************
 	
-	public Var< ? >  getVar( Function< UDM , Var< ? > > function ) {
-		return function.apply( this.emptyUnit.data.get() );
-	}
-	
-	public Var< ? >  getVarByUnit( Function< Unit< UDM >, Var< ? > > function ) {
+	public Var< ? >  getVarObject( Function< Unit< UDM >, Var< ? > > function ) {
 		return function.apply( this.emptyUnit );
 	}
-
-	//----------------------------------
 
 	public UDM newDataObject() {
 		try {
@@ -149,7 +134,7 @@ public class UnitAnalyzer< UDM extends DataModel< UDM > > {
 		}
 	}
 
-	private void getGenericParamType( Type type, Consumer< Class<?>  > consumer ) {
+	public void getGenericParamType( Type type, Consumer< Class<?>  > consumer ) {
 		if ( type instanceof ParameterizedType ) {
 	        ParameterizedType pt = (ParameterizedType) type;
 	        var types = pt.getActualTypeArguments();

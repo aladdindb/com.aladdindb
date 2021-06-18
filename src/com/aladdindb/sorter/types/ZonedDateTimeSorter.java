@@ -24,6 +24,11 @@ public class ZonedDateTimeSorter < UDM	extends DataModel < UDM > > extends Defau
     //						Constructor 
     //****************************************************************
 	
+	public ZonedDateTimeSorter( Class<UDM> udmClass, SortOrder sortOrder, Var< ? > varObject ) {
+		super( udmClass, sortOrder, null );
+		this.fieldId.set( varObject.key() );
+	}
+	
 	public ZonedDateTimeSorter( Class<UDM> udmClass,  Function < Unit < UDM >, Var< ? > > unitFieldGetter  ) {
 		this( SortOrder.ASCENDING, udmClass, unitFieldGetter );
 	}

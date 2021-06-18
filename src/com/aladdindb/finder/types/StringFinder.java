@@ -22,6 +22,12 @@ public class StringFinder < UDM extends DataModel < UDM > > extends DefaultFinde
     //						Constructor 
     //****************************************************************
 
+	public StringFinder( Class<UDM> udmClass, String operator, String pattern, Var< ? > varObject ) {
+		super( udmClass, operator, pattern, null );
+		this.fieldId.set( varObject.key() );
+		
+	}
+
 	public StringFinder( Class<UDM> udmClass,  Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
 		this( udmClass, null, null, unitFieldGetter );
 	}

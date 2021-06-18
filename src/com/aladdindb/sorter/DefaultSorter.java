@@ -45,7 +45,7 @@ public abstract class DefaultSorter <
 	
 	public DefaultSorter( Class<UDM> udmClass, SortOrder sortOrder, Function < Unit < UDM >, Var< ? > > fieldGetter ) {
 		
-		this.sortOrderVar	.set( sortOrder.name()	);
+		this.sortOrderVar	.set( sortOrder != null ? sortOrder.name() : SortOrder.ASCENDING.name()	);
 		this.comparator 	= this.newComparator();
 		this.blockWise 		= new UnitIdListBlocksGenerator<>( this );
 		

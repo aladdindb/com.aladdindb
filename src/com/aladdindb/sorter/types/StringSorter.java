@@ -22,12 +22,17 @@ public class StringSorter < UDM	extends DataModel < UDM > > extends DefaultSorte
     //****************************************************************
     //						Constructor 
     //****************************************************************
+
+	public StringSorter( Class<UDM> udmClass, SortOrder sortOrder, Var< ? > varObject ) {
+		super( udmClass, sortOrder, null );
+		this.fieldId.set( varObject.key() );
+	}
 	
 	public StringSorter( Class<UDM> udmClass,  Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
-		this( SortOrder.ASCENDING, udmClass, unitFieldGetter );
+		this( udmClass, SortOrder.ASCENDING, unitFieldGetter );
 	}
 
-	public StringSorter( SortOrder sortOrder, Class<UDM> udmClass,  Function < Unit < UDM >, Var< ? > > unitFieldGetter  ) {
+	public StringSorter( Class<UDM> udmClass, SortOrder sortOrder,  Function < Unit < UDM >, Var< ? > > unitFieldGetter  ) {
 		super( udmClass, sortOrder, unitFieldGetter );
 		this.fieldId.set( getField() );
 	}
@@ -46,7 +51,7 @@ public class StringSorter < UDM	extends DataModel < UDM > > extends DefaultSorte
 		return new DefaultSorterTransformer<>() {
 			@Override 
 			public StringSorter < UDM > newModel() { 
-				return new StringSorter<>( SortOrder.ASCENDING,	StringSorter.this.udmClass, StringSorter.this.fieldGetter );
+				return new StringSorter<>( StringSorter.this.udmClass,	SortOrder.ASCENDING, StringSorter.this.fieldGetter );
 			}
 		};
 	}

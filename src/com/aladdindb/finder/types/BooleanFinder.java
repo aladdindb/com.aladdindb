@@ -24,6 +24,11 @@ public class BooleanFinder < UDM extends DataModel < UDM > > extends DefaultFind
     //						Constructor 
     //****************************************************************
 
+	public BooleanFinder( Class<UDM> udmClass, String operator, String pattern, Var< ? > varObject ) {
+		super( udmClass, operator, pattern, null );
+		this.fieldId.set( varObject.key() );
+	}
+	
 	public BooleanFinder( Class<UDM> udmClass, String operator, String pattern, Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
 		super( udmClass, operator, pattern, unitFieldGetter );
 		this.fieldId.set( getField() );
@@ -34,7 +39,7 @@ public class BooleanFinder < UDM extends DataModel < UDM > > extends DefaultFind
 		return new DefaultFinderTransformer<>() {
 			@Override 
 			public BooleanFinder< UDM > newModel() {
-				return new BooleanFinder<>( null, null, null, null );
+				return new BooleanFinder<>( null, null, null,(Var) null );
 			}
 		};
 	}

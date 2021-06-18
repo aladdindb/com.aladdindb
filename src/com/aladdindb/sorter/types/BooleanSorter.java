@@ -22,12 +22,17 @@ public class BooleanSorter < UDM	extends DataModel < UDM > > extends DefaultSort
     //****************************************************************
     //						Constructor 
     //****************************************************************
+
+	public BooleanSorter( Class<UDM> udmClass, SortOrder sortOrder, Var< ? > varObject ) {
+		super( udmClass, sortOrder, null );
+		this.fieldId.set( varObject.key() );
+	}
 	
 	public BooleanSorter( Class<UDM> udmClass,  Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
-		this( SortOrder.ASCENDING, udmClass, unitFieldGetter );
+		this( udmClass, SortOrder.ASCENDING, unitFieldGetter );
 	}
 
-	public BooleanSorter( SortOrder sortOrder, Class<UDM> udmClass,  Function < Unit < UDM >, Var< ? > > unitFieldGetter  ) {
+	public BooleanSorter( Class<UDM> udmClass, SortOrder sortOrder,  Function < Unit < UDM >, Var< ? > > unitFieldGetter  ) {
 		super( udmClass, sortOrder, unitFieldGetter );
 		this.fieldId.set( getField() );
 	}
@@ -46,7 +51,7 @@ public class BooleanSorter < UDM	extends DataModel < UDM > > extends DefaultSort
 		return new DefaultSorterTransformer<>() {
 			@Override  
 			public BooleanSorter < UDM > newModel() { 
-				return new BooleanSorter<>( SortOrder.ASCENDING,	BooleanSorter.this.udmClass, BooleanSorter.this.fieldGetter );
+				return new BooleanSorter<>( BooleanSorter.this.udmClass,	SortOrder.ASCENDING, BooleanSorter.this.fieldGetter );
 			}
 		}; 
 	}

@@ -23,11 +23,16 @@ public class ByteSorter < UDM	extends DataModel < UDM > > extends DefaultSorter 
     //						Constructor 
     //****************************************************************
 	
+	public ByteSorter( Class<UDM> udmClass, SortOrder sortOrder, Var< ? > varObject ) {
+		super( udmClass, sortOrder, null );
+		this.fieldId.set( varObject.key() );
+	}
+	
 	public ByteSorter( Class<UDM> udmClass,  Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
-		this( SortOrder.ASCENDING, udmClass, unitFieldGetter );
+		this( udmClass, SortOrder.ASCENDING, unitFieldGetter );
 	}
 
-	public ByteSorter( SortOrder sortOrder, Class<UDM> udmClass,  Function < Unit < UDM >, Var< ? > > unitFieldGetter  ) {
+	public ByteSorter( Class<UDM> udmClass, SortOrder sortOrder,  Function < Unit < UDM >, Var< ? > > unitFieldGetter  ) {
 		super( udmClass, sortOrder, unitFieldGetter );
 		this.fieldId.set( getField() );
 	}
@@ -46,7 +51,7 @@ public class ByteSorter < UDM	extends DataModel < UDM > > extends DefaultSorter 
 		return new DefaultSorterTransformer<>() {
 			@Override 
 			public ByteSorter < UDM > newModel() { 
-				return new ByteSorter<>( SortOrder.ASCENDING,	ByteSorter.this.udmClass, ByteSorter.this.fieldGetter );
+				return new ByteSorter<>( ByteSorter.this.udmClass,	SortOrder.ASCENDING, ByteSorter.this.fieldGetter );
 			}
 		}; 
 	}

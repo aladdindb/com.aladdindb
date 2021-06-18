@@ -24,6 +24,11 @@ public class ZonedDateTimeFinder < UDM extends DataModel < UDM > > extends Defau
     //						Constructor 
     //****************************************************************
 
+	public ZonedDateTimeFinder( Class<UDM> udmClass, String operator, String pattern, Var< ? > varObject ) {
+		super( udmClass, operator, pattern, null );
+		this.fieldId.set( varObject.key() );
+	}
+	
 	public ZonedDateTimeFinder( Class<UDM> udmClass,Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
 		this( udmClass, null, null, unitFieldGetter );
 	}
@@ -38,7 +43,7 @@ public class ZonedDateTimeFinder < UDM extends DataModel < UDM > > extends Defau
 		return new DefaultFinderTransformer<>() {
 			@Override 
 			public ZonedDateTimeFinder< UDM > newModel() {
-				return new ZonedDateTimeFinder<>( null, null, null, null );
+				return new ZonedDateTimeFinder<>( null, null, null, (Var)null );
 			}
 		};
 	}

@@ -24,6 +24,11 @@ public class ByteFinder < UDM extends DataModel < UDM > > extends DefaultFinder 
     //						Constructor 
     //****************************************************************
 
+	public ByteFinder( Class<UDM> udmClass, String operator, String pattern, Var< ? > varObject ) {
+		super( udmClass, operator, pattern, null );
+		this.fieldId.set( varObject.key() );
+	}
+	
 	public ByteFinder( Class<UDM> udmClass, String operator, String pattern, Function < Unit < UDM >, Var< ? > > unitFieldGetter ) {
 		super( udmClass, operator, pattern, unitFieldGetter );
 		this.fieldId.set( getField() );
@@ -34,7 +39,7 @@ public class ByteFinder < UDM extends DataModel < UDM > > extends DefaultFinder 
 		return new DefaultFinderTransformer<>() {
 			@Override 
 			public ByteFinder< UDM > newModel() {
-				return new ByteFinder<>( null, null, null, null );
+				return new ByteFinder<>( null, null, null,(Var) null );
 			}
 		};
 	}
