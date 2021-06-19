@@ -177,3 +177,15 @@ books.searchAndGetUnitsNavi( 50 , finders, sorters , navi -> {
 
 ```
 
+## Aladdin's navigation system
+
+`Search` processes get a `blockSize` value and return a `BlockNaviResp` object as a result.
+ 
+This object contains the first **UnitId block** with the maximum number of **UnitId's** specified in `blockSize`.
+
+It also contains the information as to whether **previous and/or next UnitId blocks exist**.
+
+Encapsulated in a so-called `BlockNavi` object, it is now very easy to **Backward and Forward Server-Side-Navigation** over the finded **UnitId blocks**.
+
+> See above example
+
