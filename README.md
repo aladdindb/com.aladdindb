@@ -96,7 +96,7 @@ Each `Genie` 🧞 object is in turn its own **Micro-Database-Server** and can be
 
 On the other hand, on the client a `MagicLamp` 🪔 object is the counterpart to every `Genie` 🧞. 
 
-In other words, every **Genie 🧞** gets his instructions directly from a **Magic-Lamp 🪔** ;-)
+In other words, every **Genie 🧞** gets his instructions directly from a **Magic-Lamp 🪔** 😄
 
 </br>
 
@@ -127,4 +127,11 @@ MagicLamp<Book> books = new MagicLamp<>( Book.class, "books", new GenieConnectio
 books.search( ... );
 
 ```
+</br>
+<hr>
 
+## Embedded ? Distributed ? or rather Both ? 🤔 
+
+This means that **AladdinDB** is ideally usable as an **Embedded-System** with simultaneous **Remote Accessing** to distributed systems as a **hybrid** solution.
+
+The developer will hardly notice the difference, since he moves in his usual **Object-Oriented Java Environment** during the entire development time.
