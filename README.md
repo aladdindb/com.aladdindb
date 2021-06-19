@@ -208,7 +208,7 @@ With this technique I was able to solve some automations in AladdinDB much more 
 
 </br>
 
-> An example for `PersonModel`
+> An example for a `PersonModel`:
 
 ```java
 public class Person extends DefaultDataModel < Person > {
@@ -247,4 +247,28 @@ public class Person extends DefaultDataModel < Person > {
 }
 
 ```
+> And here for the `PersonModel`'s "address" field, which is itself a `DataModel`:
+
+public class Address extends DefaultDataModel < Address > {
+
+	public final Var< String	> street 	= new Var<>( this, null );
+	public final Var< Integer	> postCode 	= new Var<>( this, null );
+	public final Var< String	> houseNumber 	= new Var<>( this, null );
+	public final Var< String	> city 		= new Var<>( this, null );
+	
+	public Address( Parent parent ) {
+		super( parent );
+	}
+	
+	@Override
+	public void fill ( Address model ) {
+		this.street		.set( model.street 	);
+		this.houseNumber	.set( model.houseNumber );
+		this.postCode		.set( model.postCode 	);
+		this.city		.set( model.city 	);
+	}
+	
+}
+
+
 
