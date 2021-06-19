@@ -150,3 +150,30 @@ For each property to be searched a separate `Finder` class can be created.
 `Sorter` objects that work according to the same principle exist for the simultaneous sorting of the result sets. 
 
 **Complex queries can be implemented very easily, clearly and elegantly**
+
+</br>
+
+> An example:
+
+```java
+var fs = new FinderSupport<>( Book.class );
+var ss = new SorterSupport<>( Book.class );
+
+var book = new Book();
+
+var finders = fs.newAndFinders(
+	fs.newFinder			( "matches"	, "Lord.*"			,book.title ),
+	fs.newDateFinder		( ">="		, LocalDate.of( 2005, 1, 1 )	,book.firstPublication ),
+	fs.newZondedDateTimeFinder	( ">"		, Unit.dateTime( 2021, 6, 17 )	,Unit.MODIFIED_ON() )
+);
+
+var sorters = ss.newSorterList( ss.newSorter( book.firstPublication ));
+
+MagicLamp<Book> books = new MagicLamp<>( Book.class, "books", new GenieConnection( "localhost", 7735 ), fs, ss );
+
+books.searchAndGetUnitsNavi( 50 , finders, sorters , navi -> {
+...
+});
+
+```
+
