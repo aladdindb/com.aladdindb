@@ -84,3 +84,15 @@ Each `Store` object is its own **Micro-Database-System**.
     ...
 
 ```
+</br>
+<hr>
+
+## Genie 🧞 and the Magic-Lamp 🪔
+
+For **Remote Access**, each `Store` object receives its instructions directly from its own `Genie` 🧞 object. 
+
+Each `Genie` 🧞 object is in turn its own **Micro-Database-Server** and can be used freely and distributed.
+
+On the other hand, on the client a `MagicLamp` 🪔 object is the counterpart to every `Genie` 🧞. 
+
+In other words, every **Genie 🧞** gets his instructions directly from a **Magic-Lamp 🪔** ;-)
