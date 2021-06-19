@@ -135,3 +135,18 @@ books.search( ... );
 This means that **AladdinDB** is ideally usable as an **Embedded-System** with simultaneous **Remote Accessing** to distributed systems as a **hybrid** solution.
 
 The developer will hardly notice the difference, since he moves in his usual **Object-Oriented Java Environment** during the entire development time.
+
+</br>
+<hr>
+
+## Playful search 🤹 
+
+In **AladdinDB**, `search` processes use easy-to-use, developer-supplied `Finder` objects. 
+
+For each property to be searched a separate `Finder` class can be created.
+
+`LogicalFinder` enable nested logical links between `Finder` objects. 
+
+`Sorter` objects that work according to the same principle exist for the simultaneous sorting of the result sets. 
+
+**Complex queries can be implemented very easily, clearly and elegantly**
