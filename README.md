@@ -48,3 +48,16 @@ Such structures are described in **AladdinDB**, purely **Object-Oriented**, usin
 </Unit>
 
 ```
+
+</br>
+<hr>
+
+## As free as a bird 
+
+`Units` of the same `DataModel` types have their origin in corresponding **repositoris**.
+
+`Stores` are completely independent storage units and can be distributed across any storage media and locations at the same time.
+
+In **embedded** systems you can easily access "stores" via `Store` objects. 
+
+Each `Store` object is its own **Micro-Database-System**.
