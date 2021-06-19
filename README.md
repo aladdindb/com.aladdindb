@@ -189,3 +189,21 @@ Encapsulated in a so-called `BlockNavi` object, it is now very easy to **Backwar
 
 > See above example
 
+</br>
+<hr>
+
+## Magical variables 🧚
+
+An approach to **Object-Oriented Programming** that I developed makes **Data Modeling with AladdinDB much easier and clearer**. 
+
+I'm talking about so-called `Var<>` objects with generic content. 
+
+Such objects encapsulate and handle access to their content through their own **getter and setter methods**. 
+
+Class attributes of data models therefore will no longer require **getter and setter**. 
+
+Above all, `Var<>` objects offer additional methods for functional access to his content through **lambda expressions** and also accept `Var<>` objects for setting his own content. 
+
+With this technique I was able to solve some automations in AladdinDB much more elegantly.
+
+
