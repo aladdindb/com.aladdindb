@@ -96,3 +96,33 @@ Each `Genie` 🧞 object is in turn its own **Micro-Database-Server** and can be
 On the other hand, on the client a `MagicLamp` 🪔 object is the counterpart to every `Genie` 🧞. 
 
 In other words, every **Genie 🧞** gets his instructions directly from a **Magic-Lamp 🪔** ;-)
+
+
+> An example for starting a **AladdinDB** Server
+
+```java
+		var personGenie = Genie.newGenie( Person.class, "persons", Paths.get( "/home/macit/tmp/aladdin/db/persons" ), 
+				
+			unit -> unit.data.get().name.first, 
+			unit -> unit.data.get().name.last, 
+			
+			unit -> unit.data.get().address.city, 
+			unit -> unit.data.get().address.houseNumber, 
+			unit -> unit.data.get().address.postCode,
+			unit -> unit.data.get().address.street,
+			
+			unit -> unit.data.get().birth.city, 
+			unit -> unit.data.get().birth.country, 
+			unit -> unit.data.get().birth.day,
+			
+			unit -> unit.data.get().contact.mobile,
+			unit -> unit.data.get().contact.telephone
+		);
+
+		var genieInvoker = new GenieInvoker( 7735 );
+		
+		genieInvoker.putGenie( personGenie );
+		
+		genieInvoker.invoke();
+
+```
