@@ -206,4 +206,45 @@ Above all, `Var<>` objects offer additional methods for functional access to his
 
 With this technique I was able to solve some automations in AladdinDB much more elegantly.
 
+</br>
+
+> An example for `PersonModel`
+
+```java
+public class Person extends DefaultDataModel < Person > {
+
+	public final Var < String > title = new Var<>( this, null );
+	
+	public final Name	name 		= new Name	( this );
+	public final Birth	birth  		= new Birth	( this );
+	public final Address	address 	= new Address	( this );
+	public final Contact	contact 	= new Contact	( this );
+	
+	public Person() {
+		super( null );
+	}
+	
+	public Person( String title, String firstName, String lastName, LocalDate birthDay ) {
+		super( null );
+		
+		this.title	.set( title	);
+		this.name.first	.set( firstName );
+		this.name.last	.set( lastName	);
+		this.birth.day	.set( birthDay	);
+	}
+	
+	@Override
+	public void fill( Person store ) {
+		
+		this.title	.set( store.title 	);
+		
+		this.name	.fill( store.name 	);
+		this.birth	.fill( store.birth	);
+		this.address	.fill( store.address	);
+		this.contact	.fill( store.contact	);
+	}
+	
+}
+
+```
 
