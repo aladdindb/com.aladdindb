@@ -29,7 +29,6 @@ Such structures are described in **AladdinDB**, purely **Object-Oriented**, usin
 >Here is an example of a `Unit`
 
 ```xml
-
 <Unit version="1.0" id="1560700320d1b71b220">
     <Meta>
         <UnitLabel/>
@@ -46,7 +45,6 @@ Such structures are described in **AladdinDB**, purely **Object-Oriented**, usin
         </Contact>
     </Person>
 </Unit>
-
 ```
 
 </br>
@@ -65,24 +63,23 @@ Each `Store` object is its own **Micro-Database-System**.
 >An example for a embedded store access
 
 ```java
-    var store = new Store<>( Person.class,  Paths.get("/home/macit/tmp/aladdin/db/persons") );
-    
-    store.search( finder, sorter, unit -> { 
-        ...
-    });
-    
-    store.addUnits(
-        new Person("Mike","Stone"),
-        new Person("Aylin","Dilara"),
-        new Person("Noah","Elijah")
-    );
-    
-    store.forEachUnit( unit -> {
-        ...
-    });
-    
-    ...
+var store = new Store<>( Person.class,  Paths.get("/home/macit/tmp/aladdin/db/persons") );
 
+store.search( finder, sorter, unit -> { 
+...
+});
+
+store.addUnits(
+	new Person("Mike","Stone"),
+	new Person("Aylin","Dilara"),
+	new Person("Noah","Elijah")
+);
+
+store.forEachUnit( unit -> {
+...
+});
+
+...
 ```
 </br>
 <hr>
@@ -101,28 +98,16 @@ In other words, every **Genie 🧞** gets his instructions directly from a **Mag
 > An example for starting a **AladdinDB** Server
 
 ```java
-		var personGenie = Genie.newGenie( Person.class, "persons", Paths.get( "/home/macit/tmp/aladdin/db/persons" ), 
-				
-			unit -> unit.data.get().name.first, 
-			unit -> unit.data.get().name.last, 
-			
-			unit -> unit.data.get().address.city, 
-			unit -> unit.data.get().address.houseNumber, 
-			unit -> unit.data.get().address.postCode,
-			unit -> unit.data.get().address.street,
-			
-			unit -> unit.data.get().birth.city, 
-			unit -> unit.data.get().birth.country, 
-			unit -> unit.data.get().birth.day,
-			
-			unit -> unit.data.get().contact.mobile,
-			unit -> unit.data.get().contact.telephone
-		);
+Genie<Book> books = Genie.newGenie( Book.class, "books", Paths.get( "/home/macit/tmp/aladdin/db/books" ),
 
-		var genieInvoker = new GenieInvoker( 7735 );
-		
-		genieInvoker.putGenie( personGenie );
-		
-		genieInvoker.invoke();
+	unit->unit.data.get().title,
+	unit->unit.data.get().author,
+	unit->unit.data.get().firstPublication
+);
 
+var genieInvoker = new GenieInvoker( 7735 );
+
+genieInvoker.putGenie( books );
+
+genieInvoker.invoke();
 ```
