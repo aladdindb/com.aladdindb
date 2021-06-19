@@ -26,7 +26,9 @@ In contrast to **Data-Records**, `Units` can map three-dimensional data structur
 
 Such structures are described in **AladdinDB**, purely **Object-Oriented**, using `DataModel` classes and saved as `XML` documents.
 
->Here is an example of a `Unit`
+</br>
+
+> Here is an example of a `Unit`:
 
 ```xml
 <Unit version="1.0" id="1560700320d1b71b220">
@@ -60,7 +62,9 @@ In **embedded** systems you can easily access "stores" via `Store` objects.
 
 Each `Store` object is its own **Micro-Database-System**.
 
->An example for a embedded store access
+</br>
+
+> An example for a embedded store access:
 
 ```java
 var store = new Store<>( Person.class,  Paths.get("/home/macit/tmp/aladdin/db/persons") );
@@ -94,8 +98,9 @@ On the other hand, on the client a `MagicLamp` 🪔 object is the counterpart to
 
 In other words, every **Genie 🧞** gets his instructions directly from a **Magic-Lamp 🪔** ;-)
 
+</br>
 
-> An example for starting a **AladdinDB** Server
+> An example for starting a **AladdinDB** Server:
 
 ```java
 Genie<Book> books = Genie.newGenie( Book.class, "books", Paths.get( "/home/macit/tmp/aladdin/db/books" ),
@@ -111,3 +116,15 @@ genieInvoker.putGenie( books );
 
 genieInvoker.invoke();
 ```
+
+</br>
+
+> And here, an example for the client side:
+
+```java
+MagicLamp<Book> books = new MagicLamp<>( Book.class, "books", new GenieConnection( "localhost", 7735 ) );
+
+books.search( ... );
+
+```
+
