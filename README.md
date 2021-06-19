@@ -15,6 +15,92 @@ It is also about to be able to **Juggle Around with Data in a Free and Playful W
 
 I hope that programming database applications with **Aladdin will be a lot more fun**.
 
+
+</br>
+<hr>
+
+## Magical variables 🧚
+
+An approach to **Object-Oriented Programming** that I developed makes **Data Modeling with AladdinDB much easier and clearer**. 
+
+I'm talking about so-called `Var<>` objects with generic content. 
+
+Such objects encapsulate and handle access to their content through their own **getter and setter methods**. 
+
+Class attributes of data models therefore will no longer require **getter and setter**. 
+
+Above all, `Var<>` objects offer additional methods for functional access to his content through **lambda expressions** and also accept `Var<>` objects for setting his own content. 
+
+With this technique I was able to solve some automations in AladdinDB much more elegantly.
+
+</br>
+
+> An example for a `PersonModel`:
+
+```java
+public class Person extends DefaultDataModel < Person > {
+
+	public final Var < String > title = new Var<>( this, null );
+	
+	public final Name	name 		= new Name	( this );
+	public final Birth	birth  		= new Birth	( this );
+	public final Address	address 	= new Address	( this );
+	public final Contact	contact 	= new Contact	( this );
+	
+	public Person() {
+		super( null );
+	}
+	
+	public Person( String title, String firstName, String lastName, LocalDate birthDay ) {
+		super( null );
+		
+		this.title	.set( title	);
+		this.name.first	.set( firstName );
+		this.name.last	.set( lastName	);
+		this.birth.day	.set( birthDay	);
+	}
+	
+	@Override
+	public void fill( Person store ) {
+		
+		this.title	.set( store.title 	);
+		
+		this.name	.fill( store.name 	);
+		this.birth	.fill( store.birth	);
+		this.address	.fill( store.address	);
+		this.contact	.fill( store.contact	);
+	}
+	
+}
+
+```
+> And here for the `PersonModel`'s `address` field, which is itself a `DataModel`:
+
+```java
+public class Address extends DefaultDataModel < Address > {
+
+	public final Var < String 	> street 	= new Var<>( this, null );
+	public final Var < Integer 	> postCode 	= new Var<>( this, null );
+	public final Var < String	> houseNumber 	= new Var<>( this, null );
+	public final Var < String	> city 		= new Var<>( this, null );
+	
+	public Address( Parent parent ) {
+		super( parent );
+	}
+	
+	@Override
+	public void fill ( Address model ) {
+		this.street		.set( model.street 	);
+		this.houseNumber	.set( model.houseNumber );
+		this.postCode		.set( model.postCode 	);
+		this.city		.set( model.city 	);
+	}
+	
+}
+
+```
+
+
 </br>
 <hr>
 
@@ -188,89 +274,4 @@ It also contains the information as to whether **previous and/or next UnitId blo
 Encapsulated in a so-called `BlockNavi` object, it is now very easy to **Backward and Forward Server-Side-Navigation** over the finded **UnitId blocks**.
 
 > See above example
-
-</br>
-<hr>
-
-## Magical variables 🧚
-
-An approach to **Object-Oriented Programming** that I developed makes **Data Modeling with AladdinDB much easier and clearer**. 
-
-I'm talking about so-called `Var<>` objects with generic content. 
-
-Such objects encapsulate and handle access to their content through their own **getter and setter methods**. 
-
-Class attributes of data models therefore will no longer require **getter and setter**. 
-
-Above all, `Var<>` objects offer additional methods for functional access to his content through **lambda expressions** and also accept `Var<>` objects for setting his own content. 
-
-With this technique I was able to solve some automations in AladdinDB much more elegantly.
-
-</br>
-
-> An example for a `PersonModel`:
-
-```java
-public class Person extends DefaultDataModel < Person > {
-
-	public final Var < String > title = new Var<>( this, null );
-	
-	public final Name	name 		= new Name	( this );
-	public final Birth	birth  		= new Birth	( this );
-	public final Address	address 	= new Address	( this );
-	public final Contact	contact 	= new Contact	( this );
-	
-	public Person() {
-		super( null );
-	}
-	
-	public Person( String title, String firstName, String lastName, LocalDate birthDay ) {
-		super( null );
-		
-		this.title	.set( title	);
-		this.name.first	.set( firstName );
-		this.name.last	.set( lastName	);
-		this.birth.day	.set( birthDay	);
-	}
-	
-	@Override
-	public void fill( Person store ) {
-		
-		this.title	.set( store.title 	);
-		
-		this.name	.fill( store.name 	);
-		this.birth	.fill( store.birth	);
-		this.address	.fill( store.address	);
-		this.contact	.fill( store.contact	);
-	}
-	
-}
-
-```
-> And here for the `PersonModel`'s `address` field, which is itself a `DataModel`:
-
-```java
-public class Address extends DefaultDataModel < Address > {
-
-	public final Var < String 	> street 	= new Var<>( this, null );
-	public final Var < Integer 	> postCode 	= new Var<>( this, null );
-	public final Var < String	> houseNumber 	= new Var<>( this, null );
-	public final Var < String	> city 		= new Var<>( this, null );
-	
-	public Address( Parent parent ) {
-		super( parent );
-	}
-	
-	@Override
-	public void fill ( Address model ) {
-		this.street		.set( model.street 	);
-		this.houseNumber	.set( model.houseNumber );
-		this.postCode		.set( model.postCode 	);
-		this.city		.set( model.city 	);
-	}
-	
-}
-
-```
-
 
