@@ -2,7 +2,7 @@
 </br>
 <hr>
 
-## The magically passionate relationship
+## The magically passionate relationship 🥰
 
 Dear friends, 
 
@@ -18,7 +18,7 @@ I hope that programming database applications with **Aladdin will be a lot more 
 </br>
 <hr>
 
-## Three-dimensional data structures
+## Three-dimensional data structures :atom:
 
 Equivalent to **Data-Records** in classic **Relational-Database-Systems**, so-called `Units` in **AladdinDB** form the smallest, separately stored data units. 
 
