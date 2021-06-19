@@ -247,15 +247,15 @@ public class Person extends DefaultDataModel < Person > {
 }
 
 ```
-> And here for the `PersonModel`'s "address" field, which is itself a `DataModel`:
+> And here for the `PersonModel`'s `address` field, which is itself a `DataModel`:
 
 ```java
 public class Address extends DefaultDataModel < Address > {
 
-	public final Var< String	> street 	= new Var<>( this, null );
-	public final Var< Integer	> postCode 	= new Var<>( this, null );
-	public final Var< String	> houseNumber 	= new Var<>( this, null );
-	public final Var< String	> city 		= new Var<>( this, null );
+	public final Var < String 	> street 	= new Var<>( this, null );
+	public final Var < Integer 	> postCode 	= new Var<>( this, null );
+	public final Var < String	> houseNumber 	= new Var<>( this, null );
+	public final Var < String	> city 		= new Var<>( this, null );
 	
 	public Address( Parent parent ) {
 		super( parent );
