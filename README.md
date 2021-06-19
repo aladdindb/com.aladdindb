@@ -18,7 +18,7 @@ I hope that programming database applications with **Aladdin will be a lot more 
 </br>
 <hr>
 
-## Three-dimensional data structures :atom:
+## Three-dimensional data structures :electron:
 
 Equivalent to **Data-Records** in classic **Relational-Database-Systems**, so-called `Units` in **AladdinDB** form the smallest, separately stored data units. 
 
@@ -52,7 +52,7 @@ Such structures are described in **AladdinDB**, purely **Object-Oriented**, usin
 </br>
 <hr>
 
-## As free as a bird 
+## As free as a bird 🕊️
 
 `Units` of the same `DataModel` types have their origin in corresponding **repositoris**.
 
