@@ -61,3 +61,26 @@ Such structures are described in **AladdinDB**, purely **Object-Oriented**, usin
 In **embedded** systems you can easily access "stores" via `Store` objects. 
 
 Each `Store` object is its own **Micro-Database-System**.
+
+>An example for a embedded store access
+
+```java
+    var store = new Store<>( Person.class,  Paths.get("/home/macit/tmp/aladdin/db/persons") );
+    
+    store.search( finder, sorter, unit -> { 
+        ...
+    });
+    
+    store.addUnits(
+        new Person("Mike","Stone"),
+        new Person("Aylin","Dilara"),
+        new Person("Noah","Elijah")
+    );
+    
+    store.forEachUnit( unit -> {
+        ...
+    });
+    
+    ...
+
+```
