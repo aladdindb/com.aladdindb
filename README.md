@@ -61,7 +61,7 @@ public class Person extends DefaultDataModel < Person > {
 	}
 	
 	@Override
-	public void fill( Person store ) {
+	public void fill( Person model ) {
 		
 		this.title	.set( store.title 	);
 		
