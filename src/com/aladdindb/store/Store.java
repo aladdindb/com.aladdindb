@@ -36,10 +36,10 @@ public class Store < UDM extends DataModel < UDM > > {
     //**********************************************************
     
     public Store( Path storePath ) {
-    	this( storePath, null );
+    	this( null, storePath );
     }
     
-    public Store( Path storePath, Class< UDM > udmClass ) {
+    public Store( Class< UDM > udmClass, Path storePath ) {
     	this.storePath 			= storePath;
         this.unitTransformer 	= new UnitTransformer< UDM >( udmClass);
         if( !Files.exists( storePath ) ) {

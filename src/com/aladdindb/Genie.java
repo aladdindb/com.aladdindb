@@ -45,7 +45,7 @@ public class Genie < UDM extends DataModel < UDM > > implements Runnable {
 	public Genie( Class < UDM > udmClass, String storeId, Path storePath, FinderSupport< UDM > finderSupport, SorterSupport< UDM > sorterSupport   )  {
 		System.out.println( "Store-Path :"+storePath );
 		
-		this.store			= new Store	< UDM > ( storePath, udmClass );
+		this.store			= new Store	< UDM > ( udmClass, storePath );
 		
 		this.storeId 		= storeId;
 		this.storePath		= storePath;
