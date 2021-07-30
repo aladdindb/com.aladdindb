@@ -2,7 +2,7 @@
 </br>
 <hr>
 
-## The magically passionate relationship 🥰
+## Dealing with data freely and playfully 🤹
 
 Dear friends, 
 
